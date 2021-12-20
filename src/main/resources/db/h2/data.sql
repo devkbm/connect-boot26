@@ -1,0 +1,1 @@
+INSERT INTO comuser(user_id, pwd, user_name, non_expired_yn, non_locked_yn, enabled_yn, pass_non_expired_yn, sys_dt, sys_user, upd_dt, upd_user) VALUES('1', '1234', 'test', 1, 1, 1, 1, '2018-10-26 12:48:34.000', '1', '2018-10-26 12:48:34.000', '1');

@@ -1,0 +1,30 @@
+# 쿠키 저장 없이 로그인
+curl http://localhost:8090/common/user/login -H "Content-Type: application/json" -d "{ \"username\" : \"1\" , \"password\" : \"1234\" }"
+
+# 쿠키 저장 로그인
+curl http://localhost:8090/common/user/login --cookie-jar cjar -H "Content-Type: application/json" -d "{ \"username\" : \"1\" , \"password\" : \"1234\" }"
+
+# 쿠기 저장 로그인(JSON 파일 이용)
+curl http://localhost:8090/common/user/login --cookie-jar cjar -H "Content-Type: application/json" -d @login.json
+curl http://localhost:8090/common/user/login -c cjar -H "Content-Type: application/json" -d @login.json
+
+# login.json 파일
+#{ 
+#"username" : "1", 
+#"password" : "1234" 
+#}
+
+curl http://localhost:8090/common/user -b cjar
+
+# 내 정보 조회
+curl http://localhost:8090/common/user/myinfo --cookie cjar
+curl http://localhost:8090/common/user/myinfo -b cjar
+
+# 발령 코드 조회
+curl http://localhost:8090/hrm/appointmentcode/1 --cookie cjar
+
+# 발령 코드 저장
+curl http://localhost:8090/hrm/appointmentcode --cookie cjar -H "Content-Type: application/json" -d @appointmentcode.json
+curl http://localhost:8090/hrm/appointmentcode -b cjar -H "Content-Type: application/json" -d @appointmentcode.json
+
+
