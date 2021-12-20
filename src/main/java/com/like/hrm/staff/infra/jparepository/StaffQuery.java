@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.like.hrm.hrmtypecode.domain.QHrmTypeDetailCode;
 import com.like.hrm.staff.boundary.QResponseStaffAppointmentRecord;
-import com.like.hrm.staff.boundary.StaffDTO.SearchEmployee;
+import com.like.hrm.staff.boundary.StaffDTO.SearchStaff;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
@@ -26,7 +26,7 @@ public class StaffQuery implements StaffQueryRepository {
 	}
 	
 	@Override
-	public List<Staff> getEmployeeList(SearchEmployee dto) {
+	public List<Staff> getEmployeeList(SearchStaff dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}

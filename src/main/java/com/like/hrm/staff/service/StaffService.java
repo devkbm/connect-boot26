@@ -27,23 +27,19 @@ public class StaffService {
 		repository.save(employee);
 	}
 	
-	public void saveStaff(StaffDTO.FormEmployee dto) {
-		Staff employee = this.getStaff(dto.getStaffId());
+	public void saveStaff(StaffDTO.FormStaff dto) {
+		Staff staff = this.getStaff(dto.getStaffId());
 		
-		dto.modifyEntity(employee);
+		dto.modifyEntity(staff);
 		
-		repository.save(employee);
+		repository.save(staff);
 	}
 	
-	public void newEmployee(StaffDTO.NewEmployee dto) {										
+	public void newEmployee(StaffDTO.NewStaff dto) {										
 		
-		Staff emp = new Staff(dto.getStaffId()
-			                 ,dto.getName()
-			                 ,dto.getNameEng()
-			                 ,dto.getNameChi()
-			                 ,dto.getResidentRegistrationNumber());
+		Staff staff = Staff.of(dto.getStaffId(), dto.getName(), dto.getResidentRegistrationNumber());
 		
-		repository.save(emp);
+		repository.save(staff);
 	}
 	
 	public void deleteStaff(String id) {		

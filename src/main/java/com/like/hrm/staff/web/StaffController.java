@@ -32,7 +32,7 @@ public class StaffController {
 				
 		Staff emp = staffService.getStaff(id);  									
 		
-		StaffDTO.ResponseEmployee dto = StaffDTO.ResponseEmployee.convert(emp); 
+		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(emp); 
 		
 		return WebControllerUtil
 				.getResponse(dto											
@@ -41,7 +41,7 @@ public class StaffController {
 	}
 	
 	@RequestMapping(value={"/hrm/staff/create"}, method={RequestMethod.POST,RequestMethod.PUT})	
-	public ResponseEntity<?> newEmployee(@RequestBody @Valid StaffDTO.NewEmployee dto, BindingResult result) {			
+	public ResponseEntity<?> newEmployee(@RequestBody @Valid StaffDTO.NewStaff dto, BindingResult result) {			
 		
 		if ( result.hasErrors()) throw new ControllerException("오류 : " + dto.toString());						
 						
@@ -54,7 +54,7 @@ public class StaffController {
 	}
 	
 	@RequestMapping(value={"/hrm/staff"}, method={RequestMethod.POST,RequestMethod.PUT})	
-	public ResponseEntity<?> saveStaff(@RequestBody StaffDTO.FormEmployee dto, BindingResult result) {			
+	public ResponseEntity<?> saveStaff(@RequestBody StaffDTO.FormStaff dto, BindingResult result) {			
 		
 		if ( result.hasErrors()) throw new ControllerException("오류 : " + dto.toString());						
 						

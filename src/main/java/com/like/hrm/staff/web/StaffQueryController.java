@@ -24,12 +24,12 @@ public class StaffQueryController {
 	}
 	
 	@GetMapping("/hrm/employee")
-	public ResponseEntity<?> getStaffList(StaffDTO.SearchEmployee dto) {
+	public ResponseEntity<?> getStaffList(StaffDTO.SearchStaff dto) {
 		
 		List<Staff> list = service.getEmployeeList(dto);					
 		
-		List<StaffDTO.ResponseEmployee> dtoList = list.stream()
-														 .map(e -> StaffDTO.ResponseEmployee.convert(e))
+		List<StaffDTO.ResponseStaff> dtoList = list.stream()
+														 .map(e -> StaffDTO.ResponseStaff.convert(e))
 														 .collect(Collectors.toList()); 
 		
 		return WebControllerUtil.getResponse(dtoList											

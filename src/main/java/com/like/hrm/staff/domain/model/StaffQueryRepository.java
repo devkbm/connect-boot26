@@ -2,12 +2,12 @@ package com.like.hrm.staff.domain.model;
 
 import java.util.List;
 
-import com.like.hrm.staff.boundary.StaffDTO.SearchEmployee;
+import com.like.hrm.staff.boundary.StaffDTO.SearchStaff;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
 
 public interface StaffQueryRepository {
 
-	List<Staff> getEmployeeList(SearchEmployee dto);
+	List<Staff> getEmployeeList(SearchStaff dto);
 	
 	/**
 	 * <p>조회조건에 해당하는 마지막 생성된 사원을 조회한다.</p>

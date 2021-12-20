@@ -1,6 +1,6 @@
 package com.like.hrm.staff.domain.model;
 
-import com.like.hrm.staff.boundary.StaffDTO.NewEmployee;
+import com.like.hrm.staff.boundary.StaffDTO.NewStaff;
 
 /**
  * 사번 생성 전략 인터페이스
@@ -9,5 +9,5 @@ import com.like.hrm.staff.boundary.StaffDTO.NewEmployee;
  *
  */
 public interface StaffIdCreateStrategy {
-	public String create(NewEmployee emp);
+	public String create(NewStaff emp);
 }

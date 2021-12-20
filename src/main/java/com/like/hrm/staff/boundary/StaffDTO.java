@@ -35,7 +35,7 @@ public class StaffDTO {
 	@Slf4j
 	@Data
 	@JsonInclude(Include.NON_EMPTY)	
-	public static class SearchEmployee implements Serializable {			
+	public static class SearchStaff implements Serializable {			
 		
 		private static final long serialVersionUID = -3725100691674283297L;
 
@@ -72,17 +72,13 @@ public class StaffDTO {
 		}
 		
 		private BooleanExpression likeId(String id) {
-			if (!StringUtils.hasText(id)) {
-				return null;
-			}
+			if (!StringUtils.hasText(id)) return null;
 			
 			return qStaff.id.like("%"+id+"%");
 		}
 		
 		private BooleanExpression likeName(String name) {
-			if (!StringUtils.hasText(name)) {
-				return null;
-			}
+			if (!StringUtils.hasText(name)) return null;
 			
 			return qStaff.name.like("%"+name+"%");
 		}			
@@ -94,7 +90,7 @@ public class StaffDTO {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Builder
-	public static class NewEmployee implements Serializable {
+	public static class NewStaff implements Serializable {
 		
 		private static final long serialVersionUID = 5189496256963058913L;	
 				
@@ -115,7 +111,7 @@ public class StaffDTO {
 	@Builder
 	@AllArgsConstructor
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	public static class ResponseEmployee implements Serializable {
+	public static class ResponseStaff implements Serializable {
 				
 		private static final long serialVersionUID = 3650310845683492073L;
 
@@ -137,11 +133,11 @@ public class StaffDTO {
 		
 		private String imagePath;			
 		
-		public static ResponseEmployee convert(Staff entity) {
+		public static ResponseStaff convert(Staff entity) {
 									
 			if (entity == null) return null;
 			
-			return ResponseEmployee.builder()
+			return ResponseStaff.builder()
 								   .staffId(entity.getId())
 								   .name(entity.getName())
 								   .nameEng(entity.getNameEng())
@@ -159,7 +155,7 @@ public class StaffDTO {
 	@AllArgsConstructor
 	@Builder
 	@JsonIgnoreProperties(ignoreUnknown = true)
-	public static class FormEmployee implements Serializable {
+	public static class FormStaff implements Serializable {
 								
 		private static final long serialVersionUID = -3475382902805357777L;
 

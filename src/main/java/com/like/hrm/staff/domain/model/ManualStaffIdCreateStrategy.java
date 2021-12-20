@@ -1,11 +1,11 @@
 package com.like.hrm.staff.domain.model;
 
-import com.like.hrm.staff.boundary.StaffDTO.NewEmployee;
+import com.like.hrm.staff.boundary.StaffDTO.NewStaff;
 
 public class ManualStaffIdCreateStrategy implements StaffIdCreateStrategy  {
 
 	@Override
-	public String create(NewEmployee emp) {
+	public String create(NewStaff emp) {
 		return emp.getName();
 	}
 
