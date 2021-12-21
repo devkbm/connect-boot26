@@ -15,30 +15,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ErrorResponse {
 
-	private int status;
+	private int httpStatus;
 	private String code;
 	private String message;    
-    private List<FieldError> errors;    
+    private List<FieldError> fieldErrors;    
     
     private ErrorResponse(final ErrorCode code, final List<FieldError> errors) {
         this.message = code.getMessage();
-        this.status = code.getStatus();
-        this.errors = errors;
+        this.httpStatus = code.getHttpStatus();
+        this.fieldErrors = errors;
         this.code = code.getCode();
     }
 
     private ErrorResponse(final ErrorCode code) {
         this.message = code.getMessage();
-        this.status = code.getStatus();
+        this.httpStatus = code.getHttpStatus();
         this.code = code.getCode();
-        this.errors = new ArrayList<>();
+        this.fieldErrors = new ArrayList<>();
     }
     
     private ErrorResponse(final ErrorCode code, String message) {
         this.message = message;
-        this.status = code.getStatus();
+        this.httpStatus = code.getHttpStatus();
         this.code = code.getCode();
-        this.errors = new ArrayList<>();
+        this.fieldErrors = new ArrayList<>();
     }
 
 

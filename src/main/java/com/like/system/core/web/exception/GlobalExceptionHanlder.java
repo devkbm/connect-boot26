@@ -6,6 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -76,7 +77,7 @@ public class GlobalExceptionHanlder /*extends ResponseEntityExceptionHandler*/ {
     protected ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
         log.error("handleAccessDeniedException", e);
         final ErrorResponse response = ErrorResponse.of(ErrorCode.HANDLE_ACCESS_DENIED);
-        return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.HANDLE_ACCESS_DENIED.getStatus()));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.HANDLE_ACCESS_DENIED.getHttpStatus()));
     }
 
     @ExceptionHandler(BusinessException.class)
@@ -84,7 +85,7 @@ public class GlobalExceptionHanlder /*extends ResponseEntityExceptionHandler*/ {
         log.error("handleBusinessException", e);
         final ErrorCode errorCode = e.getErrorCode();
         final ErrorResponse response = ErrorResponse.of(errorCode, e.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getHttpStatus()));
     }
     
     
@@ -110,5 +111,19 @@ public class GlobalExceptionHanlder /*extends ResponseEntityExceptionHandler*/ {
         final ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    
+    /**
+     * 인증 실패 에러 핸들러
+     */
+    // TODO : 에러 핸들러 처리 이후 ExceptionHandlerExceptionResolver 로그가 보임, 추후 확인 필요
+    @ExceptionHandler(BadCredentialsException.class)
+    protected ResponseEntity<ErrorResponse> handleBadCredentialsException(BadCredentialsException e) {
+    	//ExceptionHandlerExceptionResolver d
+    	final ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_LOGIN_INFORMATION);
+    	    	
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    
     
 }
