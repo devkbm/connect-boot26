@@ -21,11 +21,11 @@ public class StaffQueryService {
 	}
 	
 	public List<Staff> getEmployeeList(StaffDTO.SearchStaff dto) {
-		return repository.getEmployeeList(dto);
+		return repository.getStaffList(dto);
 	}
 	
 	public List<ResponseStaffAppointmentRecord> getStafflAppointmentRecordList(String staffId) {
-		return repository.getStafflAppointmentRecordList(staffId);
+		return repository.getStaffAppointmentRecordList(staffId);
 	}
 	
 }

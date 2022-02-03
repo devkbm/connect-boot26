@@ -23,14 +23,14 @@ public class StaffQueryController {
 		this.service = service;		
 	}
 	
-	@GetMapping("/hrm/employee")
+	@GetMapping("/hrm/staff")
 	public ResponseEntity<?> getStaffList(StaffDTO.SearchStaff dto) {
 		
 		List<Staff> list = service.getEmployeeList(dto);					
 		
 		List<StaffDTO.ResponseStaff> dtoList = list.stream()
-														 .map(e -> StaffDTO.ResponseStaff.convert(e))
-														 .collect(Collectors.toList()); 
+												   .map(e -> StaffDTO.ResponseStaff.convert(e))
+												   .toList(); 
 		
 		return WebControllerUtil.getResponse(dtoList											
 											,String.format("%d 건 조회되었습니다.", dtoList.size())

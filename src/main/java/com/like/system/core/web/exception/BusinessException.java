@@ -12,7 +12,7 @@ public class BusinessException extends RuntimeException {
     }
 
     public BusinessException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
+        super(errorCode.getDefaultMessage());
         this.errorCode = errorCode;
     }
 

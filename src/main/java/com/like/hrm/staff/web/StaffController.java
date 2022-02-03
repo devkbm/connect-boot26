@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.StaffDTO;
-import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.service.StaffService;
 import com.like.system.core.web.exception.ControllerException;
 import com.like.system.core.web.util.WebControllerUtil;
@@ -29,14 +28,12 @@ public class StaffController {
 	
 	@GetMapping("/hrm/staff/{id}")
 	public ResponseEntity<?> getStaff(@PathVariable String id) {
-				
-		Staff emp = staffService.getStaff(id);  									
-		
-		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(emp); 
+								
+		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(staffService.getStaff(id)); 
 		
 		return WebControllerUtil
 				.getResponse(dto											
-							,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1)
+							,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1)
 							,HttpStatus.OK);
 	}
 	
@@ -45,11 +42,11 @@ public class StaffController {
 		
 		if ( result.hasErrors()) throw new ControllerException("오류 : " + dto.toString());						
 						
-		staffService.newEmployee(dto);
+		staffService.newStaff(dto);
 											 				
 		return WebControllerUtil
 				.getResponse(null											
-							,String.format("%d 건 저장되었습니다.", 1)
+							,"%d 건 저장되었습니다.".formatted(1)
 							,HttpStatus.OK);
 	}
 	
@@ -62,9 +59,8 @@ public class StaffController {
 											 				
 		return WebControllerUtil
 				.getResponse(null											
-							,String.format("%d 건 저장되었습니다.", 1)
+							,"%d 건 저장되었습니다.".formatted(1)
 							,HttpStatus.OK);
 	}
-		
-	
+			
 }

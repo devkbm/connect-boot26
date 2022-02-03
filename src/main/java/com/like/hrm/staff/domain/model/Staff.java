@@ -41,36 +41,18 @@ public class Staff extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -3164713918774455925L;
 
 	/**
-	 * 사원번호
+	 * 직원번호
 	 */
 	@Id
 	@Column(name="STAFF_ID")
 	String id;	
 	
 	/**
-	 * 한글 성명
+	 * 직원성명
 	 */
-	@Column(name="STAFF_NAME")
-	String name;
-	
-	/**
-	 * 법적 이름
-	 */
-	@Column(name="STAFF_NAME_LEGAL")
-	String legalName;
-	
-	/**
-	 * 영문 성명
-	 */
-	@Column(name="STAFF_NAME_ENG")
-	String nameEng;
-	
-	/**
-	 * 한문 성명
-	 */
-	@Column(name="STAFF_NAME_CHI")
-	String nameChi;	
-		
+	@Embedded
+	StaffName name;
+			
 	/**
 	 * 주민번호
 	 */
@@ -82,8 +64,7 @@ public class Staff extends AuditEntity implements Serializable {
 	 */
 	@Column(name="GENDER")
 	String gender;
-		
-	
+			
 	/**
 	 * 생일
 	 */
@@ -103,7 +84,7 @@ public class Staff extends AuditEntity implements Serializable {
 	String imagePath;
 	
 	/**
-	 * 현재 발령 내용
+	 * 현재 발령 정보
 	 */
 	@Embedded
 	CurrentAppointmentInformation currentAppointment;
@@ -132,46 +113,24 @@ public class Staff extends AuditEntity implements Serializable {
 	@Embedded
 	LicenseList licenseList;			
 	
-	public static Staff of(String id, String name, String residentRegistrationNumber) {
+	public static Staff of(String id, StaffName name, String residentRegistrationNumber) {
 		return new Staff(id, name, residentRegistrationNumber);
 	}
 	
-	private Staff(String id, String name, String residentRegistrationNumber) {
+	private Staff(String id, StaffName name, String residentRegistrationNumber) {
 		this.id = id;
 		this.name = name; 
 	}
-	
-	public Staff(String id
-				,String name
-				,String nameEng
-				,String nameChi
-				,String residentRegistrationNumber) {
-		this.id = id;
-		this.name = name;
-		this.nameEng = nameEng;
-		this.nameChi = nameChi;
-		this.residentRegistrationNumber = residentRegistrationNumber;	
-	}
-	
-	public void modifyEntity(String name
-						    ,String nameEng
-						    ,String nameChi
-						    ,String gender
+			
+	public void modifyEntity(StaffName name
 						    ,LocalDate birthday) {
-		this.name 		= name;
-		this.nameEng 	= nameEng;
-		this.nameChi 	= nameChi;
-		this.gender 	= gender;
+		this.name 		= name;				
 		this.birthday 	= birthday;
 	}
-		
-	public String getEmployeeId() {
-		return this.id;
-	}			
-
+					
 	public void changeImagePath(String imagePath) {
 		this.imagePath = imagePath;
-	}		
+	}	
 	
 	public void applyAppointmentRecord(Long appointmentRecordId) {		
 		AppointmentRecord record = this.appointmentRecordList.get(appointmentRecordId);

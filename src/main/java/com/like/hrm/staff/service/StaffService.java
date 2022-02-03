@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffName;
 import com.like.hrm.staff.domain.model.StaffRepository;
 
 @Service
@@ -35,9 +36,11 @@ public class StaffService {
 		repository.save(staff);
 	}
 	
-	public void newEmployee(StaffDTO.NewStaff dto) {										
+	public void newStaff(StaffDTO.NewStaff dto) {										
 		
-		Staff staff = Staff.of(dto.getStaffId(), dto.getName(), dto.getResidentRegistrationNumber());
+		Staff staff = Staff.of(dto.getStaffId()
+							  ,new StaffName(dto.getName(), "", "", "")
+							  ,dto.getResidentRegistrationNumber());
 		
 		repository.save(staff);
 	}
@@ -47,7 +50,7 @@ public class StaffService {
 	}
 		
 	
-	private Staff findStaff(String empId) {
-		return repository.findById(empId).orElseThrow(() -> new EntityNotFoundException(empId + " 사번이 존재하지 않습니다."));
+	private Staff findStaff(String staffId) {
+		return repository.findById(staffId).orElseThrow(() -> new EntityNotFoundException(staffId + " 사번이 존재하지 않습니다."));
 	}
 }

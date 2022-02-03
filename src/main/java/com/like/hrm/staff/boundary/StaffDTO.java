@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffName;
 import com.like.hrm.staff.domain.model.appointment.AppointmentInformation;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.family.Family;
@@ -80,7 +81,7 @@ public class StaffDTO {
 		private BooleanExpression likeName(String name) {
 			if (!StringUtils.hasText(name)) return null;
 			
-			return qStaff.name.like("%"+name+"%");
+			return qStaff.name.name.like("%"+name+"%");
 		}			
 					
 		
@@ -139,9 +140,9 @@ public class StaffDTO {
 			
 			return ResponseStaff.builder()
 								   .staffId(entity.getId())
-								   .name(entity.getName())
-								   .nameEng(entity.getNameEng())
-								   .nameChi(entity.getNameChi())
+								   .name(entity.getName().getName())
+								   .nameEng(entity.getName().getNameEng())
+								   .nameChi(entity.getName().getNameChi())
 								   .residentRegistrationNumber(entity.getResidentRegistrationNumber())
 								   .gender(entity.getGender())
 								   .birthday(entity.getBirthday())
@@ -173,10 +174,7 @@ public class StaffDTO {
 		private LocalDate birthday;
 		
 		public void modifyEntity(Staff entity) {
-			entity.modifyEntity(this.name
-					 		   ,this.nameEng
-					 		   ,this.nameChi
-					 		   ,this.gender
+			entity.modifyEntity(new StaffName(name, name, nameEng, nameChi)
 					 		   ,this.birthday);
 		}
 	}

@@ -23,12 +23,12 @@ public enum ErrorCode {
     ;
 	
     private final String code;
-    private final String message;
+    private final String defaultMessage;
     private int httpStatus;
 
-    ErrorCode(final int httpStatus, final String code, final String message) {
+    ErrorCode(final int httpStatus, final String code, final String defaultMessage) {
         this.httpStatus = httpStatus;
-        this.message = message;
+        this.defaultMessage = defaultMessage;
         this.code = code;
     }
 }

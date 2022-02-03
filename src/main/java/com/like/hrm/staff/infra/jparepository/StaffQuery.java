@@ -26,19 +26,13 @@ public class StaffQuery implements StaffQueryRepository {
 	}
 	
 	@Override
-	public List<Staff> getEmployeeList(SearchStaff dto) {
+	public List<Staff> getStaffList(SearchStaff dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public Staff getLastEmployee(String yyyy) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ResponseStaffAppointmentRecord> getStafflAppointmentRecordList(String staffId) {		
+	public List<ResponseStaffAppointmentRecord> getStaffAppointmentRecordList(String staffId) {		
 		
 		QHrmTypeDetailCode jobGroupCode = QHrmTypeDetailCode.hrmTypeDetailCode;
 		QHrmTypeDetailCode jobPositionCode = new QHrmTypeDetailCode("jobPositionCode");
