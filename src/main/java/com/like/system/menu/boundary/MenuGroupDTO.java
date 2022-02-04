@@ -92,6 +92,8 @@ public class MenuGroupDTO {
 		}
 		
 		public static FormMenuGroup convert(MenuGroup entity) {
+			if (entity == null) return null;
+			
 			return FormMenuGroup.builder()
 								.createdDt(entity.getCreatedDt())
 								.createdBy(entity.getCreatedBy())

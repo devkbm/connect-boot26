@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,7 +65,7 @@ public class MenuQueryController {
 	}
 	
 	@GetMapping("/api/common/menu")
-	public ResponseEntity<?> getMenuList(MenuDTO.SearchMenu dto) {				
+	public ResponseEntity<?> getMenuList(@Valid MenuDTO.SearchMenu dto) {				
 		
 		List<Menu> list = menuQueryService.getMenuList(dto);			
 		
@@ -79,9 +81,8 @@ public class MenuQueryController {
 		
 		List<EnumDTO> list = new ArrayList<EnumDTO>();
 		
-		for (MenuType menuType : MenuType.values()) {
-			EnumDTO dto = new EnumDTO(menuType.toString(), menuType.getName());
-			list.add(dto);
+		for (MenuType menuType : MenuType.values()) {			
+			list.add(new EnumDTO(menuType.toString(), menuType.getName()));
 		}
 		
 		return WebControllerUtil.getResponse(list											
