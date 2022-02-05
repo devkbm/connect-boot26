@@ -38,14 +38,8 @@ public class TermDictionary extends AuditEntity {
 	@Column(name="DOMAIN_TYPE")
 	String domain;
 	
-	@Column(name="TERM")
-	String term;
-		
-	@Column(name="NAME_KOR")
-	String nameKor;
-	
-	@Column(name="ABBR_KOR")
-	String abbreviationKor;
+	@Column(name="TERM", unique = true)
+	String term;		
 	
 	@Column(name="NAME_ENG")
 	String nameEng;
@@ -60,12 +54,10 @@ public class TermDictionary extends AuditEntity {
 	String comment;
 
 	@Builder
-	public TermDictionary(String domain, String term, String nameKor, String abbreviationKor, String nameEng,
+	public TermDictionary(String domain, String term, String nameEng,
 			String abbreviationEng, String description, String comment) {		
 		this.domain = domain;
-		this.term = term;
-		this.nameKor = nameKor;
-		this.abbreviationKor = abbreviationKor;
+		this.term = term;		
 		this.nameEng = nameEng;
 		this.abbreviationEng = abbreviationEng;
 		this.description = description;
@@ -73,23 +65,17 @@ public class TermDictionary extends AuditEntity {
 	}	
 	
 	public void modifyEntity(String domain
-							,String term
-							,String nameKor
-							,String abbreviationKor
+							,String term							
 							,String nameEng
 							,String abbreviationEng
 							,String description
 							,String comment) {	
 		this.domain = domain;
-		this.term = term;
-		this.nameKor = nameKor;
-		this.abbreviationKor = abbreviationKor;
+		this.term = term;		
 		this.nameEng = nameEng;
 		this.abbreviationEng = abbreviationEng;
 		this.description = description;
 		this.comment = comment;
 	}
-
-	
 	
 }

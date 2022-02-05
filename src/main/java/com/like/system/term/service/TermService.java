@@ -13,42 +13,40 @@ import com.like.system.term.domain.TermRepository;
 @Transactional
 public class TermService {
 	    
-	private TermRepository termRepository;      
+	private TermRepository repository;      
 	
-    public TermService(TermRepository termRepository) {
-    	this.termRepository = termRepository;
+    public TermService(TermRepository repository) {
+    	this.repository = repository;
     }
     
 	public TermDictionary getTerm(Long pkTerm) {
-		return termRepository.getTerm(pkTerm);
+		return repository.findById(pkTerm).orElse(null);
 	}
 	
 	public List<TermDictionary> getTermList() {
-		return termRepository.getTermList();
-	}
-	
-	public List<TermDictionary> getTermList(TermDTO.SearchTerm condition) {
-		return termRepository.getTermList(condition);
-	}
+		return repository.findAll();
+	}	
 
 	public void saveTerm(TermDictionary term) {
-		termRepository.saveTerm(term);
+		repository.save(term);
 	}
 	
 	public void saveTerm(TermDTO.SaveTerm dto) {
-		TermDictionary entity = dto.getPkTerm() != null ? termRepository.getTerm(dto.getPkTerm()) : null; 
+		TermDictionary entity = null;
 		
+		if (dto.getPkTerm() != null) entity = repository.findById(dto.getPkTerm()).orElse(null); 
+									
 		if (entity == null) {
 			entity = dto.newEntity();
 		} else {			
 			dto.modifyEntity(entity);
 		}
 		
-		termRepository.saveTerm(entity);
+		repository.save(entity);
 	}	
 	
 	public void deleteTerm(Long pkTerm) {
-		termRepository.deleteTerm(pkTerm);		
+		repository.deleteById(pkTerm);		
 	}	
 		
 }

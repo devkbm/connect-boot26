@@ -2,6 +2,8 @@ package com.like.system.term.boundary;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -54,8 +56,10 @@ public class TermDTO {
 
 		Long pkTerm;	
 				
+		@NotEmpty(message = "도메인은 필수 입력 값입니다.")
 		String domain;
 				
+		@NotEmpty(message = "용어는 필수 입력 값입니다.")
 		String term;
 					
 		String nameKor;
@@ -73,9 +77,7 @@ public class TermDTO {
 		public TermDictionary newEntity() {
 			return TermDictionary.builder()
 								 .domain(domain)
-								 .term(term)
-								 .nameKor(nameKor)
-								 .abbreviationKor(abbreviationKor)
+								 .term(term)								 
 								 .nameEng(nameEng)
 								 .abbreviationEng(abbreviationEng)
 								 .description(description)
@@ -85,9 +87,7 @@ public class TermDTO {
 		
 		public void modifyEntity(TermDictionary entity) {
 			entity.modifyEntity(domain
-					           ,term
-					           ,nameKor
-					           ,abbreviationKor
+					           ,term					           
 					           ,nameEng
 					           ,abbreviationEng
 					           ,description
@@ -99,9 +99,7 @@ public class TermDTO {
 			return SaveTerm.builder()
 						   .pkTerm(entity.getPkTerm())
 						   .domain(entity.getDomain())
-						   .term(entity.getTerm())
-						   .nameKor(entity.getNameKor())
-						   .abbreviationKor(entity.getAbbreviationKor())
+						   .term(entity.getTerm())						   
 						   .nameEng(entity.getNameEng())
 						   .abbreviationEng(entity.getAbbreviationEng())
 						   .description(entity.getDescription())
