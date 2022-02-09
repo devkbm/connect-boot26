@@ -95,16 +95,17 @@ public class StaffDTO {
 		
 		private static final long serialVersionUID = 5189496256963058913L;	
 				
+		@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
 		private String staffId;
 		
-		@NotEmpty
+		@NotEmpty(message = "이름은 필수 입력 값입니다.")
 		private String name;
 
 		private String nameEng;
 		
 		private String nameChi;
 				
-		@NotEmpty
+		@NotEmpty(message = "주민등록번호는 필수 입력 값입니다.")
 		private String residentRegistrationNumber;	
 	}
 	
@@ -122,9 +123,7 @@ public class StaffDTO {
 		
 		private String nameEng;
 		
-		private String nameChi;
-		
-		private String legalName;
+		private String nameChi;			
 					
 		private String residentRegistrationNumber;
 		
@@ -143,7 +142,7 @@ public class StaffDTO {
 								   .name(entity.getName().getName())
 								   .nameEng(entity.getName().getNameEng())
 								   .nameChi(entity.getName().getNameChi())
-								   .residentRegistrationNumber(entity.getResidentRegistrationNumber())
+								   .residentRegistrationNumber(entity.getResidentRegistrationNumber().getNumber())
 								   .gender(entity.getGender())
 								   .birthday(entity.getBirthday())
 								   .imagePath(entity.getImagePath())								   
@@ -160,7 +159,7 @@ public class StaffDTO {
 								
 		private static final long serialVersionUID = -3475382902805357777L;
 
-		@NotEmpty
+		@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
 		private String staffId;
 				
 		private String name;
@@ -174,7 +173,7 @@ public class StaffDTO {
 		private LocalDate birthday;
 		
 		public void modifyEntity(Staff entity) {
-			entity.modifyEntity(new StaffName(name, name, nameEng, nameChi)
+			entity.modifyEntity(new StaffName(name, nameEng, nameChi)
 					 		   ,this.birthday);
 		}
 	}

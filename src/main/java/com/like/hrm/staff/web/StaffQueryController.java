@@ -1,7 +1,6 @@
 package com.like.hrm.staff.web;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class StaffQueryController {
 	@GetMapping("/hrm/staff")
 	public ResponseEntity<?> getStaffList(StaffDTO.SearchStaff dto) {
 		
-		List<Staff> list = service.getEmployeeList(dto);					
+		List<Staff> list = service.getStaff(dto);					
 		
 		List<StaffDTO.ResponseStaff> dtoList = list.stream()
 												   .map(e -> StaffDTO.ResponseStaff.convert(e))
@@ -40,7 +39,7 @@ public class StaffQueryController {
 	@GetMapping("/hrm/staff/{id}/record")
 	public ResponseEntity<?> getStaffAppointmentRecordList(@PathVariable String id) {
 		
-		List<?> list = service.getStafflAppointmentRecordList(id);								
+		List<?> list = service.getStaffAppointmentRecordList(id);								
 		
 		return WebControllerUtil.getResponse(list											
 											,String.format("%d 건 조회되었습니다.", list.size())

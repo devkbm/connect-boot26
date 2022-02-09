@@ -57,7 +57,7 @@ public class Staff extends AuditEntity implements Serializable {
 	 * 주민번호
 	 */
 	@Column(name="RREGNO")
-	String residentRegistrationNumber;
+	ResidentRegistrationNumber residentRegistrationNumber;
 	
 	/**
 	 * 성별
@@ -118,10 +118,13 @@ public class Staff extends AuditEntity implements Serializable {
 	}
 	
 	private Staff(String id, StaffName name, String residentRegistrationNumber) {
-		this.id = id;
-		this.name = name; 
+		this.id 						= id;
+		this.name 						= name; 
+		this.residentRegistrationNumber = ResidentRegistrationNumber.of(residentRegistrationNumber);
+		this.gender 					= this.residentRegistrationNumber.getGender();
+		this.birthday 					= this.residentRegistrationNumber.getBirthDay();
 	}
-			
+					
 	public void modifyEntity(StaffName name
 						    ,LocalDate birthday) {
 		this.name 		= name;				
@@ -139,5 +142,5 @@ public class Staff extends AuditEntity implements Serializable {
 		
 		this.currentAppointment.apply(record.getInfo());
 	}
-
+		
 }

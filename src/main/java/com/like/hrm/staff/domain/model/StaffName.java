@@ -20,13 +20,7 @@ public class StaffName {
 	 * 한글 성명
 	 */
 	@Column(name="STAFF_NAME")
-	String name;
-	
-	/**
-	 * 법적 이름
-	 */
-	@Column(name="STAFF_NAME_LEGAL")
-	String legalName;
+	String name;	
 	
 	/**
 	 * 영문 성명
@@ -48,8 +42,8 @@ public class StaffName {
 		return new StaffName(name);	
 	}
 	
-	public static StaffName of(String name, String legalName, String nameEng, String nameChi) {		 		
-		return new StaffName(name, legalName, nameEng, nameChi);
+	public static StaffName of(String name, String nameEng, String nameChi) {		 		
+		return new StaffName(name, nameEng, nameChi);
 	}	
 	
 } 

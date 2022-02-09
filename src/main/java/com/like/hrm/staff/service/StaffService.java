@@ -1,6 +1,6 @@
 package com.like.hrm.staff.service;
 
-import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityExistsException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,10 +36,11 @@ public class StaffService {
 		repository.save(staff);
 	}
 	
-	public void newStaff(StaffDTO.NewStaff dto) {										
-		
+	public void newStaff(StaffDTO.NewStaff dto) {		
+		if (isExistStaff(dto.getStaffId())) throw new EntityExistsException("동일 직원번호가 존재합니다 : " + dto.getStaffId());
+						
 		Staff staff = Staff.of(dto.getStaffId()
-							  ,new StaffName(dto.getName(), "", "", "")
+							  ,new StaffName(dto.getName(), dto.getNameEng(), dto.getNameChi())
 							  ,dto.getResidentRegistrationNumber());
 		
 		repository.save(staff);
@@ -49,8 +50,8 @@ public class StaffService {
 		repository.deleteById(id);
 	}
 		
-	
-	private Staff findStaff(String staffId) {
-		return repository.findById(staffId).orElseThrow(() -> new EntityNotFoundException(staffId + " 사번이 존재하지 않습니다."));
+	private boolean isExistStaff(String id) {
+		return repository.findById(id).isPresent() ? true : false;
 	}
+		
 }

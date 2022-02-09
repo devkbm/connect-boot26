@@ -20,11 +20,11 @@ public class StaffQueryService {
 		this.repository = repository;		
 	}
 	
-	public List<Staff> getEmployeeList(StaffDTO.SearchStaff dto) {
+	public List<Staff> getStaff(StaffDTO.SearchStaff dto) {
 		return repository.getStaffList(dto);
 	}
 	
-	public List<ResponseStaffAppointmentRecord> getStafflAppointmentRecordList(String staffId) {
+	public List<ResponseStaffAppointmentRecord> getStaffAppointmentRecordList(String staffId) {
 		return repository.getStaffAppointmentRecordList(staffId);
 	}
 	
