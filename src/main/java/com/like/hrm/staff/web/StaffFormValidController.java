@@ -1,6 +1,5 @@
 package com.like.hrm.staff.web;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,14 +17,13 @@ public class StaffFormValidController {
 		this.repository = repository;		
 	}
 	
-	@GetMapping("/hrm/employee/{id}/valid")
-	public ResponseEntity<?> getEmployee(@PathVariable String id) {
+	@GetMapping("/hrm/staff/{id}/valid")
+	public ResponseEntity<?> isStaff(@PathVariable String id) {
 		
 		boolean exist = repository.existsById(id);
 					
 		return WebControllerUtil.getResponse(exist											
-											,exist == true ? "직원정보가 존재합니다." : "직원정보가 존재하지 않습니다."
-											,HttpStatus.OK);
+											,exist == true ? "직원정보가 존재합니다." : "직원정보가 존재하지 않습니다.");
 	}
 	
 	

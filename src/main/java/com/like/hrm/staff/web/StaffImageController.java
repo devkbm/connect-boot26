@@ -12,9 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,9 +22,6 @@ import com.like.hrm.staff.service.StaffService;
 import com.like.system.file.infra.file.LocalFileRepository.FileUploadLocation;
 import com.like.system.file.service.FileService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 public class StaffImageController {
 	
@@ -39,18 +35,18 @@ public class StaffImageController {
 		this.employeeService 	= employeeService;
 	}
 
-	@PostMapping(value={"/hrm/staff/changeimage"})
+	@PostMapping("/hrm/staff/changeimage")
 	public ResponseEntity<?> changeEmployeeImage(@RequestParam("file") MultipartFile file,
-												 @RequestParam("employeeId") String employeeId) throws Exception {				
+												 @RequestParam("staffId") String staffId) throws Exception {				
 		
 		Map<String, Object> response = new HashMap<>();
 		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);				
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);				
 		
 		String uuid = UUID.randomUUID().toString();
 		String path = fileService.fileTransefer(file, uuid, FileUploadLocation.STATIC_PATH);
 		
-		Staff emp = employeeService.getStaff(employeeId);
+		Staff emp = employeeService.getStaff(staffId);
 				
 		emp.changeImagePath(uuid);
 		
@@ -61,16 +57,16 @@ public class StaffImageController {
 							
 		return new ResponseEntity<Map<String,Object>>(response, responseHeaders, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value={"/hrm/staff/downloadimage"}, method=RequestMethod.GET) 
+		
+	@GetMapping("/hrm/staff/downloadimage")
 	public HttpServletResponse downloadEmployeeImage(HttpServletResponse response,
-													 @RequestParam("employeeId") String employeeId) throws Exception {
+													 @RequestParam("staffId") String staffId) throws Exception {
 				
-		Staff emp = employeeService.getStaff(employeeId);			
+		Staff emp = employeeService.getStaff(staffId);			
 		
 		File file = fileService.getStaticPathFile(emp.getImagePath());
 				
-		response = this.setResponse(response, file.length(), employeeId);
+		response = this.setResponse(response, file.length(), staffId);
 		
 		fileService.downloadFile(file, response);
 			

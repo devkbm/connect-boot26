@@ -5,7 +5,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.hrm.staff.boundary.StaffDTO;
+import com.like.hrm.staff.boundary.AppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
@@ -31,7 +31,7 @@ public class StaffAppointmentService {
 		return staff.getAppointmentRecordList().get(id);	
 	}
 	
-	public void saveAppointmentRecord(StaffDTO.FormStaffAppointmentRecord dto) {
+	public void saveAppointmentRecord(AppointmentRecordDTO.FormStaffAppointmentRecord dto) {
 		Staff emp = getStaffInfo(dto.getStaffId());
 		
 		AppointmentRecord entity = emp.getAppointmentRecordList().get(dto.getId());

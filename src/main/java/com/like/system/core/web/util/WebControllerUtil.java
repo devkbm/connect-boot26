@@ -60,6 +60,13 @@ public abstract class WebControllerUtil {
 	    return new ResponseEntity<ResponseObjectList>(obj, getResponseHeaders(), httpStatus);	    	    	    	    	
 	}
 	
+	public static ResponseEntity<ResponseObjectList> getResponse(List<?> data, String message) {
+		
+		ResponseObjectList obj = new ResponseObjectList(data, data == null ? 0 : data.size(), message);			      
+	    
+	    return new ResponseEntity<ResponseObjectList>(obj, getResponseHeaders(), HttpStatus.OK);	    	    	    	    	
+	}
+	
 	/**
 	 * ResponseEntity 객체를 반환한다.
 	 * @param data			결과 payload 데이터
@@ -75,23 +82,22 @@ public abstract class WebControllerUtil {
 					    	    
 	    return new ResponseEntity<ResponseObject<T>>(obj, getResponseHeaders(), httpStatus);	    	    	    	    	
 	}
-	
-	/**
-	 * ResponseEntity 객체를 반환한다.
-	 * @param data			결과 payload 데이터
-	 * @param message		결과 메세지
-	 * @param httpStatus	HTTP 응답 코드
-	 * @return
-	 */
-	public static<T> ResponseEntity<ResponseObject<T>> getResponse(T data, String message,  HttpStatus httpStatus) {
+		
+	public static<T> ResponseEntity<ResponseObject<T>> getResponse(T data, String message, HttpStatus httpStatus) {
 		ResponseObject<T> obj = new ResponseObject<T>(data, data == null ? 0 : 1, message);
 		
 		return new ResponseEntity<ResponseObject<T>>(obj, getResponseHeaders(), httpStatus);
 	}
 	
+	public static<T> ResponseEntity<ResponseObject<T>> getResponse(T data, String message) {
+		ResponseObject<T> obj = new ResponseObject<T>(data, data == null ? 0 : 1, message);
+		
+		return new ResponseEntity<ResponseObject<T>>(obj, getResponseHeaders(), HttpStatus.OK);
+	}
+	
 	private static HttpHeaders getResponseHeaders() {
 		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return responseHeaders;		
 	}		 
 	

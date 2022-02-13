@@ -1,23 +1,18 @@
 package com.like.hrm.staff.web;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.staff.boundary.StaffDTO;
+import com.like.hrm.staff.boundary.AppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.service.StaffAppointmentService;
-import com.like.system.core.web.exception.ControllerException;
 import com.like.system.core.web.util.WebControllerUtil;
 
 @RestController
@@ -34,14 +29,13 @@ public class StaffAppointmentController {
 				
 		AppointmentRecordList entity = service.getAppointmentRecord(staffId);  									
 				
-		List<StaffDTO.FormStaffAppointmentRecord> list = entity.getStream()
-														  .map(e -> StaffDTO.FormStaffAppointmentRecord.convert(e))
-														  .collect(Collectors.toList()); 		
+		var list = entity.getStream()
+					     .map(e -> AppointmentRecordDTO.FormStaffAppointmentRecord.convert(e))
+						 .toList(); 		
 		
 		return WebControllerUtil
-				.getResponse(list											
-							,String.format("%d 건 조회되었습니다.", list.size())
-							,HttpStatus.OK);
+				.getResponse(list
+						    ,"%d 건 조회되었습니다.".formatted(list.size()));
 	}
 	
 	@GetMapping("/hrm/staff/{staffId}/appointmentrecord/{id}")
@@ -50,27 +44,21 @@ public class StaffAppointmentController {
 				
 		AppointmentRecord entity = service.getAppointmentRecord(staffId, id);  									
 				
-		StaffDTO.FormStaffAppointmentRecord dto = StaffDTO.FormStaffAppointmentRecord.convert(entity) ;
+		var dto = AppointmentRecordDTO.FormStaffAppointmentRecord.convert(entity) ;
 		
 		return WebControllerUtil
 				.getResponse(dto											
-							,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1)
-							,HttpStatus.OK);
+							,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1));
 	}
-	
-	@RequestMapping(value={"/hrm/staff/{staffId}/appointmentrecord"}, method={RequestMethod.POST,RequestMethod.PUT})	
-	public ResponseEntity<?> saveAppointmentRecord(@RequestBody StaffDTO.FormStaffAppointmentRecord dto, BindingResult result) {			
 		
-		if ( result.hasErrors()) {
-			throw new ControllerException("오류 : " +dto.toString());
-		} 											
-				
+	@PostMapping("/hrm/staff/{staffId}/appointmentrecord")
+	public ResponseEntity<?> saveAppointmentRecord(@Valid @RequestBody AppointmentRecordDTO.FormStaffAppointmentRecord dto) {			
+									
 		service.saveAppointmentRecord(dto);
 											 				
 		return WebControllerUtil
 				.getResponse(null							
-							,String.format("%d 건 저장되었습니다.", 1)
-							,HttpStatus.OK);
+							,"1 건 저장되었습니다.");
 	}
 	
 	@GetMapping("/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
@@ -84,7 +72,6 @@ public class StaffAppointmentController {
 											 				
 		return WebControllerUtil
 				.getResponse(null							
-							,String.format("%d 건 저장되었습니다.", 1)
-							,HttpStatus.OK);
+							,"1 건 저장되었습니다.");
 	}
 }

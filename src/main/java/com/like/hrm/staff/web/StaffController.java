@@ -2,7 +2,6 @@ package com.like.hrm.staff.web;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +29,7 @@ public class StaffController {
 		
 		return WebControllerUtil
 				.getResponse(dto											
-							,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1)
-							,HttpStatus.OK);
+							,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/hrm/staff/create")
@@ -41,8 +39,7 @@ public class StaffController {
 											 				
 		return WebControllerUtil
 				.getResponse(null											
-							,"%d 건 저장되었습니다.".formatted(1)
-							,HttpStatus.OK);
+							,"직원번호 : %s , 생성되었습니다.".formatted(dto.getStaffId()));
 	}
 		
 	@PostMapping("/hrm/staff")
@@ -52,8 +49,7 @@ public class StaffController {
 											 				
 		return WebControllerUtil
 				.getResponse(null											
-							,"%d 건 저장되었습니다.".formatted(1)
-							,HttpStatus.OK);
+						    ,"1 건 저장되었습니다.");
 	}
 			
 }

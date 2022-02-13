@@ -2,7 +2,6 @@ package com.like.hrm.staff.web;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,9 +30,8 @@ public class StaffQueryController {
 												   .map(e -> StaffDTO.ResponseStaff.convert(e))
 												   .toList(); 
 		
-		return WebControllerUtil.getResponse(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size())
-											,HttpStatus.OK);
+		return WebControllerUtil.getResponse(dtoList																						
+											,"%d 건 조회되었습니다.".formatted(dtoList.size()));
 	}
 	
 	@GetMapping("/hrm/staff/{id}/record")
@@ -42,7 +40,6 @@ public class StaffQueryController {
 		List<?> list = service.getStaffAppointmentRecordList(id);								
 		
 		return WebControllerUtil.getResponse(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+											,"%d 건 조회되었습니다.".formatted(list.size()));
 	}
 }
