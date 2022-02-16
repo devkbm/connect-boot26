@@ -113,6 +113,20 @@
 		    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
 		    <version>1.16</version>
 		</dependency>
+		
+		<dependency>
+	        <groupId>net.objecthunter</groupId>
+	        <artifactId>exp4j</artifactId>
+	        <version>0.4.8</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.udojava</groupId>
+		    <artifactId>EvalEx</artifactId>
+		    <!-- change to desired version -->
+		    <version>2.7</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
