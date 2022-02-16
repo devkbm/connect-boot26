@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.*;
@@ -50,48 +51,36 @@ public class Board extends AuditEntity {
 	@ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE}, optional = true)
 	@JoinColumn(name="PPK_BOARD", nullable = false)
 	Board parent;
-	
-	/**
-	 * 게시판_타입
-	 */
+			
 	@Enumerated(EnumType.STRING)
 	@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+	@Comment("게시판_타입")
 	@Column(name="BOARD_TYPE")
     BoardType boardType;
-	
-	/**
-     * 게시판 명
-     */	
+		
+	@Comment("게시판 명")
 	@Column(name="BOARD_NAME")
     String boardName;             
-    
-    /**
-     * 게시판_설명
-     */
+        
+	@Comment("게시판_설명")
 	@Column(name="BOARD_DESC")
 	String boardDescription;
     
 	@Embedded
     LocalDatePeriod period;
-	
-    /**
-     * 사용여부
-     */
+	    	
 	@Builder.Default
+	@Comment("사용여부")
 	@Column(name="USE_YN")
-	Boolean useYn = true;
-    
-    /**
-     * 게시글 갯수
-     */
+	Boolean useYn = true;        
+	
 	@Builder.Default
+	@Comment("게시글 갯수")
 	@Column(name="ARTICLE_CNT")
-	long articleCount = 0;
-    
-    /**
-     * 출력순서
-     */
+	long articleCount = 0;        
+	
 	@Builder.Default
+	@Comment("출력순서")
 	@Column(name="SEQ")
 	long sequence = 0;	
 

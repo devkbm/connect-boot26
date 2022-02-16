@@ -10,13 +10,15 @@ import javax.persistence.OneToMany;
 
 import lombok.NoArgsConstructor;
 
+/**
+ * 자격면허
+ * @author 김병민
+ *
+ */
 @NoArgsConstructor
 @Embeddable
 public class LicenseList {
-
-	/**
-	 * 자격면허
-	 */
+	
 	@OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	Set<License> licenseList = new LinkedHashSet<>();
 	

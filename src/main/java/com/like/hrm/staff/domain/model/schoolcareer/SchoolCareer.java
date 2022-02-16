@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -51,50 +52,35 @@ public class SchoolCareer extends AuditEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID")
 	private Long id;
-		
-	/**
-	 * 학력유형
-	 */
+			
+	@Comment("학력유형")
 	@Column(name="SCHOOL_CAREER_CODE")
 	private String schoolCareerType;
-	
-	/**
-	 * 학교코드
-	 */
+		
+	@Comment("학교코드")
 	@Column(name="SCHOOL_CODE")
 	private String schoolCode;
-	
-	
+		
 	@Embedded
 	LocalDatePeriod period;
-	
-	/**
-	 * 전공학과명
-	 */
+		
+	@Comment("전공학과명")
 	@Column(name="MAJOR_NAME")
 	private String majorName;
-	
-	/**
-	 * 복수전공학과명
-	 */
+		
+	@Comment("복수전공학과명")
 	@Column(name="PLURAL_MAJOR_NAME")
 	private String pluralMajorName;
-	
-	/**
-	 * 소재지
-	 */	
+		
+	@Comment("소재지")
 	@Column(name="LOCATION_NAME")
 	private String location;
-	
-	/**
-	 * 수업연한
-	 */
+		
+	@Comment("수업연한")
 	@Column(name="LESSON_YEAR")
 	private Integer lessonYear;
-	
-	/**
-	 * 설명
-	 */
+		
+	@Comment("비고")
 	@Column(name="CMT")
 	private String comment;
 		

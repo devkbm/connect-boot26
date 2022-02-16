@@ -36,7 +36,7 @@ public class TeamMember extends AuditEntity implements Serializable {
 	@JoinColumn(name="USER_ID", insertable = false, updatable = false)
 	private SystemUser user;	
 	
-	// 권한
+	//@Comment("권한")
 	private String authority;
 	
 	public TeamMember(TeamMemberId teamMemberId) {

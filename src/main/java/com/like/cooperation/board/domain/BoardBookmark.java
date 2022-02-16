@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.system.core.domain.AuditEntity;
@@ -38,22 +39,16 @@ public class BoardBookmark extends AuditEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="PK_BOOKMARK")
 	Long pkBookmark;
-	
-	/**
-	 * 사용자 ID
-	 */
+		
+	@Comment("사용자 ID")
 	@Column(name="USER_ID")
 	String userId;
-	
-	/**
-	 * 게시판 키
-	 */
+		
+	@Comment("게시판 키")
 	@Column(name="FK_BOARD")
 	Long fkBoard;
-	
-	/**
-	 * 순번
-	 */
+		
+	@Comment("순번")
 	@Column(name="SEQ")
 	Long seq;
 		

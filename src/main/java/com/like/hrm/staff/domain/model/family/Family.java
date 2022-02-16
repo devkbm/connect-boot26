@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,40 +44,28 @@ public class Family extends AuditEntity implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false)
 	private Staff staff;
-	
-	/**
-	 * 가족 성명
-	 */
+		
+	@Comment("가족성명")
 	@Column(name="FAMILY_NAME", nullable = false)
 	private String name;
 	
-	/**
-	 * 주민등록번호
-	 */
+	@Comment("주민등록번호")
 	@Column(name="RREGNO", nullable = false)
 	private String residentRegistrationNumber;
-	
-	/**
-	 * 가족관계
-	 */
+		
+	@Comment("가족관계")
 	@Column(name="FAMILY_REL_CODE", nullable = false)
 	private String relation;
-	
-	/**
-	 * 직업명
-	 */
+		
+	@Comment("직업명")
 	@Column(name="OCCUPATION_NAME", nullable = true)
 	private String occupation;
-	
-	/**
-	 * 학력구분
-	 */
+		
+	@Comment("학력구분")
 	@Column(name="SCHOOL_CAREER_CODE", nullable = true)
 	private String schoolCareerType;
-	
-	/**
-	 * 비고
-	 */
+		
+	@Comment("비고")
 	@Column(name="CMT", nullable = true)
 	private String comment;
 	

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.hrm.staff.domain.model.Staff;
@@ -32,22 +33,16 @@ public class StaffDuty extends AuditEntity implements Serializable {
 	
 	@EmbeddedId	
 	StaffDutyId id;
-			
-	/**
-	 * 종료일자
-	 */
+				
+	@Comment("종료일자")
 	@Column(name="TO_DT")
 	LocalDate toDate;
-	
-	/**
-	 * 대리여부
-	 */
+		
+	@Comment("대리여부")
 	@Column(name="DEPUTY_YN")
 	String deputyYn;
-	
-	/**
-	 * 급여여부
-	 */
+		
+	@Comment("급여여부")
 	@Column(name="PAY_YN")
 	String payYn;
 	

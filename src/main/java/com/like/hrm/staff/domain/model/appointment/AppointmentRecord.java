@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -45,21 +46,27 @@ public class AppointmentRecord extends AuditEntity implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Comment("발령기록ID")
 	@Column(name="ID", nullable = false)
 	private Long id;
 		
+	@Comment("발령일자")
 	@Column(name="APPOINTMENT_DT")
 	private LocalDate appointmentDate;
 	
+	@Comment("발령종료일자")
 	@Column(name="APPOINTMENT_END_DT")
 	private LocalDate appointmentEndDate;
 	
+	@Comment("발령명")
 	@Column(name="RECORD_NAME")
 	private String recordName;
 
+	@Comment("비고")
 	@Column(name="CMT")
 	private String comment;
 	
+	@Comment("처리대기여부")
 	@Column(name="PROC_WAIT_YN")
 	private String processWatingYn;		
 	

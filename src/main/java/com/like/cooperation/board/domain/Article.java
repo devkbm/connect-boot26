@@ -1,7 +1,6 @@
 package com.like.cooperation.board.domain;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
@@ -13,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.ToString;
 
+import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.Formula;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -46,59 +46,39 @@ public class Article extends AuditEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="PK_ARTICLE")
 	Long pkArticle;	
-	
-	/**
-	 * 게시글 상위키
-	 */
+		
+	@Comment("게시글 상위키")
 	@Column(name="PPK_ARTICLE")
 	Long ppkArticle;		
-			
-	/**
-	 * 제목
-	 */	
+				
+	@Comment("제목")
 	@Column(name="TITLE")
 	String title;
-    
-    /**
-     * 내용
-     */
+        
+	@Comment("내용")
 	@Column(name="CONTENTS")
     String contents;        
-    
-    /**
-     * 조회 수
-     */
+        
+	@Comment("조회 수")
 	@Column(name="HIT_CNT")
     int hitCount;
-        
-	/**
-	 * 게시기간
-	 */
+        		
 	@Embedded
     LocalDatePeriod period;
-	
-    /**
-     * 출력순서
-     */
+	    
+	@Comment("출력순서")
 	@Column(name="SEQ")
     Integer seq;
-    
-    /**
-     * 게층 횟수
-     */
+        
+	@Comment("계층 횟수")
 	@Column(name="HIER_DEPTH")
     int depth;
 			
+	@Comment("비밀번호사용여부")
 	@Column(name="PWD_YN")
 	Boolean pwdYn;
-	
-	@Enumerated(EnumType.STRING)	
-	@Column(name="HASH_METHOD")
-	PasswordType pwdMethod;
-	
-	/**
-     * 비밀번호
-     */
+			
+	@Comment("비밀번호")
 	@Column(name="PWD")
     String pwd;
     

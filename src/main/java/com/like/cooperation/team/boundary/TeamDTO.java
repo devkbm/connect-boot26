@@ -67,7 +67,7 @@ public class TeamDTO {
 		String modifiedBy;
 		
 		Long teamId;
-
+		
 		String teamName;
 		
 		List<String> memberList;

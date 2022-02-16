@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -50,45 +51,33 @@ public class License extends AuditEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID", nullable = false)
 	private Long licenseId;
-		
-	/**
-	 * 자격면허유형
-	 */
+			
+	@Comment("자격면허유형")
 	@Column(name="LICENSE_TYPE", nullable = false)
 	private String licenseType;
-	
-	/**
-	 * 자격면허코드
-	 */
+		
+	@Comment("자격면허코드")
 	@Column(name="LICENSE_CODE", nullable = false)
 	private String licenseCode;
-	
-	/**
-	 * 취득일자
-	 */
+		
+	// acquisition date
+	@Comment("취득일자")
 	@Column(name="DATE_OF_ACQUISITION", nullable = true)
 	private LocalDate dateOfAcquisition;
-	
-	/**
-	 * 인증기관
-	 */
+		
+	@Comment("인증기관")
 	@Column(name="CERTIFICATION_AUTHORITY", nullable = true)
 	private String certificationAuthority;
-	
-	/**
-	 * 필수여부
-	 */
+		
+	@Comment("필수여부")
 	@Column(name="MANDATORY_YN", nullable = false)
 	private Boolean isMandatory;
-	
-	/**
-	 * 설명
-	 */
+		
+	@Comment("비고")
 	@Column(name="CMT", nullable = true)
 	private String comment;
 	
-	// 취득일자, 자격면허, 자격면허인가번호, 발행기관, 필수면허번호여부, 이미지
-		
+	// 취득일자, 자격면허, 자격면허인가번호, 발행기관, 필수면허번호여부, 이미지		
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false)
 	private Staff staff;

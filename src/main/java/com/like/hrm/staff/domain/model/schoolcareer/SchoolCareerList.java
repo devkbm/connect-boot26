@@ -22,9 +22,9 @@ public class SchoolCareerList {
 	
 	public SchoolCareer get(Long id) {
 		return this.schoolCareerList.stream()
-								 .filter(e -> e.getId().equals(id))
-								 .findFirst()
-								 .orElse(null);
+								 	.filter(e -> e.getId().equals(id))
+								 	.findFirst()
+								 	.orElse(null);
 	}
 	
 	public void add(SchoolCareer education) {

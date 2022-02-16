@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.system.core.domain.AuditEntity;
 import com.like.system.core.web.exception.BusinessException;
@@ -40,6 +42,7 @@ public class Team extends AuditEntity implements Serializable {
 	@Column(name="TEAM_ID")
 	Long teamId;
 	
+	@Comment("팀명")
 	@Column(name="TEAM_NAME")
 	String teamName;
 	

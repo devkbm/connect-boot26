@@ -11,6 +11,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
+
 import com.like.system.core.domain.AuditEntity;
 
 import lombok.AccessLevel;
@@ -38,43 +40,43 @@ public class AnualLeave extends AuditEntity {
 	@EmbeddedId
 	AnualLeaveId id;
 			
-	// 연차기준일(입사일)
+	@Comment("연차기준일(입사일)")
 	@Column(name="BASE_DT")
 	LocalDate base;
 	
-	// 사용 시작일자
+	@Comment("사용 시작일자")
 	@Column(name="FROM_DT")
 	LocalDate from;
 	
-	// 사용 종료일자
+	@Comment("사용 종료일자")
 	@Column(name="TO_DT")
 	LocalDate to;
 	
-	// 발생갯수
+	@Comment("발생갯수")
 	@Column(name="CNT")
 	double cnt;
 	
-	// 가산갯수
+	@Comment("가산갯수")
 	@Column(name="ADD_CNT")
 	double add_cnt;
 	
-	// 사용갯수
+	@Comment("사용갯수")
 	@Column(name="USE_CNT")
 	double use_cnt;
 	
-	// 총근무일수
+	@Comment("총근무일수")
 	@Column(name="TOTAL_WORK_DAYS")
 	long total_work_days;
 	
-	// 제외근무일수
+	@Comment("제외근무일수")
 	@Column(name="EXCEPT_DAYS")
 	long except_days;
 
-	// 1년 미만 여부
+	@Comment("1년 미만 여부")
 	@Column(name="INTRA_ANUAL")
 	Boolean isIntraAnual;
 	
-	// 비고
+	@Comment("비고")
 	@Column(name="CMT")
 	String comment;
 	

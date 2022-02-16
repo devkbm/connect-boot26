@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.hibernate.annotations.Comment;
+
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class ResidentRegistrationNumber {
 
+	@Comment("주민등록번호")
 	@Column(name="RREGNO")
 	String number;
 	

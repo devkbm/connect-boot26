@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.hibernate.annotations.Comment;
+
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,22 +20,16 @@ import lombok.NoArgsConstructor;
 public class StaffDutyId implements Serializable {
 	
 	private static final long serialVersionUID = -1176225352272330423L;
-
-	/**
-	 * 직원ID
-	 */
+	
+	@Comment("직원ID")
 	@Column(name="STAFF_ID")
 	String staffId;
-	
-	/**
-	 * 직책코드
-	 */
+		
+	@Comment("직책코드")
 	@Column(name="DUTY_RESPONSIBILITY_CODE")
 	String dutyResponsibilityCode;
-	
-	/**
-	 * 시작일자
-	 */
+		
+	@Comment("시작일자")
 	@Column(name="FROM_DT")
 	LocalDate fromDate;
 	

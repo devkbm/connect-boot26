@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import lombok.Getter;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -36,10 +37,8 @@ public class ArticleCheck extends AuditEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="pk_article_check")
 	Long pkArticleCheck;	
-	
-	/**
-	 * 조회수
-	 */
+		
+	@Comment("조회수")
 	@Column(name="hit_cnt")
 	int hitCount;
         

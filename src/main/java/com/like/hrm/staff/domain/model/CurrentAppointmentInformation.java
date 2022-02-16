@@ -3,6 +3,8 @@ package com.like.hrm.staff.domain.model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.hibernate.annotations.Comment;
+
 import com.like.hrm.staff.domain.model.appointment.AppointmentInformation;
 
 import lombok.AccessLevel;
@@ -21,52 +23,36 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class CurrentAppointmentInformation {
-	
-	/**
-	 * 소속부서
-	 */
+		
+	@Comment("소속부서코드")
 	@Column(name="BLNG_DEPT_CODE")
 	private String blngDeptCode;
-	
-	/**
-	 * 근무부서
-	 */
+		
+	@Comment("근무부서코드")
 	@Column(name="WORK_DEPT_CODE")
 	private String workDeptCode;
-	
-	/**
-	 * 직군
-	 */
+		
+	@Comment("직군코드")
 	@Column(name="JOB_GROUP_CODE")
 	private String jobGroupCode;
-	
-	/**
-	 * 직위
-	 */
+		
+	@Comment("직위코드")
 	@Column(name="JOB_POSITION_CODE")
 	private String jobPositionCode;
-	
-	/**
-	 * 직종
-	 */
+		
+	@Comment("직종코드")
 	@Column(name="OCCUPATION_CODE")
 	private String occupationCode;
-	
-	/**
-	 * 직급
-	 */
+		
+	@Comment("직급코드")
 	@Column(name="JOB_GRADE_CODE")
 	private String jobGradeCode;
-	
-	/**
-	 * 호봉
-	 */
+		
+	@Comment("호봉코드")
 	@Column(name="PAY_STEP_CODE")
 	private String payStepCode;
-	
-	/**
-	 * 직무
-	 */
+		
+	@Comment("직무코드")
 	@Column(name="JOB_CODE")
 	private String jobCode;
 		

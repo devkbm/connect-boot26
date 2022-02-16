@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
+import com.like.cooperation.team.domain.TeamMember;
 import com.like.cooperation.team.domain.TeamRepository;
 import com.like.system.user.boundary.UserDTO;
 import com.like.system.user.domain.SystemUser;
@@ -41,6 +42,11 @@ public class TeamQueryService {
 		return list;
 	}
 	
+	public List<TeamMember> getTeamMemberList(Long id) {
+		return teamQueryRepository.findById(id).orElse(null).getMembers();
+	}
+	
+	
 	/**
 	 * 조건에 해당하는 유저 정보를 조회한다.
 	 * @param searchCondition 조회 조건
@@ -48,7 +54,6 @@ public class TeamQueryService {
 	 */
 	public List<SystemUser> getAllMember(UserDTO.SearchUser searchCondition) {
 		return userQueryService.getUserList(searchCondition);
-	}
-	
+	}	
 	
 }
