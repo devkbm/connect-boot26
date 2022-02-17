@@ -36,12 +36,12 @@ public class StaffService {
 		repository.save(staff);
 	}
 	
-	public void newStaff(StaffDTO.NewStaff dto) {		
-		if (isExistStaff(dto.getStaffId())) throw new EntityExistsException("동일 직원번호가 존재합니다 : " + dto.getStaffId());
+	public void newStaff(StaffDTO.NewStaffRec dto) {		
+		if (isExistStaff(dto.staffId())) throw new EntityExistsException("동일 직원번호가 존재합니다 : " + dto.staffId());
 						
-		Staff staff = Staff.of(dto.getStaffId()
-							  ,new StaffName(dto.getName(), dto.getNameEng(), dto.getNameChi())
-							  ,dto.getResidentRegistrationNumber());
+		Staff staff = Staff.of(dto.staffId()
+							  ,new StaffName(dto.name(), dto.nameEng(), dto.nameEng())
+							  ,dto.residentRegistrationNumber());
 		
 		repository.save(staff);
 	}

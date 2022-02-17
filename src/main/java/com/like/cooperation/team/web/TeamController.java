@@ -62,7 +62,7 @@ public class TeamController {
 	
 	@DeleteMapping("/api/grw/team/{teamId}")
 	public ResponseEntity<?> delBoard(@PathVariable("teamId") Long teamId) {					
-												
+		
 		teamService.deleteTeam(teamId);							
 		
 		return WebControllerUtil.getResponse(null											

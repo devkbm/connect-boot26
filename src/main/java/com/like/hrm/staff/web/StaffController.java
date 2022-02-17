@@ -33,13 +33,13 @@ public class StaffController {
 	}
 		
 	@PostMapping("/hrm/staff/create")
-	public ResponseEntity<?> newStaff(@RequestBody @Valid StaffDTO.NewStaff dto) {											
-						
+	public ResponseEntity<?> newStaff(@RequestBody @Valid StaffDTO.NewStaffRec dto) {											
+								
 		staffService.newStaff(dto);
 											 				
 		return WebControllerUtil
 				.getResponse(null											
-							,"직원번호 : %s , 생성되었습니다.".formatted(dto.getStaffId()));
+							,"직원번호 : %s , 생성되었습니다.".formatted(dto.staffId()));
 	}
 		
 	@PostMapping("/hrm/staff")

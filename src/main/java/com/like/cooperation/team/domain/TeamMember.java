@@ -13,9 +13,11 @@ import com.like.system.core.domain.AuditEntity;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "GRWTEAMUSER")

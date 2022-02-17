@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.like.cooperation.team.boundary.TeamMemberDTO;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffName;
@@ -105,29 +106,41 @@ public class StaffDTO {
 		private String residentRegistrationNumber;	
 	}
 	
+	public record NewStaffRec(
+			@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
+			String staffId,
+			@NotEmpty(message = "이름은 필수 입력 값입니다.")
+			String name,
+			String nameEng,
+			String nameChi,
+			@NotEmpty(message = "주민등록번호는 필수 입력 값입니다.")
+			String residentRegistrationNumber
+			) {	
+	}
+	
 	@Data
-	@Builder
+	@NoArgsConstructor
 	@AllArgsConstructor
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
+	@Builder
 	public static class ResponseStaff implements Serializable {
 				
 		private static final long serialVersionUID = 3650310845683492073L;
 
-		private String staffId;	
+		String staffId;	
 		
-		private String name;
+		String name;
 		
-		private String nameEng;
+		String nameEng;
 		
-		private String nameChi;			
+		String nameChi;			
 					
-		private String residentRegistrationNumber;
+		String residentRegistrationNumber;
 		
-		private String gender;
+		String gender;
 		
-		private LocalDate birthday;				
+		LocalDate birthday;				
 		
-		private String imagePath;			
+		String imagePath;			
 		
 		public static ResponseStaff convert(Staff entity) {
 									
