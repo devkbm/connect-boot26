@@ -3,9 +3,10 @@ package com.like.system.user.web;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.web.exception.ControllerException;
 import com.like.system.core.web.util.WebControllerUtil;
 import com.like.system.user.boundary.PasswordChangeRequestDTO;
 import com.like.system.user.boundary.UserDTO;
@@ -43,8 +43,8 @@ public class UserController {
 							,HttpStatus.OK);
 	}
 	
-	@GetMapping("/api/common/user/{id}")
-	public ResponseEntity<?> getUser(@PathVariable(value="id") String userId) throws FileNotFoundException, IOException {
+	@GetMapping("/api/common/user/{userId}")
+	public ResponseEntity<?> getUser(@PathVariable String userId) throws FileNotFoundException, IOException {
 						
 		SystemUser user = userService.getUser(userId);				
 		
@@ -59,11 +59,7 @@ public class UserController {
 	
 	
 	@PostMapping("/api/common/user")	
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO.FormSystemUser dto, BindingResult result) {
-		
-		if ( result.hasErrors()) {
-			throw new ControllerException("오류");
-		}										
+	public ResponseEntity<?> saveUser(@Valid @RequestBody UserDTO.FormSystemUser dto) {			
 											
 		userService.saveUser(dto);					
 																					 		
@@ -73,8 +69,8 @@ public class UserController {
 							,HttpStatus.OK);
 	}	
 	
-	@DeleteMapping("/api/common/user/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable(value="id") String userId) {
+	@DeleteMapping("/api/common/user/{userId}")
+	public ResponseEntity<?> deleteUser(@PathVariable String userId) {
 										
 		userService.deleteUser(userId);															
 								 					
@@ -87,7 +83,7 @@ public class UserController {
 	@PostMapping("/api/common/user/{id}/changepassword")
 	public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDTO dto) {				
 						
-		userService.changePassword(dto.getUserId(), dto.getBeforePassword(), dto.getAfterPassword());													
+		userService.changePassword(dto.userId(), dto.beforePassword(), dto.afterPassword());													
 								 					
 		return WebControllerUtil
 				.getResponse(null							
@@ -95,8 +91,8 @@ public class UserController {
 							,HttpStatus.OK);
 	}
 			
-	@PostMapping("/api/common/user/{id}/initpassword")
-	public ResponseEntity<?> initializePassword(@PathVariable(value="id") String userId) {			
+	@PostMapping("/api/common/user/{userId}/initpassword")
+	public ResponseEntity<?> initializePassword(@PathVariable String userId) {			
 				
 		userService.initPassword(userId);														
 								 					

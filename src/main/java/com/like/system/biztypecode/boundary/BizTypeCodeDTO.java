@@ -1,7 +1,5 @@
 package com.like.system.biztypecode.boundary;
 
-import java.io.Serializable;
-
 import org.springframework.util.StringUtils;
 
 import com.like.system.biztypecode.domain.BizTypeCode;
@@ -10,27 +8,16 @@ import com.like.system.biztypecode.domain.QBizTypeCode;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class BizTypeCodeDTO {
 
-	public static class Search implements Serializable {
-				
-		private static final long serialVersionUID = 3195016606532420119L;
-
-		private final QBizTypeCode qType = QBizTypeCode.bizTypeCode;		
+	public record Search(
+			String id,
+			String name,
+			Boolean useYn,
+			String bizType
+			) {
 		
-		private String id;
-	
-		private String name;
-		
-		private Boolean useYn;
-		
-		private String bizType;
+		private static final QBizTypeCode qType = QBizTypeCode.bizTypeCode;
 		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -53,7 +40,7 @@ public class BizTypeCodeDTO {
 		
 		private BooleanExpression likeName(String name) {
 			if (!StringUtils.hasText(name)) return null;
-							
+			
 			return qType.name.like("%" + name + "%");
 		}
 		
@@ -65,32 +52,32 @@ public class BizTypeCodeDTO {
 		
 		private BooleanExpression eqBizType(String bizType) {
 			if (!StringUtils.hasText(bizType)) return null;
-							
+			QBizTypeCode qType = QBizTypeCode.bizTypeCode;				
 			return qType.bizType.eq(BizTypeEnum.valueOf(bizType));
 		}
-		
-	}
+	}	
 	
-	@Data	
-	@Builder
-	@AllArgsConstructor
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	public static class FormBizTypeCode implements Serializable {
+	public record FormBizTypeCode(
+			String id,
+			String name,
+			Boolean useYn,
+			Integer sequence,
+			String bizType,
+			String comment
+			) {
+				
+		public static FormBizTypeCode convert(BizTypeCode entity) {
 			
-		private static final long serialVersionUID = 1435877481946094507L;
+			if (entity == null) return null;
+			
+			return new FormBizTypeCode(entity.getId()
+							  ,entity.getName()
+							  ,entity.getUseYn()
+							  ,entity.getSequence()
+							  ,entity.getBizType() == null ? null : entity.getBizType().toString()
+							  ,entity.getComment());
+		}
 
-		private String id;
-		
-		private String name;
-		
-		private Boolean useYn;
-		
-		private Integer sequence;
-		
-		private String bizType;
-		
-		private String comment;
-		
 		public BizTypeCode newEntity() {
 			return new BizTypeCode(id, name, useYn, sequence, BizTypeEnum.valueOf(bizType), comment);
 		}
@@ -105,18 +92,8 @@ public class BizTypeCodeDTO {
 			
 			return entity;
 		}
-		
-		public static FormBizTypeCode convert(BizTypeCode entity) {
-			
-			if (entity == null) return null;
-			
-			return new FormBizTypeCode(entity.getId()
-							  ,entity.getName()
-							  ,entity.getUseYn()
-							  ,entity.getSequence()
-							  ,entity.getBizType() == null ? null : entity.getBizType().toString()
-							  ,entity.getComment());
-		}
-	}
+				
+	}	
+	
 	
 }

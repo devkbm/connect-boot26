@@ -29,14 +29,14 @@ public class StaffService {
 	}
 	
 	public void saveStaff(StaffDTO.FormStaff dto) {
-		Staff staff = this.getStaff(dto.getStaffId());
+		Staff staff = this.getStaff(dto.staffId());
 		
 		dto.modifyEntity(staff);
 		
 		repository.save(staff);
 	}
 	
-	public void newStaff(StaffDTO.NewStaffRec dto) {		
+	public void newStaff(StaffDTO.NewStaff dto) {		
 		if (isExistStaff(dto.staffId())) throw new EntityExistsException("동일 직원번호가 존재합니다 : " + dto.staffId());
 						
 		Staff staff = Staff.of(dto.staffId()
@@ -51,7 +51,7 @@ public class StaffService {
 	}
 		
 	private boolean isExistStaff(String id) {
-		return repository.findById(id).isPresent() ? true : false;
+		return repository.findById(id).isPresent();
 	}
 		
 }

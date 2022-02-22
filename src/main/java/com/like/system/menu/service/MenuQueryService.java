@@ -22,7 +22,7 @@ public class MenuQueryService {
 		this.menuJpaRepository = menuJpaRepository;
 	}
 		
-	public List<MenuGroup> getMenuGroupList(MenuGroupDTO.SearchMenuGroup condition) {
+	public List<MenuGroup> getMenuGroupList(MenuGroupDTO.Search condition) {
 		return menuJpaRepository.getMenuGroupList(condition);
 	}
 	

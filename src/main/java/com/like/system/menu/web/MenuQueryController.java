@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,8 +37,7 @@ public class MenuQueryController {
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 							
 		
 		return WebControllerUtil.getResponse(menuGroup											
-											,String.format("%d 건 조회되었습니다.", menuGroup.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", menuGroup.size()));
 	}
 	
 	@GetMapping("/api/common/menuhierarchy/{menuGroupCode}")
@@ -48,20 +46,18 @@ public class MenuQueryController {
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 										
 		
 		return WebControllerUtil.getResponse(menuGroup											
-											,String.format("%d 건 조회되었습니다.", menuGroup.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", menuGroup.size()));
 	}
 	
 	@GetMapping("/api/common/menugroup")
-	public ResponseEntity<?> getMenuGroupList(MenuGroupDTO.SearchMenuGroup dto) {				
+	public ResponseEntity<?> getMenuGroupList(MenuGroupDTO.Search dto) {				
 		
 		List<MenuGroup> list = menuQueryService.getMenuGroupList(dto); 							
 		
 		List<MenuGroupDTO.FormMenuGroup> dtoList = list.stream().map(e -> FormMenuGroup.convert(e)).collect(Collectors.toList());
 		
 		return WebControllerUtil.getResponse(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
 	@GetMapping("/api/common/menu")
@@ -72,8 +68,7 @@ public class MenuQueryController {
 		List<MenuDTO.FormMenu> dtoList = list.stream().map(e -> MenuDTO.FormMenu.convert(e)).collect(Collectors.toList());
 		
 		return WebControllerUtil.getResponse(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
 	@GetMapping("/api/common/menu/menutype")
@@ -86,7 +81,6 @@ public class MenuQueryController {
 		}
 		
 		return WebControllerUtil.getResponse(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

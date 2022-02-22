@@ -7,7 +7,7 @@ import com.like.system.dept.boundary.DeptDTO;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptRepository;
 
-@Service("deptService")
+@Service
 @Transactional
 public class DeptService {
 
@@ -34,8 +34,8 @@ public class DeptService {
 	}
 	
 	public void saveDept(DeptDTO.FormDept dto) {
-		Dept dept = deptRepository.findById(dto.getDeptCode()).orElse(null);
-		Dept parentDept = dto.getParentDeptCode() == null ? null : deptRepository.findById(dto.getParentDeptCode()).orElse(null); 			
+		Dept dept = deptRepository.findById(dto.deptCode()).orElse(null);
+		Dept parentDept = dto.parentDeptCode() == null ? null : deptRepository.findById(dto.parentDeptCode()).orElse(null); 			
 		
 		if (dept == null) {
 			dept = dto.newDept(parentDept);

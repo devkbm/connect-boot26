@@ -1,8 +1,5 @@
 package com.like.system.user.boundary;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.util.StringUtils;
@@ -12,21 +9,13 @@ import com.like.system.user.domain.QAuthority;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.Data;
-
 public class AuthorityDTO {
-			
-	@Data
-	public static class SearchAuthority implements Serializable {			
+					
+	public record SearchAuthority(
+			String authority,
+			String description
+			) {
 		
-		private static final long serialVersionUID = -3030210553466518025L;
-
-		private final QAuthority qAuthority = QAuthority.authority;
-		
-		String authority;
-			
-		String description;
-			
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
@@ -39,32 +28,23 @@ public class AuthorityDTO {
 		private BooleanExpression likeAuthority(String authority) {
 			if (!StringUtils.hasText(authority)) return null;
 			
+			final QAuthority qAuthority = QAuthority.authority;
 			return qAuthority.authorityName.like("%"+authority+"%");
 		}
 		
 		private BooleanExpression likeDescription(String description) {
 			if (!StringUtils.hasText(description)) return null;
 			
+			final QAuthority qAuthority = QAuthority.authority;
 			return qAuthority.description.like("%"+description+"%");
 		}
-		
 	}
 	
-	@Data
-	public static class FormAuthority {
-
-		LocalDateTime createdDt;	
-			
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-				
-		@NotEmpty(message="권한은 필수 항목입니다.")
-		String authority;
-				
-		String description;
+	public record FormAuthority(
+			@NotEmpty(message="권한은 필수 항목입니다.")
+			String authority,
+			String description
+			) {
 		
 		public Authority newEntity() {
 			return new Authority(this.authority, this.description);
@@ -74,4 +54,6 @@ public class AuthorityDTO {
 			authority.modifyEntity(description);
 		}
 	}
+	
+	
 }

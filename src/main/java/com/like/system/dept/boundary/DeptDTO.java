@@ -1,6 +1,5 @@
 package com.like.system.dept.boundary;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -16,26 +15,18 @@ import com.like.system.dept.domain.QDept;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public class DeptDTO {	
 	
-	@Data
-	public static class SearchDept implements Serializable {
+	public record Search(			
+			String deptCode,
+			String deptName,
+			Boolean isEnabled
+			) {
 		
-		private static final long serialVersionUID = -4777670465777456711L;
-
-		private final QDept qDept = QDept.dept;
-		
-		String deptCode;
+		private static final QDept qDept = QDept.dept;
 				
-		String deptName;
-					
-		Boolean isEnabled;
-		
 		public BooleanBuilder getCondition() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
@@ -57,45 +48,51 @@ public class DeptDTO {
 			
 			return qDept.deptNameKorean.like("%"+deptName+"%");
 		}
-	}
+	}	
 	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder	
-	public static class FormDept implements Serializable {
+	@Builder
+	public static record FormDept(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			String parentDeptCode,
+			@NotEmpty(message="부서코드는 필수 입력 사항입니다.")
+			String deptCode,
+			@NotEmpty(message="부서명(한글)은 필수 입력 사항입니다.")
+			String deptNameKorean,
+			String deptAbbreviationKorean,
+			String deptNameEnglish,
+			String deptAbbreviationEnglish,
+			LocalDate fromDate,
+			LocalDate toDate,
+			Integer seq,
+			String comment
+			) {
 		
-		private static final long serialVersionUID = -670038546212531439L;
-
-		LocalDateTime createdDt;	
-		
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-		
-		String parentDeptCode;
-		
-		@NotEmpty(message="부서코드는 필수 입력 사항입니다.")
-		String deptCode;		
-		
-		@NotEmpty(message="부서명(한글)은 필수 입력 사항입니다.")
-		String deptNameKorean;		
-		
-		String deptAbbreviationKorean;
-		
-		String deptNameEnglish;
-		
-		String deptAbbreviationEnglish;
-							
-		LocalDate fromDate;
-				
-		LocalDate toDate;
-		
-		Integer seq;
-		
-		String comment;
+		public static DeptDTO.FormDept convertDTO(Dept entity) {							
+			
+			Optional<Dept> parent = Optional.ofNullable(entity.getParentDept());
+			Optional<LocalDatePeriod> period= Optional.ofNullable(entity.getPeriod());
+			
+			FormDept dto = FormDept.builder()
+									.createdDt(entity.getCreatedDt())
+									.createdBy(entity.getCreatedBy())
+									.modifiedDt(entity.getModifiedDt())
+									.modifiedBy(entity.getModifiedBy())
+									.deptCode(entity.getDeptCode())
+									.parentDeptCode(parent.map(Dept::getDeptCode).orElse(null))
+									.deptNameKorean(entity.getDeptNameKorean())
+									.deptAbbreviationKorean(entity.getDeptAbbreviationKorean())
+									.deptNameEnglish(entity.getDeptNameEnglish())
+									.deptAbbreviationEnglish(entity.getDeptAbbreviationEnglish())
+									.fromDate(period.map(LocalDatePeriod::getFrom).orElse(null))
+									.toDate(period.map(LocalDatePeriod::getTo).orElse(null))
+									.seq(entity.getSeq())
+									.comment(entity.getComment())
+									.build();		
+			return dto;		
+		}	
 		
 		public Dept newDept(@Nullable Dept parentDept) {
 			if (this.deptCode == null) {
@@ -124,31 +121,6 @@ public class DeptDTO {
 							 ,comment
 							 ,parentDept);
 		}
-				
-	}
-	
-	public static DeptDTO.FormDept convertDTO(Dept entity) {							
-												
-		Optional<Dept> parent = Optional.ofNullable(entity.getParentDept());
-		Optional<LocalDatePeriod> period= Optional.ofNullable(entity.getPeriod());
-		
-		FormDept dto = FormDept.builder()
-								.createdDt(entity.getCreatedDt())
-								.createdBy(entity.getCreatedBy())
-								.modifiedDt(entity.getModifiedDt())
-								.modifiedBy(entity.getModifiedBy())
-								.deptCode(entity.getDeptCode())
-								.parentDeptCode(parent.map(Dept::getDeptCode).orElse(null))
-								.deptNameKorean(entity.getDeptNameKorean())
-								.deptAbbreviationKorean(entity.getDeptAbbreviationKorean())
-								.deptNameEnglish(entity.getDeptNameEnglish())
-								.deptAbbreviationEnglish(entity.getDeptAbbreviationEnglish())
-								.fromDate(period.map(LocalDatePeriod::getFrom).orElse(null))
-								.toDate(period.map(LocalDatePeriod::getTo).orElse(null))
-								.seq(entity.getSeq())
-								.comment(entity.getComment())
-								.build();		
-		return dto;		
 	}	
 	
 }

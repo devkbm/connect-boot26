@@ -20,7 +20,7 @@ public class DeptQueryService {
 		this.repository = repository;
 	}
 	
-	public List<Dept> getDeptList(DeptDTO.SearchDept searchCondition) {
+	public List<Dept> getDeptList(DeptDTO.Search searchCondition) {
 		return repository.getDeptList(searchCondition);
 	}
 	

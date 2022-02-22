@@ -1,7 +1,5 @@
 package com.like.cooperation.team.web;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -17,7 +15,6 @@ import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.service.TeamService;
 import com.like.system.core.web.util.WebControllerUtil;
-import com.like.system.user.domain.SystemUser;
 
 @RestController
 public class TeamController {

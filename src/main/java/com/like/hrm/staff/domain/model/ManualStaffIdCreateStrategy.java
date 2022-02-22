@@ -6,7 +6,7 @@ public class ManualStaffIdCreateStrategy implements StaffIdCreateStrategy  {
 
 	@Override
 	public String create(NewStaff emp) {
-		return emp.getName();
+		return null;
 	}
 
 }

@@ -33,7 +33,7 @@ public class StaffController {
 	}
 		
 	@PostMapping("/hrm/staff/create")
-	public ResponseEntity<?> newStaff(@RequestBody @Valid StaffDTO.NewStaffRec dto) {											
+	public ResponseEntity<?> newStaff(@RequestBody @Valid StaffDTO.NewStaff dto) {											
 								
 		staffService.newStaff(dto);
 											 				

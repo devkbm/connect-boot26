@@ -27,9 +27,9 @@ public class StaffFamilyService {
 	}
 	
 	public void saveFamily(StaffDTO.FormFamily dto) {
-		Staff emp = getEmployeeInfo(dto.getStaffId());
+		Staff emp = getEmployeeInfo(dto.staffId());
 		
-		Family entity = emp.getFamilyList().get(dto.getId());
+		Family entity = emp.getFamilyList().get(dto.id());
 		
 		if (entity == null) {
 			entity = dto.newEntity(emp);

@@ -28,9 +28,9 @@ public class StaffSchoolCareerService {
 	}
 	
 	public void saveSchoolCareer(StaffDTO.FormEducation dto) {
-		Staff emp = getEmployeeInfo(dto.getStaffId());
+		Staff emp = getEmployeeInfo(dto.staffId());
 		
-		SchoolCareer education = emp.getSchoolCareerList().get(dto.getEducationId());
+		SchoolCareer education = emp.getSchoolCareerList().get(dto.educationId());
 		
 		if (education == null) {
 			education = dto.newEntity(emp);

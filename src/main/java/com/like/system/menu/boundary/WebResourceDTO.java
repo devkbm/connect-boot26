@@ -1,6 +1,5 @@
 package com.like.system.menu.boundary;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,29 +11,19 @@ import com.like.system.menu.domain.WebResource;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public class WebResourceDTO {
 	
-	@Data
-	public static class SearchWebResource implements Serializable {
+	public record SearchWebResource(
+			String resourceCode,
+			String resourceName,
+			String resourceType,
+			String url,
+			String description
+			) {
 		
-		private static final long serialVersionUID = 698694617356322910L;
-
-		private final QWebResource qWebResource = QWebResource.webResource;
-		
-		String resourceCode;
-		
-		String resourceName;
-		
-		String resourceType;
-		
-		String url;
-		
-		String description;
+		private static final QWebResource qWebResource = QWebResource.webResource;
 		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -78,36 +67,38 @@ public class WebResourceDTO {
 			
 			return qWebResource.description.like("%"+description+"%");
 		}
-	}
+		
+	}	
 	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder	
-	public static class FormWebResource implements Serializable {
-				
-		private static final long serialVersionUID = -1400051159309726788L;
-
-		LocalDateTime createdDt;	
+	@Builder
+	public static record FormWebResource(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			@NotEmpty
+			String resourceCode,
+			@NotEmpty
+			String resourceName,
+			String resourceType,
+			@NotEmpty
+			String url,
+			String description
+			) {
 		
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-		
-		@NotEmpty
-		String resourceCode;
-			
-		@NotEmpty
-		String resourceName; 
-				
-		String resourceType;
-				
-		@NotEmpty
-		String url;
-			
-		String description;		
+		public static FormWebResource convertDTO(WebResource entity) {
+			return FormWebResource.builder()
+								  .createdDt(entity.getCreatedDt())	
+								  .createdBy(entity.getCreatedBy())
+								  .modifiedDt(entity.getCreatedDt())
+								  .modifiedBy(entity.getModifiedBy())
+								  .resourceCode(entity.getResourceCode())
+								  .resourceName(entity.getResourceName())
+								  .resourceType(entity.getResourceType())
+								  .url(entity.getUrl())
+								  .description(entity.getDescription())
+								  .build();
+		}
 		
 		public WebResource newWebResource() {
 			return WebResource.builder()
@@ -124,21 +115,9 @@ public class WebResourceDTO {
 							   ,resourceType
 							   ,url
 							   ,description);
-		}
-		
-		public static FormWebResource convertDTO(WebResource entity) {
-			return FormWebResource.builder()
-								  .createdDt(entity.getCreatedDt())	
-								  .createdBy(entity.getCreatedBy())
-								  .modifiedDt(entity.getCreatedDt())
-								  .modifiedBy(entity.getModifiedBy())
-								  .resourceCode(entity.getResourceCode())
-								  .resourceName(entity.getResourceName())
-								  .resourceType(entity.getResourceType())
-								  .url(entity.getUrl())
-								  .description(entity.getDescription())
-								  .build();
-		}
+		}			
 		
 	}
+	
+	
 }

@@ -33,8 +33,8 @@ public class AuthorityService {
 	public void createAuthority(AuthorityDTO.FormAuthority dto) {
 		Authority authority = null;
 		
-		if (dto.getAuthority() != null) {
-			authority = repository.findById(dto.getAuthority()).orElse(null);
+		if (dto.authority() != null) {
+			authority = repository.findById(dto.authority()).orElse(null);
 		} 
 		
 		if (authority == null) {

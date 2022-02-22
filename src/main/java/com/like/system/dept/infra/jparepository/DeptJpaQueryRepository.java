@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.like.system.dept.boundary.DeptDTO.Search;
 import com.like.system.dept.boundary.ResponseDeptHierarchy;
-import com.like.system.dept.boundary.DeptDTO.SearchDept;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptQueryRepository;
 import com.like.system.dept.domain.QDept;
@@ -24,7 +24,7 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 	}
 	
 	@Override
-	public List<Dept> getDeptList(SearchDept searchCondition) {
+	public List<Dept> getDeptList(Search searchCondition) {
 		return queryFactory				
 				.selectFrom(qDept)
 				.where(searchCondition.getCondition())

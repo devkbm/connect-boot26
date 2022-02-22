@@ -27,9 +27,9 @@ public class StaffLicenseService {
 	}
 	
 	public void saveLicense(StaffDTO.FormLicense dto) {
-		Staff emp = getEmployeeInfo(dto.getStaffId());
+		Staff emp = getEmployeeInfo(dto.staffId());
 		
-		License license = emp.getLicenseList().get(dto.getLicenseId());
+		License license = emp.getLicenseList().get(dto.licenseId());
 		
 		if (license == null) {
 			license = dto.newEntity(emp);

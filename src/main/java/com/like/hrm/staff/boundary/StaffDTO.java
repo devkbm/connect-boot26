@@ -1,6 +1,5 @@
 package com.like.hrm.staff.boundary;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.like.cooperation.team.boundary.TeamMemberDTO;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffName;
@@ -21,46 +19,25 @@ import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 public class StaffDTO {
 		
-	@Slf4j
-	@Data
-	@JsonInclude(Include.NON_EMPTY)	
-	public static class SearchStaff implements Serializable {			
+	@JsonInclude(Include.NON_EMPTY)
+	public record SearchStaff(
+			LocalDate referenceDate,
+			String staffId,
+			String name,
+			String deptType,
+			String deptCode,
+			List<String> deptCodeList,
+			String deptName,
+			String jobType,
+			String jobCode
+			) {
 		
-		private static final long serialVersionUID = -3725100691674283297L;
-
-		private final QStaff qStaff = QStaff.staff;		
-
-		LocalDate referenceDate;
-		
-		String staffId;
-		
-		String name;
-		
-		String deptType;
-		
-		String deptCode;
-		
-		List<String> deptCodeList;
-					
-		String deptName;
-		
-		String jobType;
-		
-		String jobCode;
+		private static final QStaff qStaff = QStaff.staff;
 		
 		public BooleanBuilder getBooleanBuilder() {
-			BooleanBuilder builder = new BooleanBuilder();
-			
-			log.info(this.deptType + " : "+ this.deptCodeList);
+			BooleanBuilder builder = new BooleanBuilder();					
 			
 			builder				
 				.and(likeId(this.staffId))
@@ -71,42 +48,18 @@ public class StaffDTO {
 		
 		private BooleanExpression likeId(String id) {
 			if (!StringUtils.hasText(id)) return null;
-			
+									
 			return qStaff.id.like("%"+id+"%");
 		}
 		
 		private BooleanExpression likeName(String name) {
 			if (!StringUtils.hasText(name)) return null;
-			
+								
 			return qStaff.name.name.like("%"+name+"%");
-		}			
-					
+		}	
+	}	
 		
-	}
-	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder
-	public static class NewStaff implements Serializable {
-		
-		private static final long serialVersionUID = 5189496256963058913L;	
-				
-		@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
-		private String staffId;
-		
-		@NotEmpty(message = "이름은 필수 입력 값입니다.")
-		private String name;
-
-		private String nameEng;
-		
-		private String nameChi;
-				
-		@NotEmpty(message = "주민등록번호는 필수 입력 값입니다.")
-		private String residentRegistrationNumber;	
-	}
-	
-	public record NewStaffRec(
+	public record NewStaff(
 			@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
 			String staffId,
 			@NotEmpty(message = "이름은 필수 입력 값입니다.")
@@ -115,99 +68,63 @@ public class StaffDTO {
 			String nameChi,
 			@NotEmpty(message = "주민등록번호는 필수 입력 값입니다.")
 			String residentRegistrationNumber
-			) {	
-	}
-	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder
-	public static class ResponseStaff implements Serializable {
+			) {	}
+		
+	public record ResponseStaff(
+			String staffId,
+			String name,
+			String nameEng,
+			String nameChi,
+			String residentRegistrationNumber,
+			String gender,
+			LocalDate birthday,
+			String imagePath
+			) {
 				
-		private static final long serialVersionUID = 3650310845683492073L;
-
-		String staffId;	
-		
-		String name;
-		
-		String nameEng;
-		
-		String nameChi;			
-					
-		String residentRegistrationNumber;
-		
-		String gender;
-		
-		LocalDate birthday;				
-		
-		String imagePath;			
-		
 		public static ResponseStaff convert(Staff entity) {
-									
-			if (entity == null) return null;
 			
-			return ResponseStaff.builder()
-								   .staffId(entity.getId())
-								   .name(entity.getName().getName())
-								   .nameEng(entity.getName().getNameEng())
-								   .nameChi(entity.getName().getNameChi())
-								   .residentRegistrationNumber(entity.getResidentRegistrationNumber().getNumber())
-								   .gender(entity.getGender())
-								   .birthday(entity.getBirthday())
-								   .imagePath(entity.getImagePath())								   
-								   .build();
+			if (entity == null) return null;			
+			
+			var name = entity.getName();
+			
+			return new ResponseStaff(entity.getId()					               								  
+								   	,name.getName()
+								   	,name.getNameEng()
+								   	,name.getNameChi()
+								   	,entity.getResidentRegistrationNumber().getNumber()
+								   	,entity.getGender()
+								   	,entity.getBirthday()
+								   	,entity.getImagePath());								   
+								   
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder
 	@JsonIgnoreProperties(ignoreUnknown = true)
-	public static class FormStaff implements Serializable {
-								
-		private static final long serialVersionUID = -3475382902805357777L;
-
-		@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
-		private String staffId;
-				
-		private String name;
-
-		private String nameEng;
-		
-		private String nameChi;			
-						
-		private String gender;	
-		
-		private LocalDate birthday;
+	public record FormStaff(
+			@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
+			String staffId,
+			String name,
+			String nameEng,
+			String nameChi,
+			String gender,
+			LocalDate birthday
+			) {
 		
 		public void modifyEntity(Staff entity) {
 			entity.modifyEntity(new StaffName(name, nameEng, nameChi)
 					 		   ,this.birthday);
 		}
 	}
-			
-	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder
-	public static class FormEducation implements Serializable {					
-
-		private static final long serialVersionUID = -8768170007000992707L;
-
-		@NotEmpty
-		private String staffId;
-			
-		private Long educationId;
 		
-		@NotEmpty
-		private String schoolCareerType;
-				
-		@NotEmpty
-		private String schoolCode;
-				
-		private String comment;
+	public record FormEducation(
+			@NotEmpty
+			String staffId,
+			Long educationId,
+			@NotEmpty
+			String schoolCareerType,
+			@NotEmpty
+			String schoolCode,
+			String comment) {
 		
 		public SchoolCareer newEntity(Staff employee) {
 			return new SchoolCareer(employee
@@ -223,39 +140,29 @@ public class StaffDTO {
 		}	
 		
 		public static FormEducation convert(SchoolCareer entity) {
-			return FormEducation.builder()
-								.staffId(entity.getStaff().getId())
-								.educationId(entity.getId())
-								.schoolCareerType(entity.getSchoolCareerType())
-								.schoolCode(entity.getSchoolCode())
-								.comment(entity.getComment())
-								.build();
+			if (entity == null) return null;			
+			
+			return new FormEducation(entity.getStaff().getId()
+									,entity.getId()
+									,entity.getSchoolCareerType()
+									,entity.getSchoolCode()
+									,entity.getComment()); 								
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder
-	public static class FormLicense implements Serializable {						
-
-		private static final long serialVersionUID = -4765555653271244793L;
-
-		@NotEmpty
-		private String staffId;
+	public record FormLicense(
+			@NotEmpty
+			String staffId,
+			Long licenseId,
+			@NotEmpty
+			String licenseType,
+			@NotEmpty
+			String licenseCode,
+			String comment
+			) {
 		
-		private Long licenseId;
-		
-		@NotEmpty
-		private String licenseType;
-				
-		@NotEmpty
-		private String licenseCode;
-				
-		private String comment;
-		
-		public License newEntity(Staff employee) {
-			return new License(employee
+		public License newEntity(Staff staff) {
+			return new License(staff
 							  ,this.licenseType
 							  ,this.licenseCode
 							  ,this.comment);
@@ -268,40 +175,29 @@ public class StaffDTO {
 		}	
 		
 		public static FormLicense convert(License entity)  {
-			return FormLicense.builder()
-							  .staffId(entity.getStaff().getId())
-							  .licenseId(entity.getLicenseId())
-							  .licenseType(entity.getLicenseType())
-							  .licenseCode(entity.getLicenseCode())
-							  .comment(entity.getComment())
-							  .build();
+			if (entity == null) return null; 
+			
+			return new FormLicense(entity.getStaff().getId()
+								  ,entity.getLicenseId()
+								  ,entity.getLicenseType()
+								  ,entity.getLicenseCode()
+								  ,entity.getComment());
+							  
 		}
-	}	
+	}
+		
 	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder
-	public static class FormFamily implements Serializable {
-				
-		private static final long serialVersionUID = -8291690526903657079L;
-
-		@NotEmpty
-		private String staffId;
-		
-		private Long id;
-		
-		private String name;
-				
-		private String residentRegistrationNumber;
-				
-		private String relation;
-				
-		private String occupation;
-				
-		private String schoolCareerType;
-				
-		private String comment;
+	public record FormFamily(
+			@NotEmpty
+			String staffId,
+			Long id,
+			String name,
+			String residentRegistrationNumber,
+			String relation,
+			String occupation,
+			String schoolCareerType,
+			String comment
+			) {
 		
 		public Family newEntity(Staff employee) {
 			return new Family(employee
@@ -323,18 +219,18 @@ public class StaffDTO {
 		}
 		
 		public static FormFamily convert(Family entity) {
-			return FormFamily.builder()
-							 .staffId(entity.getStaff().getId())
-							 .id(entity.getId())
-							 .name(entity.getResidentRegistrationNumber())
-							 .relation(entity.getRelation())
-							 .occupation(entity.getOccupation())
-							 .schoolCareerType(entity.getSchoolCareerType())
-							 .comment(entity.getComment())
-							 .build();
+			if (entity == null) return null;
+			
+			return new FormFamily(entity.getStaff().getId()
+									,entity.getId()
+									,entity.getName()
+									,entity.getResidentRegistrationNumber()
+									,entity.getRelation()
+									,entity.getOccupation()
+									,entity.getSchoolCareerType()
+									,entity.getComment());							 							 							 							 						
 		}
-	}
-	
+	}	
 	
 
 }

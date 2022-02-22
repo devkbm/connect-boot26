@@ -22,7 +22,7 @@ public class BizTypeCodeService {
 	}
 	
 	public void saveBizTypeCode(BizTypeCodeDTO.FormBizTypeCode dto) {
-		BizTypeCode entity = this.getBizTypeCode(dto.getId());
+		BizTypeCode entity = this.getBizTypeCode(dto.id());
 		
 		if (entity == null) {
 			entity = dto.newEntity();			

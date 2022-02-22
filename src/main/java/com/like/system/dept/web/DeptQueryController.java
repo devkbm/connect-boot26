@@ -2,7 +2,6 @@ package com.like.system.dept.web;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,22 +23,20 @@ public class DeptQueryController {
 	}
 	
 	@GetMapping("/api/common/depttree")
-	public ResponseEntity<?> getDeptHierarchyList(@ModelAttribute DeptDTO.SearchDept searchCondition) {
+	public ResponseEntity<?> getDeptHierarchyList(@ModelAttribute DeptDTO.Search searchCondition) {
 							
 		List<ResponseDeptHierarchy> list = service.getDeptHierarchyList();  						 						
 		
 		return WebControllerUtil.getResponse(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/api/common/dept")
-	public ResponseEntity<?> getDeptList(@ModelAttribute DeptDTO.SearchDept searchCondition) {
+	public ResponseEntity<?> getDeptList(@ModelAttribute DeptDTO.Search searchCondition) {
 							
 		List<Dept> list = service.getDeptList(searchCondition);  						 						
 		
 		return WebControllerUtil.getResponse(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

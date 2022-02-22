@@ -7,7 +7,7 @@ import com.like.system.menu.boundary.MenuGroupDTO;
 
 public interface MenuQueryRepository {
 
-	List<MenuGroup> getMenuGroupList(MenuGroupDTO.SearchMenuGroup condition);
+	List<MenuGroup> getMenuGroupList(MenuGroupDTO.Search condition);
 	
 	List<MenuGroup> getMenuGroupList(String likeMenuGroupName);
 	
