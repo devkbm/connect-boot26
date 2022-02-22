@@ -33,19 +33,13 @@ import lombok.ToString;
 
 public class ArticleDTO {
 	
-	@Data
-	public static class SearchArticle implements Serializable {
+	public record Search(
+			Long fkBoard,
+			String title,
+			String contents
+			) {
+		private static final QArticle qArticle = QArticle.article;
 		
-		private static final long serialVersionUID = 1L;
-
-		private final QArticle qArticle = QArticle.article;
-		
-		Long fkBoard;
-		
-		String title;
-		
-		String contents;
-					
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
@@ -68,9 +62,7 @@ public class ArticleDTO {
 			
 			return qArticle.contents.like("%"+contents+"%");
 		}
-		
-		
-	}
+	}	
 	
 	@Data	
 	@NoArgsConstructor	

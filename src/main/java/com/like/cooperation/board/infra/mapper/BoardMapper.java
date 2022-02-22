@@ -16,6 +16,6 @@ public interface BoardMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	List<Map<String,Object>> getArticleList(ArticleDTO.SearchArticle queryDTO);
+	List<Map<String,Object>> getArticleList(ArticleDTO.Search queryDTO);
 			
 }

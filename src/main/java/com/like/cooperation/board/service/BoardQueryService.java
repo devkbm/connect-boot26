@@ -20,7 +20,7 @@ public class BoardQueryService {
     	this.boardRepository = boardRepository;    	
     }        
     
-	public List<Board> getBoardList(BoardDTO.SearchBoard condition) {
+	public List<Board> getBoardList(BoardDTO.Search condition) {
 		return boardRepository.getBoardList(condition.getBooleanBuilder());
 	}	
 		

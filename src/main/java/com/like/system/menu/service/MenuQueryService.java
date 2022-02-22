@@ -30,7 +30,7 @@ public class MenuQueryService {
 		return menuJpaRepository.getMenuGroupList(likeMenuGroupName);
 	}				
 	
-	public List<Menu> getMenuList(MenuDTO.SearchMenu condition) {
+	public List<Menu> getMenuList(MenuDTO.Search condition) {
 		return menuJpaRepository.getMenuList(condition);
 	}
 	

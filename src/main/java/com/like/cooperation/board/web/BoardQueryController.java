@@ -50,7 +50,7 @@ public class BoardQueryController {
 	}
 
 	@GetMapping("/api/grw/board")
-	public ResponseEntity<?> getBoardList(BoardDTO.SearchBoard dto) {						
+	public ResponseEntity<?> getBoardList(BoardDTO.Search dto) {						
 		
 		List<Board> list = boardQueryService.getBoardList(dto); 										
 		List<BoardDTO.FormBoard> dtoList = list.stream()

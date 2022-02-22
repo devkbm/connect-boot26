@@ -1,6 +1,5 @@
 package com.like.system.menu.boundary;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotEmpty;
@@ -16,27 +15,18 @@ import com.like.system.menu.domain.WebResource;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-public class MenuDTO {		
+public class MenuDTO {	
 	
-	@Data
-	public static class SearchMenu implements Serializable {
+	public record Search(
+			@NotEmpty(message = "필수 입력 값입니다.")
+			String menuGroupCode,
+			String menuCode,
+			String menuName
+			) {
+		private static final QMenu qMenu = QMenu.menu;
 		
-		private static final long serialVersionUID = -7394537330230941998L;
-
-		private final QMenu qMenu = QMenu.menu;
-		
-		@NotEmpty(message = "필수 입력 값입니다.")
-		String menuGroupCode;
-		
-		String menuCode;
-		
-		String menuName;
-				
 		public BooleanBuilder getBooleanBuilder() {																
 			return new BooleanBuilder()
 					.and(equalMenuGroupCode(this.menuGroupCode))
@@ -59,42 +49,26 @@ public class MenuDTO {
 			
 			return qMenu.menuName.like("%"+menuName+"%");
 		}
-	}
+	}	
 	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
 	@Builder
-	public static class FormMenu implements Serializable {
-		
-		private static final long serialVersionUID = 2421325619239144951L;
-
-		LocalDateTime createdDt;	
-		
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-		
-		@NotEmpty
-		private String menuGroupCode;
-				
-		@NotEmpty
-		private String menuCode;
-			
-		@NotEmpty
-		private String menuName;
-			
-		private String parentMenuCode;
-		
-		private String menuType;
-			
-		private long sequence;
-				
-		private long level;
-		
-		private String resource;												
+	public static record FormMenu(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			@NotEmpty
+			String menuGroupCode,
+			@NotEmpty
+			String menuCode,
+			@NotEmpty
+			String menuName,
+			String parentMenuCode,
+			String menuType,
+			long sequence,
+			long level,
+			String resource
+			) {
 		
 		public Menu newMenu(MenuGroup menuGroup, WebResource resource) {
 			return Menu.builder()
@@ -136,6 +110,6 @@ public class MenuDTO {
 					   	   .resource(menu.getResource() == null ? null : menu.getResource().getResourceCode())
 					   	   .build();
 		}
-	}
+	}	
 	
 }

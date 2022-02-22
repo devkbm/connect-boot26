@@ -24,11 +24,11 @@ public class ArticleQueryService {
     	this.boardMapper = boardMapper;    	
     }
     
-	public List<Article> getAritlceList(ArticleDTO.SearchArticle condition) {
+	public List<Article> getAritlceList(ArticleDTO.Search condition) {
 		return articleRepository.getArticleList(condition.getBooleanBuilder());
 	}
 	
-	public List<Map<String,Object>> getArticleList(ArticleDTO.SearchArticle condition) {
+	public List<Map<String,Object>> getArticleList(ArticleDTO.Search condition) {
 		return boardMapper.getArticleList(condition);
 	}
     

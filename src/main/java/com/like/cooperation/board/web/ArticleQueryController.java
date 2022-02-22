@@ -23,7 +23,7 @@ public class ArticleQueryController {
 	}
 	
 	@GetMapping("/api/grw/board/article")
-	public ResponseEntity<?> getArticleList(ArticleDTO.SearchArticle condition) {
+	public ResponseEntity<?> getArticleList(ArticleDTO.Search condition) {
 																	
 		List<Article> list = service.getAritlceList(condition);  							
 		

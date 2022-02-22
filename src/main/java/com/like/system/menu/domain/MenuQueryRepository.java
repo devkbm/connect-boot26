@@ -11,6 +11,6 @@ public interface MenuQueryRepository {
 	
 	List<MenuGroup> getMenuGroupList(String likeMenuGroupName);
 	
-	List<Menu> getMenuList(MenuDTO.SearchMenu condition);
+	List<Menu> getMenuList(MenuDTO.Search condition);
 	
 }

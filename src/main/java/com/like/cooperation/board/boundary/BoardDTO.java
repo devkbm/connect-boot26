@@ -21,27 +21,18 @@ import com.querydsl.core.annotations.QueryProjection;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public class BoardDTO {
 	
-	/**
-	 * 게시판 조회조건 
-	 */
-	@Data
-	public static class SearchBoard implements Serializable {
+	public record Search(
+			String boardName,
+			String boardType
+			) {		
+		private static final QBoard qBoard = QBoard.board;
 		
-		private static final long serialVersionUID = 1L;
-
-		private final QBoard qBoard = QBoard.board;
-		
-		String boardName;
-		
-		String boardType;
-					
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
@@ -64,58 +55,27 @@ public class BoardDTO {
 			
 			return qBoard.boardType.eq(BoardType.valueOf(boardType));
 		}
-	}
+	}	
 	
-	/**
-	 * 게시판 저장을 위한 DTO Class
-	 * 	 
-	 */
-	@Data
 	@Builder
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	@AllArgsConstructor	
-	public static class FormBoard implements Serializable {
-						
-		private static final long serialVersionUID = 1L;
-
-		LocalDateTime createdDt;	
-			
-		String createdBy;
-			
-		LocalDateTime modifiedDt;
-			
-		String modifiedBy;
-			
-		Long pkBoard;
+	public static record FormBoard(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			Long pkBoard,
+			Long ppkBoard,
+			String boardType,
+			@NotEmpty(message="게시판명은 필수 입력사항입니다.")
+			String boardName,
+			String boardDescription,
+			LocalDate fromDate,
+			LocalDate toDate,
+			Boolean useYn,
+			long articleCount,
+			long sequence
+			) {
 		
-	    /**
-	     * 상위 게시판 키
-	     */		
-	    Long ppkBoard;
-			
-		/**
-		 * 게시판_타입
-		 */		
-	    String boardType;
-		
-		/**
-	     * 게시판 명
-	     */    
-		@NotEmpty(message="게시판명은 필수 입력사항입니다.")	
-	    String boardName;    
-	        
-	    String boardDescription;
-	            
-	    LocalDate fromDate;
-	            
-	    LocalDate toDate;
-	        
-	    Boolean useYn;
-	    
-	    long articleCount;
-	            
-	    long sequence; 
-	    
 		public Board newBoard(Board parentBoard) {
 			
 			return Board.builder()
@@ -164,8 +124,7 @@ public class BoardDTO {
 						    .sequence(entity.getSequence())
 						    .build();	
 		}
-	}
-	
+	}	
 	
 	@Data
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)

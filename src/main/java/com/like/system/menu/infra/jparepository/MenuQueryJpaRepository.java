@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.like.system.menu.boundary.ResponseMenuHierarchy;
-import com.like.system.menu.boundary.MenuDTO.SearchMenu;
-import com.like.system.menu.boundary.MenuGroupDTO.Search;
+import com.like.system.menu.boundary.MenuDTO;
+import com.like.system.menu.boundary.MenuGroupDTO;
 import com.like.system.menu.boundary.QResponseMenuHierarchy;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
@@ -32,7 +32,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 	}
 	
 	@Override
-	public List<MenuGroup> getMenuGroupList(Search condition) {
+	public List<MenuGroup> getMenuGroupList(MenuGroupDTO.Search condition) {
 		return queryFactory
 				.selectFrom(qMenuGroup)
 				.where(condition.getBooleanBuilder())
@@ -48,7 +48,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 	}
 
 	@Override
-	public List<Menu> getMenuList(SearchMenu condition) {
+	public List<Menu> getMenuList(MenuDTO.Search condition) {
 		return queryFactory
 				.selectFrom(qMenu)
 					.innerJoin(qMenu.menuGroup, qMenuGroup)

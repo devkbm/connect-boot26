@@ -61,7 +61,7 @@ public class MenuQueryController {
 	}
 	
 	@GetMapping("/api/common/menu")
-	public ResponseEntity<?> getMenuList(@Valid MenuDTO.SearchMenu dto) {				
+	public ResponseEntity<?> getMenuList(@Valid MenuDTO.Search dto) {				
 		
 		List<Menu> list = menuQueryService.getMenuList(dto);			
 		

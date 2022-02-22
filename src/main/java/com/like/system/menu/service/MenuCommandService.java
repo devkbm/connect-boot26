@@ -37,7 +37,7 @@ public class MenuCommandService {
 	}
 	
 	public void saveMenuGroup(MenuGroupDTO.FormMenuGroup dto) {
-		MenuGroup menuGroup = dto.getMenuGroupCode() != null ? menuGroupRepository.findById(dto.getMenuGroupCode()).orElse(null) : null; 			
+		MenuGroup menuGroup = dto.menuGroupCode() != null ? menuGroupRepository.findById(dto.menuGroupCode()).orElse(null) : null; 			
 		
 		if (menuGroup == null) {
 			menuGroup = dto.newMenuGroup();
@@ -61,10 +61,10 @@ public class MenuCommandService {
 	}
 	
 	public void saveMenu(MenuDTO.FormMenu dto) {
-		MenuGroup menuGroup = menuGroupRepository.findById(dto.getMenuGroupCode()).orElse(null);
-		Menu menu = menuRepository.findById(dto.getMenuCode()).orElse(null);
-		Menu parent = dto.getParentMenuCode() != null ? menuRepository.findById(dto.getParentMenuCode()).orElse(null) : null; 
-		WebResource resource = dto.getResource() != null ? webResourceRepository.findById(dto.getResource()).orElse(null) : null;					
+		MenuGroup menuGroup = menuGroupRepository.findById(dto.menuGroupCode()).orElse(null);
+		Menu menu = menuRepository.findById(dto.menuCode()).orElse(null);
+		Menu parent = dto.parentMenuCode() != null ? menuRepository.findById(dto.parentMenuCode()).orElse(null) : null; 
+		WebResource resource = dto.resource() != null ? webResourceRepository.findById(dto.resource()).orElse(null) : null;					
 					
 		if (menu == null) {
 			menu = dto.newMenu(menuGroup, resource);
