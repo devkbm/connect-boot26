@@ -1,9 +1,7 @@
 package com.like.system.hierarchycode.web;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,8 +29,7 @@ public class CommonCodeQueryController {
 		
 		return WebControllerUtil
 				.getResponse(list							
-							,String.format("%d 건 조회되었습니다.", list.size())
-							,HttpStatus.OK);
+							,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/api/common/code") 
@@ -46,7 +43,6 @@ public class CommonCodeQueryController {
 		
 		return WebControllerUtil
 				.getResponse(dtoList							
-							,String.format("%d 건 조회되었습니다.", dtoList.size())
-							,HttpStatus.OK);
+							,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

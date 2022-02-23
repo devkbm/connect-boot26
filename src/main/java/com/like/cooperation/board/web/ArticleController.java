@@ -3,11 +3,10 @@ package com.like.cooperation.board.web;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.like.cooperation.board.boundary.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.service.ArticleCommandService;
-import com.like.system.core.web.exception.ControllerException;
 import com.like.system.core.web.util.WebControllerUtil;
 
 @Controller
@@ -32,25 +30,23 @@ public class ArticleController {
 	}	
 	
 	@GetMapping("/api/grw/board/article/{id}")
-	public ResponseEntity<?> getArticle(@PathVariable(value="id") Long id, HttpSession session) {						
+	public ResponseEntity<?> getArticle(@PathVariable Long id, HttpSession session) {						
 		
 		Article article = service.getArticle(id);		
 	
 		ArticleDTO.ResponseArticle response = ArticleDTO.ResponseArticle.converDTO(article);				
 		
 		return WebControllerUtil.getResponse(response											
-											,String.format("%d 건 조회되었습니다.", 1)
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", 1));
 	}
 		
 	@DeleteMapping("/api/grw/board/article/{id}")
-	public ResponseEntity<?> deleteArticle(@PathVariable(value="id") Long id) {				
+	public ResponseEntity<?> deleteArticle(@PathVariable Long id) {				
 		
 		service.deleteArticle(id);							
 		
 		return WebControllerUtil.getResponse(null											
-											,String.format("%d 건 삭제되었습니다.", 1)
-											,HttpStatus.OK);
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 			
 	@DeleteMapping("/api/grw/board/article")
@@ -59,38 +55,27 @@ public class ArticleController {
 		service.deleteArticle(articleList);									
 		
 		return WebControllerUtil.getResponse(null											
-											,String.format("%d 건 삭제되었습니다.", articleList.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 삭제되었습니다.", articleList.size()));
 	}	
 		
 	@PostMapping("/api/grw/board/articletemp")
 	@ResponseBody
-	public ResponseEntity<?> saveArticleWithMultiPartFile(ArticleDTO.FormArticleByMuiltiPart dto, BindingResult result) throws Exception {
-											
-		if ( result.hasErrors() ) {
-			throw new ControllerException(result.getAllErrors().toString());
-		}			
+	public ResponseEntity<?> saveArticleWithMultiPartFile(ArticleDTO.FormArticleByMuiltiPart dto) throws Exception {													
 											
 		service.saveArticle(dto);											
 		
 		return WebControllerUtil.getResponse(null											
-											,String.format("%d 건 저장되었습니다.", 1)
-											,HttpStatus.OK);
+											,String.format("%d 건 저장되었습니다.", 1));
 	}
 		
 	@PostMapping("/api/grw/board/article")
 	@ResponseBody
-	public ResponseEntity<?> saveArticleJson(@RequestBody ArticleDTO.FormArticleByJson dto, BindingResult result) throws Exception {
-											
-		if ( result.hasErrors() ) {
-			throw new ControllerException(result.getAllErrors().toString());
-		}						
+	public ResponseEntity<?> saveArticleJson(@RequestBody @Valid ArticleDTO.FormArticleByJson dto) throws Exception {															
 										
 		service.saveArticle(dto);											
 		
 		return WebControllerUtil.getResponse(null											
-											,String.format("%d 건 저장되었습니다.", 1)
-											,HttpStatus.OK);
+											,String.format("%d 건 저장되었습니다.", 1));
 	}
 			
 	@GetMapping("/grw/board/article/hitcnt")
@@ -100,8 +85,7 @@ public class ArticleController {
 		Article aritlce = service.updateArticleHitCnt(id, userId);			
 										
 		return WebControllerUtil.getResponse(aritlce											
-											,String.format("%d건 업데이트 하였습니다.", 1)
-											,HttpStatus.OK);
+											,String.format("%d건 업데이트 하였습니다.", 1));
 	}	
 	
 }

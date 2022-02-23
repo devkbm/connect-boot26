@@ -28,9 +28,9 @@ public class TaskCommandService {
 	}
 		
 	public void saveTaskGroup(TaskDTO.FormTaskGroup dto) {
-		TaskGroup entity = repository.findById(dto.getPkTaskGroup()).orElse(null);
+		TaskGroup entity = repository.findById(dto.pkTaskGroup()).orElse(null);
 		
-		entity.modify(dto.getTaskGroupName());
+		entity.modify(dto.taskGroupName());
 		
 		repository.save(entity);	
 	}	
@@ -40,12 +40,12 @@ public class TaskCommandService {
 	}	
 	
 	public void saveTask(TaskDTO.FormTask dto) {
-		TaskGroup taskGroup = repository.findById(dto.getPkTaskGroup()).orElse(null);
+		TaskGroup taskGroup = repository.findById(dto.pkTaskGroup()).orElse(null);
 		Task entity = null;
-		if (dto.getPkTask() == null) {
+		if (dto.pkTask() == null) {
 			entity = dto.newEntity(taskGroup);
 		} else {
-			entity = taskGroup.getTask(dto.getPkTask());
+			entity = taskGroup.getTask(dto.pkTask());
 			dto.modifyEntity(entity);
 		}
 		

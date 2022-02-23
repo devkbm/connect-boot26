@@ -49,7 +49,7 @@ public class Board extends AuditEntity {
 	 * 상위 게시판
 	 */
 	@ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE}, optional = true)
-	@JoinColumn(name="PPK_BOARD", nullable = false)
+	@JoinColumn(name="PPK_BOARD")
 	Board parent;
 			
 	@Enumerated(EnumType.STRING)

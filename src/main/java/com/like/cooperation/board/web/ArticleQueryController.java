@@ -1,9 +1,7 @@
 package com.like.cooperation.board.web;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +27,9 @@ public class ArticleQueryController {
 		
 		List<ArticleDTO.ResponseArticle> dtoList = list.stream()
 													   .map(e -> ArticleDTO.ResponseArticle.converDTO((e)))
-													   .collect(Collectors.toList());		
+													   .toList();		
 		
 		return WebControllerUtil.getResponse(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

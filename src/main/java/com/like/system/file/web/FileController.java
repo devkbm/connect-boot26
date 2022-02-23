@@ -36,8 +36,8 @@ public class FileController {
 	}
 		
 	@GetMapping("/common/file/{id}")
-	public HttpServletResponse fileDownLoad(HttpServletResponse response,
-			@PathVariable(value="id") String id) throws Exception {
+	public HttpServletResponse fileDownLoad(HttpServletResponse response
+										   ,@PathVariable String id) throws Exception {
 								
 		FileInfo fileInfo = fileService.getFileInfo(id);
 		
@@ -49,8 +49,8 @@ public class FileController {
 	}
 		
 	@GetMapping("/common/fileimage/{id}")
-	public HttpServletResponse fileImageDownLoad(HttpServletResponse response,
-			@PathVariable(value="id") String id) throws Exception {
+	public HttpServletResponse fileImageDownLoad(HttpServletResponse response
+												,@PathVariable String id) throws Exception {
 								
 		FileInfo fileInfo = fileService.getFileInfo(id);
 					
@@ -65,8 +65,8 @@ public class FileController {
 	}
 		
 	@PostMapping("/common/file")
-	public ResponseEntity<?> fileUpload(final MultipartHttpServletRequest request,
-			@RequestParam(value="pgmId", required=false) String pgmId ) throws Exception {
+	public ResponseEntity<?> fileUpload(final MultipartHttpServletRequest request
+									   ,@RequestParam(value="pgmId", required=false) String pgmId ) throws Exception {
 						
 		List<FileInfo> list = new ArrayList<FileInfo>();
 		final Map<String, MultipartFile> files = request.getFileMap();

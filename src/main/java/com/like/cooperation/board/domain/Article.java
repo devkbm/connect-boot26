@@ -97,7 +97,7 @@ public class Article extends AuditEntity {
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     List<AttachedFile> files;
 			
-	@Formula("(SELECT X.USER_NAME FROM COM.COMUSER X WHERE X.USER_ID = sys_user)")
+	@Formula("(SELECT X.USER_NAME FROM COMUSER X WHERE X.USER_ID = sys_user)")
 	String userName;
 			
 	@Transient

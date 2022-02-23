@@ -1,6 +1,5 @@
 package com.like.cooperation.todo.boundary;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import org.springframework.util.StringUtils;
@@ -14,38 +13,27 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import lombok.Builder;
-import lombok.Data;
 
 public class TaskDTO {
 
-	@Data
-	public static class FormTaskGroup implements Serializable {
-		
-		private static final long serialVersionUID = 3162668012726732820L;
-
-		Long pkTaskGroup;
-		
-		String taskGroupName;
+	public record FormTaskGroup(
+			Long pkTaskGroup,
+			String taskGroupName
+			) {
 		
 		public void modifyEntity(TaskGroup entity) {
 			entity.modify(taskGroupName);
 		}
 	}
 	
-	@Data
-	public static class SearchTask implements Serializable {
-		
-		private static final long serialVersionUID = -3386038568613139989L;
-		private final QTaskGroup qTaskGroup = QTaskGroup.taskGroup;
-		private final QTask qTask = QTask.task1;		
-			
-		String userId;
-		
-		String task;		
-			
-		Boolean isCompleted;
-			
-	    LocalDate dueDate;
+	public record SearchTask(
+			String userId,
+			String task,
+			Boolean isCompleted,
+			LocalDate dueDate
+			) {
+		private static final QTaskGroup qTaskGroup = QTaskGroup.taskGroup;
+		private static final QTask qTask = QTask.task1;		
 		
 		public BooleanBuilder getQueryFilter() {		
 			BooleanBuilder builder = new BooleanBuilder();
@@ -66,31 +54,21 @@ public class TaskDTO {
 		}
 		
 		private BooleanExpression likeMenGroupCode(String task) {
-			if (StringUtils.isEmpty(task)) {
-				return null;
-			}
-			
+			if (!StringUtils.hasText(task)) return null;
+						
 			return qTask.task.like("%"+task+"%");
 		}
 	}
-	
+		
 	@Builder
-	@Data
-	public static class FormTask implements Serializable {			
-
-		private static final long serialVersionUID = 3295600355632998097L;
-
-		Long pkTaskGroup;
-		
-		Long pkTask;
-		
-		String task;
-		
-		boolean isCompleted;
-		
-		LocalDate dueDate;
-		
-		String comments;
+	public static record FormTask(
+			Long pkTaskGroup,
+			Long pkTask,
+			String task,
+			boolean isCompleted,
+			LocalDate dueDate,
+			String comments
+			) {
 		
 		public Task newEntity(TaskGroup taskGroup) {
 			return Task.builder()
@@ -115,6 +93,6 @@ public class TaskDTO {
 					       .comments(entity.getComments())
 						   .build();	
 		}
-	}
+	}	
 	
 }

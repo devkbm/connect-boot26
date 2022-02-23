@@ -161,6 +161,7 @@ public class ArticleDTO {
 			
 		String modifiedBy;
 	    	
+		@NotEmpty(message="게시판 PK는 필수값입니다.")
 		Long fkBoard;
 		
 		Long pkArticle;	
@@ -271,6 +272,8 @@ public class ArticleDTO {
 	    
 	    public static ArticleDTO.ResponseArticle converDTO(Article entity) {
 			
+	    	if (entity == null) return null;
+	    	
 			List<FileInfo> fileInfoList = entity.getAttachedFileInfoList();
 			List<FileResponseDTO> responseList = convertFileResponseDTO(fileInfoList);
 			
