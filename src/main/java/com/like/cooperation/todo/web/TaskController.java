@@ -1,7 +1,6 @@
 package com.like.cooperation.todo.web;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -59,7 +58,9 @@ public class TaskController {
 		
 		List<Task> list = taskCommandService.getTaskGroup(id).getTaskList();
 		
-		List<TaskDTO.FormTask> dtoList = list.stream().map(e -> TaskDTO.FormTask.convert(e)).collect(Collectors.toList()); 											
+		List<TaskDTO.FormTask> dtoList = list.stream()
+											 .map(e -> TaskDTO.FormTask.convert(e))
+											 .toList(); 											
 		
 		return WebControllerUtil.getResponse(dtoList
 											,String.format("%d 건 조회되었습니다.", dtoList.size()));
@@ -74,11 +75,11 @@ public class TaskController {
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
-	@DeleteMapping("/api/todo/taskgroup/{id}/task/{id2}")
-	public ResponseEntity<?> deleteTask(@PathVariable Long id
-									   ,@PathVariable Long id2) {							
+	@DeleteMapping("/api/todo/taskgroup/{taskgroupid}/task/{taskid}")
+	public ResponseEntity<?> deleteTask(@PathVariable Long taskgroupid
+									   ,@PathVariable Long taskid) {							
 			
-		taskCommandService.deleteTask(id, id2);
+		taskCommandService.deleteTask(taskgroupid, taskid);
 											 				
 		return WebControllerUtil.getResponse(null
 											,String.format("%d 건 삭제되었습니다.", 1));
