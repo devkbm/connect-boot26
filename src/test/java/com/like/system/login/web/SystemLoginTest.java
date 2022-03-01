@@ -3,9 +3,6 @@ package com.like.system.login.web;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,22 +27,11 @@ import com.like.system.login.boundary.LoginRequestDTO;
 import com.like.system.login.domain.AuthenticationToken;
 import com.like.system.login.service.LoginService;
 
-//@WebMvcTest(LoginController.class)
 class SystemLoginTest extends SpringMockMvcTestSupport {	
 
 	@MockBean
 	private LoginService service;
-			
-	// AsciiDoc 생성을 위해 설정
-	@BeforeEach
-	void setUp(WebApplicationContext webApplicationContext
-			  ,RestDocumentationContextProvider restDocumentation) {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-				.apply(documentationConfiguration(restDocumentation))
-				.build();
-	}
-
-	
+					
 	@DisplayName("로그인 테스트")
 	@Test
 	void login() throws Exception {					
@@ -86,9 +72,7 @@ class SystemLoginTest extends SpringMockMvcTestSupport {
 				fieldWithPath("userId").description("유저 아이디"),
 				fieldWithPath("userName").description("비밀번호")
 				)));	
-			*/
-				
-		
+			*/					
 	}
 	
 	//@Test

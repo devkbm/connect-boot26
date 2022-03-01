@@ -34,6 +34,8 @@ public class UserDTO {
 	
 	public static UserDTO.FormSystemUser convertDTO(SystemUser entity) throws FileNotFoundException, IOException {					
 		
+		if (entity == null) return null;
+		
 		Optional<Dept> dept = Optional.ofNullable(entity.getDept());
 		
 		FormSystemUser dto = FormSystemUser.builder()
