@@ -206,23 +206,18 @@
 			<plugin> 
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
-				<version>${asciidoctor.maven.plugin.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.springframework.restdocs</groupId>
-						<artifactId>spring-restdocs-asciidoctor</artifactId>
-						<version>${spring-restdocs.version}</version>
-					</dependency>
-				</dependencies>
+				<version>${asciidoctor.maven.plugin.version}</version>				
 				<executions>
 					<execution>
-						<id>asciidoc-to-html</id>
+						<id>generate-docs</id>
 						<phase>prepare-package</phase> 
 						<goals>
 							<goal>process-asciidoc</goal>
 						</goals>
 						<configuration>
-							<backend>html5</backend>							
+							<backend>html5</backend>
+							<doctype>book</doctype>
+							<!-- 							
 							<preserveDirectories>true</preserveDirectories>
 							<outputDirectory>src/main/resources/static</outputDirectory>
 							<attributes>
@@ -230,6 +225,42 @@
 								<spring-restdocs-version>${spring-restdocs.version}</spring-restdocs-version>
 								<basedir>${project.basedir}</basedir> 
 							</attributes>
+							 -->
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<!-- src/main/asciidoc/*.adoc 파일을 읽어, target/generated-snippets에 생성된 문서를 저장한다. -->
+					<dependency>
+						<groupId>org.springframework.restdocs</groupId>
+						<artifactId>spring-restdocs-asciidoctor</artifactId>
+						<version>${spring-restdocs.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			
+			<!-- 정적 컨텐츠로 제공(URL을 통한 문서 참조 가능) -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>				
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<!-- AsciiDoc과 동일하게 prepare-package 단계에서 실행-->
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.outputDirectory}/static/docs
+							</outputDirectory>
+							<resources>
+								<resource>
+									<directory>
+										${project.build.directory}/generated-docs
+									</directory>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>

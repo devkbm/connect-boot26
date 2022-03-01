@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.hrm.anualleave.boundary.AnualLeaveDTO;
 import com.like.hrm.anualleave.domain.model.AnualLeave;
 import com.like.hrm.anualleave.domain.model.AnualLeaveId;
-import com.like.hrm.anualleave.domain.repository.AnualLeaveRepository;
+import com.like.hrm.anualleave.domain.model.AnualLeaveRepository;
 
 @Service
 @Transactional
@@ -19,7 +19,7 @@ public class AnualLeaveService {
 	}
 	
 	public AnualLeave getAnualLeave(Integer yyyy, String empId) {
-		return this.repository.getAnualLeave(new AnualLeaveId(yyyy, empId));
+		return this.repository.findById(new AnualLeaveId(yyyy, empId)).orElse(null);
 		
 	}
 	
@@ -32,12 +32,12 @@ public class AnualLeaveService {
 			
 		}
 		
-		this.repository.saveAnualLeave(entity);
+		this.repository.save(entity);
 	}
 	
 	public void deleteAnualLeave(Integer yyyy, String empId) {
 		AnualLeave entity = this.getAnualLeave(yyyy, empId);
 		
-		this.repository.deleteAnualLeave(entity);
+		this.repository.delete(entity);
 	}
 }
