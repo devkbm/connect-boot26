@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,8 +38,7 @@ public class UserController {
 		
 		return WebControllerUtil
 				.getResponse(dto							
-							,String.format("%d 건 조회되었습니다.", 1)
-							,HttpStatus.OK);
+							,String.format("%d 건 조회되었습니다.", 1));
 	}
 	
 	@GetMapping("/api/common/user/{userId}")
@@ -52,8 +50,7 @@ public class UserController {
 		
 		return WebControllerUtil
 				.getResponse(dto							
-							,String.format("%d 건 조회되었습니다.", 1)
-							,HttpStatus.OK);
+							,String.format("%d 건 조회되었습니다.", 1));
 	}
 		
 	
@@ -65,8 +62,7 @@ public class UserController {
 																					 		
 		return WebControllerUtil
 				.getResponse(null							
-							,String.format("%d 건 저장되었습니다.", 1)
-							,HttpStatus.OK);
+							,String.format("%d 건 저장되었습니다.", 1));
 	}	
 	
 	@DeleteMapping("/api/common/user/{userId}")
@@ -76,8 +72,7 @@ public class UserController {
 								 					
 		return WebControllerUtil
 				.getResponse(null							
-							,String.format("%d 건 삭제되었습니다.", 1)
-							,HttpStatus.OK);
+							,String.format("%d 건 삭제되었습니다.", 1));
 	}
 		
 	@PostMapping("/api/common/user/{id}/changepassword")
@@ -87,8 +82,7 @@ public class UserController {
 								 					
 		return WebControllerUtil
 				.getResponse(null							
-							,"비밀번호가 변경되었습니다."
-							,HttpStatus.OK);
+							,"비밀번호가 변경되었습니다.");
 	}
 			
 	@PostMapping("/api/common/user/{userId}/initpassword")
@@ -98,8 +92,7 @@ public class UserController {
 								 					
 		return WebControllerUtil
 				.getResponse(null							
-							,"비밀번호가 초기화되었습니다."
-							,HttpStatus.OK);
+							,"비밀번호가 초기화되었습니다.");
 	}	
 			
 }

@@ -1,6 +1,5 @@
 package com.like.system.menu.web;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +25,7 @@ public class WebResourceFormValidController {
 						
 		return WebControllerUtil
 				.getResponse(isValid
-							,isValid == true ? "사용가능한 리소스 코드입니다." : "중복된 리소스 코드가 있습니다."
-							,HttpStatus.OK);
+							,isValid == true ? "사용가능한 리소스 코드입니다." : "중복된 리소스 코드가 있습니다.");
 	}
 	
 }

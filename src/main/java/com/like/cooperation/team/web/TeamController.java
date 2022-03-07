@@ -2,7 +2,6 @@ package com.like.cooperation.team.web;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ public class TeamController {
 	}
 				
 	@GetMapping("/api/grw/team/{id}")
-	public ResponseEntity<?> getTeam(@PathVariable("id") Long teamId) {
+	public ResponseEntity<?> getTeam(@PathVariable Long teamId) {
 						
 		Team team = teamService.getTeam(teamId);				
 		
@@ -58,18 +57,17 @@ public class TeamController {
 				
 	
 	@DeleteMapping("/api/grw/team/{teamId}")
-	public ResponseEntity<?> delBoard(@PathVariable("teamId") Long teamId) {					
+	public ResponseEntity<?> delBoard(@PathVariable Long teamId) {					
 		
 		teamService.deleteTeam(teamId);							
 		
 		return WebControllerUtil.getResponse(null											
-											,String.format("%d 건 삭제되었습니다.", 1)
-											,HttpStatus.OK);
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	@PostMapping("/api/grw/team/{teamId}/join/{userId}")
-	public ResponseEntity<?> joinTeam(@PathVariable("teamId") Long teamId
-									 ,@PathVariable("userId") String userId) {				
+	public ResponseEntity<?> joinTeam(@PathVariable Long teamId
+									 ,@PathVariable String userId) {				
 
 		teamService.joinTeam(teamId, userId);			
 										 					

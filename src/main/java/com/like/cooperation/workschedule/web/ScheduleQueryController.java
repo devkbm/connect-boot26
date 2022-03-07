@@ -1,9 +1,7 @@
 package com.like.cooperation.workschedule.web;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,12 +28,10 @@ public class ScheduleQueryController {
 		
 		List<ScheduleDTO.ResponseSchedule> dtoList = workGroupList.stream()
 																  .map( r -> ScheduleDTO.ResponseSchedule.convertResDTO(r))
-																  .collect(Collectors.toList());
+																  .toList();
 		
 		return WebControllerUtil
-				.getResponse(dtoList
-							,dtoList.size()							
-							,dtoList.size() + "건 조회 되었습니다."
-							,HttpStatus.OK);												
+				.getResponse(dtoList							
+							,dtoList.size() + "건 조회 되었습니다.");												
 	}
 }

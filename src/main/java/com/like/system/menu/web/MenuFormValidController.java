@@ -1,6 +1,5 @@
 package com.like.system.menu.web;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +26,7 @@ public class MenuFormValidController {
 								
 		return WebControllerUtil
 				.getResponse(isValid
-							,String.format("%d 건 조회되었습니다.", menuGroup != null ? 1 : 0)
-							,HttpStatus.OK);
+							,String.format("%d 건 조회되었습니다.", menuGroup != null ? 1 : 0));
 	}
 	
 	@GetMapping("/api/common/menu/{menucode}/check")
@@ -39,8 +37,7 @@ public class MenuFormValidController {
 		
 		return WebControllerUtil
 				.getResponse(isValid
-							,String.format("%d 건 조회되었습니다.", menu != null ? 1 : 0)
-							,HttpStatus.OK);
+							,String.format("%d 건 조회되었습니다.", menu != null ? 1 : 0));
 	}
 	
 }

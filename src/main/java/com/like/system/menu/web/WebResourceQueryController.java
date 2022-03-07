@@ -3,7 +3,6 @@ package com.like.system.menu.web;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +32,6 @@ public class WebResourceQueryController {
 														   .collect(Collectors.toList());
 		
 		return WebControllerUtil.getResponse(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size())
-											,HttpStatus.OK); 
+											,String.format("%d 건 조회되었습니다.", dtoList.size())); 
 	}
 }

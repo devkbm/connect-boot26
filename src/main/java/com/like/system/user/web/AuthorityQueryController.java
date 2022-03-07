@@ -2,7 +2,6 @@ package com.like.system.user.web;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +27,6 @@ public class AuthorityQueryController {
 		
 		return WebControllerUtil
 				.getResponse(authorityList							
-							,String.format("%d 건 조회되었습니다.", authorityList.size())
-							,HttpStatus.OK);
+							,String.format("%d 건 조회되었습니다.", authorityList.size()));
 	}
 }

@@ -1,6 +1,5 @@
 package com.like.system.user.web;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +29,7 @@ public class SystemUserFormValidController {
 				
 		return WebControllerUtil
 				.getResponse(isDuplicated ? false : true
-						    ,isDuplicated ? "기존 아이디가 존재합니다." : "신규 등록 가능합니다."
-						    ,HttpStatus.OK); 
+						    ,isDuplicated ? "기존 아이디가 존재합니다." : "신규 등록 가능합니다."); 
 	}
 		
 	@GetMapping(value={"/api/common/authority/{id}/check"})
@@ -43,7 +41,6 @@ public class SystemUserFormValidController {
 						
 		return WebControllerUtil
 				.getResponse(rtn
-							,rtn == false? "기존에 등록된 권한이 존재합니다." : "신규 등록 가능합니다."
-							,HttpStatus.OK);
+							,rtn == false? "기존에 등록된 권한이 존재합니다." : "신규 등록 가능합니다.");
 	}
 }

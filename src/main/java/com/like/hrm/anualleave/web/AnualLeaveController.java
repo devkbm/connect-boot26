@@ -1,8 +1,6 @@
 package com.like.hrm.anualleave.web;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.anualleave.boundary.AnualLeaveDTO;
 import com.like.hrm.anualleave.domain.model.AnualLeave;
 import com.like.hrm.anualleave.service.AnualLeaveService;
-import com.like.system.core.web.exception.ControllerException;
 import com.like.system.core.web.util.WebControllerUtil;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RestController
 public class AnualLeaveController {
 	
@@ -29,41 +23,36 @@ public class AnualLeaveController {
 	}
 
 	@GetMapping("/hrm/anualleave/{yyyy}/{empId}")
-	public ResponseEntity<?> getAnualLeave(@PathVariable(value="yyyy") Integer yyyy
-									  	  ,@PathVariable(value="yyyy") String empId) {
+	public ResponseEntity<?> getAnualLeave(@PathVariable Integer yyyy
+									  	  ,@PathVariable String empId) {
 				
 		AnualLeave entity = anualLeaveService.getAnualLeave(yyyy, empId);					
 		
 		AnualLeaveDTO.SaveAnualLeave dto = AnualLeaveDTO.SaveAnualLeave.convertDTO(entity); 
 		
-		return WebControllerUtil.getResponse(dto											
-											,String.format("%d 건 조회되었습니다.", 1)
-											,HttpStatus.OK);
+		return WebControllerUtil
+				.getResponse(dto											
+							,String.format("%d 건 조회되었습니다.", 1));
 	}
 		
 	@PostMapping("/hrm/anualleave")
-	public ResponseEntity<?> saveAnualLeave(@RequestBody AnualLeaveDTO.SaveAnualLeave dto, BindingResult result) {				
-		
-		if ( result.hasErrors()) {
-			log.info(result.toString());
-			throw new ControllerException(result.toString());
-		} 
+	public ResponseEntity<?> saveAnualLeave(@RequestBody AnualLeaveDTO.SaveAnualLeave dto) {							
 																	
 		anualLeaveService.saveAnualLeave(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
-											,String.format("%d 건 저장되었습니다.", 1)
-											,HttpStatus.OK);
+		return WebControllerUtil
+				.getResponse(null											
+							,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 	@DeleteMapping("/hrm/anualleave/{yyyy}/{empId}")
-	public ResponseEntity<?> deleteLedger(@PathVariable(value="yyyy") Integer yyyy
-		  	  							 ,@PathVariable(value="yyyy") String empId) {				
+	public ResponseEntity<?> deleteLedger(@PathVariable Integer yyyy
+		  	  							 ,@PathVariable String empId) {				
 																		
 		anualLeaveService.deleteAnualLeave(yyyy, empId);						
 								 					
-		return WebControllerUtil.getResponse(null											
-											,String.format("%d 건 삭제되었습니다.", 1)
-											,HttpStatus.OK);
+		return WebControllerUtil
+				.getResponse(null											
+							,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

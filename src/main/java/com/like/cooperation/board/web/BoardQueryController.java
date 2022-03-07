@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,9 +33,9 @@ public class BoardQueryController {
 			list.add(new EnumDTO(boardType.toString(), boardType.getName()));
 		}				 					
 								
-		return WebControllerUtil.getResponse(list				
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+		return WebControllerUtil
+				.getResponse(list				
+							,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/api/grw/boardHierarchy")
@@ -44,9 +43,9 @@ public class BoardQueryController {
 											
 		List<?> list = boardQueryService.getBoardHierarchy();				 			
 		
-		return WebControllerUtil.getResponse(list						
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+		return WebControllerUtil
+				.getResponse(list						
+							,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 
 	@GetMapping("/api/grw/board")
@@ -57,8 +56,8 @@ public class BoardQueryController {
 											   .map(e -> BoardDTO.FormBoard.convertDTO(e))
 											   .collect(Collectors.toList());
 				
-		return WebControllerUtil.getResponse(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size())
-											,HttpStatus.OK);
+		return WebControllerUtil
+				.getResponse(dtoList											
+							,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }
