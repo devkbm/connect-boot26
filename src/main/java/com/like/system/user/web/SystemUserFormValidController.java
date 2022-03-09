@@ -22,8 +22,8 @@ public class SystemUserFormValidController {
 		this.authorityService = authorityService;
 	}
 
-	@GetMapping(value={"/api/common/user/{id}/check"})
-	public ResponseEntity<?> checkId(@PathVariable(value="id") String userId) {
+	@GetMapping(value={"/api/common/user/{userId}/check"})
+	public ResponseEntity<?> checkId(@PathVariable String userId) {
 						
 		boolean isDuplicated = userService.CheckDuplicationUser(userId);					
 				
@@ -32,8 +32,8 @@ public class SystemUserFormValidController {
 						    ,isDuplicated ? "기존 아이디가 존재합니다." : "신규 등록 가능합니다."); 
 	}
 		
-	@GetMapping(value={"/api/common/authority/{id}/check"})
-	public ResponseEntity<?> getAuthorityDupCheck(@PathVariable(value="id") String authorityName) {			
+	@GetMapping(value={"/api/common/authority/{authorityName}/check"})
+	public ResponseEntity<?> getAuthorityDupCheck(@PathVariable String authorityName) {			
 					
 		Authority authority = authorityService.getAuthority(authorityName);										
 		

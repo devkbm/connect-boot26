@@ -22,7 +22,7 @@ public class AuthorityController {
 		this.service = service;
 	}		
 	
-	@GetMapping("/api/common/authority/{id}")
+	@GetMapping("/api/common/authority/{authorityName}")
 	public ResponseEntity<?> getAuthority(@PathVariable String authorityName) {			
 		
 		Authority authority = service.getAuthority(authorityName);										
@@ -42,7 +42,7 @@ public class AuthorityController {
 							,String.format("%d 건 저장되었습니다.", 1));
 	}	
 	
-	@DeleteMapping("/api/common/authority/{id}")
+	@DeleteMapping("/api/common/authority/{authorityName}")
 	public ResponseEntity<?> deleteAuthority(@PathVariable String authorityName) {
 		
 		service.deleteAuthority(authorityName);					
