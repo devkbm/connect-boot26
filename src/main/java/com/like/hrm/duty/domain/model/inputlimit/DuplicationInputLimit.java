@@ -28,7 +28,7 @@ public class DuplicationInputLimit implements InputLimitable {
 	
 	private boolean isDuplicated(DutyApplication entity) {
 		SearchDutyApplication search = SearchDutyApplication.builder()
-														  	.employeeId(entity.getEmployeeId())
+														  	.staffId(entity.getStaffId())
 														  	.build();				
 		
 		List<DutyApplication> dutyList = repository.getDutyApplicationList(search);
@@ -36,8 +36,8 @@ public class DuplicationInputLimit implements InputLimitable {
 		for (DutyApplication duty : dutyList) {
 			
 			// 중복되는 근태가 있을 경우
-			if (duty.getPeriod().isBetween(entity.getPeriod()))
-				return true;
+			//if (duty.getPeriod().isBetween(entity.getPeriod()))
+			//	return true;
 		}
 		
 		return false;

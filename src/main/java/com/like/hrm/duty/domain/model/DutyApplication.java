@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 
 import com.like.hrm.duty.domain.model.vo.FamilyEvent;
 import com.like.system.core.domain.AuditEntity;
-import com.like.system.core.vo.Period;
+import com.like.system.core.vo.LocalDatePeriod;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -36,7 +36,6 @@ import lombok.NoArgsConstructor;
  *  
  * @author CB457 
  */
-@Builder(builderClassName = "dtoBuilder", builderMethodName = "dtoBuilder")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -47,10 +46,10 @@ public class DutyApplication extends AuditEntity {
 	@Id		
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="DUTY_ID", nullable = false)
-	private Long dutyId;
+	private Long id;
 	
-	@Column(name="EMP_ID", nullable = false)
-	private String employeeId;
+	@Column(name="STAFF_ID", nullable = false)
+	private String staffId;
 	
 	@Column(name="DUTY_CODE", nullable = false)
 	private String dutyCode;
@@ -59,10 +58,10 @@ public class DutyApplication extends AuditEntity {
 	private String dutyReason;	
 		
 	@AttributeOverrides({
-		@AttributeOverride(name = "from", column = @Column(name = "DUTY_START_DT")),
-		@AttributeOverride(name = "to", column = @Column(name = "DUTY_END_DT"))
+		@AttributeOverride(name = "from", column = @Column(name = "DUTY_FROM_DT")),
+		@AttributeOverride(name = "to", column = @Column(name = "DUTY_TO_DT"))
 	})
-	Period period;
+	LocalDatePeriod period;
 		
 	@OneToMany(mappedBy = "dutyApplication", orphanRemoval = true, cascade = CascadeType.ALL)
 	List<DutyApplicationDate> selectedDate;
@@ -73,31 +72,45 @@ public class DutyApplication extends AuditEntity {
 	@Transient
 	private List<DutyApplicationAttachedFile> fileList;
 	
-	@Builder
-	public DutyApplication(String employeeId
+	public static DutyApplication of(String staffId
+									,String dutyCode
+									,String dutyReason
+									,LocalDatePeriod period
+									,List<LocalDate> selectedDate
+									,Double dutyTime) {
+		
+		DutyApplication newObj = new DutyApplication();
+		newObj.staffId = staffId;
+		newObj.dutyCode = dutyCode;
+		newObj.dutyReason = dutyReason;
+		newObj.period = period;		
+		
+		return newObj;
+	}
+		
+	public DutyApplication(String staffId
 						  ,String dutyCode
 						  ,String dutyReason
-						  ,Period period
-						  ,FamilyEvent familyEvent
-						  ,List<LocalDate> selectedDate) {
-		this.employeeId = employeeId;
+						  ,LocalDatePeriod period						  
+						  ,List<LocalDate> selectedDate
+						  ,Double dutyTime) {
+		this.staffId = staffId;
 		this.dutyCode = dutyCode;
 		this.dutyReason = dutyReason;
-		this.period = period;
-		this.familyEvent = familyEvent;
-		this.selectedDate = addApplicationDate(selectedDate);
+		this.period = period;		
+		this.selectedDate = addApplicationDate(selectedDate, dutyTime);
 	}	
 	
 	public void modifyEntity(String dutyCode
 							,String dutyReason
-							,Period period
+							,LocalDatePeriod period
 							,List<LocalDate> selectedDate) {
 		this.dutyCode = dutyCode;
 		this.dutyReason = dutyReason;
 		this.period = period;
 		
 		this.selectedDate.clear();
-		this.selectedDate = addApplicationDate(selectedDate);
+		this.selectedDate = addApplicationDate(selectedDate, 8);
 	}
 	
 	public void addFile(DutyApplicationAttachedFile file) {
@@ -108,12 +121,12 @@ public class DutyApplication extends AuditEntity {
 		return this.selectedDate.stream().map(e -> e.getDate()).collect(Collectors.toList());
 	}
 	
-	private List<DutyApplicationDate> addApplicationDate(List<LocalDate> dateList) {
+	private List<DutyApplicationDate> addApplicationDate(List<LocalDate> dateList, double dutyTime) {
 		if (this.selectedDate == null)
 			this.selectedDate = new ArrayList<>();
 		
 		for (LocalDate date : dateList) {
-			this.selectedDate.add(new DutyApplicationDate(this, date));
+			this.selectedDate.add(new DutyApplicationDate(this, date, dutyTime));
 		}		
 		
 		return this.selectedDate;

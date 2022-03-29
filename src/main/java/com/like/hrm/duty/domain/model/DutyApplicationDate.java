@@ -36,10 +36,23 @@ public class DutyApplicationDate extends AuditEntity {
 	@Column(name="DUTY_DT", nullable = false)
 	private LocalDate date;
 	
+	@Column(name="DUTY_TIME", nullable = false)
+	private Double dutyTime;
+	
 	public DutyApplicationDate(DutyApplication dutyApplication
-							  ,LocalDate date) {
+							  ,LocalDate date
+							  ,Double dutyTime) {
 		this.dutyApplication = dutyApplication;
 		this.date = date;
+	}
+	
+	public static DutyApplicationDate of(LocalDate date
+			  							,Double dutyTime) {		
+		DutyApplicationDate obj = new DutyApplicationDate();
+		obj.date = date;
+		obj.dutyTime = dutyTime;
+		
+		return obj;
 	}
 	
 }

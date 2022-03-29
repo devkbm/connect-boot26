@@ -39,9 +39,10 @@ public class DutyApplicationQueryJpaRepository implements DutyApplicationQueryRe
 				
 		return queryFactory
 				.selectFrom(QDutyApplication.dutyApplication)
-				.where(qDutyApplication.employeeId.eq(employeeId)
+				.where(qDutyApplication.staffId.eq(employeeId)
 				  .and(qDutyApplication.dutyCode.in(dutyCodes)))
-				.fetchCount();				
+				.fetch()
+				.size();				
 	}
 
 }
