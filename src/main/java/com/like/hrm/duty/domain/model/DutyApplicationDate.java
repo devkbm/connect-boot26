@@ -1,5 +1,6 @@
 package com.like.hrm.duty.domain.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -17,7 +18,9 @@ import com.like.system.core.domain.AuditEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString(exclude = {"dutyApplication"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -37,22 +40,14 @@ public class DutyApplicationDate extends AuditEntity {
 	private LocalDate date;
 	
 	@Column(name="DUTY_TIME", nullable = false)
-	private Double dutyTime;
+	private BigDecimal dutyTime;
 	
 	public DutyApplicationDate(DutyApplication dutyApplication
 							  ,LocalDate date
-							  ,Double dutyTime) {
+							  ,BigDecimal dutyTime) {
 		this.dutyApplication = dutyApplication;
 		this.date = date;
-	}
-	
-	public static DutyApplicationDate of(LocalDate date
-			  							,Double dutyTime) {		
-		DutyApplicationDate obj = new DutyApplicationDate();
-		obj.date = date;
-		obj.dutyTime = dutyTime;
-		
-		return obj;
+		this.dutyTime = dutyTime;
 	}
 	
 }

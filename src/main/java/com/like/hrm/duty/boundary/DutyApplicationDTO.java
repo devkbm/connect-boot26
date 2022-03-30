@@ -1,6 +1,7 @@
 package com.like.hrm.duty.boundary;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -103,7 +104,8 @@ public class DutyApplicationDTO {
 			entity.modifyEntity(dutyCode
 							   ,dutyReason
 							   ,new LocalDatePeriod(dutyStartDateTime, dutyEndDateTime)
-							   ,this.getSelectedDate());		
+							   ,this.getSelectedDate()
+							   ,new BigDecimal("8"));		
 		}
 		
 		public static SaveDutyApplication convert(DutyApplication entity, DateInfoService service) {					
