@@ -110,10 +110,17 @@ public class DutyApplication extends AuditEntity {
 	}
 	
 	public BigDecimal getSumDutyTime() {
-		BigDecimal sum = BigDecimal.ZERO;
-		
+		// for loop
+		BigDecimal sum = BigDecimal.ZERO;		
 		for (DutyApplicationDate dates : this.selectedDateList) sum = sum.add(dates.getDutyTime());
-					
+		
+		// stream
+		/*
+		sum = this.selectedDateList.stream()
+								   .map(e -> e.getDutyTime())
+								   .reduce(BigDecimal.ZERO, BigDecimal::add);
+		*/
+		
 		return sum;
 	}
 	

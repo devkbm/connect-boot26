@@ -11,9 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.like.system.core.vo.LocalDatePeriod;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+//@Slf4j
 public class DutyApplicationTest {
 
 	@DisplayName("객체 생성 테스트")

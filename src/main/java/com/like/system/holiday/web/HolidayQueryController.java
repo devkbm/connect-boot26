@@ -27,7 +27,7 @@ public class HolidayQueryController {
 	public ResponseEntity<?> getHolidayList(@RequestParam @DateTimeFormat(pattern="yyyyMMdd") LocalDate fromDate
 										   ,@RequestParam @DateTimeFormat(pattern="yyyyMMdd") LocalDate toDate) {
 		
-		List<DateInfo> list = holidayUtilService.getDateInfos(fromDate, toDate).getDates();			
+		List<DateInfo> list = holidayUtilService.getDateInfoList(fromDate, toDate).getDates();			
 					
 		return WebControllerUtil.getResponse(list											
 											,String.format("%d 건 조회되었습니다.", list.size())
