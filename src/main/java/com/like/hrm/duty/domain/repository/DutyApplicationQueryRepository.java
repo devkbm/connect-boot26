@@ -9,7 +9,7 @@ import com.like.hrm.dutycode.domain.DutyCode;
 
 public interface DutyApplicationQueryRepository {
 
-	long getDutyApplicationCount(String employeeId, List<DutyCode> dutyCodeList, LocalDate fromDate, LocalDate toDate);
+	long getDutyApplicationCount(String staffId, List<DutyCode> dutyCodeList, LocalDate fromDate, LocalDate toDate);
 	
 	List<DutyApplication> getDutyApplicationList(DutyApplicationDTO.SearchDutyApplication condition);
 }

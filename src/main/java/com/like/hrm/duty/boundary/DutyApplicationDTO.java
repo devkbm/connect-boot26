@@ -60,67 +60,50 @@ public class DutyApplicationDTO {
 		}
 		
 	}
-	
-	@JsonAutoDetect(fieldVisibility = Visibility.ANY)
-	@JsonIgnoreProperties(ignoreUnknown = true)
-	@Data
-	@Builder
-	@AllArgsConstructor
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	public static class SaveDutyApplication implements Serializable {
-				
-		private static final long serialVersionUID = -6474584560142236686L;
-
-		private Long dutyId;
-				
-		private String staffId;
-				
-		private String dutyCode;
-				
-		private String dutyReason;
-						
-		private LocalDate dutyStartDateTime;
-				
-		private LocalDate dutyEndDateTime;
 		
-		private List<DutyDate> selectedDate;
+	public record SaveDutyApplication(
+			Long dutyId,
+			String staffId,
+			String dutyCode,
+			String dutyReason,
+			LocalDate fromDate,
+			LocalDate toDate,
+			List<DutyDate> selectedDate,
+			BigDecimal dutyTime) {
+		
+		public static SaveDutyApplication convert(DutyApplication e, DateInfoService service) {								
+			DateInfoList dateInfoList = service.getDateInfoList(e.getPeriod().getFrom()
+															   ,e.getPeriod().getTo());
+								
+			return new SaveDutyApplication(e.getId()
+										  ,e.getStaffId()
+										  ,e.getDutyCode()
+										  ,e.getDutyReason()
+										  ,e.getPeriod().getFrom()
+										  ,e.getPeriod().getTo()
+										  ,SaveDutyApplication.convertDutyDate(e, dateInfoList)
+										  ,e.getSumDutyTime()); 
+									  									  									  									 
+		}
 		
 		public DutyApplication newEntity() {		
-			return null;
-			/*
-			return DutyApplication.builder()								  
-								  .staffId(staffId)
-								  .dutyCode(dutyCode)
-								  .dutyReason(dutyReason)
-								  .period(new Period(dutyStartDateTime, dutyEndDateTime))
-								  .selectedDate(this.getSelectedDate())
-								  .build();
-								  */
+			
+			return new DutyApplication(staffId								  
+								      ,dutyCode
+								      ,dutyReason
+								      ,new LocalDatePeriod(fromDate, toDate)
+								      ,this.getSelectedDate()
+								      ,dutyTime);
+			
 		}
 		
 		public void modifyEntity(DutyApplication entity) {
 			entity.modifyEntity(dutyCode
 							   ,dutyReason
-							   ,new LocalDatePeriod(dutyStartDateTime, dutyEndDateTime)
+							   ,new LocalDatePeriod(fromDate, toDate)
 							   ,this.getSelectedDate()
 							   ,new BigDecimal("8"));		
-		}
-		
-		public static SaveDutyApplication convert(DutyApplication entity, DateInfoService service) {					
-			
-			DateInfoList dateInfoList = service.getDateInfoList(entity.getPeriod().getFrom()
-															   ,entity.getPeriod().getTo());
-			
-			return SaveDutyApplication.builder()
-									  .dutyId(entity.getId())
-									  .staffId(entity.getStaffId())
-									  .dutyCode(entity.getDutyCode())
-									  .dutyReason(entity.getDutyReason())
-									  .dutyStartDateTime(entity.getPeriod().getFrom())
-									  .dutyEndDateTime(entity.getPeriod().getTo())
-									  .selectedDate(SaveDutyApplication.convertDutyDate(entity, dateInfoList))
-									  .build();
-		}
+		}			
 		
 		private List<LocalDate> getSelectedDate() {
 			return selectedDate.stream().map(e -> e.getDate()).collect(Collectors.toList());
@@ -140,9 +123,7 @@ public class DutyApplicationDTO {
 			
 			return dutyDatelist;			
 		}
-					
-	}
-		
+	}		
 	
 	@JsonAutoDetect(isGetterVisibility = Visibility.ANY)	
 	@ToString(includeFieldNames = true)

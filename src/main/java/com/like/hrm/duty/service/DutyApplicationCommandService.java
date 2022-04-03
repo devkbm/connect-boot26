@@ -33,10 +33,10 @@ public class DutyApplicationCommandService {
 	public void saveDutyApplication(DutyApplicationDTO.SaveDutyApplication dto) {
 		DutyApplication entity = null;
 		
-		if (dto.getDutyId() == null) {
+		if (dto.dutyId() == null) {
 			entity = dto.newEntity();
 		} else {
-			entity = this.getDutyApplication(dto.getDutyId());
+			entity = this.getDutyApplication(dto.dutyId());
 			dto.modifyEntity(entity);
 		}
 		
