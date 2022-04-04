@@ -24,12 +24,12 @@ public class AnualLeaveService {
 	}
 	
 	public void saveAnualLeave(AnualLeaveDTO.SaveAnualLeave dto) {
-		AnualLeave entity = this.getAnualLeave(dto.getYyyy(), dto.getEmpId());
+		AnualLeave entity = this.getAnualLeave(dto.yyyy(), dto.staffId());
 		
 		if (entity == null) {
 			entity = dto.newAnualLeave();
 		} else {
-			
+			dto.modifyEntity(entity);
 		}
 		
 		this.repository.save(entity);

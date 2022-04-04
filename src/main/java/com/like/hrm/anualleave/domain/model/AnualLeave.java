@@ -44,11 +44,11 @@ public class AnualLeave extends AuditEntity {
 	@Column(name="BASE_DT")
 	LocalDate base;
 	
-	@Comment("사용 시작일자")
+	@Comment("연차사용 시작일자")
 	@Column(name="FROM_DT")
 	LocalDate from;
 	
-	@Comment("사용 종료일자")
+	@Comment("연차사용 종료일자")
 	@Column(name="TO_DT")
 	LocalDate to;
 	

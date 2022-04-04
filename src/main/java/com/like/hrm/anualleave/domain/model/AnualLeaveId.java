@@ -23,6 +23,6 @@ public class AnualLeaveId implements Serializable {
 	private Integer yyyy;
 		
 	// 사원번호
-	@Column(name="EMP_ID")
-	private String empId;
+	@Column(name="STAFF_ID")
+	private String staffId;
 }

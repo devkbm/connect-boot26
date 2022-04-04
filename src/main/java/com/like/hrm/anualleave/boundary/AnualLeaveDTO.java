@@ -1,51 +1,51 @@
 package com.like.hrm.anualleave.boundary;
 
-import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import com.like.hrm.anualleave.domain.model.AnualLeave;
 import com.like.hrm.anualleave.domain.model.AnualLeaveId;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class AnualLeaveDTO {
 
-	@Data
-	@Builder
-	@AllArgsConstructor
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	public static class SaveAnualLeave implements Serializable {
-										
-		private static final long serialVersionUID = -7210797227903177939L;
-
-		private Integer yyyy;
+	public record SaveAnualLeave(
+			Integer yyyy,
+			String staffId,
+			LocalDate base,
+			LocalDate from,
+			LocalDate to,
+			Double cnt,
+			Double use_cnt,
+			Long total_work_days,
+			Long except_days,
+			Boolean isIntraAnual,
+			String comment
+			) {
+		
+		public SaveAnualLeave {		
+			Objects.requireNonNull(yyyy);		        
+			Objects.requireNonNull(staffId);			
+		}
+		
+		public static SaveAnualLeave convertDTO(AnualLeave e) {
+			if (e == null) return null;
 			
-		private String empId;					
-								
-		private LocalDate base;
-			
-		private LocalDate from;
-		
-		private LocalDate to;
-		
-		private Double cnt;
-		
-		private Double use_cnt;
-		
-		private Long total_work_days;
-		
-		private Long except_days;
-		
-		private Boolean isIntraAnual;
-		
-		private String comment;
+			AnualLeaveId id = e.getId();			
+			return new SaveAnualLeave(id.getYyyy()
+									 ,id.getStaffId() 
+									 ,e.getBase()
+									 ,e.getFrom()
+									 ,e.getTo()
+									 ,e.getCnt()
+									 ,e.getUse_cnt()
+									 ,e.getTotal_work_days()
+									 ,e.getExcept_days()
+									 ,e.getIsIntraAnual()
+									 ,e.getComment());
+		}
 		
 		public AnualLeave newAnualLeave() {
-			return new AnualLeave(new AnualLeaveId(yyyy, empId)
+			return new AnualLeave(new AnualLeaveId(yyyy, staffId)
 								 ,base
 								 ,from
 								 ,to);
@@ -55,22 +55,7 @@ public class AnualLeaveDTO {
 			entity.modify(base, from, to);
 		}
 		
-		public static SaveAnualLeave convertDTO(AnualLeave entity) {
-			AnualLeaveId id = entity.getId();
-			
-			return SaveAnualLeave.builder()			
-								 .yyyy(id.getYyyy())
-								 .empId(id.getEmpId())
-								 .base(entity.getBase())
-								 .from(entity.getFrom())
-								 .to(entity.getTo())
-								 .cnt(entity.getCnt())
-								 .use_cnt(entity.getUse_cnt())
-								 .total_work_days(entity.getTotal_work_days())
-								 .except_days(entity.getExcept_days())
-								 .isIntraAnual(entity.getIsIntraAnual())
-								 .comment(entity.getComment())
-						   		 .build();
-		}
+		
 	}
+		
 }
