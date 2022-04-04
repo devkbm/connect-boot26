@@ -41,7 +41,7 @@ public class DutyApplicationController {
 	}
 	
 	@GetMapping("/hrm/dutyapplication")
-	public ResponseEntity<?> getDutyApplicationList(DutyApplicationDTO.SearchDutyApplication dto) {
+	public ResponseEntity<?> getDutyApplicationList(DutyApplicationDTO.Search dto) {
 		
 		List<DutyApplication> list = dutyApplicationQueryService.getDutyApplicationList(dto);					
 		

@@ -106,7 +106,7 @@ public class Staff extends AuditEntity implements Serializable {
 					
 	public void changeImagePath(String imagePath) {
 		this.imagePath = imagePath;
-	}	
+	}
 	
 	public void applyAppointmentRecord(Long appointmentRecordId) {		
 		AppointmentRecord record = this.appointmentRecordList.get(appointmentRecordId);

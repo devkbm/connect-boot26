@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.hrm.duty.boundary.DutyApplicationDTO.SearchDutyApplication;
+import com.like.hrm.duty.boundary.DutyApplicationDTO;
 import com.like.hrm.duty.domain.model.DutyApplication;
 import com.like.hrm.duty.domain.repository.DutyApplicationQueryRepository;
 
@@ -19,7 +19,7 @@ public class DutyApplicationQueryService {
 		this.repository = repository;
 	}
 	
-	public List<DutyApplication> getDutyApplicationList(SearchDutyApplication condition) {
+	public List<DutyApplication> getDutyApplicationList(DutyApplicationDTO.Search condition) {
 		return this.repository.getDutyApplicationList(condition);
 	}
 }

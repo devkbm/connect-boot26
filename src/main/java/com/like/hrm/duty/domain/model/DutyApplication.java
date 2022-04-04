@@ -66,7 +66,8 @@ public class DutyApplication extends AuditEntity {
 	})
 	LocalDatePeriod period;
 		
-	@OneToMany(mappedBy = "dutyApplication", orphanRemoval = true, cascade = CascadeType.ALL)
+	//@OneToMany(mappedBy = "dutyApplication", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "id.dutyApplication", orphanRemoval = true, cascade = CascadeType.ALL)
 	List<DutyApplicationDate> selectedDateList;
 	
 	@Embedded
@@ -106,7 +107,7 @@ public class DutyApplication extends AuditEntity {
 	}
 	
 	public List<LocalDate> getSelectedDate() {
-		return this.selectedDateList.stream().map(e -> e.getDate()).toList();
+		return this.selectedDateList.stream().map(e -> e.getId().getDate()).toList();
 	}
 	
 	public BigDecimal getSumDutyTime() {

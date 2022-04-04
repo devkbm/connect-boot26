@@ -11,5 +11,5 @@ public interface DutyApplicationQueryRepository {
 
 	long getDutyApplicationCount(String staffId, List<DutyCode> dutyCodeList, LocalDate fromDate, LocalDate toDate);
 	
-	List<DutyApplication> getDutyApplicationList(DutyApplicationDTO.SearchDutyApplication condition);
+	List<DutyApplication> getDutyApplicationList(DutyApplicationDTO.Search condition);
 }

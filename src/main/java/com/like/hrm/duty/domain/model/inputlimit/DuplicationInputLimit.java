@@ -1,8 +1,5 @@
 package com.like.hrm.duty.domain.model.inputlimit;
 
-import java.util.List;
-
-import com.like.hrm.duty.boundary.DutyApplicationDTO.SearchDutyApplication;
 import com.like.hrm.duty.domain.model.DutyApplication;
 import com.like.hrm.duty.domain.model.InputLimitable;
 import com.like.hrm.duty.domain.repository.DutyApplicationQueryRepository;
@@ -27,18 +24,15 @@ public class DuplicationInputLimit implements InputLimitable {
 	}
 	
 	private boolean isDuplicated(DutyApplication entity) {
-		SearchDutyApplication search = SearchDutyApplication.builder()
-														  	.staffId(entity.getStaffId())
-														  	.build();				
+				
+		//List<DutyApplication> dutyList = repository.getDutyApplicationList(search);
 		
-		List<DutyApplication> dutyList = repository.getDutyApplicationList(search);
-		
-		for (DutyApplication duty : dutyList) {
+		//for (DutyApplication duty : dutyList) {
 			
 			// 중복되는 근태가 있을 경우
 			//if (duty.getPeriod().isBetween(entity.getPeriod()))
 			//	return true;
-		}
+		//}
 		
 		return false;
 	}
