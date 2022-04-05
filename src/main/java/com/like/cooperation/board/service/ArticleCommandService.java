@@ -52,9 +52,9 @@ public class ArticleCommandService {
 		Article article = convertEntity(dto);			
 		
 		// 첨부파일 저장
-		if (!dto.getFile().isEmpty()) {		
+		if (!dto.file().isEmpty()) {		
 			String userId = SessionUtil.getUserId();
-			fileInfoList = fileService.uploadFile(dto.getFile(), userId, "board");
+			fileInfoList = fileService.uploadFile(dto.file(), userId, "board");
 			attachedFileList = AttachedFileConverter.convert(article, fileInfoList);
 		}
 		
@@ -70,19 +70,19 @@ public class ArticleCommandService {
 	}
 	
 	public String saveArticle(ArticleDTO.FormArticleByJson dto) {		 							
-		Board board = boardRepository.findById(dto.getFkBoard()).orElse(null); //.orElseThrow(() -> new IllegalAddException("존재 하지 않은 게시판입니다."));
+		Board board = boardRepository.findById(dto.fkBoard()).orElse(null); //.orElseThrow(() -> new IllegalAddException("존재 하지 않은 게시판입니다."));
 		Article article = null;
 		List<FileInfo> fileInfoList = null;
 		List<AttachedFile> attachedFileList = null;
 		
 		// 1. 기존 게시글이 있는지 조회한다. 
-		if (dto.getPkArticle() != null) {
-			article = repository.findById(dto.getPkArticle()).orElse(null);
+		if (dto.pkArticle() != null) {
+			article = repository.findById(dto.pkArticle()).orElse(null);
 		}
 		
 		// 2. 저장된 파일 리스트를 조회한다.
-		if (dto.getAttachFile() != null) {
-			fileInfoList = fileService.getFileInfoList(dto.getAttachFile());			
+		if (dto.attachFile() != null) {
+			fileInfoList = fileService.getFileInfoList(dto.attachFile());			
 		}
 		
 		// 3. 게시글 객체를 생성한다.
@@ -139,8 +139,8 @@ public class ArticleCommandService {
 	}	
 	
 	private Article convertEntity(ArticleDTO.FormArticleByMuiltiPart dto) {		
-		Board board = boardRepository.findById(dto.getFkBoard()).orElse(null); //.orElseThrow(() -> new IllegalAddException("존재 하지 않은 게시판입니다."));		
-		Article article = dto.isNew() ? null : repository.findById(Long.parseLong(dto.getPkArticle())).orElse(null);
+		Board board = boardRepository.findById(dto.fkBoard()).orElse(null); //.orElseThrow(() -> new IllegalAddException("존재 하지 않은 게시판입니다."));		
+		Article article = dto.isNew() ? null : repository.findById(Long.parseLong(dto.pkArticle())).orElse(null);
 						
 		if (article == null) {
 			article = dto.newArticle(board); 

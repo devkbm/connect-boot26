@@ -64,58 +64,40 @@ public class ArticleDTO {
 		}
 	}	
 	
-	@Data	
-	@NoArgsConstructor	
-	@AllArgsConstructor
-	@Builder
-	@ToString
-	public static class FormArticleByMuiltiPart implements Serializable {
+	public record FormArticleByMuiltiPart(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			Long fkBoard,
+			String pkArticle,
+			Long ppkArticle,
+			@NotEmpty(message="제목은 필수 입력 사항입니다.")
+			String title,
+			String contents,
+			String pwd,
+			int hitCount,
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
+			LocalDate fromDate,
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
+			LocalDate toDate,
+			Integer seq,
+			Integer depth,
+			@JsonIgnore
+		    @Singular(value = "file")
+			List<MultipartFile> file
+			) {
 		
-		private static final long serialVersionUID = -6844786437530688768L;
-		
-		LocalDateTime createdDt;	
-		
-		String createdBy;
-			
-		LocalDateTime modifiedDt;
-			
-		String modifiedBy;
-	    	
-	    String pkArticle;	
-		
-		Long ppkArticle;		
-			
-		@NotEmpty(message="제목은 필수 입력 사항입니다.")
-		String title;
-	    	
-	    String contents;
-	    	
-	    String pwd;
-	    	
-	    int hitCount;
-	        
-	    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	    LocalDate fromDate;
-	    	
-	    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	    LocalDate toDate;
-	    	
-	    Integer seq;
-	    	
-	    Integer depth;
-	    	
-	    Long fkBoard;
-	            
-	    @JsonIgnore
-	    @Singular(value = "file")
-	    List<MultipartFile> file;	 
-	    
-	    public Article newArticle(Board board) {
+		public FormArticleByMuiltiPart {
+			/*
 			if (this.fromDate == null || this.toDate == null) {
 				this.fromDate = LocalDate.now();
 				this.toDate = LocalDate.of(9999, 12, 31);
 			}
-	    	
+			*/
+		}
+		
+		public Article newArticle(Board board) {									    
 	    	
 			return Article.builder()	
 						  .board(board)
@@ -128,10 +110,12 @@ public class ArticleDTO {
 		}
 	    
 	    public void modifyArticle(Article entity) {
+	    	/*
 	    	if (this.fromDate == null || this.toDate == null) {
 				this.fromDate = entity.getPeriod().getFrom();
 				this.toDate = entity.getPeriod().getTo();
-			}	    	
+			}
+			*/	    	
 	    	
 	    	entity.modifyEntity(title
 	    					   ,contents
@@ -140,67 +124,44 @@ public class ArticleDTO {
 		}
 	    
 	    public boolean isNew() {
-	    	return this.getPkArticle() == null ? true : false;
+	    	return this.pkArticle() == null ? true : false;
 	    }
-	}
+	}	
 	
-	@Data	
-	@NoArgsConstructor	
-	@AllArgsConstructor
-	@Builder
-	@ToString
-	public static class FormArticleByJson implements Serializable {
-						
-		private static final long serialVersionUID = 919127739529051164L;
-
-		LocalDateTime createdDt;	
+	public record FormArticleByJson(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			@NotEmpty(message="게시판 PK는 필수값입니다.")
+			Long fkBoard,
+			Long pkArticle,
+			Long ppkArticle,
+			@NotEmpty(message="제목은 필수 입력 사항입니다.")
+			String title,
+			String contents,
+			String pwd,
+			int hitCount,
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
+			LocalDate fromDate,
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
+			LocalDate toDate,
+			Integer seq,
+			Integer depth,
+			List<String> attachFile
+			) {
 		
-		String createdBy;
-			
-		LocalDateTime modifiedDt;
-			
-		String modifiedBy;
-	    	
-		@NotEmpty(message="게시판 PK는 필수값입니다.")
-		Long fkBoard;
-		
-		Long pkArticle;	
-		
-		Long ppkArticle;		
-			
-		@NotEmpty(message="제목은 필수 입력 사항입니다.")
-		String title;
-	    	
-	    String contents;
-	    	
-	    String pwd;
-	    	
-	    int hitCount;
-	        
-	    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	    LocalDate fromDate;
-	    	
-	    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	    LocalDate toDate;
-	    	
-	    Integer seq;
-	    	
-	    Integer depth;	    		   
-	            	    
-	    /**
-	     * FileInfo 도메인의 PK 리스트
-	     */
-	    List<String> attachFile;	   
-	    
-	    public Article newArticle(Board board) {
+		public Article newArticle(Board board) {
+			/*
 	    	if (this.fromDate == null || this.toDate == null) {
 				this.fromDate = LocalDate.now();
 				this.toDate = LocalDate.of(9999, 12, 31);
 			}
+			*/
 	    	
 			return Article.builder()	
 						  .board(board)
-						  .ppkArticle(this.ppkArticle)
+						  .ppkArticle(this.ppkArticle)						  
 						  .title(this.title)
 						  .contents(this.contents)
 						  .period(new LocalDatePeriod(this.fromDate, this.toDate))	
@@ -209,17 +170,19 @@ public class ArticleDTO {
 		}
 	    
 	    public void modifyArticle(Article entity) {
+	    	/*
 	    	if (this.fromDate == null || this.toDate == null) {
 				this.fromDate = entity.getPeriod().getFrom();
 				this.toDate = entity.getPeriod().getTo();
-			}	   
+			}
+			*/	   
 	    	
 	    	entity.modifyEntity(title
 	    					   ,contents
 	    					   ,new LocalDatePeriod(fromDate, toDate)
 	    					   ,seq);								
 		}
-	}
+	}	
 	
 	
 	@Data	
