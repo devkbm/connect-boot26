@@ -1,6 +1,5 @@
 package com.like.cooperation.board.boundary;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,12 +23,7 @@ import com.like.system.file.infra.file.LocalFileRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Singular;
-import lombok.ToString;
 
 public class ArticleDTO {
 	
@@ -84,7 +78,6 @@ public class ArticleDTO {
 			Integer seq,
 			Integer depth,
 			@JsonIgnore
-		    @Singular(value = "file")
 			List<MultipartFile> file
 			) {
 		
@@ -98,28 +91,26 @@ public class ArticleDTO {
 		}
 		
 		public Article newArticle(Board board) {									    
-	    	
+			LocalDate from = this.fromDate == null ? LocalDate.now() : this.fromDate; 
+	    	LocalDate to = this.toDate == null ? LocalDate.of(9999, 12, 31) : this.toDate;
+			
 			return Article.builder()	
 						  .board(board)
 						  .ppkArticle(this.ppkArticle)
 						  .title(this.title)
 						  .contents(this.contents)
-						  .period(new LocalDatePeriod(this.fromDate, this.toDate))						  
+						  .period(new LocalDatePeriod(from, to))						  
 						  .pwd(this.pwd)
 						  .build();
 		}
 	    
 	    public void modifyArticle(Article entity) {
-	    	/*
-	    	if (this.fromDate == null || this.toDate == null) {
-				this.fromDate = entity.getPeriod().getFrom();
-				this.toDate = entity.getPeriod().getTo();
-			}
-			*/	    	
+	    	LocalDate from = this.fromDate == null ? LocalDate.now() : this.fromDate; 
+	    	LocalDate to = this.toDate == null ? LocalDate.of(9999, 12, 31) : this.toDate;	    	
 	    	
 	    	entity.modifyEntity(title
 	    					   ,contents
-	    					   ,new LocalDatePeriod(fromDate, toDate)
+	    					   ,new LocalDatePeriod(from, to)
 	    					   ,seq);								
 		}
 	    
@@ -132,8 +123,7 @@ public class ArticleDTO {
 			LocalDateTime createdDt,
 			String createdBy,
 			LocalDateTime modifiedDt,
-			String modifiedBy,
-			@NotEmpty(message="게시판 PK는 필수값입니다.")
+			String modifiedBy,			
 			Long fkBoard,
 			Long pkArticle,
 			Long ppkArticle,
@@ -151,89 +141,54 @@ public class ArticleDTO {
 			List<String> attachFile
 			) {
 		
-		public Article newArticle(Board board) {
-			/*
-	    	if (this.fromDate == null || this.toDate == null) {
-				this.fromDate = LocalDate.now();
-				this.toDate = LocalDate.of(9999, 12, 31);
-			}
-			*/
+		public Article newArticle(Board board) {				    			
+	    	LocalDate from = this.fromDate == null ? LocalDate.now() : this.fromDate; 
+	    	LocalDate to = this.toDate == null ? LocalDate.of(9999, 12, 31) : this.toDate;
 	    	
 			return Article.builder()	
 						  .board(board)
 						  .ppkArticle(this.ppkArticle)						  
 						  .title(this.title)
 						  .contents(this.contents)
-						  .period(new LocalDatePeriod(this.fromDate, this.toDate))	
+						  .period(new LocalDatePeriod(from, to))	
 						  .pwd(this.pwd)
 						  .build();
 		}
 	    
 	    public void modifyArticle(Article entity) {
-	    	/*
-	    	if (this.fromDate == null || this.toDate == null) {
-				this.fromDate = entity.getPeriod().getFrom();
-				this.toDate = entity.getPeriod().getTo();
-			}
-			*/	   
+	    	LocalDate from = this.fromDate == null ? LocalDate.now() : this.fromDate; 
+	    	LocalDate to = this.toDate == null ? LocalDate.of(9999, 12, 31) : this.toDate;	   
 	    	
 	    	entity.modifyEntity(title
 	    					   ,contents
-	    					   ,new LocalDatePeriod(fromDate, toDate)
+	    					   ,new LocalDatePeriod(from, to)
 	    					   ,seq);								
 		}
 	}	
 	
-	
-	@Data	
-	@NoArgsConstructor	
-	@AllArgsConstructor
 	@Builder
-	@ToString
-	public static class ResponseArticle implements Serializable {
-				
-		private static final long serialVersionUID = 7795172502919533138L;
-
-		LocalDateTime createdDt;	
+	public static record ResponseArticle(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			String userName,
+			Long fkBoard,
+			Long pkArticle,
+			Long ppkArticle,
+			String title,
+			String contents,
+			String pwd,
+			int hitCount,
+			LocalDate fromDate,
+			LocalDate toDate,
+			Integer seq,
+			Integer depth,
+			List<FileResponseDTO> fileList,
+			Boolean editable
+			) {
 		
-		String createdBy;
-			
-		LocalDateTime modifiedDt;
-			
-		String modifiedBy;
-	    
-		String userName;
-		
-		Long fkBoard;
-		
-		Long pkArticle;	
-		
-		Long ppkArticle;		
-			
-		@NotEmpty(message="제목은 필수 입력 사항입니다.")
-		String title;
-	    	
-	    String contents;
-	    	
-	    String pwd;
-	    	
-	    int hitCount;
-	        
-	    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	    LocalDate fromDate;
-	    	
-	    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	    LocalDate toDate;
-	    	
-	    Integer seq;
-	    	
-	    Integer depth;	    		   
-	            	    
-	    List<FileResponseDTO> fileList;	  
-	    
-	    Boolean editable;
-	    
-	    public static ArticleDTO.ResponseArticle converDTO(Article entity) {
+		public static ArticleDTO.ResponseArticle converDTO(Article entity) {
 			
 	    	if (entity == null) return null;
 	    	
@@ -277,6 +232,8 @@ public class ArticleDTO {
 	    	
 	    	return responseList;
 	    }
-
 	}
+	
+	
+	
 }

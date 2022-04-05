@@ -9,6 +9,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Comment;
 
@@ -50,6 +51,7 @@ public class StaffSalary extends AuditEntity implements Serializable {
 	SalaryAppointmentInformation appointmentInfo;
 	
 	// 급여항목
+	@Transient
 	List<StaffSalaryItem> items;	
 	
 }

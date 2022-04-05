@@ -34,7 +34,7 @@ public class StaffSalaryItem extends AuditEntity {
 	Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID", nullable=false, updatable=false)
+	//@JoinColumn(name = "ID", nullable=false, updatable=false)
 	StaffSalary staffSalary;
 			
 	@Comment("급여항목")
