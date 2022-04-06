@@ -102,7 +102,7 @@ public class TeamService {
 	public List<SystemUser> getTeamMemberList(Long teamId) {
 		Team team = teamRepository.findById(teamId).orElse(null);
 		
-		return team.getMemberList();
+		return team.getMembers().stream().map(e -> e.getUser()).toList();
 	}
 									
 	

@@ -1,22 +1,20 @@
 package com.like.cooperation.board.boundary;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.Article;
+import com.like.cooperation.board.domain.ArticleContents;
+import com.like.cooperation.board.domain.ArticlePassword;
 import com.like.cooperation.board.domain.QArticle;
-import com.like.system.core.vo.LocalDatePeriod;
 import com.like.system.file.boundary.FileResponseDTO;
 import com.like.system.file.domain.FileInfo;
 import com.like.system.file.infra.file.LocalFileRepository;
@@ -48,13 +46,14 @@ public class ArticleDTO {
 		private BooleanExpression likeTitle(String title) {
 			if (!StringUtils.hasText(title)) return null;
 			
-			return qArticle.title.like("%"+title+"%");
+			
+			return qArticle.content.title.like("%"+title+"%");
 		}
 		
 		private BooleanExpression likeContents(String contents) {
 			if (!StringUtils.hasText(contents)) return null;
-			
-			return qArticle.contents.like("%"+contents+"%");
+						
+			return qArticle.content.contents.like("%"+contents+"%");
 		}
 	}	
 	
@@ -70,48 +69,26 @@ public class ArticleDTO {
 			String title,
 			String contents,
 			String pwd,
-			int hitCount,
-			@DateTimeFormat(pattern = "yyyy-MM-dd")
-			LocalDate fromDate,
-			@DateTimeFormat(pattern = "yyyy-MM-dd")
-			LocalDate toDate,
-			Integer seq,
+			int hitCount,						
 			Integer depth,
 			@JsonIgnore
 			List<MultipartFile> file
 			) {
 		
-		public FormArticleByMuiltiPart {
-			/*
-			if (this.fromDate == null || this.toDate == null) {
-				this.fromDate = LocalDate.now();
-				this.toDate = LocalDate.of(9999, 12, 31);
-			}
-			*/
+		public FormArticleByMuiltiPart {			
 		}
 		
-		public Article newArticle(Board board) {									    
-			LocalDate from = this.fromDate == null ? LocalDate.now() : this.fromDate; 
-	    	LocalDate to = this.toDate == null ? LocalDate.of(9999, 12, 31) : this.toDate;
+		public Article newArticle(Board board) {									    			
 			
 			return Article.builder()	
-						  .board(board)
-						  .ppkArticle(this.ppkArticle)
-						  .title(this.title)
-						  .contents(this.contents)
-						  .period(new LocalDatePeriod(from, to))						  
-						  .pwd(this.pwd)
+						  .board(board)						  
+						  .content(new ArticleContents(title, contents))						  						  					 
+						  .password(new ArticlePassword(this.pwd))
 						  .build();
 		}
 	    
 	    public void modifyArticle(Article entity) {
-	    	LocalDate from = this.fromDate == null ? LocalDate.now() : this.fromDate; 
-	    	LocalDate to = this.toDate == null ? LocalDate.of(9999, 12, 31) : this.toDate;	    	
-	    	
-	    	entity.modifyEntity(title
-	    					   ,contents
-	    					   ,new LocalDatePeriod(from, to)
-	    					   ,seq);								
+	    	entity.modifyEntity(new ArticleContents(title, contents));								
 		}
 	    
 	    public boolean isNew() {
@@ -131,38 +108,24 @@ public class ArticleDTO {
 			String title,
 			String contents,
 			String pwd,
-			int hitCount,
-			@DateTimeFormat(pattern = "yyyy-MM-dd")
-			LocalDate fromDate,
-			@DateTimeFormat(pattern = "yyyy-MM-dd")
-			LocalDate toDate,
+			int hitCount,			
 			Integer seq,
 			Integer depth,
 			List<String> attachFile
 			) {
 		
-		public Article newArticle(Board board) {				    			
-	    	LocalDate from = this.fromDate == null ? LocalDate.now() : this.fromDate; 
-	    	LocalDate to = this.toDate == null ? LocalDate.of(9999, 12, 31) : this.toDate;
+		public Article newArticle(Board board) {				    				    	
 	    	
 			return Article.builder()	
 						  .board(board)
-						  .ppkArticle(this.ppkArticle)						  
-						  .title(this.title)
-						  .contents(this.contents)
-						  .period(new LocalDatePeriod(from, to))	
-						  .pwd(this.pwd)
+						  .content(new ArticleContents(title, contents))						  						  
+						  .password(new ArticlePassword(this.pwd))
 						  .build();
 		}
 	    
-	    public void modifyArticle(Article entity) {
-	    	LocalDate from = this.fromDate == null ? LocalDate.now() : this.fromDate; 
-	    	LocalDate to = this.toDate == null ? LocalDate.of(9999, 12, 31) : this.toDate;	   
+	    public void modifyArticle(Article entity) {	    		  
 	    	
-	    	entity.modifyEntity(title
-	    					   ,contents
-	    					   ,new LocalDatePeriod(from, to)
-	    					   ,seq);								
+	    	entity.modifyEntity(new ArticleContents(title, contents));								
 		}
 	}	
 	
@@ -179,9 +142,7 @@ public class ArticleDTO {
 			String title,
 			String contents,
 			String pwd,
-			int hitCount,
-			LocalDate fromDate,
-			LocalDate toDate,
+			int hitCount,			
 			Integer seq,
 			Integer depth,
 			List<FileResponseDTO> fileList,
@@ -194,9 +155,7 @@ public class ArticleDTO {
 	    	
 			List<FileInfo> fileInfoList = entity.getAttachedFileInfoList();
 			List<FileResponseDTO> responseList = convertFileResponseDTO(fileInfoList);
-			
-			Optional<LocalDatePeriod> period = Optional.ofNullable(entity.getPeriod());
-			
+								
 			return ArticleDTO.ResponseArticle
 							 .builder()
 							 .createdDt(entity.getCreatedDt())
@@ -204,13 +163,11 @@ public class ArticleDTO {
 							 .modifiedDt(entity.getModifiedDt())
 							 .modifiedBy(entity.getModifiedBy())
 							 .pkArticle(entity.getPkArticle())
-							 .ppkArticle(entity.getPpkArticle())
-							 .fromDate(period.map(LocalDatePeriod::getFrom).orElse(null))
-							 .toDate(period.map(LocalDatePeriod::getTo).orElse(null))
+							 .ppkArticle(entity.getPpkArticle())							 
 							 .userName(entity.getUserName())
 							 .fkBoard(entity.getBoard().getPkBoard())				
-							 .title(entity.getTitle())
-							 .contents(entity.getContents())
+							 .title(entity.getContent().getTitle())
+							 .contents(entity.getContent().getContents())
 							 .fileList(responseList)			
 							 .editable(entity.getEditable())
 							 .build();

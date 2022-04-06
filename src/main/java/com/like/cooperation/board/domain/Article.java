@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.*;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.system.core.domain.AuditEntity;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.vo.LocalDatePeriod;
 import com.like.system.file.domain.FileInfo;
 
 /**
@@ -31,8 +29,6 @@ import com.like.system.file.domain.FileInfo;
  */
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Getter
 @Entity
 @Table(name = "GRWARTICLE")
@@ -51,36 +47,23 @@ public class Article extends AuditEntity {
 	@Column(name="PPK_ARTICLE")
 	Long ppkArticle;		
 				
-	@Comment("제목")
-	@Column(name="TITLE")
-	String title;
-        
-	@Comment("내용")
-	@Column(name="CONTENTS")
-    String contents;        
-        
+	@Embedded
+	ArticleContents content;
+	
 	@Comment("조회 수")
 	@Column(name="HIT_CNT")
     int hitCount;
-        		
-	@Embedded
-    LocalDatePeriod period;
-	    
+	
 	@Comment("출력순서")
 	@Column(name="SEQ")
     Integer seq;
         
 	@Comment("계층 횟수")
 	@Column(name="HIER_DEPTH")
-    int depth;
-			
-	@Comment("비밀번호사용여부")
-	@Column(name="PWD_YN")
-	Boolean pwdYn;
-			
-	@Comment("비밀번호")
-	@Column(name="PWD")
-    String pwd;
+    int depth;			
+	
+	@Embedded
+	ArticlePassword password;
     
 	/**
 	 * 게시판 외래키
@@ -103,22 +86,20 @@ public class Article extends AuditEntity {
 	@Transient
 	Boolean editable;
 	
-
-	/**
-	 * @param title
-	 * @param contents
-	 * @param fromDate
-	 * @param toDate
-	 * @param seq
-	 */
-	public void modifyEntity(String title
-							,String contents
-							,LocalDatePeriod period
-							,Integer seq) {
-		this.title = title;
-		this.contents = contents;
-		this.period = period;
-		this.seq = seq;
+	@Builder
+	public Article(Board board
+			      ,ArticleContents content
+			      ,ArticlePassword password
+				  ,List<AttachedFile> files) {
+		this.board = board;
+		this.content = content;
+		this.password = password;
+		this.files = files;
+				
+	}
+	
+	public void modifyEntity(ArticleContents content) {
+		this.content = content;				
 	}
 	
 	public Long getId() {
@@ -136,11 +117,7 @@ public class Article extends AuditEntity {
 	public boolean hasParentArticle() {		
 		return this.ppkArticle != this.pkArticle ? true : false;
 	}
-				
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
-	
+						
 	public void updateHitCnt() {
 		this.hitCount = this.hitCount + 1;	
 	}	
@@ -148,8 +125,7 @@ public class Article extends AuditEntity {
 	public List<FileInfo> getAttachedFileInfoList() {
 		return this.files.stream()						 
 				  		 .map(v -> v.fileInfo)
-				  		 .toList();				  		 	
-				  
+				  		 .toList();				  		 					 
 	}
 	
 	public void setFiles(List<AttachedFile> files) {
@@ -163,6 +139,5 @@ public class Article extends AuditEntity {
 	private boolean isWriter() {						
 		return this.createdBy.equals(SessionUtil.getUserId());		
 	}
-
 			
 }

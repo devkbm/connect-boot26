@@ -3,7 +3,6 @@ package com.like.cooperation.team.boundary;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.util.StringUtils;
 
@@ -77,7 +76,7 @@ public class TeamDTO {
 		}
 		
 		public Team modify(Team entity) {
-			entity.changeTeamName(teamName);
+			entity.modify(teamName);
 			
 			return entity;
 		}
@@ -93,9 +92,9 @@ public class TeamDTO {
 									.modifiedBy(entity.getModifiedBy())
 									.teamId(entity.getTeamId())
 									.teamName(entity.getTeamName())
-									.memberList(entity.getMemberList().stream()
-																	  .map(r -> r.getUserId())
-																	  .collect(Collectors.toList()))	
+									.memberList(entity.getMembers().stream()
+																   .map(r -> r.getUser().getUserId())
+																   .toList())																	  
 									.build();		
 			return dto;
 		}

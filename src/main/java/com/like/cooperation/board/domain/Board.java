@@ -9,11 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.*;
 import com.like.system.core.domain.AuditEntity;
-import com.like.system.core.vo.LocalDatePeriod;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
@@ -26,11 +23,9 @@ import lombok.ToString;
  *   1. <br>
  * [제약조건] <br>
  *   1. <br>
- */
+*/
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @ToString(callSuper=true, includeFieldNames=true)
 @Entity
 @Table(name = "GRWBOARD")
@@ -64,25 +59,19 @@ public class Board extends AuditEntity {
         
 	@Comment("게시판_설명")
 	@Column(name="BOARD_DESC")
-	String boardDescription;
-    
-	@Embedded
-    LocalDatePeriod period;
-	    	
-	@Builder.Default
+	String description;    	
+	    		
 	@Comment("사용여부")
 	@Column(name="USE_YN")
-	Boolean useYn = true;        
-	
-	@Builder.Default
-	@Comment("게시글 갯수")
-	@Column(name="ARTICLE_CNT")
-	long articleCount = 0;        
-	
-	@Builder.Default
+	Boolean useYn;        		      
+		
 	@Comment("출력순서")
 	@Column(name="SEQ")
-	long sequence = 0;	
+	Long sequence;	
+		
+	@Comment("게시글 갯수")
+	@Column(name="ARTICLE_CNT")
+	Long articleCount;
 
 	/**
 	 * 게시글 리스트
@@ -91,18 +80,28 @@ public class Board extends AuditEntity {
     @OneToMany(mappedBy = "board")          
     List<Article> articles;           
     	
+	public Board(BoardType boardType
+				,String boardName
+				,String description
+				) {
+		this.boardType = boardType;
+		this.boardName = boardName;
+		this.description = description; 
+		this.useYn = true;
+		this.sequence = 0L;
+		this.articleCount = 0L;
+	}
+	
 	public void modifyEntity(Board parent
 						    ,BoardType boardType
 						    ,String boardName
-						    ,String boardDescription
-						    ,LocalDatePeriod period
+						    ,String description						    
 						    ,Boolean useYn
 						    ,long sequence) {
 		this.parent = parent;
 		this.boardType = boardType;
 		this.boardName = boardName;
-		this.boardDescription = boardDescription;
-		this.period = period;
+		this.description = description;		
 		this.useYn = useYn;
 		this.sequence = sequence;		
 	}

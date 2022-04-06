@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardType;
 import com.like.cooperation.board.domain.QBoard;
-import com.like.system.core.vo.LocalDatePeriod;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.annotations.QueryProjection;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -68,33 +67,21 @@ public class BoardDTO {
 			String boardType,
 			@NotEmpty(message="게시판명은 필수 입력사항입니다.")
 			String boardName,
-			String boardDescription,
-			LocalDate fromDate,
-			LocalDate toDate,
+			String boardDescription,			
 			Boolean useYn,
 			long articleCount,
 			long sequence
 			) {
 		
-		public Board newBoard(Board parentBoard) {
-			
-			return Board.builder()
-						.parent(parentBoard)
-						.boardName(this.boardName)
-						.boardType(BoardType.valueOf(this.boardType))
-						.boardDescription(this.boardDescription)
-						.period(new LocalDatePeriod(this.fromDate, this.toDate))
-						.useYn(this.useYn)
-						.sequence(this.sequence)
-						.build();
+		public Board newBoard(Board parentBoard) {			
+			return new Board(BoardType.valueOf(this.boardType), this.boardName, this.boardDescription);					
 		}	
 		
 		public void modifyBoard(Board board, Board parentBoard) {
 			board.modifyEntity(parentBoard
 					          ,BoardType.valueOf(this.boardType)
 					          ,this.boardName
-					          ,this.boardDescription
-					          ,new LocalDatePeriod(this.fromDate, this.toDate)
+					          ,this.boardDescription					          
 					          ,this.useYn
 					          ,this.sequence);
 		}
@@ -104,8 +91,7 @@ public class BoardDTO {
 			if (entity == null)
 				return null;
 			
-			Optional<Board> parent = Optional.ofNullable(entity.getParent());
-			Optional<LocalDatePeriod> period = Optional.ofNullable(entity.getPeriod());
+			Optional<Board> parent = Optional.ofNullable(entity.getParent());			
 			
 			return FormBoard.builder()
 						    .createdDt(entity.getCreatedDt())
@@ -116,9 +102,7 @@ public class BoardDTO {
 						    .ppkBoard(parent.map(Board::getPkBoard).orElse(null))
 						    .boardType(entity.getBoardType().toString())
 						    .boardName(entity.getBoardName())
-						    .boardDescription(entity.getBoardDescription())						   
-						    .fromDate(period.map(LocalDatePeriod::getFrom).orElse(null))
-						    .toDate(period.map(LocalDatePeriod::getTo).orElse(null))
+						    .boardDescription(entity.getDescription())						   						    
 						    .useYn(entity.getUseYn())
 						    .articleCount(entity.getArticleCount())
 						    .sequence(entity.getSequence())
@@ -140,11 +124,7 @@ public class BoardDTO {
 		
 		String title;
 		
-		String boardDescription;
-		
-		LocalDate fromDate;
-		
-		LocalDate toDate;
+		String boardDescription;		
 		
 		Long articleCount;
 		
@@ -171,9 +151,7 @@ public class BoardDTO {
 			this.ppkBoard 			= ppkBoard;
 			this.boardType 			= boardType;
 			this.title 				= title;
-			this.boardDescription 	= boardDescription;
-			this.fromDate 			= fromDate;
-			this.toDate 			= toDate;
+			this.boardDescription 	= boardDescription;			
 			this.articleCount 		= articleCount;
 			this.sequence 			= sequence;
 			this.expanded 			= false;

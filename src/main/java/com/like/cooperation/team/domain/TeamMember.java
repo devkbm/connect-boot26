@@ -1,7 +1,5 @@
 package com.like.cooperation.team.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,15 +13,14 @@ import com.like.system.user.domain.SystemUser;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-
+@ToString(exclude = {"team","user"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "GRWTEAMUSER")
-public class TeamMember extends AuditEntity implements Serializable {
-	
-	private static final long serialVersionUID = -2005013743007739568L;
+public class TeamMember extends AuditEntity {	
 
 	@EmbeddedId
 	TeamMemberId id;
@@ -39,14 +36,12 @@ public class TeamMember extends AuditEntity implements Serializable {
 	private SystemUser user;	
 	
 	//@Comment("권한")
-	private String authority;
-	
-	public TeamMember(TeamMemberId teamMemberId) {
-		this.id = teamMemberId;
-	}
+	String authority;	
 	
 	public TeamMember(Team team, SystemUser user) {
 		this.id = new TeamMemberId(team.getTeamId(), user.getUserId());
+		this.team = team;
+		this.user = user;
 	}
 		
 	public Team getTeam() {
