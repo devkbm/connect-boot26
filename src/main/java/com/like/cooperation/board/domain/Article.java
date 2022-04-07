@@ -75,8 +75,7 @@ public class Article extends AuditEntity {
 	@Singular(value="articleChecks")
     @OneToMany(mappedBy = "article")
     List<ArticleCheck> articleChecks;
-                          
-	@Singular(value="files")
+                          	
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     List<AttachedFile> files;
 			

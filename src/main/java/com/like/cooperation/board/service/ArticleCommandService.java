@@ -1,5 +1,6 @@
 package com.like.cooperation.board.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -28,8 +29,7 @@ public class ArticleCommandService {
 	private FileService fileService;	
 	private ArticleRepository repository;
 	private ArticleCheckRepository articleCheckRepository;
-	
-	
+		
 	public ArticleCommandService(BoardRepository boardRepository
 								,FileService fileService
 								,ArticleRepository repository
@@ -70,36 +70,29 @@ public class ArticleCommandService {
 	}
 	
 	public String saveArticle(ArticleDTO.FormArticleByJson dto) {		 							
-		Board board = boardRepository.findById(dto.fkBoard()).orElse(null); //.orElseThrow(() -> new IllegalAddException("존재 하지 않은 게시판입니다."));
+		Board board = boardRepository.findById(dto.fkBoard()).orElseThrow(() -> new IllegalArgumentException("존재 하지 않은 게시판입니다."));
 		Article article = null;
-		List<FileInfo> fileInfoList = null;
-		List<AttachedFile> attachedFileList = null;
+		List<FileInfo> fileInfoList = Collections.emptyList();
+		List<AttachedFile> attachedFileList = Collections.emptyList();
 		
-		// 1. 기존 게시글이 있는지 조회한다. 
-		if (dto.pkArticle() != null) {
+		// 1. 기존 게시글이 없으면 생성, 있으면 수정		
+		if (dto.pkArticle() == null) {
+			article = dto.newArticle(board);
+		} else {
 			article = repository.findById(dto.pkArticle()).orElse(null);
-		}
-		
+			dto.modifyArticle(article);
+		}				
+			
 		// 2. 저장된 파일 리스트를 조회한다.
 		if (dto.attachFile() != null) {
 			fileInfoList = fileService.getFileInfoList(dto.attachFile());			
 		}
-		
-		// 3. 게시글 객체를 생성한다.
-		if (article == null) {
-			article = dto.newArticle(board);
-		} else {
-			dto.modifyArticle(article);
-		}		
-		
-		// 4. FileInfo를 AttachedFile로 변환한다.
-		attachedFileList = AttachedFileConverter.convert(article, fileInfoList);
-		
-		if (attachedFileList != null) {
-			article.setFiles(attachedFileList);
-		}
 				
-		// 5. 게시글 저장 후 id 리턴
+		// 3. FileInfo를 AttachedFile로 변환한다.
+		attachedFileList = AttachedFileConverter.convert(article, fileInfoList);				
+		if (!attachedFileList.isEmpty()) article.setFiles(attachedFileList);			
+				
+		// 4. 게시글 저장 후 id 리턴
 		return repository.saveAndFlush(article).getId().toString();
 	}
 

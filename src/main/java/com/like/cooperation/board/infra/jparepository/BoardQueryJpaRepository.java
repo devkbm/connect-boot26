@@ -4,13 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.cooperation.board.boundary.BoardDTO;
-import com.like.cooperation.board.boundary.BoardDTO.BoardHierarchy;
+import com.like.cooperation.board.boundary.BoardHierarchy;
+import com.like.cooperation.board.boundary.QBoardHierarchy;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardQueryRepository;
 import com.like.cooperation.board.domain.QBoard;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -34,17 +33,17 @@ public class BoardQueryJpaRepository implements BoardQueryRepository {
 
 	@Override
 	public List<BoardHierarchy> getBoardHierarchy() {
-		List<BoardDTO.BoardHierarchy> rootList = getBoardHierarchyRootList();
+		List<BoardHierarchy> rootList = getBoardHierarchyRootList();
 		
-		List<BoardDTO.BoardHierarchy> rtn =  setLinkBoardHierarchy(rootList);
+		List<BoardHierarchy> rtn =  setLinkBoardHierarchy(rootList);
 		
 		return rtn;
 	}
 	
-	private List<BoardDTO.BoardHierarchy> setLinkBoardHierarchy(List<BoardDTO.BoardHierarchy> list) {
-		List<BoardDTO.BoardHierarchy> children = null;
+	private List<BoardHierarchy> setLinkBoardHierarchy(List<BoardHierarchy> list) {
+		List<BoardHierarchy> children = null;
 		
-		for ( BoardDTO.BoardHierarchy dto : list) {
+		for ( BoardHierarchy dto : list) {
 			
 			children = getBoardHierarchyChildrenList(dto.getKey());
 			
@@ -63,16 +62,16 @@ public class BoardQueryJpaRepository implements BoardQueryRepository {
 		return list;
 	}
 	
-	private List<BoardDTO.BoardHierarchy> getBoardHierarchyRootList() {									
+	private List<BoardHierarchy> getBoardHierarchyRootList() {									
 		
 		/*Expression<Boolean> isLeaf = new CaseBuilder()
 										.when(qBoard.ppkBoard.isNotNull()).then(true)
-										.otherwise(false).as("leaf");*/
+										.otherwise(false).as("leaf");*/	
 		
-		JPAQuery<BoardDTO.BoardHierarchy> query = queryFactory
-				.select(Projections.constructor(BoardDTO.BoardHierarchy.class
-						, qBoard.pkBoard, qBoard.parent.pkBoard, qBoard.boardType
-						, qBoard.boardName, qBoard.description,  qBoard.articleCount, qBoard.sequence))
+		JPAQuery<BoardHierarchy> query = queryFactory
+				.select(new QBoardHierarchy(qBoard.pkBoard, qBoard.parent.pkBoard, qBoard.boardType
+										   ,qBoard.boardName, qBoard.description,  qBoard.articleCount
+										   ,qBoard.sequence))
 				.from(qBoard)
 				.where(qBoard.isRootNode());
 													
@@ -80,12 +79,12 @@ public class BoardQueryJpaRepository implements BoardQueryRepository {
 		return query.fetch();	
 	}
 	
-	private List<BoardDTO.BoardHierarchy> getBoardHierarchyChildrenList(Long parentPkBoard) {
+	private List<BoardHierarchy> getBoardHierarchyChildrenList(Long parentPkBoard) {
 		
-		JPAQuery<BoardDTO.BoardHierarchy> query = queryFactory
-				.select(Projections.constructor(BoardDTO.BoardHierarchy.class
-						, qBoard.pkBoard, qBoard.parent.pkBoard, qBoard.boardType
-						, qBoard.boardName, qBoard.description, qBoard.articleCount, qBoard.sequence))
+		JPAQuery<BoardHierarchy> query = queryFactory
+				.select(new QBoardHierarchy(qBoard.pkBoard, qBoard.parent.pkBoard, qBoard.boardType
+						   				   ,qBoard.boardName, qBoard.description,  qBoard.articleCount
+						   				   ,qBoard.sequence))
 				.from(qBoard)
 				.where(qBoard.parent.pkBoard.eq(parentPkBoard));								
 		

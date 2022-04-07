@@ -1,28 +1,19 @@
 package com.like.cooperation.board.boundary;
 
-import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardType;
 import com.like.cooperation.board.domain.QBoard;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.annotations.QueryProjection;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public class BoardDTO {
 	
@@ -74,7 +65,7 @@ public class BoardDTO {
 			) {
 		
 		public Board newBoard(Board parentBoard) {			
-			return new Board(BoardType.valueOf(this.boardType), this.boardName, this.boardDescription);					
+			return new Board(parentBoard, BoardType.valueOf(this.boardType), this.boardName, this.boardDescription);					
 		}	
 		
 		public void modifyBoard(Board board, Board parentBoard) {
@@ -108,59 +99,6 @@ public class BoardDTO {
 						    .sequence(entity.getSequence())
 						    .build();	
 		}
-	}	
-	
-	@Data
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	public static class BoardHierarchy implements Serializable {	
-		
-		private static final long serialVersionUID = 1L;
-
-		Long key;
-		
-		Long ppkBoard;
-		
-		BoardType boardType;
-		
-		String title;
-		
-		String boardDescription;		
-		
-		Long articleCount;
-		
-		Long sequence;
-				
-		private boolean expanded;
-		
-		private boolean selected;
-		
-		@JsonProperty(value="isLeaf")
-		private boolean isLeaf;
-		
-		private boolean active;
-		
-		private List<BoardDTO.BoardHierarchy> children = new ArrayList<BoardDTO.BoardHierarchy>();
-				
-		@QueryProjection
-		public BoardHierarchy(
-				Long key, Long ppkBoard, BoardType boardType, 
-				String title, String boardDescription, LocalDate fromDate, 
-				LocalDate toDate, Long articleCount, Long sequence) {
-			super();
-			this.key 				= key;
-			this.ppkBoard 			= ppkBoard;
-			this.boardType 			= boardType;
-			this.title 				= title;
-			this.boardDescription 	= boardDescription;			
-			this.articleCount 		= articleCount;
-			this.sequence 			= sequence;
-			this.expanded 			= false;
-			this.selected 			= false;
-			this.active 			= false;
-		}
-		
-				
-	}
-	
+	}		
 	
 }

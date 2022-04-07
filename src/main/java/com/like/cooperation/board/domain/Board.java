@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.annotation.*;
 import com.like.system.core.domain.AuditEntity;
@@ -80,10 +81,12 @@ public class Board extends AuditEntity {
     @OneToMany(mappedBy = "board")          
     List<Article> articles;           
     	
-	public Board(BoardType boardType
+	public Board(@Nullable Board parent
+			    ,BoardType boardType
 				,String boardName
 				,String description
 				) {
+		this.parent = parent;
 		this.boardType = boardType;
 		this.boardName = boardName;
 		this.description = description; 

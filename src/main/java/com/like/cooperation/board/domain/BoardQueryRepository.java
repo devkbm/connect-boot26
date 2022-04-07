@@ -2,7 +2,7 @@ package com.like.cooperation.board.domain;
 
 import java.util.List;
 
-import com.like.cooperation.board.boundary.BoardDTO;
+import com.like.cooperation.board.boundary.BoardHierarchy;
 import com.querydsl.core.types.Predicate;
 
 public interface BoardQueryRepository {
@@ -17,5 +17,5 @@ public interface BoardQueryRepository {
 	 * 게시판 계층명단을 조회
 	 * @return	
 	 */
-	List<BoardDTO.BoardHierarchy> getBoardHierarchy();
+	List<BoardHierarchy> getBoardHierarchy();
 }
