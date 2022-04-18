@@ -11,7 +11,7 @@ public class ArticleTest {
 	@Test
 	void createEntity() {
 		// Given 			
-		Board board = new Board(BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");
+		Board board = new Board(null, BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");
 		// When
 		Article article = new Article(board
 									 ,new ArticleContents("제목", "내용")
@@ -29,7 +29,7 @@ public class ArticleTest {
 	@Test
 	void modifyEntity() {
 		// Given 			
-		Board board = new Board(BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");
+		Board board = new Board(null, BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");
 		Article article = new Article(board
 									 ,new ArticleContents("제목", "내용")
 									 ,new ArticlePassword("pwd")

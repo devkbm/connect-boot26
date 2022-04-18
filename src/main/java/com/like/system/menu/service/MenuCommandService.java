@@ -9,8 +9,8 @@ import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupRepository;
 import com.like.system.menu.domain.MenuRepository;
-import com.like.system.menu.domain.WebResource;
-import com.like.system.menu.domain.WebResourceRepository;
+import com.like.system.webresource.domain.WebResource;
+import com.like.system.webresource.domain.WebResourceRepository;
 
 @Service
 @Transactional

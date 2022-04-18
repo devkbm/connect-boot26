@@ -1,11 +1,11 @@
-package com.like.system.menu.service;
+package com.like.system.webresource.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.menu.boundary.WebResourceDTO;
-import com.like.system.menu.domain.WebResource;
-import com.like.system.menu.domain.WebResourceRepository;
+import com.like.system.webresource.boundary.WebResourceDTO;
+import com.like.system.webresource.domain.WebResource;
+import com.like.system.webresource.domain.WebResourceRepository;
 
 @Service
 @Transactional

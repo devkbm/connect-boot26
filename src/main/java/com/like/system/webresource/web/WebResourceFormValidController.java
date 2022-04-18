@@ -1,4 +1,4 @@
-package com.like.system.menu.web;
+package com.like.system.webresource.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.web.util.WebControllerUtil;
-import com.like.system.menu.domain.WebResource;
-import com.like.system.menu.service.WebResourceService;
+import com.like.system.webresource.domain.WebResource;
+import com.like.system.webresource.service.WebResourceService;
 
 @RestController
 public class WebResourceFormValidController {

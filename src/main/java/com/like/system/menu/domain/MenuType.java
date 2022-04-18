@@ -20,14 +20,14 @@ public enum MenuType {
 	 */
 	GROUP("그룹");
 		
-	private String name;
+	private String label;
 		
-	private MenuType(final String name) {		
-        this.name = name;               
+	private MenuType(final String label) {		
+        this.label = label;               
 	}	
 	
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 	    
 }

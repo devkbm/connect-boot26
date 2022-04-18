@@ -11,7 +11,7 @@ import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuType;
 import com.like.system.menu.domain.QMenu;
 import com.like.system.menu.domain.QMenuGroup;
-import com.like.system.menu.domain.WebResource;
+import com.like.system.webresource.domain.WebResource;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 

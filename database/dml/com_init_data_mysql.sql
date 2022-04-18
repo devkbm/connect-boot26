@@ -18,76 +18,76 @@ VALUES(NULL, NULL, NULL, NULL, '1', 'ROLE_USER');
 /* 웹리소스관리 */
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2018-04-10 23:14:32', '2018-04-10 23:14:32', '2019-08-20 23:15:18', '1', 'COM001', '사용자등록', 'A', 'home/user', '시스템 사용자 등록 프로그램');
+VALUES('2018-04-10 23:14:32', '2018-04-10 23:14:32', '2019-08-20 23:15:18', '1', 'COM001', '사용자등록', 'APP', 'home/user', '시스템 사용자 등록 프로그램');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2019-08-20 22:44:30', '1', '2019-08-20 22:44:30', '1', 'COM002', '권한등록', 'A', 'home/auth', '사용자 권한 등록 프로그램');
+VALUES('2019-08-20 22:44:30', '1', '2019-08-20 22:44:30', '1', 'COM002', '권한등록', 'APP', 'home/auth', '사용자 권한 등록 프로그램');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2018-04-10 23:15:28', '2018-04-10 23:15:28', '2019-08-20 22:45:50', '1', 'COM003', '공통코드등록', 'A', 'home/commoncode', '공통코드 등록 프로그램');
+VALUES('2018-04-10 23:15:28', '2018-04-10 23:15:28', '2019-08-20 22:45:50', '1', 'COM003', '공통코드등록', 'APP', 'home/commoncode', '공통코드 등록 프로그램');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2019-08-20 22:48:01', '1', '2019-08-20 22:48:01', '1', 'COM004', '리소스등록', 'A', 'home/program', '웹 리소스 등록 프로그램');
+VALUES('2019-08-20 22:48:01', '1', '2019-08-20 22:48:01', '1', 'COM004', '리소스등록', 'APP', 'home/program', '웹 리소스 등록 프로그램');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2018-04-10 23:16:00', '2018-04-10 23:16:00', '2019-08-20 22:48:21', '1', 'COM005', '메뉴등록', 'A', 'home/menu', '메뉴 등록 프로그램');
+VALUES('2018-04-10 23:16:00', '2018-04-10 23:16:00', '2019-08-20 22:48:21', '1', 'COM005', '메뉴등록', 'APP', 'home/menu', '메뉴 등록 프로그램');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2019-08-20 22:50:13', '1', '2019-08-20 22:50:13', '1', 'COM006', '부서코드등록', 'A', 'home/dept', '부서코드 등록 프로그램');
+VALUES('2019-08-20 22:50:13', '1', '2019-08-20 22:50:13', '1', 'COM006', '부서코드등록', 'APP', 'home/dept', '부서코드 등록 프로그램');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2018-04-10 23:16:26', '2018-04-10 23:16:26', '2020-10-03 13:59:55', '1', 'COM007', '공휴일등록', 'A', 'home/holiday', '공휴일등록');
+VALUES('2018-04-10 23:16:26', '2018-04-10 23:16:26', '2020-10-03 13:59:55', '1', 'COM007', '공휴일등록', 'APP', 'home/holiday', '공휴일등록');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-11-17 23:56:05', '1', '2020-11-17 23:56:05', '1', 'COM009', '용어등록', 'A', '/home/term', '용어사전');
+VALUES('2020-11-17 23:56:05', '1', '2020-11-17 23:56:05', '1', 'COM009', '용어등록', 'APP', '/home/term', '용어사전');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2018-04-10 23:17:23', '2018-04-10 23:17:23', '2018-11-16 05:39:44', 'anonymousUser', 'COM010', '프로그램등록', 'A', 'home/program', '');
+VALUES('2018-04-10 23:17:23', '2018-04-10 23:17:23', '2018-11-16 05:39:44', 'anonymousUser', 'COM010', '프로그램등록', 'APP', 'home/program', '');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2019-06-06 07:24:39', '1', '2019-06-06 07:24:39', '1', 'COM012', '작업그룹', 'A', 'home/workgroup', NULL);
+VALUES('2019-06-06 07:24:39', '1', '2019-06-06 07:24:39', '1', 'COM012', '작업그룹', 'APP', 'home/workgroup', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2018-10-26 12:47:44', '2018-10-26 12:47:44', '2018-10-26 12:47:44', '1', 'GRP0001', '게시판등록', 'A', 'home/board', NULL);
+VALUES('2018-10-26 12:47:44', '2018-10-26 12:47:44', '2018-10-26 12:47:44', '1', 'GRP0001', '게시판등록', 'APP', 'home/board', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2019-04-14 11:10:04', 'anonymousUser', '2019-08-20 23:09:14', '1', 'GRP0002', '작업그룹', 'A', 'home/workgroup', '작업그룹');
+VALUES('2019-04-14 11:10:04', 'anonymousUser', '2019-08-20 23:09:14', '1', 'GRP0002', '작업그룹', 'APP', 'home/workgroup', '작업그룹');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-05-01 23:50:44', '1', '2020-05-01 23:50:44', '1', 'GRP0003', '설문', 'A', 'home/surveyform', NULL);
+VALUES('2020-05-01 23:50:44', '1', '2020-05-01 23:50:44', '1', 'GRP0003', '설문', 'APP', 'home/surveyform', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-03-17 21:54:51', '1', '2020-03-17 21:54:51', '1', 'HRM0000', '인사유형등록', 'A', 'home/hrmtype', NULL);
+VALUES('2020-03-17 21:54:51', '1', '2020-03-17 21:54:51', '1', 'HRM0000', '인사유형등록', 'APP', 'home/hrmtype', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-03-04 22:39:13', '1', '2020-03-04 22:39:13', '1', 'HRM0001', '발령코드등록', 'A', 'home/appointmentcode', NULL);
+VALUES('2020-03-04 22:39:13', '1', '2020-03-04 22:39:13', '1', 'HRM0001', '발령코드등록', 'APP', 'home/appointmentcode', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-03-04 22:39:54', '1', '2020-03-04 22:39:54', '1', 'HRM0002', '인사마스터', 'A', 'home/employee', '');
+VALUES('2020-03-04 22:39:54', '1', '2020-03-04 22:39:54', '1', 'HRM0002', '인사마스터', 'APP', 'home/employee', '');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-03-04 22:40:21', '1', '2020-03-04 22:40:21', '1', 'HRM0003', '발령등록', 'A', 'home/appointmentledger', NULL);
+VALUES('2020-03-04 22:40:21', '1', '2020-03-04 22:40:21', '1', 'HRM0003', '발령등록', 'APP', 'home/appointmentledger', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-08-10 22:34:40', '1', '2020-08-10 22:34:40', '1', 'HRM0004', '근무코드관리', 'A', 'home/dutycode', NULL);
+VALUES('2020-08-10 22:34:40', '1', '2020-08-10 22:34:40', '1', 'HRM0004', '근무코드관리', 'APP', 'home/dutycode', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-08-10 22:35:05', '1', '2020-08-10 22:35:05', '1', 'HRM0005', '근태신청관리', 'A', 'home/dutyapplication', NULL);
+VALUES('2020-08-10 22:35:05', '1', '2020-08-10 22:35:05', '1', 'HRM0005', '근태신청관리', 'APP', 'home/dutyapplication', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-12-02 22:30:38', '1', '2020-12-02 22:30:38', '1', 'HRM1001', '급여항목코드등록', 'A', 'home/payitem', NULL);
+VALUES('2020-12-02 22:30:38', '1', '2020-12-02 22:30:38', '1', 'HRM1001', '급여항목코드등록', 'APP', 'home/payitem', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-12-15 22:54:50', '1', '2020-12-15 22:54:50', '1', 'HRM1002', '급여테이블등록', 'A', 'home/paytable', NULL);
+VALUES('2020-12-15 22:54:50', '1', '2020-12-15 22:54:50', '1', 'HRM1002', '급여테이블등록', 'APP', 'home/paytable', NULL);
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2018-03-01 08:33:43', '2018-03-01 08:33:43', '2018-12-14 16:14:59', '1', 'PROGRAM1', '프로그램1', 'A', 'home/home', '222');
+VALUES('2018-03-01 08:33:43', '2018-03-01 08:33:43', '2018-12-14 16:14:59', '1', 'PROGRAM1', '프로그램1', 'APP', 'home/home', '222');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2019-09-24 22:31:44', '1', '2021-10-11 12:42:31', '1', 'TEST', '테스트프로그램', 'A', 'home/staff', 'home/relationcode');
+VALUES('2019-09-24 22:31:44', '1', '2021-10-11 12:42:31', '1', 'TEST', '테스트프로그램', 'APP', 'home/staff', 'home/relationcode');
 INSERT INTO com.comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2020-02-18 23:46:15', '1', '2020-05-11 22:51:58', '1', 'TEST2', '테스트프로그램2', 'A', 'home/deptemployeelist', NULL);
+VALUES('2020-02-18 23:46:15', '1', '2020-05-11 22:51:58', '1', 'TEST2', '테스트프로그램2', 'APP', 'home/deptemployeelist', NULL);
 
 
 /* 메뉴그룹관리 */

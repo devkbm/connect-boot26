@@ -1,4 +1,4 @@
-package com.like.system.menu.boundary;
+package com.like.system.webresource.boundary;
 
 import java.time.LocalDateTime;
 
@@ -6,8 +6,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.util.StringUtils;
 
-import com.like.system.menu.domain.QWebResource;
-import com.like.system.menu.domain.WebResource;
+import com.like.system.webresource.domain.QWebResource;
+import com.like.system.webresource.domain.WebResource;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 

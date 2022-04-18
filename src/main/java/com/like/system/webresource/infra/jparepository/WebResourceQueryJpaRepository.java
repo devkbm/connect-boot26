@@ -1,13 +1,13 @@
-package com.like.system.menu.infra.jparepository;
+package com.like.system.webresource.infra.jparepository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.menu.boundary.WebResourceDTO.SearchWebResource;
-import com.like.system.menu.domain.QWebResource;
-import com.like.system.menu.domain.WebResource;
-import com.like.system.menu.domain.WebResourceQueryRepository;
+import com.like.system.webresource.boundary.WebResourceDTO.SearchWebResource;
+import com.like.system.webresource.domain.QWebResource;
+import com.like.system.webresource.domain.WebResource;
+import com.like.system.webresource.domain.WebResourceQueryRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository

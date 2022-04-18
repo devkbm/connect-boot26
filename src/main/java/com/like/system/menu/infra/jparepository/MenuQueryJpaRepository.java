@@ -13,7 +13,7 @@ import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuQueryRepository;
 import com.like.system.menu.domain.QMenu;
 import com.like.system.menu.domain.QMenuGroup;
-import com.like.system.menu.domain.QWebResource;
+import com.like.system.webresource.domain.QWebResource;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQuery;

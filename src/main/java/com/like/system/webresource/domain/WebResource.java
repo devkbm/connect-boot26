@@ -1,4 +1,4 @@
-package com.like.system.menu.domain;
+package com.like.system.webresource.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.system.core.domain.AuditEntity;
+import com.like.system.menu.domain.Menu;
 
 import lombok.AccessLevel;
 import lombok.Builder;

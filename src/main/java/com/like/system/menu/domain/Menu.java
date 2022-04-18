@@ -19,6 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.like.system.core.domain.AuditEntity;
+import com.like.system.webresource.domain.WebResource;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -65,7 +66,7 @@ public class Menu extends AuditEntity implements Serializable {
 	
 	@OneToOne(optional=true)
 	@JoinColumn(name = "resource_code", nullable=true)
-	WebResource resource = new WebResource();
+	WebResource resource;
 		
 	@Builder
 	public Menu(@NonNull MenuGroup menuGroup,

@@ -1,4 +1,4 @@
-package com.like.system.menu.web;
+package com.like.system.webresource.web;
 
 import javax.validation.Valid;
 
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.web.util.WebControllerUtil;
-import com.like.system.menu.boundary.WebResourceDTO;
-import com.like.system.menu.boundary.WebResourceDTO.FormWebResource;
-import com.like.system.menu.domain.WebResource;
-import com.like.system.menu.service.WebResourceService;
+import com.like.system.webresource.boundary.WebResourceDTO;
+import com.like.system.webresource.boundary.WebResourceDTO.FormWebResource;
+import com.like.system.webresource.domain.WebResource;
+import com.like.system.webresource.service.WebResourceService;
 
 @RestController
 public class WebResourceController {

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.core.dto.HtmlOptionRecord;
 import com.like.system.core.web.util.WebControllerUtil;
-import com.like.system.menu.boundary.EnumDTO;
 import com.like.system.menu.boundary.MenuDTO;
 import com.like.system.menu.boundary.MenuGroupDTO;
 import com.like.system.menu.boundary.ResponseMenuHierarchy;
@@ -74,10 +74,10 @@ public class MenuQueryController {
 	@GetMapping("/api/common/menu/menutype")
 	public ResponseEntity<?> getMenuTypeList() {				
 		
-		List<EnumDTO> list = new ArrayList<EnumDTO>();
+		List<HtmlOptionRecord> list = new ArrayList<HtmlOptionRecord>();
 		
 		for (MenuType menuType : MenuType.values()) {			
-			list.add(new EnumDTO(menuType.toString(), menuType.getName()));
+			list.add(new HtmlOptionRecord(menuType.getLabel(), menuType.toString()));
 		}
 		
 		return WebControllerUtil.getResponse(list											

@@ -12,8 +12,8 @@ import com.like.cooperation.board.boundary.BoardDTO;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardType;
 import com.like.cooperation.board.service.BoardQueryService;
+import com.like.system.core.dto.HtmlOptionRecord;
 import com.like.system.core.web.util.WebControllerUtil;
-import com.like.system.menu.boundary.EnumDTO;
 
 @RestController
 public class BoardQueryController {
@@ -27,10 +27,10 @@ public class BoardQueryController {
 	@GetMapping("/api/grw/board/boardType")
 	public ResponseEntity<?> getMenuTypeList() {				
 		
-		List<EnumDTO> list = new ArrayList<>();
+		List<HtmlOptionRecord> list = new ArrayList<>();
 		
 		for (BoardType boardType : BoardType.values()) {			
-			list.add(new EnumDTO(boardType.toString(), boardType.getName()));
+			list.add(new HtmlOptionRecord(boardType.getName(), boardType.toString()));
 		}				 					
 								
 		return WebControllerUtil

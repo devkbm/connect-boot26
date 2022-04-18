@@ -12,7 +12,7 @@ public class BoardTest {
 	void createEntity() {
 		// Given 			
 		// When
-		Board board = new Board(BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");
+		Board board = new Board(null, BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");
 		
 		// Then
 		assertThat(board.getBoardType()).isEqualTo(BoardType.BOARD);
@@ -25,7 +25,7 @@ public class BoardTest {
 	
 	void modifyEntity() {
 		// Given
-		Board board = new Board(BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");		
+		Board board = new Board(null, BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");		
 		// When
 		board.modifyEntity(null, BoardType.NOTICE, "수정 게시판", "수정 게시판입니다", false, 1L);
 		// Then
