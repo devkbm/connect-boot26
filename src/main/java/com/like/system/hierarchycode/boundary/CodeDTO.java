@@ -63,9 +63,9 @@ public class CodeDTO {
 		}
 		
 		private BooleanExpression eqSystemTypeCode(String systemTypeCode) {
-			if (!StringUtils.hasText(parentId)) return null;
+			if (!StringUtils.hasText(systemTypeCode)) return null;
 			
-			return qCode.parentCode.id.eq(parentId);
+			return qCode.systemTypeCode.eq(systemTypeCode);
 		}
 		
 		private BooleanExpression eqParentId(String parentId) {

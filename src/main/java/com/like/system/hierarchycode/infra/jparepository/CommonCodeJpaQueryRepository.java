@@ -3,7 +3,6 @@ package com.like.system.hierarchycode.infra.jparepository;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import com.like.system.hierarchycode.boundary.CodeComboDTO;
 import com.like.system.hierarchycode.boundary.CodeHierarchy;
@@ -66,11 +65,8 @@ public class CommonCodeJpaQueryRepository implements CommonCodeQueryRepository {
 		BooleanBuilder builder = new BooleanBuilder();
 		
 		builder.and(qCode.isRootNode())
-		       .and(qCode.enabled());
-		
-		if (!StringUtils.hasText(systemTypeCode)) {
-			builder.and(qCode.systemTypeCode.eq(systemTypeCode));
-		}		
+		       .and(qCode.enabled())
+		       .and(qCode.systemTypeCode.eq(systemTypeCode));				
 				
 		return queryFactory
 				.select(this.getCodehierarchyConstructor())
