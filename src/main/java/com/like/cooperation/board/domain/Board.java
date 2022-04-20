@@ -32,18 +32,14 @@ import lombok.ToString;
 @Table(name = "GRWBOARD")
 @EntityListeners(AuditingEntityListener.class)
 public class Board extends AuditEntity {		
-	
-	/**
-	 * 게시판 키
-	 */
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Comment("게시판 ID")
 	@Column(name="PK_BOARD")
 	Long pkBoard;
-	    
-	/**
-	 * 상위 게시판
-	 */
+	    	
+	@Comment("상위게시판 ID")
 	@ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE}, optional = true)
 	@JoinColumn(name="PPK_BOARD")
 	Board parent;
@@ -95,7 +91,7 @@ public class Board extends AuditEntity {
 		this.articleCount = 0L;
 	}
 	
-	public void modifyEntity(Board parent
+	public void modifyEntity(@Nullable Board parent
 						    ,BoardType boardType
 						    ,String boardName
 						    ,String description						    
@@ -109,22 +105,12 @@ public class Board extends AuditEntity {
 		this.sequence = sequence;		
 	}
 	
-    public boolean hasParentBoard() {    	    		    		
-    	return this.parent != null ? true : false;
-	}
-    
-    public void setParentRoot() {
-    	
-    }
+        
     
     public void setParent(Board board) {
     	this.parent = board;
     }
     
-	public void setArticles(List<Article> articles) {
-		this.articles = articles;
-	}
-	
 	public void addArticle(Article article) {
 		this.articles.add(article);		
 		
@@ -132,5 +118,15 @@ public class Board extends AuditEntity {
 			article.setBoard(this);
 		}
 	}
+	
+	/*
+	private boolean hasParentBoard() {    	    		    		
+    	return this.parent != null ? true : false;
+	}
+		
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	}
+	*/
 	
 }

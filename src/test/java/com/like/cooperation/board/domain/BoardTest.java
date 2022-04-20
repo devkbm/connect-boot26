@@ -23,6 +23,8 @@ public class BoardTest {
 		assertThat(board.getArticleCount()).isEqualTo(0L);
 	}
 	
+	@DisplayName("게시판 수정")
+	@Test
 	void modifyEntity() {
 		// Given
 		Board board = new Board(null, BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");		

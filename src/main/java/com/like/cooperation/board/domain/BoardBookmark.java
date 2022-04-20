@@ -44,21 +44,21 @@ public class BoardBookmark extends AuditEntity implements Serializable {
 	@Column(name="USER_ID")
 	String userId;
 		
-	@Comment("게시판 키")
+	@Comment("게시판 ID")
 	@Column(name="FK_BOARD")
-	Long fkBoard;
+	Board board;
 		
 	@Comment("순번")
 	@Column(name="SEQ")
 	Long seq;
 		
 	public BoardBookmark(String userId
-						,Long fkBoard
+						,Board board
 						,Long seq) {
 		
 		this.userId = userId;
-		this.fkBoard = fkBoard;
-		this.seq = seq;
+		this.board 	= board;
+		this.seq 	= seq;
 	}
 	
 	public void changeSequence(long seq) {

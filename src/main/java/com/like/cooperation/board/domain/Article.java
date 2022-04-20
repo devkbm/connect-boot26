@@ -16,7 +16,6 @@ import org.hibernate.annotations.Formula;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.system.core.domain.AuditEntity;
-import com.like.system.core.util.SessionUtil;
 import com.like.system.file.domain.FileInfo;
 
 /**
@@ -90,6 +89,9 @@ public class Article extends AuditEntity {
 			      ,ArticleContents content
 			      ,ArticlePassword password
 				  ,List<AttachedFile> files) {
+		
+		if (board == null) throw new IllegalArgumentException("게시판이 존재하지 않습니다.");
+		
 		this.board = board;
 		this.content = content;
 		this.password = password;
@@ -131,12 +133,8 @@ public class Article extends AuditEntity {
 		this.files = files;
 	}
 	
-	public Boolean getEditable() {			
-		return isWriter();
-	}
-	
-	private boolean isWriter() {						
-		return this.createdBy.equals(SessionUtil.getUserId());		
-	}
+	public Boolean getEditable(String userId) {			
+		return this.createdBy.equals(userId);
+	}	
 			
 }

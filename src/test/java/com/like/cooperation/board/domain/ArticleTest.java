@@ -7,6 +7,19 @@ import org.junit.jupiter.api.Test;
 
 public class ArticleTest {
 
+	@DisplayName("게시글 등록시 게시판이 없으면 오류 발생")
+	@Test
+	void createArticle_nullBoard() {
+				
+		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+			Board board = null;
+			new Article(board
+				 	   ,new ArticleContents("제목", "내용")
+					   ,new ArticlePassword("pwd")
+					   ,null); 
+		});
+	}
+	
 	@DisplayName("게시글 생성")
 	@Test
 	void createEntity() {
@@ -42,5 +55,7 @@ public class ArticleTest {
 		assertThat(article.getContent().getContents()).isEqualTo("내용 수정");
 		assertThat(article.getPassword().getPassword()).isEqualTo("pwd");				
 	}
+	
+	
 	
 }

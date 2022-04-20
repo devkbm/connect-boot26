@@ -15,6 +15,7 @@ import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleContents;
 import com.like.cooperation.board.domain.ArticlePassword;
 import com.like.cooperation.board.domain.QArticle;
+import com.like.system.core.util.SessionUtil;
 import com.like.system.file.boundary.FileResponseDTO;
 import com.like.system.file.domain.FileInfo;
 import com.like.system.file.infra.file.LocalFileRepository;
@@ -169,7 +170,7 @@ public class ArticleDTO {
 							 .title(entity.getContent().getTitle())
 							 .contents(entity.getContent().getContents())
 							 .fileList(responseList)			
-							 .editable(entity.getEditable())
+							 .editable(entity.getEditable(SessionUtil.getUserId()))
 							 .build();
 		}
 	    
