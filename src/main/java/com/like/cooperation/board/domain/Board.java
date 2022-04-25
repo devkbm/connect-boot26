@@ -60,16 +60,8 @@ public class Board extends AuditEntity {
 	    		
 	@Comment("사용여부")
 	@Column(name="USE_YN")
-	Boolean useYn;        		      
-		
-	@Comment("출력순서")
-	@Column(name="SEQ")
-	Long sequence;	
-		
-	@Comment("게시글 갯수")
-	@Column(name="ARTICLE_CNT")
-	Long articleCount;
-
+	Boolean useYn;        		      		
+			
 	/**
 	 * 게시글 리스트
 	 */
@@ -86,9 +78,7 @@ public class Board extends AuditEntity {
 		this.boardType = boardType;
 		this.boardName = boardName;
 		this.description = description; 
-		this.useYn = true;
-		this.sequence = 0L;
-		this.articleCount = 0L;
+		this.useYn = true;		
 	}
 	
 	public void modifyEntity(@Nullable Board parent
@@ -101,16 +91,9 @@ public class Board extends AuditEntity {
 		this.boardType = boardType;
 		this.boardName = boardName;
 		this.description = description;		
-		this.useYn = useYn;
-		this.sequence = sequence;		
+		this.useYn = useYn;			
 	}
-	
-        
-    
-    public void setParent(Board board) {
-    	this.parent = board;
-    }
-    
+	               
 	public void addArticle(Article article) {
 		this.articles.add(article);		
 		

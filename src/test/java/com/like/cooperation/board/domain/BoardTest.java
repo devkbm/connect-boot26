@@ -18,9 +18,7 @@ public class BoardTest {
 		assertThat(board.getBoardType()).isEqualTo(BoardType.BOARD);
 		assertThat(board.getBoardName()).isEqualTo("테스트 게시판");
 		assertThat(board.getDescription()).isEqualTo("테스트 게시판입니다");
-		assertThat(board.getUseYn()).isEqualTo(true);
-		assertThat(board.getSequence()).isEqualTo(0L);
-		assertThat(board.getArticleCount()).isEqualTo(0L);
+		assertThat(board.getUseYn()).isEqualTo(true);		
 	}
 	
 	@DisplayName("게시판 수정")
@@ -34,7 +32,6 @@ public class BoardTest {
 		assertThat(board.getBoardType()).isEqualTo(BoardType.NOTICE);
 		assertThat(board.getBoardName()).isEqualTo("수정 게시판");
 		assertThat(board.getDescription()).isEqualTo("수정 게시판입니다");
-		assertThat(board.getUseYn()).isEqualTo(false);
-		assertThat(board.getSequence()).isEqualTo(1L);		
+		assertThat(board.getUseYn()).isEqualTo(false);				
 	}
 }

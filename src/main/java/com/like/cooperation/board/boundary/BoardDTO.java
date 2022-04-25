@@ -59,8 +59,7 @@ public class BoardDTO {
 			@NotEmpty(message="게시판명은 필수 입력사항입니다.")
 			String boardName,
 			String boardDescription,			
-			Boolean useYn,
-			long articleCount,
+			Boolean useYn,			
 			long sequence
 			) {
 		
@@ -94,9 +93,7 @@ public class BoardDTO {
 						    .boardType(entity.getBoardType().toString())
 						    .boardName(entity.getBoardName())
 						    .boardDescription(entity.getDescription())						   						    
-						    .useYn(entity.getUseYn())
-						    .articleCount(entity.getArticleCount())
-						    .sequence(entity.getSequence())
+						    .useYn(entity.getUseYn())						    
 						    .build();	
 		}
 	}		

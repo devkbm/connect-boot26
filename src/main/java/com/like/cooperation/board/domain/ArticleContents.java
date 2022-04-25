@@ -24,6 +24,8 @@ public class ArticleContents {
 	
 	public ArticleContents(String title
 						  ,String contents) {
+		if (title == null || title == "") throw new IllegalArgumentException("게시글 제목은 필수 입력값입니다.");
+		
 		this.title = title;
 		this.contents = contents;
 	}

@@ -70,8 +70,7 @@ public class BoardQueryJpaRepository implements BoardQueryRepository {
 		
 		JPAQuery<BoardHierarchy> query = queryFactory
 				.select(new QBoardHierarchy(qBoard.pkBoard, qBoard.parent.pkBoard, qBoard.boardType
-										   ,qBoard.boardName, qBoard.description,  qBoard.articleCount
-										   ,qBoard.sequence))
+										   ,qBoard.boardName, qBoard.description))
 				.from(qBoard)
 				.where(qBoard.isRootNode());
 													
@@ -83,8 +82,7 @@ public class BoardQueryJpaRepository implements BoardQueryRepository {
 		
 		JPAQuery<BoardHierarchy> query = queryFactory
 				.select(new QBoardHierarchy(qBoard.pkBoard, qBoard.parent.pkBoard, qBoard.boardType
-						   				   ,qBoard.boardName, qBoard.description,  qBoard.articleCount
-						   				   ,qBoard.sequence))
+						   				   ,qBoard.boardName, qBoard.description))
 				.from(qBoard)
 				.where(qBoard.parent.pkBoard.eq(parentPkBoard));								
 		

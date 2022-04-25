@@ -12,9 +12,26 @@ public class ArticleTest {
 	void createArticle_nullBoard() {
 				
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+			// Given, When
 			Board board = null;
+			// Then
 			new Article(board
 				 	   ,new ArticleContents("제목", "내용")
+					   ,new ArticlePassword("pwd")
+					   ,null); 
+		});
+	}
+	
+	@DisplayName("게시글 등록시 제목이 없으면 오류 발생")
+	@Test
+	void createArticle_nullTitle() {
+				
+		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+			// Given, When
+			Board board = new Board(null, BoardType.BOARD, "테스트 게시판", "테스트 게시판입니다");
+			// Then
+			new Article(board
+				 	   ,new ArticleContents("", "내용")
 					   ,new ArticlePassword("pwd")
 					   ,null); 
 		});
