@@ -76,7 +76,7 @@ public class Article extends AuditEntity {
     List<ArticleCheck> articleChecks;
                           	
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    List<AttachedFile> files;
+    List<ArticleAttachedFile> files;
 			
 	@Formula("(SELECT X.USER_NAME FROM COMUSER X WHERE X.USER_ID = sys_user)")
 	String userName;
@@ -88,7 +88,7 @@ public class Article extends AuditEntity {
 	public Article(Board board
 			      ,ArticleContents content
 			      ,ArticlePassword password
-				  ,List<AttachedFile> files) {
+				  ,List<ArticleAttachedFile> files) {
 		
 		if (board == null) throw new IllegalArgumentException("게시판이 존재하지 않습니다.");
 		
@@ -129,7 +129,7 @@ public class Article extends AuditEntity {
 				  		 .toList();				  		 					 
 	}
 	
-	public void setFiles(List<AttachedFile> files) {
+	public void setFiles(List<ArticleAttachedFile> files) {
 		this.files = files;
 	}
 	

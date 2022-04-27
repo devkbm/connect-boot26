@@ -8,14 +8,14 @@ import com.like.system.file.domain.FileInfo;
 
 public class AttachedFileConverter {
 
-	public static List<AttachedFile> convert(Article article, List<FileInfo> fileInfoList) {
+	public static List<ArticleAttachedFile> convert(Article article, List<FileInfo> fileInfoList) {
 		
 		if (fileInfoList == null || fileInfoList.isEmpty()) return Collections.emptyList();
 		
-		List<AttachedFile> list = new ArrayList<>();
+		List<ArticleAttachedFile> list = new ArrayList<>();
 		
 		for (FileInfo file : fileInfoList) {
-			list.add(new AttachedFile(article, file));
+			list.add(new ArticleAttachedFile(article, file));
 		}
 		
 		return list;				

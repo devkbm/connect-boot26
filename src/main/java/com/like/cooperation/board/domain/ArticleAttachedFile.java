@@ -38,7 +38,7 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "GRWARTICLEFILE")
-public class AttachedFile extends AuditEntity implements Serializable {
+public class ArticleAttachedFile extends AuditEntity implements Serializable {
 		
 		
 	private static final long serialVersionUID = 1933620773768936638L;
@@ -56,7 +56,7 @@ public class AttachedFile extends AuditEntity implements Serializable {
 	@JoinColumn(name="PK_FILE", nullable = false)
 	FileInfo fileInfo;
 
-	public AttachedFile(Article article, FileInfo fileInfo) {		
+	public ArticleAttachedFile(Article article, FileInfo fileInfo) {		
 		this.article = article;
 		this.fileInfo = fileInfo;
 	}

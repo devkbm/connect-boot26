@@ -13,7 +13,7 @@ import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleCheck;
 import com.like.cooperation.board.domain.ArticleCheckRepository;
 import com.like.cooperation.board.domain.ArticleRepository;
-import com.like.cooperation.board.domain.AttachedFile;
+import com.like.cooperation.board.domain.ArticleAttachedFile;
 import com.like.cooperation.board.domain.AttachedFileConverter;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardRepository;
@@ -47,7 +47,7 @@ public class ArticleCommandService {
 	public String saveArticle(ArticleDTO.FormArticleByMuiltiPart dto) throws Exception {
 		
 		List<FileInfo> fileInfoList = null;
-		List<AttachedFile> attachedFileList = null;					
+		List<ArticleAttachedFile> attachedFileList = null;					
 		
 		Article article = convertEntity(dto);			
 		
@@ -73,7 +73,7 @@ public class ArticleCommandService {
 		Board board = boardRepository.findById(dto.fkBoard()).orElseThrow(() -> new IllegalArgumentException("존재 하지 않은 게시판입니다."));
 		Article article = null;
 		List<FileInfo> fileInfoList = Collections.emptyList();
-		List<AttachedFile> attachedFileList = Collections.emptyList();
+		List<ArticleAttachedFile> attachedFileList = Collections.emptyList();
 		
 		// 1. 기존 게시글이 없으면 생성, 있으면 수정		
 		if (dto.pkArticle() == null) {
