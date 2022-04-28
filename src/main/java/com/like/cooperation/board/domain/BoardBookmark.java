@@ -58,11 +58,12 @@ public class BoardBookmark extends AuditEntity implements Serializable {
 	Long seq;
 		
 	public BoardBookmark(Board board
-						,String userId						
-						,Long seq) {
+						,String userId) {		
+		if (board == null) throw new IllegalArgumentException("게시판이 존재하지 않습니다.");
+		
 		this.board 	= board;
 		this.userId = userId;		
-		this.seq 	= seq;
+		this.seq 	= 0L;
 	}
 	
 	public void changeSequence(long seq) {

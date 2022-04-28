@@ -8,13 +8,11 @@ import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.Nullable;
 
-import com.fasterxml.jackson.annotation.*;
 import com.like.system.core.domain.AuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 import lombok.ToString;
 
 /**
@@ -43,9 +41,9 @@ public class Board extends AuditEntity {
 	@ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE}, optional = true)
 	@JoinColumn(name="PPK_BOARD")
 	Board parent;
-			
+				
+	//@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 	@Enumerated(EnumType.STRING)
-	@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 	@Comment("게시판_타입")
 	@Column(name="BOARD_TYPE")
     BoardType boardType;
@@ -64,11 +62,17 @@ public class Board extends AuditEntity {
 			
 	/**
 	 * 게시글 리스트
-	 */
-	@Singular(value="articles")
+	 */	
     @OneToMany(mappedBy = "board")          
     List<Article> articles;           
-    	
+        
+    /**
+     * 즐겨찾기     
+     */
+    @OneToMany(mappedBy = "board") 
+    @OrderBy("seq asc")
+    Set<BoardBookmark> bookmarks;
+    
 	public Board(@Nullable Board parent
 			    ,BoardType boardType
 				,String boardName
@@ -94,22 +98,19 @@ public class Board extends AuditEntity {
 		this.useYn = useYn;			
 	}
 	               
-	public void addArticle(Article article) {
-		this.articles.add(article);		
+	public void addArticle(ArticleContents content
+					      ,ArticlePassword password
+						  ,List<ArticleAttachedFile> files) {
+		if (this.articles == null) this.articles = new ArrayList<>();
 		
-		if (article.board != this) {	// 무한루프에 빠지지 않도록 체크
-			article.setBoard(this);
-		}
+		this.articles.add(new Article(this, content, password, files));					
 	}
 	
-	/*
-	private boolean hasParentBoard() {    	    		    		
-    	return this.parent != null ? true : false;
+	public void addBookmark(String userId) {
+		if (this.bookmarks == null) this.bookmarks = new LinkedHashSet<>();
+		
+		this.bookmarks.add(new BoardBookmark(this, userId));
 	}
 		
-	public void setArticles(List<Article> articles) {
-		this.articles = articles;
-	}
-	*/
 	
 }
