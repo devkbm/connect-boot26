@@ -6,26 +6,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.todo.domain.TaskGroup;
-import com.like.cooperation.todo.service.TaskQueryService;
+import com.like.cooperation.todo.domain.TodoGroup;
+import com.like.cooperation.todo.service.TodoQueryService;
 import com.like.system.core.util.SessionUtil;
 import com.like.system.core.web.util.WebControllerUtil;
 
 @RestController
-public class TaskQueryController {
+public class TodoQueryController {
 
-	private TaskQueryService service;
+	private TodoQueryService service;
 	
-	public TaskQueryController(TaskQueryService service) {
+	public TodoQueryController(TodoQueryService service) {
 		this.service = service;
 	}
 	
-	@GetMapping("/api/todo/taskgroup/mylist")
-	public ResponseEntity<?> getTaskGroupList() {
+	@GetMapping("/api/todo/group/mylist")
+	public ResponseEntity<?> getTodoGroupList() {
 						
 		String userId = SessionUtil.getUserId();
 		
-		List<TaskGroup> list = service.getTaskGroupList(userId);			 					
+		List<TodoGroup> list = service.getTodoGroupList(userId);			 					
 		
 		return WebControllerUtil.getResponse(list
 											,String.format("%d 건 조회되었습니다.", list.size()));

@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 import org.springframework.util.StringUtils;
 
-import com.like.cooperation.todo.domain.QTask;
-import com.like.cooperation.todo.domain.QTaskGroup;
+import com.like.cooperation.todo.domain.QTodo;
+import com.like.cooperation.todo.domain.QTodoGroup;
 import com.querydsl.core.BooleanBuilder;
 
-public class TaskQueryDTO {
+public class TodoQueryDTO {
 
-	private final QTaskGroup qTaskGroup = QTaskGroup.taskGroup;
-	private final QTask qTask = QTask.task1;
+	private final QTodoGroup qTodoGroup = QTodoGroup.todoGroup;
+	private final QTodo qTodo = QTodo.todo1;
 	private BooleanBuilder builder = new BooleanBuilder();
 		
 	String userId;
 	
-	String task;		
+	String todo;		
 		
 	Boolean isCompleted;
 		
@@ -25,13 +25,13 @@ public class TaskQueryDTO {
 	public BooleanBuilder getQueryFilter() {		
 		
 		if (StringUtils.hasText(this.userId))
-			builder.and(qTaskGroup.modifiedBy.eq(userId));
+			builder.and(qTodoGroup.modifiedBy.eq(userId));
 		
-		if (StringUtils.hasText(this.task))
-			builder.and(qTask.task.like("%"+task+"%"));
+		if (StringUtils.hasText(this.todo))
+			builder.and(qTodo.todo.like("%"+todo+"%"));
 		
 		if (this.isCompleted != null)
-			builder.and(qTask.isCompleted.eq(isCompleted));				 		
+			builder.and(qTodo.isCompleted.eq(isCompleted));				 		
 		
 		return builder;
 	}

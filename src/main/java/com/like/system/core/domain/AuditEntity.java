@@ -12,9 +12,6 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
-@JsonAutoDetect
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class AuditEntity {
@@ -22,14 +19,14 @@ public class AuditEntity {
 	 * 최초 등록 일시
 	 */
 	@CreatedDate
-	@Column(name = "sys_dt", nullable = false, updatable = false)	
+	@Column(name = "sys_dt", updatable = false)	
 	protected LocalDateTime createdDt;	
 	
 	/**
 	 * 최초 등록 유저	
 	 */
 	@CreatedBy
-	@Column(name = "sys_user", nullable = false, updatable = false)
+	@Column(name = "sys_user", updatable = false)
 	protected String createdBy;
 	
 	/**

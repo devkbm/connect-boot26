@@ -12,74 +12,74 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.todo.boundary.TaskDTO;
-import com.like.cooperation.todo.domain.Task;
-import com.like.cooperation.todo.service.TaskCommandService;
+import com.like.cooperation.todo.boundary.TodoDTO;
+import com.like.cooperation.todo.domain.Todo;
+import com.like.cooperation.todo.service.TodoCommandService;
 import com.like.system.core.web.util.WebControllerUtil;
 
 @RestController
-public class TaskController {	
+public class TodoController {	
 		
-	private TaskCommandService taskCommandService;
+	private TodoCommandService taskCommandService;
 
-	public TaskController(TaskCommandService taskCommandService) {		
+	public TodoController(TodoCommandService taskCommandService) {		
 		this.taskCommandService = taskCommandService;
 	}		
 		
-	@PostMapping("/api/todo/taskgroup/new")
-	public ResponseEntity<?> newTaskGroup() {
+	@PostMapping("/api/todo/group/new")
+	public ResponseEntity<?> newTodoGroup() {
 										
-		taskCommandService.newTaskGroup();										
+		taskCommandService.newDefaultTodoGroup();										
 								 					
 		return WebControllerUtil.getResponse(null
 										    ,"생성되었습니다.");
 	}
 		
-	@PostMapping("/api/todo/taskgroup")
-	public ResponseEntity<?> saveTaskGroup(@RequestBody @Valid TaskDTO.FormTaskGroup dto) {								
+	@PostMapping("/api/todo/group")
+	public ResponseEntity<?> saveTaskGroup(@RequestBody @Valid TodoDTO.FormTodoGroup dto) {								
 			
-		taskCommandService.saveTaskGroup(dto);
+		taskCommandService.saveTodoGroup(dto);
 																				 			
 		return WebControllerUtil.getResponse(null
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 		
-	@DeleteMapping("/api/todo/taskgroup/{id}")
-	public ResponseEntity<?> deleteTerm(@PathVariable Long id) {							
+	@DeleteMapping("/api/todo/group/{id}")
+	public ResponseEntity<?> deleteTodoGroup(@PathVariable Long id) {							
 			
-		taskCommandService.deleteTaskGroup(id);
+		taskCommandService.deleteTodoGroup(id);
 											 				
 		return WebControllerUtil.getResponse(null
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 		
-	@GetMapping("/api/todo/taskgroup/{id}/task")
+	@GetMapping("/api/todo/group/{id}/list")
 	public ResponseEntity<?> getTaskList(@PathVariable Long id) {				
 		
-		List<Task> list = taskCommandService.getTaskGroup(id).getTaskList();
+		List<Todo> list = taskCommandService.getTodoGroup(id).getTodoList();
 		
-		List<TaskDTO.FormTask> dtoList = list.stream()
-											 .map(e -> TaskDTO.FormTask.convert(e))
+		List<TodoDTO.FormTodo> dtoList = list.stream()
+											 .map(e -> TodoDTO.FormTodo.convert(e))
 											 .toList(); 											
 		
 		return WebControllerUtil.getResponse(dtoList
 											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
-	@PostMapping("/api/todo/taskgroup/task")
-	public ResponseEntity<?> saveTask(@RequestBody @Valid TaskDTO.FormTask dto) {								
+	@PostMapping("/api/todo/group/todo")
+	public ResponseEntity<?> saveTask(@RequestBody @Valid TodoDTO.FormTodo dto) {								
 			
-		taskCommandService.saveTask(dto);
+		taskCommandService.saveTodo(dto);
 																				 			
 		return WebControllerUtil.getResponse(null
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
-	@DeleteMapping("/api/todo/taskgroup/{taskgroupid}/task/{taskid}")
-	public ResponseEntity<?> deleteTask(@PathVariable Long taskgroupid
-									   ,@PathVariable Long taskid) {							
+	@DeleteMapping("/api/todo/group/{todogroupid}/todo/{todoid}")
+	public ResponseEntity<?> deleteTask(@PathVariable Long todogroupid
+									   ,@PathVariable Long todoid) {							
 			
-		taskCommandService.deleteTask(taskgroupid, taskid);
+		taskCommandService.deleteTodo(todogroupid, todoid);
 											 				
 		return WebControllerUtil.getResponse(null
 											,String.format("%d 건 삭제되었습니다.", 1));

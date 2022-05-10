@@ -23,21 +23,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@ToString(callSuper=true, includeFieldNames=true, exclude = {"taskGroup"})
+@ToString(callSuper=true, includeFieldNames=true, exclude = {"todoGroup"})
 @Getter
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Entity
-@Table(name = "grtask")
+@Table(name = "grtodo")
 @EntityListeners(AuditingEntityListener.class)
-public class Task extends AuditEntity {		
+public class Todo extends AuditEntity {		
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="pk_task")
-	Long pkTask;	
+	@Column(name="pk_todo")
+	Long pkTodo;	
 
-	@Column(name="task")
-	String task;		
+	@Column(name="todo")
+	String todo;		
 	
 	@Column(name="completed")
 	boolean isCompleted;
@@ -49,22 +49,22 @@ public class Task extends AuditEntity {
 	String comments;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_task_group", nullable=false, updatable=false)
-	TaskGroup taskGroup;	
+	@JoinColumn(name = "fk_todo_group", nullable=false)
+	TodoGroup todoGroup;	
 	
 	@Builder
-	public Task(TaskGroup taskGroup, String task, LocalDate dueDate, String comments) {
-		this.taskGroup = taskGroup;
-		this.task = task;
+	public Todo(TodoGroup todoGroup, String todo, LocalDate dueDate, String comments) {
+		this.todoGroup = todoGroup;
+		this.todo = todo;
 		this.dueDate = dueDate;
 		this.comments = comments;
 	}
 	
-	public void modify(String task
+	public void modify(String todo
 					  ,boolean isCompleted
 					  ,LocalDate dueDate
 					  ,String comments) {
-		this.task = task;
+		this.todo = todo;
 		this.isCompleted = isCompleted;
 		this.dueDate = dueDate;
 		this.comments = comments;		

@@ -5,6 +5,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TaskGroupRepository extends JpaRepository<TaskGroup,Long> , QuerydslPredicateExecutor<TaskGroup> {
+public interface TodoGroupRepository extends JpaRepository<TodoGroup,Long> , QuerydslPredicateExecutor<TodoGroup> {
 
 }
