@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.biztypecode.boundary.BizDetailCodeDTO;
 import com.like.system.biztypecode.boundary.BizTypeCodeDTO;
+import com.like.system.biztypecode.domain.BizDetailCodeId;
 import com.like.system.biztypecode.service.BizTypeCodeService;
 import com.like.system.core.web.util.WebControllerUtil;
 
@@ -46,6 +48,38 @@ public class BizTypeCodeController {
 	public ResponseEntity<?> deleteHrmType(@PathVariable String id) {				
 																		
 		service.deleteBizTypeCode(id);						
+								 					
+		return WebControllerUtil
+				.getResponse(null											
+							,String.format("%d 건 삭제되었습니다.", 1));
+	}
+	
+	@GetMapping("/common/biztype/{typeCode}/bizdetail/{detailCode}")
+	public ResponseEntity<?> getBizDetailCode(@PathVariable String typeCode
+											 ,@PathVariable String detailCode) {
+		
+		BizDetailCodeDTO.FormBizDetailCode dto = BizDetailCodeDTO.FormBizDetailCode.convert(service.getBizDetailCode(new BizDetailCodeId(typeCode, detailCode)));
+					
+		return WebControllerUtil
+				.getResponse(dto											
+							,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+	}
+			
+	@PostMapping("/common/biztype/bizdetail")	
+	public ResponseEntity<?> saveBizDetailCode(@RequestBody BizDetailCodeDTO.FormBizDetailCode dto) {				
+																		
+		service.saveBizDetailCode(dto);						
+								 					
+		return WebControllerUtil
+				.getResponse(null											
+							,String.format("%d 건 저장되었습니다.", 1));
+	}	
+		
+	@DeleteMapping("/common/biztype/{typeCode}/bizdetail/{detailCode}")
+	public ResponseEntity<?> deleteBizDetailCode(@PathVariable String typeCode
+			 									,@PathVariable String detailCode) {				
+																		
+		service.deleteBizDetailCode(new BizDetailCodeId(typeCode, detailCode));						
 								 					
 		return WebControllerUtil
 				.getResponse(null											

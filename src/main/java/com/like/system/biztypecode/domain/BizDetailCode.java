@@ -3,16 +3,16 @@ package com.like.system.biztypecode.domain;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import com.like.system.core.domain.AuditEntity;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -20,19 +20,37 @@ import lombok.NoArgsConstructor;
 public class BizDetailCode extends AuditEntity {
 
 	@EmbeddedId
-	private BizDetailCodeId id;
+	BizDetailCodeId id;
 	
 	@Column(name="DETAIL_CODE_NAME")
-	private String codeName;
+	String codeName;
 		
 	@Column(name="USE_YN")
-	private Boolean useYn = true;
+	Boolean useYn = true;
 	
 	@Column(name="PRT_SEQ")
-	private Integer sequence;
+	Integer sequence;
 	
 	@Column(name="CMT")
-	private String comment;
+	String comment;
+	
+	@ManyToOne
+	@MapsId("typeCode")	//기본키를 외래키로 쓰는경우 @MapsId 사용, 아니면 @JOinColumn 사용 
+	BizTypeCode bizTypeCode;
+	
+	public BizDetailCode(BizTypeCode bizTypeCode
+			            ,String code
+			            ,String name
+			            ,Boolean useYn
+			            ,Integer sequence 
+					    ,String comment) {
+		this.bizTypeCode = bizTypeCode;
+		this.id = new BizDetailCodeId(bizTypeCode.getId(), code);
+		this.codeName = name;
+		this.useYn = useYn;
+		this.sequence = sequence;
+		this.comment = comment;
+	}
 	
 	public void modify(String codeName
 					  ,Boolean useYn

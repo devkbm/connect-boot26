@@ -1,11 +1,16 @@
 package com.like.system.biztypecode.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.like.system.core.domain.AuditEntity;
@@ -22,26 +27,29 @@ public class BizTypeCode extends AuditEntity {
 
 	@Id
 	@Column(name="TYPE_CODE")
-	private String id;
+	String id;
 	
 	@Column(name="TYPE_CODE_NAME")
-	private String name;
+	String name;
 	
 	@Column(name="USE_YN")
-	private Boolean useYn = true;
+	Boolean useYn = true;
 	
 	@Column(name="PRT_SEQ")
-	private Integer sequence;
+	Integer sequence;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="BIZ_TYPE")
-	private BizTypeEnum bizType;
+	BizTypeEnum bizType;
 		
 	@Embedded
 	BizRuleComments ruleComments;
 		
 	@Column(name="CMT")
-	private String comment;
+	String comment;
+	
+	@OneToMany(mappedBy="bizTypeCode", cascade = CascadeType.ALL, orphanRemoval = true)
+	Set<BizDetailCode> codes = new HashSet<>();
 	
 	public BizTypeCode(String id, String name, Boolean useYn, Integer sequence, BizTypeEnum bizType, String comment) {
 		this.id = id;
@@ -58,6 +66,25 @@ public class BizTypeCode extends AuditEntity {
 		this.sequence = sequence;
 		this.ruleComments = ruleComments;
 		this.comment = comment;
+	}
+	
+	public BizDetailCode getBizDetailCode(BizDetailCodeId id) {
+		return this.codes.stream()
+						 .filter(e -> e.getId().equals(id))
+						 .findFirst()
+						 .orElse(null);
+	}
+	
+	public void addDetailCode(String code
+				             ,String name
+				             ,Boolean useYn
+				             ,Integer sequence 
+						     ,String comment) {
+		this.codes.add(new BizDetailCode(this, code, name, useYn, sequence, comment));
+	}
+	
+	public void remove(BizDetailCode code) {
+		this.codes.remove(code);
 	}
 		
 }
