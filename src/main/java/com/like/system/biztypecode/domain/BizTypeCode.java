@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.util.StringUtils;
+
 import com.like.system.core.domain.AuditEntity;
 
 import lombok.AccessLevel;
@@ -50,6 +52,18 @@ public class BizTypeCode extends AuditEntity {
 	
 	@OneToMany(mappedBy="bizTypeCode", cascade = CascadeType.ALL, orphanRemoval = true)
 	Set<BizDetailCode> codes = new HashSet<>();
+	
+	
+	public BizTypeCode(String id, String name, BizTypeEnum bizType, String comment) {
+		if (!StringUtils.hasText(id)) throw new IllegalArgumentException("ID는 필수 입력 값입니다."); 
+		
+		this.id = id;
+		this.name = name;
+		this.useYn = true;
+		this.sequence = 0;
+		this.bizType = bizType;
+		this.comment = comment;
+	}
 	
 	public BizTypeCode(String id, String name, Boolean useYn, Integer sequence, BizTypeEnum bizType, String comment) {
 		this.id = id;

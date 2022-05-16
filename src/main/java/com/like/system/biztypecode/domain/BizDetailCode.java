@@ -1,5 +1,7 @@
 package com.like.system.biztypecode.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -37,6 +39,20 @@ public class BizDetailCode extends AuditEntity {
 	@ManyToOne
 	@MapsId("typeCode")	//기본키를 외래키로 쓰는경우 @MapsId 사용, 아니면 @JOinColumn 사용 
 	BizTypeCode bizTypeCode;
+
+	public BizDetailCode(BizTypeCode bizTypeCode
+            ,String code
+            ,String name            
+		    ,String comment) {
+		Objects.requireNonNull(bizTypeCode, "업무 구분은 필수 입력 값입니다.");
+		
+		this.bizTypeCode = bizTypeCode;
+		this.id = new BizDetailCodeId(bizTypeCode.getId(), code);
+		this.codeName = name;
+		this.useYn = true;
+		this.sequence = 0;
+		this.comment = comment;
+	}
 	
 	public BizDetailCode(BizTypeCode bizTypeCode
 			            ,String code
@@ -44,6 +60,8 @@ public class BizDetailCode extends AuditEntity {
 			            ,Boolean useYn
 			            ,Integer sequence 
 					    ,String comment) {
+		Objects.requireNonNull(bizTypeCode, "업무 구분은 필수 입력 값입니다.");
+		
 		this.bizTypeCode = bizTypeCode;
 		this.id = new BizDetailCodeId(bizTypeCode.getId(), code);
 		this.codeName = name;
