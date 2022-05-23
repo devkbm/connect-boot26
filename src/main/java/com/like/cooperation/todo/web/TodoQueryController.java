@@ -21,7 +21,7 @@ public class TodoQueryController {
 	}
 	
 	@GetMapping("/api/todo/group/mylist")
-	public ResponseEntity<?> getTodoGroupList() {
+	public ResponseEntity<?> getMyTodoGroupList() {
 						
 		String userId = SessionUtil.getUserId();
 		

@@ -1,16 +1,8 @@
 package com.like.cooperation.survey.surveyform.domain;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-import com.like.cooperation.survey.surveyform.boundary.SurveyFormDTO;
-
-public interface SurveyRepository {
-
-	SurveyForm getSurveyForm(Long id);
+public interface SurveyRepository extends JpaRepository<SurveyForm, Long> , QuerydslPredicateExecutor<SurveyForm> {
 	
-	void saveSureyForm(SurveyForm surveyForm);
-	
-	void deleteSurveyForm(SurveyForm surveyForm);
-		
-	List<SurveyForm> getSurveyFormList(SurveyFormDTO.SearchSurveyForm dto);
 }

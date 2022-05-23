@@ -1,23 +1,25 @@
 package com.like.cooperation.survey.surveyform.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.like.system.core.domain.AuditEntity;
 
 import lombok.AccessLevel;
@@ -28,70 +30,81 @@ import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"surveyForm"})
 @ToString(callSuper=true, includeFieldNames=true)
 @Getter
 @Entity
 @Table(name = "GRWSURVEYITEM")
 @EntityListeners(AuditingEntityListener.class)
-public class SurveyItem extends AuditEntity implements Serializable {
-	
-	private static final long serialVersionUID = -11605126548714991L;
+public class SurveyItem extends AuditEntity {	
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ITEM_ID")
-	private Long itemId;
-	
-	/**
-	 * Radio, Checkbox, Text
-	 */
+	Long itemId;
+		
+	@Enumerated(EnumType.STRING)
 	@Column(name="ITEM_TYPE")
-	private String itemType;
+	SurveyItemType itemType;
 	
-	@Column(name="LABEL")
-	private String label;
-	
-	@Column(name="VALUE")
-	private String value;
-	
-	@Column(name="REQUIRED_YN")
-	private Boolean required;	
+	@Column(name="ITEM_TITLE")
+	String itemTitle;	
 	
 	@Column(name="CMT")
-	private String comment;
+	String comment;
 	
-	//private List<SurveyOption> options;
+	@Column(name="REQUIRED_YN")
+	Boolean required;	
 		
-	@ManyToOne(optional = false)			
+	@ElementCollection
+    @CollectionTable(
+        name = "GRWSURVEYITEM_OPTION", 
+        joinColumns = @JoinColumn(name = "ITEM_ID")
+    )
+	@OrderColumn(name = "OPTION_SEQ")
+	List<SurveyItemOption> optionList = new ArrayList<>();
+		
+	@ManyToOne(optional = false)
 	@JoinColumn(name="form_id", nullable=false, updatable=false)
 	private SurveyForm surveyForm;
-	
+			
 	public SurveyItem(SurveyForm surveyForm
-					 ,String itemType
-					 ,String label
-					 ,String value
-					 ,Boolean required
-					 ,String comment) {
+					 ,SurveyItemType itemType
+					 ,String itemTitle
+					 ,String comment
+					 ,Boolean required) {
 		this.surveyForm = surveyForm;
 		this.itemType = itemType;
-		this.label = label;
-		this.value = value;
-		this.required = required;
+		this.itemTitle = itemTitle;
 		this.comment = comment;
-	}
-	
-	
-	public void modifyEntity(String itemType
-							,String label
-							,String value
-							,boolean required
-							,boolean visible) {
-		this.itemType = itemType;
-		this.label = label;
-		this.value = value;
 		this.required = required;		
 	}
+	
+	public SurveyItem(SurveyForm surveyForm
+			 ,SurveyItemType itemType
+			 ,String itemTitle
+			 ,String comment
+			 ,Boolean required
+			 ,List<SurveyItemOption> optionList) {
+		this.surveyForm = surveyForm;
+		this.itemType = itemType;
+		this.itemTitle = itemTitle;
+		this.comment = comment;
+		this.required = required;		
+		this.optionList = optionList;
+	}
+	
+		
+	public void modifyEntity(SurveyItemType itemType							
+							,boolean required
+							,boolean visible) {
+		this.itemType = itemType;		
+		this.required = required;		
+	}
+	
+	public void setOptionList(List<SurveyItemOption> optionList) {
+		this.optionList = optionList;		
+	}
+	
 	/*
 	public void addOption(SurveyOption option) {
 		if (this.options == null) 

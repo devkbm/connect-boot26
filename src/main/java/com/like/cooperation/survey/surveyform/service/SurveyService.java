@@ -19,7 +19,7 @@ public class SurveyService {
 	}
 	
 	public SurveyForm getSurveyForm(Long id) {
-		return surveyRepository.getSurveyForm(id);
+		return surveyRepository.findById(id).orElse(null);
 	}
 	
 	public void saveSurveyForm(SurveyFormDTO.SaveSurveyForm dto) {
@@ -28,25 +28,25 @@ public class SurveyService {
 		if (dto.getFormId() == null) {
 			entity = dto.newSurveyForm();
 		} else {
-			entity = surveyRepository.getSurveyForm(dto.getFormId());
+			entity = surveyRepository.findById(dto.getFormId()).orElse(null);
 			
 			dto.modifySurveyForm(entity);
 		}
 			
-		surveyRepository.saveSureyForm(entity);
+		surveyRepository.save(entity);
 	}
 	
 	public void deleteSurveyForm(Long id) {
-		SurveyForm entity = surveyRepository.getSurveyForm(id);
-		surveyRepository.deleteSurveyForm(entity);
+		SurveyForm entity = surveyRepository.findById(id).orElse(null);
+		surveyRepository.delete(entity);
 	}
 	
 	public SurveyItem getSurveyItem(Long formId, Long itemId) {
-		return surveyRepository.getSurveyForm(formId).getItem(itemId);
+		return surveyRepository.findById(formId).orElse(null).getItem(itemId);
 	}
 		
 	public void saveSurveyItem(SurveyFormDTO.SaveSurveyItem dto) {
-		SurveyForm form = surveyRepository.getSurveyForm(dto.getFormId());
+		SurveyForm form = surveyRepository.findById(dto.getFormId()).orElse(null);
 		SurveyItem item = null;
 		
 		if (dto.getItemId() == null) {
@@ -57,11 +57,11 @@ public class SurveyService {
 			dto.modifySaveSurveyItem(item);
 		}
 		
-		surveyRepository.saveSureyForm(form);
+		surveyRepository.save(form);
 	}
 	
 	public void deleteSurveyItem(Long formId, Long itemId) {
-		SurveyForm entity = surveyRepository.getSurveyForm(formId);		
+		SurveyForm entity = surveyRepository.findById(formId).orElse(null);		
 		entity.removeItem(itemId);				
 	}
 }

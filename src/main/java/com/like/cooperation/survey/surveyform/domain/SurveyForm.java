@@ -1,11 +1,11 @@
 package com.like.cooperation.survey.surveyform.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.vo.LocalDatePeriod;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,29 +27,44 @@ import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Getter
 @ToString(callSuper=true, includeFieldNames=true)
+@Getter
 @Entity
 @Table(name = "GRWSURVEYFORM")
 @EntityListeners(AuditingEntityListener.class)
-public class SurveyForm extends AuditEntity implements Serializable {
-	
-	private static final long serialVersionUID = -1743405102755393150L;
-
+public class SurveyForm extends AuditEntity {
+		
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="FORM_ID")
-	private Long formId;
+	Long formId;
 	
 	@Column(name="TITLE")
-	private String title;
+	String title;
+	
+	@Embedded
+	LocalDatePeriod period;	
+	
+	@Column(name="FINISH_YN")
+	Boolean isFinish;
 	
 	@Column(name="CMT")
-	private String comment;
+	String comment;
 	
 	@OneToMany(mappedBy = "surveyForm", cascade = CascadeType.ALL, orphanRemoval = true )
-	private List<SurveyItem> items;
+	List<SurveyItem> items = new ArrayList<>();
 		
+	
+	public SurveyForm(String title
+			         ,LocalDatePeriod period
+			         ,String comment) {
+		this.title = title;
+		this.period = period;
+		this.comment = comment;
+		
+		this.isFinish = false;
+	}
+	
 	public void modifyEntity(String title
 							,String comment) {
 		this.title = title;
@@ -60,8 +76,7 @@ public class SurveyForm extends AuditEntity implements Serializable {
 	}
 	
 	public void addItem(SurveyItem item) {
-		if (this.items == null)
-			this.items = new ArrayList<>();
+		if (this.items == null) this.items = new ArrayList<>();
 		
 		this.items.add(item);
 	}
@@ -75,11 +90,11 @@ public class SurveyForm extends AuditEntity implements Serializable {
 	}
 	
 	public static void main(String[] args) {
-		SurveyForm form = new SurveyForm(1L, "title", "comment", null);
+		//SurveyForm form = new SurveyForm(1L, "title", "comment", null);
 		
-		form.addItem(new SurveyItem(1L, "itemType", "label1", "value", true, "comment", form));
-		form.addItem(new SurveyItem(2L, "itemType", "label2", "value", true, "comment", form));
-		System.out.println(form.getItem(3L).getLabel());		
+		//form.addItem(new SurveyItem(1L, "itemType", "label1", "value", true, "comment", form));
+		//form.addItem(new SurveyItem(2L, "itemType", "label2", "value", true, "comment", form));
+		//System.out.println(form.getItem(3L).getLabel());		
 		
 	}
 }

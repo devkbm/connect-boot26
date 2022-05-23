@@ -15,7 +15,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Comment;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.system.core.domain.AuditEntity;
 import com.like.system.core.web.exception.BusinessException;
 import com.like.system.core.web.exception.ErrorCode;
@@ -45,8 +44,7 @@ public class Team extends AuditEntity {
 	/*@OneToOne
 	@JoinColumn(name="USER_ID")
 	private User manager;*/ 
-	
-	@JsonIgnore
+		
 	@OneToMany(mappedBy="team", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	List<TeamMember> members = new ArrayList<TeamMember>();			
 	

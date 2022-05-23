@@ -36,7 +36,7 @@ public class TodoController {
 	}
 		
 	@PostMapping("/api/todo/group")
-	public ResponseEntity<?> saveTaskGroup(@RequestBody @Valid TodoDTO.FormTodoGroup dto) {								
+	public ResponseEntity<?> saveTodoGroup(@RequestBody @Valid TodoDTO.FormTodoGroup dto) {								
 			
 		taskCommandService.saveTodoGroup(dto);
 																				 			
@@ -54,7 +54,7 @@ public class TodoController {
 	}
 		
 	@GetMapping("/api/todo/group/{id}/list")
-	public ResponseEntity<?> getTaskList(@PathVariable Long id) {				
+	public ResponseEntity<?> getTodoList(@PathVariable Long id) {				
 		
 		List<Todo> list = taskCommandService.getTodoGroup(id).getTodoList();
 		
@@ -67,7 +67,7 @@ public class TodoController {
 	}
 	
 	@PostMapping("/api/todo/group/todo")
-	public ResponseEntity<?> saveTask(@RequestBody @Valid TodoDTO.FormTodo dto) {								
+	public ResponseEntity<?> saveTodo(@RequestBody @Valid TodoDTO.FormTodo dto) {								
 			
 		taskCommandService.saveTodo(dto);
 																				 			
@@ -75,11 +75,11 @@ public class TodoController {
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
-	@DeleteMapping("/api/todo/group/{todogroupid}/todo/{todoid}")
-	public ResponseEntity<?> deleteTask(@PathVariable Long todogroupid
-									   ,@PathVariable Long todoid) {							
+	@DeleteMapping("/api/todo/group/{groupid}/todo/{id}")
+	public ResponseEntity<?> deleteTask(@PathVariable Long groupid
+									   ,@PathVariable Long id) {							
 			
-		taskCommandService.deleteTodo(todogroupid, todoid);
+		taskCommandService.deleteTodo(groupid, id);
 											 				
 		return WebControllerUtil.getResponse(null
 											,String.format("%d 건 삭제되었습니다.", 1));

@@ -50,10 +50,8 @@ public class SurveyFormDTO {
 		}
 		
 		private BooleanExpression likeTitle(String title) {
-			if (StringUtils.isEmpty(title)) {
-				return null;
-			}
-			
+			if (!StringUtils.hasText(title)) return null;
+						
 			return qSurveyForm.title.like("%"+title+"%");
 		}			
 		
@@ -83,10 +81,13 @@ public class SurveyFormDTO {
 		private String comment;		
 		
 		public SurveyForm newSurveyForm() {
+			return null;
+			/*
 			return new SurveyForm(null
 								 ,this.title
 								 ,this.comment
-								 ,null);		
+								 ,null);
+			*/
 		}
 		
 		public void modifySurveyForm(SurveyForm surveyForm) {
@@ -128,15 +129,18 @@ public class SurveyFormDTO {
 		private String comment;
 		
 		public SurveyItem newSaveSurveyItem(SurveyForm form) {
-			return new SurveyItem(form, itemType, label, value, required, null);		
+			//return new SurveyItem(form, itemType, label, value, required, null);
+			return null;
 		}
 		
-		public void modifySaveSurveyItem(SurveyItem surveyItem) {
+		public void modifySaveSurveyItem(SurveyItem surveyItem) {			
+			/*
 			surveyItem.modifyEntity(itemType
 								   ,label
 								   ,value
 								   ,required
-								   ,visible);			
+								   ,visible);
+			*/
 		}
 	}
 }
