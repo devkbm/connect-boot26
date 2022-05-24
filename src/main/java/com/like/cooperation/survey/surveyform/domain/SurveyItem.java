@@ -20,6 +20,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.system.core.domain.AuditEntity;
 
 import lombok.AccessLevel;
@@ -30,7 +31,7 @@ import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@ToString(callSuper=true, includeFieldNames=true)
+@ToString(callSuper=true, includeFieldNames=true, exclude = {"surveyForm"})
 @Getter
 @Entity
 @Table(name = "GRWSURVEYITEM")
@@ -63,6 +64,7 @@ public class SurveyItem extends AuditEntity {
 	@OrderColumn(name = "OPTION_SEQ")
 	List<SurveyItemOption> optionList = new ArrayList<>();
 		
+	@JsonIgnore
 	@ManyToOne(optional = false)
 	@JoinColumn(name="form_id", nullable=false, updatable=false)
 	private SurveyForm surveyForm;
@@ -94,10 +96,13 @@ public class SurveyItem extends AuditEntity {
 	}
 	
 		
-	public void modifyEntity(SurveyItemType itemType							
-							,boolean required
-							,boolean visible) {
-		this.itemType = itemType;		
+	public void modify(SurveyItemType itemType							
+					  ,String itemTitle
+					  ,String comment
+					  ,boolean required) {
+		this.itemType = itemType;
+		this.itemTitle = itemTitle;
+		this.comment = comment;
 		this.required = required;		
 	}
 	

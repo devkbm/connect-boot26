@@ -43,8 +43,8 @@ public class SurveyController {
 											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
-	@GetMapping("/api/survey/form/{id}")
-	public ResponseEntity<?> getSurveyForm(@PathVariable(value="id") Long formId) {				
+	@GetMapping("/api/survey/form/{formId}")
+	public ResponseEntity<?> getSurveyForm(@PathVariable Long formId) {				
 		
 		SurveyForm surveryForm = surveyService.getSurveyForm(formId); 		
 								
@@ -63,7 +63,7 @@ public class SurveyController {
 	}
 	
 	@DeleteMapping("/api/survey/form/{id}")
-	public ResponseEntity<?> deleteSurveyForm(@PathVariable(value="id") Long formId) {				
+	public ResponseEntity<?> deleteSurveyForm(@PathVariable Long formId) {				
 		
 		surveyService.deleteSurveyForm(formId); 		
 								
@@ -72,8 +72,8 @@ public class SurveyController {
 	}
 	
 	@GetMapping("/api/survey/form/{formId}/item/{itemId}")
-	public ResponseEntity<?> getSurveyItem(@PathVariable(value="formId") Long formId
-										  ,@PathVariable(value="itemId") Long itemId) {				
+	public ResponseEntity<?> getSurveyItem(@PathVariable Long formId
+										  ,@PathVariable Long itemId) {				
 		
 		SurveyItem surveryForm = surveyService.getSurveyItem(formId, itemId); 		
 								
@@ -91,8 +91,8 @@ public class SurveyController {
 	}
 	
 	@DeleteMapping("/api/survey/form/{formId}/item/{itemId}")
-	public ResponseEntity<?> deleteSurveyForm(@PathVariable(value="formId") Long formId
-			  								 ,@PathVariable(value="itemId") Long itemId) {				
+	public ResponseEntity<?> deleteSurveyForm(@PathVariable Long formId
+			  								 ,@PathVariable Long itemId) {
 		
 		surveyService.deleteSurveyItem(formId, itemId); 		
 								

@@ -48,11 +48,11 @@ public class SurveyService {
 		SurveyItem item = null;
 		
 		if (dto.itemId() == null) {
-			item = dto.newSaveSurveyItem(form);
+			item = dto.newEntity(form);
 			form.addItem(item);
 		} else {
 			item = form.getItem(dto.itemId());
-			dto.modifySaveSurveyItem(item);
+			dto.modifyEntity(item);
 		}
 		
 		surveyRepository.save(form);
