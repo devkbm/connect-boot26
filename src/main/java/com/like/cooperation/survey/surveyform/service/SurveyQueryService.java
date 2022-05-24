@@ -7,19 +7,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.survey.surveyform.boundary.SurveyFormDTO;
 import com.like.cooperation.survey.surveyform.domain.SurveyForm;
-import com.like.cooperation.survey.surveyform.infra.jparepository.SurveyJpaRepository;
+import com.like.cooperation.survey.surveyform.infra.jparepository.SurveyQueryRepositoryImpl;
 
 @Service
 @Transactional(readOnly = true)
 public class SurveyQueryService {
 
-	private SurveyJpaRepository surveyRepository; 
+	private SurveyQueryRepositoryImpl surveyRepository; 
 	
-	public SurveyQueryService(SurveyJpaRepository surveyRepository) {
+	public SurveyQueryService(SurveyQueryRepositoryImpl surveyRepository) {
 		this.surveyRepository = surveyRepository;
 	}
 	
-	public List<SurveyForm> getSurveyFormList(SurveyFormDTO.SearchSurveyForm dto) {
+	public List<SurveyForm> getSurveyFormList(SurveyFormDTO.SearchForm dto) {
 		return surveyRepository.getSurveyFormList(dto);
 	}
 }

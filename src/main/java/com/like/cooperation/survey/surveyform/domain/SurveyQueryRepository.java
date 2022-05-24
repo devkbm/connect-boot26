@@ -6,5 +6,5 @@ import com.like.cooperation.survey.surveyform.boundary.SurveyFormDTO;
 
 public interface SurveyQueryRepository {
 
-	List<SurveyForm> getSurveyFormList(SurveyFormDTO.SearchSurveyForm dto);
+	List<SurveyForm> getSurveyFormList(SurveyFormDTO.SearchForm dto);
 }

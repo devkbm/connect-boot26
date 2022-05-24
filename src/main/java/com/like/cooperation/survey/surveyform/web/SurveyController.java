@@ -35,7 +35,7 @@ public class SurveyController {
 	}
 	
 	@GetMapping("/api/survey/form")
-	public ResponseEntity<?> getSurveyFormList(SurveyFormDTO.SearchSurveyForm dto) {				
+	public ResponseEntity<?> getSurveyFormList(SurveyFormDTO.SearchForm dto) {				
 		
 		List<SurveyForm> list = surveyQueryService.getSurveyFormList(dto); 		
 								
@@ -54,7 +54,7 @@ public class SurveyController {
 	
 		
 	@PostMapping("/api/survey/form")
-	public ResponseEntity<?> saveSurveyForm(@Valid @RequestBody SurveyFormDTO.SaveSurveyForm dto) {							
+	public ResponseEntity<?> saveSurveyForm(@Valid @RequestBody SurveyFormDTO.SaveForm dto) {							
 																			
 		surveyService.saveSurveyForm(dto);			
 										 					
@@ -82,7 +82,7 @@ public class SurveyController {
 	}
 	
 	@PostMapping("/api/survey/form/item") 
-	public ResponseEntity<?> saveSurveyItem(@Valid @RequestBody SurveyFormDTO.SaveSurveyItem dto) {						 					
+	public ResponseEntity<?> saveSurveyItem(@Valid @RequestBody SurveyFormDTO.SaveItem dto) {						 					
 																			
 		surveyService.saveSurveyItem(dto);			
 										 					
