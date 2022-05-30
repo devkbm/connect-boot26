@@ -82,17 +82,20 @@ public class SurveyItem extends AuditEntity {
 	}
 	
 	public SurveyItem(SurveyForm surveyForm
-			 ,SurveyItemType itemType
-			 ,String itemTitle
-			 ,String comment
-			 ,Boolean required
-			 ,List<SurveyItemOption> optionList) {
+					 ,SurveyItemType itemType
+					 ,String itemTitle
+					 ,String comment
+					 ,Boolean required
+					 ,List<SurveyItemOption> optionList) {
+			
 		this.surveyForm = surveyForm;
 		this.itemType = itemType;
 		this.itemTitle = itemTitle;
 		this.comment = comment;
-		this.required = required;		
+		this.required = required;						
 		this.optionList = optionList;
+		
+		if (!validOption()) throw new IllegalStateException("CHECKBOX 또는 RADIO만 OPTION 등록 가능합니다.");
 	}
 	
 		
@@ -107,7 +110,13 @@ public class SurveyItem extends AuditEntity {
 	}
 	
 	public void setOptionList(List<SurveyItemOption> optionList) {
+		if (!validOption()) throw new IllegalStateException("CHECKBOX 또는 RADIO만 OPTION 등록 가능합니다.");
+		
 		this.optionList = optionList;		
+	}
+	
+	private boolean validOption() {
+		return this.itemType == SurveyItemType.CHECKBOX || this.itemType == SurveyItemType.RADIO ? true : false;  
 	}
 	
 	/*
