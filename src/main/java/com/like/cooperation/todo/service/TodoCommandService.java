@@ -18,9 +18,11 @@ public class TodoCommandService {
 		this.repository = repository;		
 	}
 	
-	public void newDefaultTodoGroup() {
+	public TodoGroup newDefaultTodoGroup() {
 		TodoGroup taskGroup = new TodoGroup();
 		repository.save(taskGroup);
+		
+		return taskGroup;
 	}
 	
 	public TodoGroup getTodoGroup(Long id) {		

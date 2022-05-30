@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.cooperation.todo.boundary.TodoDTO;
 import com.like.cooperation.todo.domain.Todo;
+import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.service.TodoCommandService;
 import com.like.system.core.web.util.WebControllerUtil;
 
@@ -29,9 +30,9 @@ public class TodoController {
 	@PostMapping("/api/todo/group/new")
 	public ResponseEntity<?> newTodoGroup() {
 										
-		taskCommandService.newDefaultTodoGroup();										
+		TodoGroup taskGroup = taskCommandService.newDefaultTodoGroup();										
 								 					
-		return WebControllerUtil.getResponse(null
+		return WebControllerUtil.getResponse(taskGroup
 										    ,"생성되었습니다.");
 	}
 		
