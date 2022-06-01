@@ -8,6 +8,8 @@ import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.domain.TodoGroupRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
 @Transactional
 public class TodoCommandService {
@@ -41,17 +43,20 @@ public class TodoCommandService {
 		repository.deleteById(pkTaskGroup);		
 	}	
 	
-	public void saveTodo(TodoDTO.FormTodo dto) {
+	public Todo saveTodo(TodoDTO.FormTodo dto) {
 		TodoGroup todoGroup = repository.findById(dto.pkTodoGroup()).orElse(null);
 		Todo entity = null;
-		if (dto.pkTodo() == null) {
-			entity = dto.newEntity(todoGroup);
+		
+		if (dto.pkTodo() == null) {			
+			todoGroup.addTodo(dto.newEntity(todoGroup));
 		} else {
 			entity = todoGroup.getTodo(dto.pkTodo());
 			dto.modifyEntity(entity);
 		}
+					
+		repository.save(todoGroup);			
 		
-		repository.save(todoGroup);
+		return todoGroup.getLastTodo();
 	}
 	
 	public void deleteTodo(Long pkTodoGroup, Long pkTodo) {

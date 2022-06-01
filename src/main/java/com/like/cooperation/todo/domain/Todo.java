@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.system.core.domain.AuditEntity;
 
 import lombok.AccessLevel;
@@ -48,6 +49,7 @@ public class Todo extends AuditEntity {
 	@Column(name="comments")
 	String comments;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_todo_group", nullable=false)
 	TodoGroup todoGroup;	

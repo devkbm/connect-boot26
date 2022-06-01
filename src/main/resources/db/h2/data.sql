@@ -68,7 +68,7 @@ INSERT INTO comresource
 VALUES('2018-03-01 08:33:43', '2018-03-01 08:33:43', '2018-12-14 16:14:59', '1', 'PROGRAM1', '프로그램1', 'APP', 'home/home', '222');
 INSERT INTO comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
-VALUES('2019-09-24 22:31:44', '1', '2021-10-11 12:42:31', '1', 'TEST', '테스트프로그램', 'APP', 'home/staff', 'home/relationcode');
+VALUES('2019-09-24 22:31:44', '1', '2021-10-11 12:42:31', '1', 'TEST', '테스트프로그램', 'APP', 'home/todo', 'home/relationcode');
 INSERT INTO comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)
 VALUES('2020-02-18 23:46:15', '1', '2020-05-11 22:51:58', '1', 'TEST2', '테스트프로그램2', 'APP', 'home/deptemployeelist', NULL);

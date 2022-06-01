@@ -57,6 +57,12 @@ public class TodoGroup extends AuditEntity {
 		return this.todoList.stream().filter(e -> e.pkTodo.equals(id)).findFirst().orElse(null);
 	}
 	
+	public Todo getLastTodo() {
+		if (this.todoList.isEmpty()) return null;
+		
+		return this.todoList.get(this.getTodoList().size() - 1);
+	}
+	
 	public void addTodo(Todo todo) {
 		if (this.todoList == null) this.todoList = new ArrayList<>();
 		

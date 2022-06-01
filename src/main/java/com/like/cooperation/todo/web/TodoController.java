@@ -70,9 +70,9 @@ public class TodoController {
 	@PostMapping("/api/todo/group/todo")
 	public ResponseEntity<?> saveTodo(@RequestBody @Valid TodoDTO.FormTodo dto) {								
 			
-		taskCommandService.saveTodo(dto);
+		TodoDTO.FormTodo todo = TodoDTO.FormTodo.convert(taskCommandService.saveTodo(dto));
 																				 			
-		return WebControllerUtil.getResponse(null
+		return WebControllerUtil.getResponse(todo
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
