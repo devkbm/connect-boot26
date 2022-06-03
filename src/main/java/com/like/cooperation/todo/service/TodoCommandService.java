@@ -8,8 +8,6 @@ import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.domain.TodoGroupRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
 @Transactional
 public class TodoCommandService {

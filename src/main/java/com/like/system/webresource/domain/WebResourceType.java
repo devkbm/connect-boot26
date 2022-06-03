@@ -3,7 +3,7 @@ package com.like.system.webresource.domain;
 public enum WebResourceType {
 	APP("어플리케이션"),
 	
-	IMAGE("이미지");
+	STATIC_IMAGE("정적 이미지");
 	
 	private String label;
 	

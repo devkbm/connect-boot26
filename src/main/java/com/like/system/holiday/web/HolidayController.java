@@ -29,9 +29,8 @@ public class HolidayController {
 		
 		Holiday entity = holidayService.getHoliyday(id);
 					
-		return WebControllerUtil
-				.getResponse(entity											
-							,String.format("%d 건 조회되었습니다.", entity == null ? 0 : 1));
+		return WebControllerUtil.getResponse(entity											
+											,String.format("%d 건 조회되었습니다.", entity == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/common/holiday")
@@ -39,9 +38,8 @@ public class HolidayController {
 																	
 		holidayService.saveHoliday(dto);						
 								 					
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 저장되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 	@DeleteMapping("/api/common/holiday/{id}")
@@ -49,8 +47,7 @@ public class HolidayController {
 												
 		holidayService.deleteHoliday(id);
 								 						
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 삭제되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

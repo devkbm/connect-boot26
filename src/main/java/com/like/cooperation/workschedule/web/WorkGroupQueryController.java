@@ -2,7 +2,6 @@ package com.like.cooperation.workschedule.web;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,11 +27,8 @@ public class WorkGroupQueryController {
 						
 		List<WorkGroup> workGroupList = service.getWorkGroupList(searchCondition);				
 		
-		return WebControllerUtil
-				.getResponse(workGroupList
-							,workGroupList.size()							
-							,workGroupList.size() + "건 조회 되었습니다."
-							,HttpStatus.OK);												
+		return WebControllerUtil.getResponse(workGroupList													
+											,workGroupList.size() + "건 조회 되었습니다.");												
 	}
 	
 	@GetMapping("/api/grw/myworkgroup")
@@ -42,10 +38,7 @@ public class WorkGroupQueryController {
 		
 		List<WorkGroup> workGroupList = service.getMyWorkGroupList(sessionId);				
 		
-		return WebControllerUtil
-				.getResponse(workGroupList
-							,workGroupList.size()							
-							,workGroupList.size() + "건 조회 되었습니다."
-							,HttpStatus.OK);												
+		return WebControllerUtil.getResponse(workGroupList													
+											,workGroupList.size() + "건 조회 되었습니다.");												
 	}
 }

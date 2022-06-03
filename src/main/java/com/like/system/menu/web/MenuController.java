@@ -27,16 +27,15 @@ public class MenuController {
 		this.menuCommandService = menuCommandService;		
 	}
 			
-	@GetMapping("/api/common/menugroup/{id}")
-	public ResponseEntity<?> getMenuGroup(@PathVariable(value="id") String menuGroupCode) {				
+	@GetMapping("/api/common/menugroup/{menuGroupCode}")
+	public ResponseEntity<?> getMenuGroup(@PathVariable String menuGroupCode) {				
 		
 		MenuGroup menuGroup = menuCommandService.getMenuGroup(menuGroupCode);
 		
 		MenuGroupDTO.FormMenuGroup dto = FormMenuGroup.convert(menuGroup);
 								
-		return WebControllerUtil
-				.getResponse(dto											
-							,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
+		return WebControllerUtil.getResponse(dto											
+											,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
 	}		
 		
 	@PostMapping("/api/common/menugroup/{id}")
@@ -44,32 +43,29 @@ public class MenuController {
 																			
 		menuCommandService.saveMenuGroup(dto);			
 										 					
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 저장되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 저장되었습니다.", 1));
 	}
 		
-	@DeleteMapping("/api/common/menugroup/{id}")
-	public ResponseEntity<?> delCodeGroup(@PathVariable(value="id") String menuGroupCode) {				
+	@DeleteMapping("/api/common/menugroup/{menuGroupCode}")
+	public ResponseEntity<?> delCodeGroup(@PathVariable String menuGroupCode) {				
 												
 		menuCommandService.deleteMenuGroup(menuGroupCode);							
 		
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 삭제되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	
 	@GetMapping("/api/common/menu/{menucode}")
-	public ResponseEntity<?> getMenu(@PathVariable(value="menucode") String menuCode) {				
+	public ResponseEntity<?> getMenu(@PathVariable String menuCode) {				
 		
 		Menu menu = menuCommandService.getMenu(menuCode); 		
 		
 		MenuDTO.FormMenu dto = MenuDTO.FormMenu.convert(menu);			
 		
-		return WebControllerUtil
-				.getResponse(dto											
-							,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
+		return WebControllerUtil.getResponse(dto											
+											,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
 	}
 	
 	
@@ -79,19 +75,17 @@ public class MenuController {
 									
 		menuCommandService.saveMenu(dto);																			
 														 				
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 저장되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
-	@DeleteMapping("/api/common/menu/{id}")
+	@DeleteMapping("/api/common/menu/{menuCode}")
 	public ResponseEntity<?> delMenu(@PathVariable String menuCode) {				
 												
 		menuCommandService.deleteMenu(menuCode);							
 		
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 삭제되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	

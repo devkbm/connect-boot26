@@ -22,9 +22,8 @@ public class DeptFormVaildController {
 							
 		Boolean exist = deptService.isDept(id);  	
 						
-		return WebControllerUtil
-				.getResponse(exist								
-							,exist ? "중복된 부서 코드가 있습니다." : "사용가능한 부서 코드입니다.");
+		return WebControllerUtil.getResponse(exist								
+											,exist ? "중복된 부서 코드가 있습니다." : "사용가능한 부서 코드입니다.");
 	}
 	
 }

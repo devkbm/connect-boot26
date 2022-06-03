@@ -1,4 +1,4 @@
-package com.like.system.user.web;
+package com.like.system.login.web;
 
 import java.util.stream.Collectors;
 

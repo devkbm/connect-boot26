@@ -27,9 +27,8 @@ public class AuthorityController {
 		
 		Authority authority = service.getAuthority(authorityName);										
 		
-		return WebControllerUtil
-				.getResponse(authority							
-							,String.format("%d 건 조회되었습니다.", authority == null ? 0 : 1));
+		return WebControllerUtil.getResponse(authority							
+											,String.format("%d 건 조회되었습니다.", authority == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/common/authority")
@@ -37,9 +36,8 @@ public class AuthorityController {
 		
 		service.createAuthority(dto);					
 																				 				
-		return WebControllerUtil
-				.getResponse(null							
-							,String.format("%d 건 저장되었습니다.", 1));
+		return WebControllerUtil.getResponse(null							
+											,String.format("%d 건 저장되었습니다.", 1));
 	}	
 	
 	@DeleteMapping("/api/common/authority/{authorityName}")
@@ -47,8 +45,7 @@ public class AuthorityController {
 		
 		service.deleteAuthority(authorityName);					
 			
-		return WebControllerUtil
-				.getResponse(null							
-							,String.format("%d 건 삭제되었습니다.", 1));
+		return WebControllerUtil.getResponse(null							
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

@@ -19,25 +19,22 @@ public class MenuFormValidController {
 		this.menuQueryService = menuQueryService;		
 	}
 
-	@GetMapping("/api/common/menugroup/{id}/check")
-	public ResponseEntity<?> getMenuGroupValid(@PathVariable(value="id") String menuGroupCode) {							
+	@GetMapping("/api/common/menugroup/{menuGroupCode}/check")
+	public ResponseEntity<?> getMenuGroupValid(@PathVariable String menuGroupCode) {							
 		MenuGroup menuGroup = menuQueryService.getMenuGroup(menuGroupCode);
 		Boolean isValid = menuGroup == null ? true : false;				
 								
-		return WebControllerUtil
-				.getResponse(isValid
-							,String.format("%d 건 조회되었습니다.", menuGroup != null ? 1 : 0));
+		return WebControllerUtil.getResponse(isValid
+											,String.format("%d 건 조회되었습니다.", menuGroup != null ? 1 : 0));
 	}
 	
-	@GetMapping("/api/common/menu/{menucode}/check")
-	public ResponseEntity<?> getMenuValid(			
-			@PathVariable(value="menucode") String menuCode) {						
+	@GetMapping("/api/common/menu/{menuCode}/check")
+	public ResponseEntity<?> getMenuValid(@PathVariable String menuCode) {						
 		Menu menu = menuQueryService.getMenu(menuCode); 		
 		Boolean isValid = menu == null ? true : false;			
 		
-		return WebControllerUtil
-				.getResponse(isValid
-							,String.format("%d 건 조회되었습니다.", menu != null ? 1 : 0));
+		return WebControllerUtil.getResponse(isValid
+											,String.format("%d 건 조회되었습니다.", menu != null ? 1 : 0));
 	}
 	
 }

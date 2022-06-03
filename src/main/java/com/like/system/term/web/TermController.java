@@ -2,7 +2,6 @@ package com.like.system.term.web;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,14 +26,12 @@ public class TermController {
 	}
 		
 	@GetMapping("/api/common/terms/{id}")
-	public ResponseEntity<?> getTerm(@PathVariable(value="id") Long id) {
+	public ResponseEntity<?> getTerm(@PathVariable Long id) {
 		
 		TermDictionary term = termService.getTerm(id);								
 		
-		return WebControllerUtil
-				.getResponse(term											
-							,String.format("%d 건 조회되었습니다.", term == null ? 0 : 1)
-							,HttpStatus.OK);
+		return WebControllerUtil.getResponse(term											
+								,String.format("%d 건 조회되었습니다.", term == null ? 0 : 1));
 	}			
 		
 	@PostMapping("/api/common/terms")
@@ -42,22 +39,18 @@ public class TermController {
 														
 		termService.saveTerm(dto);										
 		
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 저장되었습니다.", 1)
-							,HttpStatus.OK);
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 저장되었습니다.", 1));
 	
 	}
 					
 	@DeleteMapping("/api/common/terms/{id}")
-	public ResponseEntity<?> delTerm(@PathVariable(value="id") Long id) {
+	public ResponseEntity<?> delTerm(@PathVariable Long id) {
 								
 		termService.deleteTerm(id);										
 		
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 삭제되었습니다.", 1)
-							,HttpStatus.OK);
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}		
 	
 }

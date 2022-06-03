@@ -43,9 +43,8 @@ public class CommonCodeQueryController {
 							
 		List<CodeHierarchy> list = service.getCodeHierarchyList(searchCondition);  						 						
 		
-		return WebControllerUtil
-				.getResponse(list							
-							,String.format("%d 건 조회되었습니다.", list.size()));
+		return WebControllerUtil.getResponse(list							
+											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/api/common/code") 
@@ -57,8 +56,7 @@ public class CommonCodeQueryController {
 											 .map(e -> CodeDTO.FormCode.convertDTO(e))
 											 .toList();
 		
-		return WebControllerUtil
-				.getResponse(dtoList							
-							,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return WebControllerUtil.getResponse(dtoList							
+											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

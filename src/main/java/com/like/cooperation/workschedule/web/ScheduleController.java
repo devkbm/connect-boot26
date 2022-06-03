@@ -31,9 +31,8 @@ public class ScheduleController {
 		
 		ScheduleDTO.ResponseSchedule dto = ScheduleDTO.ResponseSchedule.convertResDTO(entity);
 		
-		return WebControllerUtil
-				.getResponse(dto													
-							,"조회 되었습니다.");													
+		return WebControllerUtil.getResponse(dto													
+											,"조회 되었습니다.");													
 	}
 		
 	@PostMapping("/api/grw/schedule")
@@ -41,9 +40,8 @@ public class ScheduleController {
 		
 		service.saveSchedule(dto);		
 										 					
-		return WebControllerUtil
-				.getResponse(dto								
-							,String.format("%d 건 저장되었습니다.", dto != null ? 1 : 0));
+		return WebControllerUtil.getResponse(dto								
+											,String.format("%d 건 저장되었습니다.", dto != null ? 1 : 0));
 	}
 	
 	@DeleteMapping("/api/grw/schedule/{id}")
@@ -51,8 +49,7 @@ public class ScheduleController {
 						
 		service.deleteSchedule(id);							
 				
-		return WebControllerUtil
-				.getResponse(null											
-							,"삭제 되었습니다.");													
+		return WebControllerUtil.getResponse(null											
+											,"삭제 되었습니다.");													
 	}
 }

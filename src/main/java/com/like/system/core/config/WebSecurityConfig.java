@@ -19,7 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.NimbusAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
@@ -174,16 +174,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
          return super.authenticationManagerBean();
 	}
-		
+			
 	@Bean
-	public PasswordEncoder noOpPasswordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+	public PasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 				
-		auth.userDetailsService(userService).passwordEncoder(this.noOpPasswordEncoder());
+		auth.userDetailsService(userService).passwordEncoder(this.bCryptPasswordEncoder());
 		
 		log.info(auth.toString());
 	}

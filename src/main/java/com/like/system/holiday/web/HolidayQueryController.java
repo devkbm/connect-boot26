@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +29,6 @@ public class HolidayQueryController {
 		List<DateInfo> list = holidayUtilService.getDateInfoList(fromDate, toDate).getDates();			
 					
 		return WebControllerUtil.getResponse(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

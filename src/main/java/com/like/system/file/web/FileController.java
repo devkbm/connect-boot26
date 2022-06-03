@@ -88,15 +88,7 @@ public class FileController {
 			Map<String, String> link = new HashMap<>();
 			link.put("download", LocalFileRepository.fileDownLoadUrl+info.getPkFile());
 			
-			FileResponseDTO response = FileResponseDTO.builder()
-														.uid(info.getPkFile())
-														.name(info.getFileName())
-														.status("done")
-														.response("success")
-														//.linkProps("http://localhost:8090/common/file/"+info.getPkFile())
-														.url(LocalFileRepository.fileDownLoadUrl+info.getPkFile())
-														//.thumbUrl("http://localhost:8090/common/file/"+info.getPkFile())
-														.build();
+			FileResponseDTO response = FileResponseDTO.convert(info);
 			fileList.add(response);
 		}
 		

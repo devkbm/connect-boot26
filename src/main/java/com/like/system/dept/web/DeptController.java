@@ -25,10 +25,10 @@ public class DeptController {
 		this.deptService = deptService;
 	}
 		
-	@GetMapping("/api/common/dept/{id}")
-	public ResponseEntity<?> getDept(@PathVariable String id) {
+	@GetMapping("/api/common/dept/{deptCode}")
+	public ResponseEntity<?> getDept(@PathVariable String deptCode) {
 							
-		Dept dept = deptService.getDept(id);  	
+		Dept dept = deptService.getDept(deptCode);  	
 		
 		FormDept dto = DeptDTO.FormDept.convertDTO(dept);
 		
@@ -45,8 +45,8 @@ public class DeptController {
 											,String.format("%d 건 저장되었습니다.", 1));
 	}		
 	
-	@DeleteMapping("/api/common/dept/{code}")
-	public ResponseEntity<?> deleteDept(@PathVariable(value="code") String deptCode) {				
+	@DeleteMapping("/api/common/dept/{deptCode}")
+	public ResponseEntity<?> deleteDept(@PathVariable String deptCode) {				
 												
 		deptService.deleteDept(deptCode);							
 		

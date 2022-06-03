@@ -33,9 +33,8 @@ public class BoardQueryController {
 			list.add(new HtmlOptionRecord(boardType.getName(), boardType.toString()));
 		}				 					
 								
-		return WebControllerUtil
-				.getResponse(list				
-							,String.format("%d 건 조회되었습니다.", list.size()));
+		return WebControllerUtil.getResponse(list				
+											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/api/grw/boardHierarchy")
@@ -43,9 +42,8 @@ public class BoardQueryController {
 											
 		List<?> list = boardQueryService.getBoardHierarchy();				 			
 		
-		return WebControllerUtil
-				.getResponse(list						
-							,String.format("%d 건 조회되었습니다.", list.size()));
+		return WebControllerUtil.getResponse(list						
+											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 
 	@GetMapping("/api/grw/board")
@@ -56,8 +54,7 @@ public class BoardQueryController {
 											   .map(e -> BoardDTO.FormBoard.convertDTO(e))
 											   .collect(Collectors.toList());
 				
-		return WebControllerUtil
-				.getResponse(dtoList											
-							,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return WebControllerUtil.getResponse(dtoList											
+											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

@@ -46,7 +46,7 @@ public class WebResourceController {
 	}
 	
 	@DeleteMapping("/api/common/webresource/{code}")
-	public ResponseEntity<?> delResource(@PathVariable(value="code") String code) {				
+	public ResponseEntity<?> delResource(@PathVariable String code) {				
 												
 		service.deleteWebResource(code);							
 		

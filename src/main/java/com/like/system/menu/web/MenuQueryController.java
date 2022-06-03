@@ -32,7 +32,7 @@ public class MenuQueryController {
 	}
 	
 	@GetMapping("/api/common/menutest/{menuGroupCode}")
-	public ResponseEntity<?> getMenuGroupHierachyTest(@PathVariable(value="menuGroupCode") String menuGroupCode) {				
+	public ResponseEntity<?> getMenuGroupHierachyTest(@PathVariable String menuGroupCode) {				
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 							
 		
@@ -41,7 +41,7 @@ public class MenuQueryController {
 	}
 	
 	@GetMapping("/api/common/menuhierarchy/{menuGroupCode}")
-	public ResponseEntity<?> getMenuGroupHierachy(@PathVariable(value="menuGroupCode") String menuGroupCode) {				
+	public ResponseEntity<?> getMenuGroupHierachy(@PathVariable String menuGroupCode) {				
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 										
 		

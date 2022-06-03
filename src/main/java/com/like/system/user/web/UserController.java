@@ -36,9 +36,8 @@ public class UserController {
 		
 		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
 		
-		return WebControllerUtil
-				.getResponse(dto							
-							,String.format("%d 건 조회되었습니다.", 1));
+		return WebControllerUtil.getResponse(dto							
+								,String.format("%d 건 조회되었습니다.", 1));
 	}
 	
 	@GetMapping("/api/common/user/{userId}")
@@ -48,21 +47,17 @@ public class UserController {
 		
 		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
 		
-		return WebControllerUtil
-				.getResponse(dto							
-							,String.format("%d 건 조회되었습니다.", 1));
-	}
-		
-	
+		return WebControllerUtil.getResponse(dto							
+								,String.format("%d 건 조회되었습니다.", 1));
+	}		
 	
 	@PostMapping("/api/common/user")	
 	public ResponseEntity<?> saveUser(@Valid @RequestBody UserDTO.FormSystemUser dto) {			
 											
 		userService.saveUser(dto);					
 																					 		
-		return WebControllerUtil
-				.getResponse(null							
-							,String.format("%d 건 저장되었습니다.", 1));
+		return WebControllerUtil.getResponse(null							
+											,String.format("%d 건 저장되었습니다.", 1));
 	}	
 	
 	@DeleteMapping("/api/common/user/{userId}")
@@ -70,9 +65,8 @@ public class UserController {
 										
 		userService.deleteUser(userId);															
 								 					
-		return WebControllerUtil
-				.getResponse(null							
-							,String.format("%d 건 삭제되었습니다.", 1));
+		return WebControllerUtil.getResponse(null							
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 		
 	@PostMapping("/api/common/user/{id}/changepassword")
@@ -80,9 +74,8 @@ public class UserController {
 						
 		userService.changePassword(dto.userId(), dto.beforePassword(), dto.afterPassword());													
 								 					
-		return WebControllerUtil
-				.getResponse(null							
-							,"비밀번호가 변경되었습니다.");
+		return WebControllerUtil.getResponse(null							
+											,"비밀번호가 변경되었습니다.");
 	}
 			
 	@PostMapping("/api/common/user/{userId}/initpassword")
@@ -90,9 +83,8 @@ public class UserController {
 				
 		userService.initPassword(userId);														
 								 					
-		return WebControllerUtil
-				.getResponse(null							
-							,"비밀번호가 초기화되었습니다.");
+		return WebControllerUtil.getResponse(null							
+											,"비밀번호가 초기화되었습니다.");
 	}	
 			
 }

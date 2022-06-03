@@ -30,9 +30,8 @@ public class WorkGroupController {
 		
 		WorkDTO.FormWorkGroup dto = WorkDTO.FormWorkGroup.convertDTO(entity);
 		
-		return WebControllerUtil
-				.getResponse(dto										
-							,"조회 되었습니다.");													
+		return WebControllerUtil.getResponse(dto										
+											,"조회 되었습니다.");													
 	}
 		
 	@PostMapping("/api/grw/workgroup")
@@ -40,9 +39,8 @@ public class WorkGroupController {
 					
 		workGroupService.saveWorkGroup(dto);		
 		
-		return WebControllerUtil
-				.getResponse(dto											
-							,String.format("%d 건 저장되었습니다.", dto != null ? 1 : 0));
+		return WebControllerUtil.getResponse(dto											
+											,String.format("%d 건 저장되었습니다.", dto != null ? 1 : 0));
 	}
 			
 }

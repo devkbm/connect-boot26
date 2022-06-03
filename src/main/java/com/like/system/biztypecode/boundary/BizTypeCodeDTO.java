@@ -52,7 +52,7 @@ public class BizTypeCodeDTO {
 		
 		private BooleanExpression eqBizType(String bizType) {
 			if (!StringUtils.hasText(bizType)) return null;
-			QBizTypeCode qType = QBizTypeCode.bizTypeCode;				
+			
 			return qType.bizType.eq(BizTypeEnum.valueOf(bizType));
 		}
 	}	
@@ -71,11 +71,11 @@ public class BizTypeCodeDTO {
 			if (entity == null) return null;
 			
 			return new FormBizTypeCode(entity.getId()
-							  ,entity.getName()
-							  ,entity.getUseYn()
-							  ,entity.getSequence()
-							  ,entity.getBizType() == null ? null : entity.getBizType().toString()
-							  ,entity.getComment());
+									  ,entity.getName()
+									  ,entity.getUseYn()
+									  ,entity.getSequence()
+									  ,entity.getBizType() == null ? null : entity.getBizType().toString()
+									  ,entity.getComment());
 		}
 
 		public BizTypeCode newEntity() {

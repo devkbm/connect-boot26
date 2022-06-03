@@ -30,8 +30,7 @@ public class ScheduleQueryController {
 																  .map( r -> ScheduleDTO.ResponseSchedule.convertResDTO(r))
 																  .toList();
 		
-		return WebControllerUtil
-				.getResponse(dtoList							
-							,dtoList.size() + "건 조회 되었습니다.");												
+		return WebControllerUtil.getResponse(dtoList							
+								,dtoList.size() + "건 조회 되었습니다.");												
 	}
 }

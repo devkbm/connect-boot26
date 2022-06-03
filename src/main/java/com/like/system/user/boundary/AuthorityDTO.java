@@ -16,6 +16,8 @@ public class AuthorityDTO {
 			String description
 			) {
 		
+		private static final QAuthority qAuthority = QAuthority.authority;
+		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
@@ -27,15 +29,13 @@ public class AuthorityDTO {
 		
 		private BooleanExpression likeAuthority(String authority) {
 			if (!StringUtils.hasText(authority)) return null;
-			
-			final QAuthority qAuthority = QAuthority.authority;
+						
 			return qAuthority.authorityName.like("%"+authority+"%");
 		}
 		
 		private BooleanExpression likeDescription(String description) {
 			if (!StringUtils.hasText(description)) return null;
-			
-			final QAuthority qAuthority = QAuthority.authority;
+						
 			return qAuthority.description.like("%"+description+"%");
 		}
 	}

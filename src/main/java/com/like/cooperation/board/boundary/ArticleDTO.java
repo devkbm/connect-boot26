@@ -18,7 +18,6 @@ import com.like.cooperation.board.domain.QArticle;
 import com.like.system.core.util.SessionUtil;
 import com.like.system.file.boundary.FileResponseDTO;
 import com.like.system.file.domain.FileInfo;
-import com.like.system.file.infra.file.LocalFileRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -177,15 +176,8 @@ public class ArticleDTO {
 	    private static List<FileResponseDTO> convertFileResponseDTO(List<FileInfo> fileInfoList) {
 	    	List<FileResponseDTO> responseList = new ArrayList<>();	
 	    	
-	    	for (FileInfo fileInfo : fileInfoList) {
-				FileResponseDTO dto = FileResponseDTO.builder()
-													 .url(fileInfo.getPkFile())
-													 .name(fileInfo.getFileName())
-													 .status("done")																									
-													 .url(LocalFileRepository.fileDownLoadUrl+fileInfo.getPkFile())
-													 .build();
-				
-				responseList.add(dto);				
+	    	for (FileInfo fileInfo : fileInfoList) {							
+				responseList.add(FileResponseDTO.convert(fileInfo));				
 			}
 	    	
 	    	return responseList;

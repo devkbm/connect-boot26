@@ -34,8 +34,7 @@ public class UserQueryController {
 			dtoList.add(UserDTO.convertDTO(user));
 		}
 		
-		return WebControllerUtil
-				.getResponse(dtoList							
-							,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return WebControllerUtil.getResponse(dtoList							
+											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

@@ -27,9 +27,8 @@ public class SystemUserFormValidController {
 						
 		boolean isDuplicated = userService.CheckDuplicationUser(userId);					
 				
-		return WebControllerUtil
-				.getResponse(isDuplicated ? false : true
-						    ,isDuplicated ? "기존 아이디가 존재합니다." : "신규 등록 가능합니다."); 
+		return WebControllerUtil.getResponse(isDuplicated ? false : true
+						    				,isDuplicated ? "기존 아이디가 존재합니다." : "신규 등록 가능합니다."); 
 	}
 		
 	@GetMapping(value={"/api/common/authority/{authorityName}/check"})
@@ -39,8 +38,7 @@ public class SystemUserFormValidController {
 		
 		boolean rtn = authority == null ? true : false;
 						
-		return WebControllerUtil
-				.getResponse(rtn
-							,rtn == false? "기존에 등록된 권한이 존재합니다." : "신규 등록 가능합니다.");
+		return WebControllerUtil.getResponse(rtn
+											,rtn == false? "기존에 등록된 권한이 존재합니다." : "신규 등록 가능합니다.");
 	}
 }

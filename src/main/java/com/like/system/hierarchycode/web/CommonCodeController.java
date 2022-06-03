@@ -29,9 +29,8 @@ public class CommonCodeController {
 		
 		CodeDTO.FormCode dto = CodeDTO.FormCode.convertDTO(entity);
 		
-		return WebControllerUtil
-				.getResponse(dto							
-							,String.format("%d 건 조회되었습니다.", 1));
+		return WebControllerUtil.getResponse(dto							
+											,String.format("%d 건 조회되었습니다.", 1));
 	}
 			
 	@PostMapping("/api/common/code")
@@ -39,19 +38,17 @@ public class CommonCodeController {
 		
 		service.saveCode(dto);		
 											 				
-		return WebControllerUtil
-				.getResponse(null							
-							,String.format("%d 건 저장되었습니다.", 1));
+		return WebControllerUtil.getResponse(null							
+											,String.format("%d 건 저장되었습니다.", 1));
 	}	
 		
 	@DeleteMapping("/api/common/code/{id}")
-	public ResponseEntity<?> delCode(@PathVariable(value="id") String id) {						
+	public ResponseEntity<?> delCode(@PathVariable String id) {						
 												
 		service.deleteCode(id);
 								 						
-		return WebControllerUtil
-				.getResponse(null							
-							,String.format("%d 건 삭제되었습니다.", 1));
+		return WebControllerUtil.getResponse(null							
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	

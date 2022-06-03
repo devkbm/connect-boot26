@@ -19,9 +19,6 @@ import com.like.cooperation.survey.surveyform.service.SurveyQueryService;
 import com.like.cooperation.survey.surveyform.service.SurveyService;
 import com.like.system.core.web.util.WebControllerUtil;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RestController
 public class SurveyController {
 

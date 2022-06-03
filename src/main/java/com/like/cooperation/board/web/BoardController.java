@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,9 +61,8 @@ public class BoardController {
 		
 		List<BoardBookmark> list = boardCommandService.getBookmarkList(userId); 										
 							
-		return WebControllerUtil
-				.getResponse(list											
-							,String.format("%d 건 조회되었습니다.", list.size()));
+		return WebControllerUtil.getResponse(list											
+											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 		
 	@PostMapping("/api/grw/board/bookmark")
@@ -72,9 +70,8 @@ public class BoardController {
 											
 		boardCommandService.saveBookmark(entity);				
 								 					
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 저장되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 	@DeleteMapping("/api/grw/board/bookmark/{id}")
@@ -82,10 +79,8 @@ public class BoardController {
 												
 		boardCommandService.deleteBookmark(id);							
 		
-		return WebControllerUtil
-				.getResponse(null											
-						,String.format("%d 건 삭제되었습니다.", 1)
-						,HttpStatus.OK);
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}	
 			
 }

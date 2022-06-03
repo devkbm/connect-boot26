@@ -19,11 +19,11 @@ public class BizDetailCodeDTO {
 			if (entity == null) return null;
 			
 			return new FormBizDetailCode(entity.getId().getTypeCode()
-							  ,entity.getId().getDetailCode()
-							  ,entity.getCodeName()
-							  ,entity.getUseYn()
-							  ,entity.getSequence()							  
-							  ,entity.getComment());
+										,entity.getId().getDetailCode()
+										,entity.getCodeName()
+										,entity.getUseYn()
+										,entity.getSequence()							  
+										,entity.getComment());
 		}
 		
 		public BizDetailCode newEntity(BizTypeCode bizType) {			

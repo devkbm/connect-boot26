@@ -25,8 +25,7 @@ public class AuthorityQueryController {
 		
 		List<Authority> authorityList = service.getAuthorityList(dto);								 				
 		
-		return WebControllerUtil
-				.getResponse(authorityList							
-							,String.format("%d 건 조회되었습니다.", authorityList.size()));
+		return WebControllerUtil.getResponse(authorityList							
+											,String.format("%d 건 조회되었습니다.", authorityList.size()));
 	}
 }

@@ -22,17 +22,16 @@ public class AnualLeaveController {
 		this.anualLeaveService = anualLeaveService;		
 	}
 
-	@GetMapping("/hrm/anualleave/{yyyy}/{empId}")
+	@GetMapping("/hrm/anualleave/{yyyy}/{staffId}")
 	public ResponseEntity<?> getAnualLeave(@PathVariable Integer yyyy
-									  	  ,@PathVariable String empId) {
+									  	  ,@PathVariable String staffId) {
 				
-		AnualLeave entity = anualLeaveService.getAnualLeave(yyyy, empId);					
+		AnualLeave entity = anualLeaveService.getAnualLeave(yyyy, staffId);					
 		
 		AnualLeaveDTO.SaveAnualLeave dto = AnualLeaveDTO.SaveAnualLeave.convertDTO(entity); 
 		
-		return WebControllerUtil
-				.getResponse(dto											
-							,String.format("%d 건 조회되었습니다.", 1));
+		return WebControllerUtil.getResponse(dto											
+											,String.format("%d 건 조회되었습니다.", 1));
 	}
 		
 	@PostMapping("/hrm/anualleave")
@@ -40,19 +39,17 @@ public class AnualLeaveController {
 																	
 		anualLeaveService.saveAnualLeave(dto);						
 								 					
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 저장되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
-	@DeleteMapping("/hrm/anualleave/{yyyy}/{empId}")
+	@DeleteMapping("/hrm/anualleave/{yyyy}/{staffId}")
 	public ResponseEntity<?> deleteLedger(@PathVariable Integer yyyy
-		  	  							 ,@PathVariable String empId) {				
+		  	  							 ,@PathVariable String staffId) {				
 																		
-		anualLeaveService.deleteAnualLeave(yyyy, empId);						
+		anualLeaveService.deleteAnualLeave(yyyy, staffId);						
 								 					
-		return WebControllerUtil
-				.getResponse(null											
-							,String.format("%d 건 삭제되었습니다.", 1));
+		return WebControllerUtil.getResponse(null											
+											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

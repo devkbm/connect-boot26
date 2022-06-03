@@ -1,8 +1,8 @@
 package com.like.system.file.boundary;
 
-import lombok.Builder;
+import com.like.system.file.domain.FileInfo;
+import com.like.system.file.infra.file.LocalFileRepository;
 
-@Builder
 public record FileResponseDTO(
 		String uid,
 		String name,
@@ -10,9 +10,15 @@ public record FileResponseDTO(
 		String response,
 		String url
 		) {
-	
-	//String thumbUrl;
-	
-	//Map<String, String> linkProps;
-	//String linkProps;
+			
+	public static FileResponseDTO convert(FileInfo info) {
+		
+		// url 예시 - http://localhost:8090/common/file/"+info.getPkFile()
+		
+		return new FileResponseDTO(info.getPkFile()
+								  ,info.getFileName()
+								  ,"done"
+								  ,"success"
+								  ,LocalFileRepository.fileDownLoadUrl+info.getPkFile());
+	}
 }

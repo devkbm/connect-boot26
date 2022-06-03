@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +22,7 @@ public class LoginController {
 	}
 		 
 	@PostMapping("/common/user/login")
-	public AuthenticationToken login(@RequestBody @Valid LoginRequestDTO dto, HttpSession session, BindingResult result, HttpServletRequest request) {
-		
-		if ( result.hasErrors() ) return null;
+	public AuthenticationToken login(@RequestBody @Valid LoginRequestDTO dto, HttpSession session, HttpServletRequest request) {			
 						         		 							                   
 		String ipAddress = this.getClientIp(request);
 		System.out.println("접속 IP주소: " + ipAddress);
