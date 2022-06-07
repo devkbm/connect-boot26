@@ -63,8 +63,8 @@ public record RoadAddressApiRequest(
 		) {
 	
 	public RoadAddressApiRequest {		
-		if (!StringUtils.hasText(confmKey)) throw new IllegalArgumentException("승인키는 필수입니다.");
-		if (!StringUtils.hasText(keyword)) throw new IllegalArgumentException("검색어는 필수입니다.");
+		//if (!StringUtils.hasText(confmKey)) throw new IllegalArgumentException("승인키는 필수입니다.");
+		//if (!StringUtils.hasText(keyword)) throw new IllegalArgumentException("검색어는 필수입니다.");
 		if (Objects.isNull(currentPage)) currentPage = 1;
 		if (Objects.isNull(countPerPage)) countPerPage = 10;
 	}
