@@ -10,14 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.address.boundary.RoadAddressApiRequest;
+import com.like.system.address.config.RoadAddressProperties;
 
 @RestController
 public class RoadAddressController {
-
+	
+	RoadAddressProperties property;
+		
+	public RoadAddressController(RoadAddressProperties property) {
+		this.property = property;
+	}	
+	
 	// confmKey - devU01TX0FVVEgyMDIyMDYwNzIyMjI1MzExMjY1ODY=
 	//@RequestMapping(value="/sample/getAddrApi.do")
 	@GetMapping("/sample/getAddrApi.do")
@@ -29,12 +35,17 @@ public class RoadAddressController {
 		String currentPage = "1"; 	// req.getParameter("currentPage");
 		String countPerPage = "10"; // req.getParameter("countPerPage");
 		String resultType = "json";	// req.getParameter("resultType");
-		String confmKey = "devU01TX0FVVEgyMDIyMDYwNzIyMjI1MzExMjY1ODY=";		// req.getParameter("confmKey");
+		String confmKey = property.getConfmKey(); // "devU01TX0FVVEgyMDIyMDYwNzIyMjI1MzExMjY1ODY=";		// req.getParameter("confmKey");
 		String keyword = "은계중앙로";		// req.getParameter("keyword");
 		
-		String apiUrl = "https://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+currentPage
+		String apiUrl = property.getApiUrl()+"?currentPage="+currentPage
 		  			  + "&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")
 					  + "&confmKey="+confmKey+"&resultType="+resultType;
+		/*
+		String apiUrl = "https://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+currentPage
+	  			  + "&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")
+				  + "&confmKey="+confmKey+"&resultType="+resultType;
+		*/
 		
 	   	URL url = new URL(apiUrl);
 	   	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));

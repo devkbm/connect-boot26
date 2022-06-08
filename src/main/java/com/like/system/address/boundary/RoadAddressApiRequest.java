@@ -13,7 +13,7 @@ public record RoadAddressApiRequest(
 		 * 신청시 발급받은 승인키 <br>
 		 * 필수여부 - Y 
 		 */
-		String confmKey,
+		//String confmKey,
 		/**
 		 * 현재 페이지 번호 <br>
 		 * 필수여부 - Y <br> 
