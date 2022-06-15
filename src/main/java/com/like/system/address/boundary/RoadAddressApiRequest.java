@@ -2,18 +2,13 @@ package com.like.system.address.boundary;
 
 import java.util.Objects;
 
-import org.springframework.util.StringUtils;
+import javax.validation.constraints.NotBlank;
 
 /**
  * 도로명주소 API 신청 URL - https://www.juso.go.kr/addrlink/devAddrLinkRequestWrite.do?returnFn=write&cntcMenu=URL <br>
  * 도로명주소 검색 API URL - https://www.juso.go.kr/addrlink/addrLinkApi.do 
  */
-public record RoadAddressApiRequest(
-		/**
-		 * 신청시 발급받은 승인키 <br>
-		 * 필수여부 - Y 
-		 */
-		//String confmKey,
+public record RoadAddressApiRequest(		
 		/**
 		 * 현재 페이지 번호 <br>
 		 * 필수여부 - Y <br> 
@@ -30,6 +25,7 @@ public record RoadAddressApiRequest(
 		 * 주소 검색어 <br>
 		 * 필수여부 - Y
 		 */
+		@NotBlank(message = "검색어는 필수 입력항목입니다.")
 		String keyword,
 		/**
 		 * 검색결과형식 설정(xml, json) <br>
@@ -62,9 +58,8 @@ public record RoadAddressApiRequest(
 		String addInfoYn
 		) {
 	
-	public RoadAddressApiRequest {		
-		//if (!StringUtils.hasText(confmKey)) throw new IllegalArgumentException("승인키는 필수입니다.");
-		//if (!StringUtils.hasText(keyword)) throw new IllegalArgumentException("검색어는 필수입니다.");
+	public RoadAddressApiRequest {				
+		//if (!StringUtils.hasText(keyword)) throw new IllegalArgumentException("검색어는 필수 입력항목입니다.");
 		if (Objects.isNull(currentPage)) currentPage = 1;
 		if (Objects.isNull(countPerPage)) countPerPage = 10;
 	}
