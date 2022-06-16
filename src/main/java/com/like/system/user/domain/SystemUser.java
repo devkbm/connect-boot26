@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString(callSuper=true, includeFieldNames=true, exclude = {"menuGroupList"})
+@ToString(callSuper=true, includeFieldNames=true)
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Getter
 @Entity

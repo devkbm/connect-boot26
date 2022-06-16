@@ -12,8 +12,8 @@ import javax.validation.Payload;
 @Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy=IdValidator.class)
-public @interface Id {
+@Constraint(validatedBy=UserIdExistsValidator.class)
+public @interface UserIdExists {
 	String message() default "";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};

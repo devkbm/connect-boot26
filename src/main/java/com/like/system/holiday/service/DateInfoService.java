@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -34,11 +32,11 @@ public class DateInfoService {
 	private List<Holiday> getHolidayList(LocalDate fromDate, LocalDate toDate) {
 		return holidayRepository.getHoliday(fromDate, toDate);
 	}
-	
+	/*
 	private Map<LocalDate, Holiday> toHashMap(List<Holiday> holidays) {
 		return holidays.stream().collect(Collectors.toMap(Holiday::getDate, holiday -> holiday));
 	}
-	
+	*/
 	private List<DateInfo> getRawDateInfoList(LocalDate fromDate, LocalDate toDate) {
 		if (fromDate.isAfter(toDate)) 
 			throw new IllegalArgumentException("종료일자보다 시작일자가 큽니다.");

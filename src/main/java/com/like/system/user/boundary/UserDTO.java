@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
 
-import com.like.system.core.validation.Id;
+import com.like.system.core.validation.UserIdExists;
 import com.like.system.dept.domain.Dept;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.user.domain.Authority;
@@ -125,7 +125,7 @@ public class UserDTO {
 		@NotBlank(message="아이디를 입력해주세요")
 		@Size(min=1, max=20, message="1자 이상 20자 이하의 아이디만 사용 가능합니다")
 		@Pattern(regexp="^[A-Za-z0-9+]*$",message="영문,숫자로 이루어진 아이디만 사용 가능합니다")
-		@Id(message="이미 가입한 아이디입니다")
+		@UserIdExists(message="이미 가입한 아이디입니다")
 		String userId;
 			
 		String name;

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +26,8 @@ import reactor.core.publisher.Mono;
 @RestController
 public class RoadAddressController {
 	
-	RoadAddressProperties property;
-	WebClient client;	
+	private RoadAddressProperties property;
+	private WebClient client;	
 	
 	public RoadAddressController(RoadAddressProperties property) {
 		this.property = property;
@@ -38,16 +37,13 @@ public class RoadAddressController {
 			
 	@GetMapping("/api/address")
 	private Mono<ResponseEntity<RoadAddressApiResult>> getRoadArddressJson(@Valid RoadAddressApiRequest dto) throws Exception {
-					
-		int currentPage = Objects.isNull(dto.currentPage()) ? 1 : dto.currentPage(); 	
-		int countPerPage = Objects.isNull(dto.countPerPage()) ? 10 : dto.countPerPage(); 				
-						
+							 							
 		return client.get()				     
 				  	 .uri(uriBuilder -> uriBuilder
 				  			.queryParam("confmKey", property.getConfmKey())
 				  			.queryParam("keyword", dto.keyword())
-				  			.queryParam("currentPage", currentPage)
-				  			.queryParam("countPerPage", countPerPage)				  							  			
+				  			.queryParam("currentPage", dto.currentPage())
+				  			.queryParam("countPerPage", dto.countPerPage())				  							  			
 				  			.queryParam("resultType", "json")
 				  			.build()).accept(MediaType.APPLICATION_JSON)
 		        	 .retrieve()
@@ -70,12 +66,7 @@ public class RoadAddressController {
 		
 		String apiUrl = property.getApiUrl()+"?currentPage="+currentPage
 		  			  + "&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")
-					  + "&confmKey="+confmKey+"&resultType="+resultType;
-		/*
-		String apiUrl = "https://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+currentPage
-	  			  + "&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")
-				  + "&confmKey="+confmKey+"&resultType="+resultType;
-		*/
+					  + "&confmKey="+confmKey+"&resultType="+resultType;		
 		
 	   	URL url = new URL(apiUrl);
 	   	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));

@@ -12,6 +12,7 @@ import lombok.Getter;
 public class UserPassword implements Serializable {
 	
 	private static final long serialVersionUID = 5831655386795107265L;
+	private static final String INIT_PASSWORD = "12345678";
 	
 	@Column(name="pwd")
 	String password;
@@ -29,7 +30,7 @@ public class UserPassword implements Serializable {
 	}
 	
 	public void init() {
-		this.password = "12345678";
+		this.password = INIT_PASSWORD;
 	}
 	
 }
