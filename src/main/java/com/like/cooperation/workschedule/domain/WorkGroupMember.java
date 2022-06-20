@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.AccessLevel;

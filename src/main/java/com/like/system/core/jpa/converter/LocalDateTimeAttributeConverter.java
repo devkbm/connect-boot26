@@ -1,4 +1,4 @@
-package com.like.system.core.jpaconverter;
+package com.like.system.core.jpa.converter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

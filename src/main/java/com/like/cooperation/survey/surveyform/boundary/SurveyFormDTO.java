@@ -14,7 +14,7 @@ import com.like.cooperation.survey.surveyform.domain.SurveyForm;
 import com.like.cooperation.survey.surveyform.domain.SurveyItem;
 import com.like.cooperation.survey.surveyform.domain.SurveyItemOption;
 import com.like.cooperation.survey.surveyform.domain.SurveyItemType;
-import com.like.system.core.vo.LocalDatePeriod;
+import com.like.system.core.jpa.vo.LocalDatePeriod;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 

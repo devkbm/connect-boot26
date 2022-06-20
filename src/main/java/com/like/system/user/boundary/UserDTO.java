@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
 
-import com.like.system.core.validation.UserIdExists;
+import com.like.system.core.jpa.validation.UserIdExists;
 import com.like.system.dept.domain.Dept;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.user.domain.Authority;
@@ -40,9 +40,9 @@ public class UserDTO {
 		
 		FormSystemUser dto = FormSystemUser.builder()
 								.createdDt(entity.getCreatedDt())
-								.createdBy(entity.getCreatedBy())
+								//.createdBy(entity.getCreatedBy())
 								.modifiedDt(entity.getModifiedDt())
-								.modifiedBy(entity.getModifiedBy())
+								//.modifiedBy(entity.getModifiedBy())
 								.userId(entity.getUserId())
 								.name(entity.getName())								
 								.deptCode(dept.map(Dept::getDeptCode).orElse(null))

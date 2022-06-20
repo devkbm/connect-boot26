@@ -1,4 +1,4 @@
-package com.like.system.core.validation;
+package com.like.system.core.jpa.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

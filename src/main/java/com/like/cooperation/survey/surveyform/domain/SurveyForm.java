@@ -16,8 +16,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.domain.AuditEntity;
-import com.like.system.core.vo.LocalDatePeriod;
+import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.vo.LocalDatePeriod;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

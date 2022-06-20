@@ -16,7 +16,7 @@ import com.like.cooperation.survey.surveyform.domain.SurveyItem;
 import com.like.cooperation.survey.surveyform.domain.SurveyItemOption;
 import com.like.cooperation.survey.surveyform.domain.SurveyItemType;
 import com.like.cooperation.survey.surveyform.domain.SurveyRepository;
-import com.like.system.core.vo.LocalDatePeriod;
+import com.like.system.core.jpa.vo.LocalDatePeriod;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -16,7 +16,7 @@ import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.hrm.staff.domain.model.Staff;
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

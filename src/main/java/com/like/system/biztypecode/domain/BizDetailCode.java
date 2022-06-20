@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

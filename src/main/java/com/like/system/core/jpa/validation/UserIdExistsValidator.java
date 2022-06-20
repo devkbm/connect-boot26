@@ -1,4 +1,4 @@
-package com.like.system.core.validation;
+package com.like.system.core.jpa.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

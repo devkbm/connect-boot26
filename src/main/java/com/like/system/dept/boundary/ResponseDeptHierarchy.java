@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.like.system.core.vo.LocalDatePeriod;
+import com.like.system.core.jpa.vo.LocalDatePeriod;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

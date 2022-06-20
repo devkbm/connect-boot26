@@ -15,7 +15,7 @@ import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.Formula;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 import com.like.system.file.domain.FileInfo;
 
 /**

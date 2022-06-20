@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Comment;
 
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 import com.like.system.core.web.exception.BusinessException;
 import com.like.system.core.web.exception.ErrorCode;
 import com.like.system.user.domain.SystemUser;

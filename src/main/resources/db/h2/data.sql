@@ -1,4 +1,4 @@
-INSERT INTO comuser(user_id, pwd, user_name, non_expired_yn, non_locked_yn, enabled_yn, pass_non_expired_yn, sys_dt, sys_user, upd_dt, upd_user) VALUES('1', '$2a$10$2rUCawd6xNfqGlnqMRV.3.1eapi6HJExs5kMqSJS3oULEZGsYmpra', 'test', 1, 1, 1, 1, '2018-10-26 12:48:34.000', '1', '2018-10-26 12:48:34.000', '1');
+INSERT INTO comuser(user_id, pwd, user_name, non_expired_yn, non_locked_yn, enabled_yn, pass_non_expired_yn, CREATED_DT, CREATED_USER_ID, MODIFIED_DT, MODIFIED_USER_ID) VALUES('1', '$2a$10$2rUCawd6xNfqGlnqMRV.3.1eapi6HJExs5kMqSJS3oULEZGsYmpra', 'test', 1, 1, 1, 1, '2018-10-26 12:48:34.000', '1', '2018-10-26 12:48:34.000', '1');
 
 INSERT INTO comresource
 (SYS_DT, SYS_USER, UPD_DT, UPD_USER, RESOURCE_CODE, RESOURCE_NAME, RESOURCE_TYPE, URL, DESCRIPTION)

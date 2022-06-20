@@ -18,7 +18,7 @@ import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.domain.model.family.FamilyList;
 import com.like.hrm.staff.domain.model.license.LicenseList;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareerList;
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

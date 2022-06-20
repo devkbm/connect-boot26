@@ -1,10 +1,7 @@
-package com.like.system.core.config;
+package com.like.system.core.properties;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-
-import com.like.system.core.properties.KakaoProperties;
-
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 

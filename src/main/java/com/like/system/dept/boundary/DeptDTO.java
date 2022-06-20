@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
-import com.like.system.core.vo.LocalDatePeriod;
+import com.like.system.core.jpa.vo.LocalDatePeriod;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.QDept;
 import com.querydsl.core.BooleanBuilder;

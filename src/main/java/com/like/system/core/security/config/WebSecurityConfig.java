@@ -1,4 +1,4 @@
-package com.like.system.core.config;
+package com.like.system.core.security.config;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,7 +20,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.NimbusAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
@@ -42,19 +41,15 @@ import com.like.system.core.security.RestAuthenticationEntryPoint;
 import com.like.system.core.security.RestLoginFailureHandler;
 import com.like.system.core.security.RestLoginSuccessHandler;
 import com.like.system.user.service.SpringSecurityUserService;
+import com.like.system.user.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 로컬 테스트용 Spring Secury 설정
- * CSRF 설정 제거
- *
- */
 @Slf4j
 @Configuration
 @EnableWebSecurity
-@Profile("localtest")
-public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
+@Profile("!localtest")
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	SpringSecurityUserService userService;
@@ -80,7 +75,7 @@ public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private RestLoginFailureHandler authFailureHandler;
 	
-	private static final String[] CSRF_IGNORE = {"/common/user/login","/static/**","/h2-console/**"};
+	private static final String[] CSRF_IGNORE = {"/common/user/login","/static/**"};
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -91,14 +86,15 @@ public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		
-		http.csrf().disable()							
-			.cors().configurationSource(corsConfigurationSource()).and()
-			.headers().frameOptions().disable().and()	// h2-console 테스트를 위한 설정
+		http.csrf()
+				.ignoringAntMatchers(CSRF_IGNORE)				
+				.csrfTokenRepository(csrfTokenRepository()).and()				
+				.addFilterAfter(new CustomCsrfFilter(), CsrfFilter.class)				
+			.cors().configurationSource(corsConfigurationSource()).and()			
 			.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()			
 			.authorizeRequests()
-			.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-				.antMatchers("/h2-console/**").permitAll()
+			.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()				
 				.antMatchers("/common/user/login").permitAll()								
 				.antMatchers("/oauth/user").permitAll()
 				.antMatchers("/oauth2/authorization/**").permitAll()				
@@ -178,12 +174,7 @@ public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
          return super.authenticationManagerBean();
 	}
-		
-	@Bean
-	public PasswordEncoder noOpPasswordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
-	
+			
 	@Bean
 	public PasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -192,7 +183,6 @@ public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 				
-		//auth.userDetailsService(userService).passwordEncoder(this.noOpPasswordEncoder());
 		auth.userDetailsService(userService).passwordEncoder(this.bCryptPasswordEncoder());
 		
 		log.info(auth.toString());
@@ -204,6 +194,19 @@ public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
 		
 		return repository;
 	}
+
+	
+	/*
+	@Bean
+	public RequestBodyReaderAuthenticationFilter myAuthenticationFilter() throws Exception {
+		RequestBodyReaderAuthenticationFilter authenticationFilter = new RequestBodyReaderAuthenticationFilter();
+		authenticationFilter.setAuthenticationManager(this.authenticationManagerBean());		
+		// 여기서 직접 만든 authenticationManagerBean을 설정 해도 됨
+		authenticationFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/common/user/login", "POST"));
+		// loginProcessingUrl에 설정한 주소로 했을 때 오류가 생겨서 그냥 default 값으로 지정함
+		return authenticationFilter;
+	}
+	*/
 	
  
     private void logoutSuccessHandler(
@@ -213,5 +216,5 @@ public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
  
         response.setStatus(HttpStatus.OK.value());
     }   
-
+      
 }

@@ -1,4 +1,4 @@
-package com.like.system.core.config;
+package com.like.system.core.message;
 
 
 import java.util.Locale;

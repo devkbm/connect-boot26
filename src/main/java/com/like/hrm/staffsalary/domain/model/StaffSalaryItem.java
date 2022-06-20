@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Comment;
 
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

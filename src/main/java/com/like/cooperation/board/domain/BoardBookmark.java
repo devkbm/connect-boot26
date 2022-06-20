@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

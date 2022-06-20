@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.like.hrm.duty.domain.model.DutyApplication;
 import com.like.hrm.duty.domain.model.QDutyApplication;
-import com.like.system.core.vo.LocalDatePeriod;
+import com.like.system.core.jpa.vo.LocalDatePeriod;
 import com.like.system.holiday.domain.service.DateInfo;
 import com.like.system.holiday.domain.service.DateInfoList;
 import com.like.system.holiday.service.DateInfoService;

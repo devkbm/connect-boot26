@@ -1,4 +1,4 @@
-package com.like.system.core.config;
+package com.like.system.core.websocket;
 /*package com.like.common.config;
 
 import org.springframework.context.annotation.Configuration;

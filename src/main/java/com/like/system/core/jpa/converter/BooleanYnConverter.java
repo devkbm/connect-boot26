@@ -1,4 +1,4 @@
-package com.like.system.core.jpaconverter;
+package com.like.system.core.jpa.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

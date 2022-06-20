@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.like.system.core.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AuditEntity;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

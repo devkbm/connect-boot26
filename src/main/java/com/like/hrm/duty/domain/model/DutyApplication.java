@@ -21,8 +21,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Comment;
 
 import com.like.hrm.duty.domain.model.vo.FamilyEvent;
-import com.like.system.core.domain.AuditEntity;
-import com.like.system.core.vo.LocalDatePeriod;
+import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.vo.LocalDatePeriod;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

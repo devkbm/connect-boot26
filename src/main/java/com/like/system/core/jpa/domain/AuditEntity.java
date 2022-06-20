@@ -1,4 +1,4 @@
-package com.like.system.core.domain;
+package com.like.system.core.jpa.domain;
 
 import java.time.LocalDateTime;
 

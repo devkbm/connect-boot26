@@ -1,4 +1,4 @@
-package com.like.system.core.vo;
+package com.like.system.core.jpa.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
