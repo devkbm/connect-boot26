@@ -82,11 +82,7 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 	
 	private ConstructorExpression<ResponseDeptHierarchy> getDeptHierarchyConstructor() {
 		return Projections.constructor(
-				ResponseDeptHierarchy.class,
-				qDept._super.createdDt, 
-				qDept._super.createdBy,
-				qDept._super.modifiedDt,
-				qDept._super.modifiedBy,
+				ResponseDeptHierarchy.class,				
 				qDept.parentDept.deptCode,
 				qDept.deptCode,
 				qDept.deptNameKorean,

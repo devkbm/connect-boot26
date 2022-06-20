@@ -1,7 +1,6 @@
 package com.like.system.dept.boundary;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,14 +17,6 @@ import lombok.Singular;
 @AllArgsConstructor
 @Builder
 public class ResponseDeptHierarchy {
-
-	LocalDateTime createdDt;	
-	
-	String createdBy;
-	
-	LocalDateTime modifiedDt;
-	
-	String modifiedBy;
 	
 	String parentDeptCode;
 			
@@ -60,14 +51,9 @@ public class ResponseDeptHierarchy {
 	@JsonProperty(value="isLeaf") 
 	boolean isLeaf;
 
-	public ResponseDeptHierarchy(LocalDateTime createdDt, String createdBy, LocalDateTime modifiedDt, String modifiedBy,
-			String parentDeptCode, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
+	public ResponseDeptHierarchy(String parentDeptCode, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
 			String deptNameEnglish, String deptAbbreviationEnglish, LocalDatePeriod period,
-			Integer seq, String comment) {		
-		this.createdDt = createdDt;
-		this.createdBy = createdBy;
-		this.modifiedDt = modifiedDt;
-		this.modifiedBy = modifiedBy;
+			Integer seq, String comment) {				
 		this.parentDeptCode = parentDeptCode;
 		this.deptCode = deptCode;
 		this.deptNameKorean = deptNameKorean;

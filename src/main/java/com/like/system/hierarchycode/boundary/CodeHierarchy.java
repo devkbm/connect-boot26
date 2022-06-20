@@ -18,14 +18,6 @@ public class CodeHierarchy implements Serializable {
 		
 	private static final long serialVersionUID = -6718790962885573030L;
 
-	LocalDateTime createdDt;	
-	
-	String createdBy;
-	
-	LocalDateTime modifiedDt;
-	
-	String modifiedBy;
-	
 	String id;
 	
 	String systemTypeCode;
@@ -60,14 +52,9 @@ public class CodeHierarchy implements Serializable {
 	boolean isLeaf;
 	
 	@QueryProjection
-	public CodeHierarchy(LocalDateTime createdDt, String createdBy, LocalDateTime modifiedDt, String modifiedBy,
-		String id, String systemTypeCode, String parentId, String code, String codeName, String codeNameAbbreviation, 
+	public CodeHierarchy(String id, String systemTypeCode, String parentId, String code, String codeName, String codeNameAbbreviation, 
 		LocalDateTime fromDate, LocalDateTime toDate, int seq, String cmt) {
-	super();
-	this.createdDt = createdDt;
-	this.createdBy = createdBy;
-	this.modifiedDt = modifiedDt;
-	this.modifiedBy = modifiedBy;
+	super();	
 	this.id = id;
 	this.systemTypeCode = systemTypeCode;
 	this.parentId = parentId;

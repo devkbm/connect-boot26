@@ -121,11 +121,7 @@ public class CommonCodeJpaQueryRepository implements CommonCodeQueryRepository {
 	
 	private ConstructorExpression<CodeHierarchy> getCodehierarchyConstructor() {		
 		return Projections.constructor(
-				CodeHierarchy.class,
-				qCode._super.createdDt, 
-				qCode._super.createdBy, 
-				qCode._super.modifiedDt, 
-				qCode._super.modifiedBy,
+				CodeHierarchy.class,				
 				qCode.id, 
 				qCode.systemTypeCode,
 				qCode.parentCode.id, 
