@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 /**
  * <p>게시글 조회여부 클래스</p>
@@ -26,7 +26,7 @@ import com.like.system.core.jpa.domain.AuditEntity;
 @Entity
 @Table(name = "GRWARTICLECHECK")
 @EntityListeners(AuditingEntityListener.class)
-public class ArticleCheck extends AuditEntity implements Serializable {
+public class ArticleCheck extends AbstractAuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = 6322358555393677284L;
 

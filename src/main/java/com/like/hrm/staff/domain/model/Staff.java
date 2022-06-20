@@ -18,7 +18,7 @@ import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.domain.model.family.FamilyList;
 import com.like.hrm.staff.domain.model.license.LicenseList;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareerList;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -37,7 +37,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "HRMSTAFF")
 @EntityListeners(AuditingEntityListener.class)
-public class Staff extends AuditEntity implements Serializable {
+public class Staff extends AbstractAuditEntity implements Serializable {
 
 	private static final long serialVersionUID = -3164713918774455925L;
 	

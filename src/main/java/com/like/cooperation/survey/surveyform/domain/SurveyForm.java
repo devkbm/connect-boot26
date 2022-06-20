@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.core.jpa.vo.LocalDatePeriod;
 
 import lombok.AccessLevel;
@@ -32,7 +32,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "GRWSURVEYFORM")
 @EntityListeners(AuditingEntityListener.class)
-public class SurveyForm extends AuditEntity {
+public class SurveyForm extends AbstractAuditEntity {
 		
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

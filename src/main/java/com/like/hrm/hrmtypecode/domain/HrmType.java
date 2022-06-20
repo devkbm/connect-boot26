@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "HRMTYPECODE")
-public class HrmType extends AuditEntity {
+public class HrmType extends AbstractAuditEntity {
 		
 	@Id
 	@Column(name="TYPE_CODE")

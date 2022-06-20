@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.file.util.FileIdGenerator;
 
 import lombok.AccessLevel;
@@ -27,7 +27,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "comfileinfo")
 @EntityListeners(AuditingEntityListener.class)
-public class FileInfo extends AuditEntity implements Serializable {
+public class FileInfo extends AbstractAuditEntity implements Serializable {
 			
 	private static final long serialVersionUID = 4108977246168878308L;
 

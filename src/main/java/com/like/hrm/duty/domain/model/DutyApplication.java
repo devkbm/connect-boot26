@@ -21,7 +21,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Comment;
 
 import com.like.hrm.duty.domain.model.vo.FamilyEvent;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.core.jpa.vo.LocalDatePeriod;
 
 import lombok.AccessLevel;
@@ -41,7 +41,7 @@ import lombok.ToString;
 @Getter
 @Entity
 @Table(name = "HRMDUTYAPPLICATION")
-public class DutyApplication extends AuditEntity {
+public class DutyApplication extends AbstractAuditEntity {
 	
 	@Id		
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

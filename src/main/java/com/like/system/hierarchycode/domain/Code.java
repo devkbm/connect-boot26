@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,7 +28,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "comcode")
 @EntityListeners(AuditingEntityListener.class)
-public class Code extends AuditEntity  {
+public class Code extends AbstractAuditEntity  {
 					
 	@Id
 	@Column(name="CODE_ID")

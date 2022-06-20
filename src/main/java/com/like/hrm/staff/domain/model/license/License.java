@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.like.hrm.staff.domain.model.Staff;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -43,7 +43,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "HRMSTAFFLICENSE")
 @EntityListeners(AuditingEntityListener.class)
-public class License extends AuditEntity implements Serializable {
+public class License extends AbstractAuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = 5879415854289672377L;
 

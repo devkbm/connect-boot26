@@ -77,9 +77,9 @@ public class DeptDTO {
 			
 			FormDept dto = FormDept.builder()
 									.createdDt(entity.getCreatedDt())
-									.createdBy(entity.getCreatedBy())
+									.createdBy(entity.getCreatedBy().getLoggedUser())
 									.modifiedDt(entity.getModifiedDt())
-									.modifiedBy(entity.getModifiedBy())
+									.modifiedBy(entity.getModifiedBy().getLoggedUser())
 									.deptCode(entity.getDeptCode())
 									.parentDeptCode(parent.map(Dept::getDeptCode).orElse(null))
 									.deptNameKorean(entity.getDeptNameKorean())

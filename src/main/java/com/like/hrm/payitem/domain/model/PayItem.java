@@ -12,7 +12,7 @@ import javax.persistence.Transient;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "HRMPAYITEM")
 @EntityListeners(AuditingEntityListener.class)
-public class PayItem extends AuditEntity {
+public class PayItem extends AbstractAuditEntity {
 
 	@Id
 	@Column(name="CODE")

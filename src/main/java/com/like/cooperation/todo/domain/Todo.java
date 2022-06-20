@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -30,7 +30,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "grtodo")
 @EntityListeners(AuditingEntityListener.class)
-public class Todo extends AuditEntity {		
+public class Todo extends AbstractAuditEntity {		
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

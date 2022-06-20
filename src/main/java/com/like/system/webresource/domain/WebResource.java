@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,7 +24,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "comresource")
 @EntityListeners(AuditingEntityListener.class)
-public class WebResource extends AuditEntity implements Serializable{	
+public class WebResource extends AbstractAuditEntity implements Serializable{	
 	
 	private static final long serialVersionUID = 4402275274864737663L;
 

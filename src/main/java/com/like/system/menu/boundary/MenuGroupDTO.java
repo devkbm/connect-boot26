@@ -74,9 +74,9 @@ public class MenuGroupDTO {
 			
 			return FormMenuGroup.builder()
 								.createdDt(entity.getCreatedDt())
-								.createdBy(entity.getCreatedBy())
+								.createdBy(entity.getCreatedBy().getLoggedUser())
 								.modifiedDt(entity.getModifiedDt())
-								.modifiedBy(entity.getModifiedBy())
+								.modifiedBy(entity.getModifiedBy().getLoggedUser())
 								.menuGroupCode(entity.getMenuGroupCode())
 								.menuGroupName(entity.getMenuGroupName())
 								.description(entity.getDescription())

@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.webresource.domain.WebResource;
 
 import lombok.AccessLevel;
@@ -34,7 +34,7 @@ import lombok.ToString;
 @Getter
 @Table(name = "commenu")
 @EntityListeners(AuditingEntityListener.class)
-public class Menu extends AuditEntity implements Serializable {			
+public class Menu extends AbstractAuditEntity implements Serializable {			
 	
 	private static final long serialVersionUID = -8469789281288988098L;
 

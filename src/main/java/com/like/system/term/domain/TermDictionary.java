@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,7 +28,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "COMTERM")
 @EntityListeners(AuditingEntityListener.class)
-public class TermDictionary extends AuditEntity {	
+public class TermDictionary extends AbstractAuditEntity {	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

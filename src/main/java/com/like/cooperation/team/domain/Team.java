@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Comment;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.core.web.exception.BusinessException;
 import com.like.system.core.web.exception.ErrorCode;
 import com.like.system.user.domain.SystemUser;
@@ -30,7 +30,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "GRWTEAM")
-public class Team extends AuditEntity {
+public class Team extends AbstractAuditEntity {
 	
 	@Id	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

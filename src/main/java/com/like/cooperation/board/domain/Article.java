@@ -15,7 +15,7 @@ import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.Formula;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.file.domain.FileInfo;
 
 /**
@@ -32,7 +32,7 @@ import com.like.system.file.domain.FileInfo;
 @Entity
 @Table(name = "GRWARTICLE")
 @EntityListeners(AuditingEntityListener.class)
-public class Article extends AuditEntity {		
+public class Article extends AbstractAuditEntity {		
 	
 	/**
 	 * 게시글 키
@@ -78,7 +78,7 @@ public class Article extends AuditEntity {
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     List<ArticleAttachedFile> files;
 			
-	@Formula("(SELECT X.USER_NAME FROM COMUSER X WHERE X.USER_ID = sys_user)")
+	@Formula("(SELECT X.USER_NAME FROM COMUSER X WHERE X.USER_ID = CREATED_USER_ID)")
 	String userName;
 			
 	@Transient
@@ -134,7 +134,7 @@ public class Article extends AuditEntity {
 	}
 	
 	public Boolean getEditable(String userId) {			
-		return this.createdBy.equals(userId);
+		return this.getCreatedBy().getLoggedUser().equals(userId);
 	}	
 			
 }

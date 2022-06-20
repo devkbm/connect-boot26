@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.AccessLevel;
@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @IdClass(WorkGroupMemberId.class)
 @Table(name = "GRWWORKGROUPUSER")
-public class WorkGroupMember extends AuditEntity {
+public class WorkGroupMember extends AbstractAuditEntity {
 	
 	@JsonBackReference
 	@Id	

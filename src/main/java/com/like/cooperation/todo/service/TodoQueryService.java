@@ -21,11 +21,11 @@ public class TodoQueryService {
 	}
 			
 	public List<TodoGroup> getTodoGroupList(String userId) {
-		QTodoGroup qTaskGroup = QTodoGroup.todoGroup;
+		QTodoGroup qTodoGroup = QTodoGroup.todoGroup;
 		
-		Iterable<TodoGroup> result = repository.findAll(qTaskGroup.createdBy.eq(userId)); 
+		//Iterable<TodoGroup> result = repository.findAll(qTodoGroup.createdBy.createdBy.eq(userId)); 
 		List<TodoGroup> list = new ArrayList<>();
-		result.forEach(e -> list.add(e));
+		//result.forEach(e -> list.add(e));
 		
 		return list;
 	}

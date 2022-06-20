@@ -20,7 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.like.hrm.staff.domain.model.Staff;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -36,7 +36,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "HRMSTAFFAPPOINTMENTRECORD")
 @EntityListeners(AuditingEntityListener.class)
-public class AppointmentRecord extends AuditEntity implements Serializable {
+public class AppointmentRecord extends AbstractAuditEntity implements Serializable {
 
 	private static final long serialVersionUID = 3842729148497015523L;
 

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Comment;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Table(name = "HRMANUALLEAVE")
 @Entity
-public class AnualLeave extends AuditEntity {
+public class AnualLeave extends AbstractAuditEntity {
 	
 	@EmbeddedId
 	AnualLeaveId id;

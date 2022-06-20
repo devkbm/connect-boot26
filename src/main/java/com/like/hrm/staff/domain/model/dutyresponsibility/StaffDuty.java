@@ -16,7 +16,7 @@ import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.hrm.staff.domain.model.Staff;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "HRMSTAFFDUTYRESPONSIBILITY")
 @EntityListeners(AuditingEntityListener.class)
-public class StaffDuty extends AuditEntity implements Serializable {
+public class StaffDuty extends AbstractAuditEntity implements Serializable {
 
 	private static final long serialVersionUID = -5607018550367077054L;
 	

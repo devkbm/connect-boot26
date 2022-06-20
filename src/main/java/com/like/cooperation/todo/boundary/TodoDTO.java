@@ -32,7 +32,7 @@ public class TodoDTO {
 			Boolean isCompleted,
 			LocalDate dueDate
 			) {
-		private static final QTodoGroup qTaskGroup = QTodoGroup.todoGroup;
+		private static final QTodoGroup qTodoGroup = QTodoGroup.todoGroup;
 		private static final QTodo qTask = QTodo.todo1;		
 		
 		public BooleanBuilder getQueryFilter() {		
@@ -41,8 +41,8 @@ public class TodoDTO {
 			builder
 				.and(likeMenGroupCode(todo));
 			
-			if (StringUtils.hasText(this.userId))
-				builder.and(qTaskGroup.modifiedBy.eq(userId));
+			//if (StringUtils.hasText(this.userId))
+			//	builder.and(qTaskGroup.modifiedBy.eq(userId));
 			
 			if (StringUtils.hasText(this.todo))
 				builder.and(qTask.todo.like("%"+todo+"%"));

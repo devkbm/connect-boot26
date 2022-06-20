@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -26,7 +26,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "grtodogroup")
 @EntityListeners(AuditingEntityListener.class)
-public class TodoGroup extends AuditEntity {		
+public class TodoGroup extends AbstractAuditEntity {		
 
 	static String DEFAULT_GROUP_NAME = "기본일정";
 	

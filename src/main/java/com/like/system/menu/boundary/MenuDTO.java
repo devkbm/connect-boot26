@@ -97,9 +97,9 @@ public class MenuDTO {
 			
 			return FormMenu.builder()
 					   	   .createdDt(menu.getCreatedDt())
-					   	   .createdBy(menu.getCreatedBy())
+					   	   .createdBy(menu.getCreatedBy().getLoggedUser())
 					   	   .modifiedDt(menu.getModifiedDt())
-					   	   .modifiedBy(menu.getModifiedBy())
+					   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())
 					   	   .menuGroupCode(menu.getMenuGroup().getMenuGroupCode())
 					   	   .menuCode(menu.getMenuCode())
 					   	   .menuName(menu.getMenuName())

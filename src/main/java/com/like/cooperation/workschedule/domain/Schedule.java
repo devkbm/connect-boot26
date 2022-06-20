@@ -18,7 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "GRWSCHEDULE")
 @EntityListeners(AuditingEntityListener.class)
-public class Schedule extends AuditEntity {	
+public class Schedule extends AbstractAuditEntity {	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

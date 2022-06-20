@@ -87,9 +87,9 @@ public class TeamDTO {
 			
 			TeamDTO.FormTeam dto = TeamDTO.FormTeam.builder()
 									.createdDt(entity.getCreatedDt())
-									.createdBy(entity.getCreatedBy())
+									.createdBy(entity.getCreatedBy().getLoggedUser())
 									.modifiedDt(entity.getModifiedDt())
-									.modifiedBy(entity.getModifiedBy())
+									.modifiedBy(entity.getModifiedBy().getLoggedUser())
 									.teamId(entity.getTeamId())
 									.teamName(entity.getTeamName())
 									.memberList(entity.getMembers().stream()

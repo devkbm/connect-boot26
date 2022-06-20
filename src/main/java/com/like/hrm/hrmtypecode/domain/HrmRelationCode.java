@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "HRMRELATIONCODE")
-public class HrmRelationCode extends AuditEntity {
+public class HrmRelationCode extends AbstractAuditEntity {
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

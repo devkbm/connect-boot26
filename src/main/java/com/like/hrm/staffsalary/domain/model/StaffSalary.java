@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Comment;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "HRMSTAFFSALARY")
-public class StaffSalary extends AuditEntity implements Serializable {
+public class StaffSalary extends AbstractAuditEntity implements Serializable {
 
 	private static final long serialVersionUID = -4083229804219573611L;
 

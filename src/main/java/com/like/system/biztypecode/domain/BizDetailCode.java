@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "BIZTYPEDETAILCODE")
-public class BizDetailCode extends AuditEntity {
+public class BizDetailCode extends AbstractAuditEntity {
 
 	@EmbeddedId
 	BizDetailCodeId id;

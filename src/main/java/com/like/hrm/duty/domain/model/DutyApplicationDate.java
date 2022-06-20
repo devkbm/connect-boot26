@@ -8,7 +8,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "HRMDUTYAPPLICATIONDATE")
-public class DutyApplicationDate extends AuditEntity {
+public class DutyApplicationDate extends AbstractAuditEntity {
 	
 	@EmbeddedId
 	private DutyApplicationDateId id;	

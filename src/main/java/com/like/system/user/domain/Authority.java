@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Entity
 @Table(name = "comauthority")
-public class Authority extends AuditEntity implements GrantedAuthority {
+public class Authority extends AbstractAuditEntity implements GrantedAuthority {
 
 	private static final long serialVersionUID = 5255280527856714047L;
 	

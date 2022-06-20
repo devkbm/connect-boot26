@@ -89,9 +89,9 @@ public class WebResourceDTO {
 		public static FormWebResource convertDTO(WebResource entity) {
 			return FormWebResource.builder()
 								  .createdDt(entity.getCreatedDt())	
-								  .createdBy(entity.getCreatedBy())
+								  .createdBy(entity.getCreatedBy().getLoggedUser())
 								  .modifiedDt(entity.getCreatedDt())
-								  .modifiedBy(entity.getModifiedBy())
+								  .modifiedBy(entity.getModifiedBy().getLoggedUser())
 								  .resourceCode(entity.getResourceCode())
 								  .resourceName(entity.getResourceName())
 								  .resourceType(entity.getResourceType())

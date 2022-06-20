@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "GRWBOARDBOOKMARK")
 @EntityListeners(AuditingEntityListener.class)
-public class BoardBookmark extends AuditEntity implements Serializable {
+public class BoardBookmark extends AbstractAuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = -1585368113519480228L;
 

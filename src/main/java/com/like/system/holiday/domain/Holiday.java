@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Table(name = "COMHOLIDAY")
 @Entity
-public class Holiday extends AuditEntity implements Serializable {	
+public class Holiday extends AbstractAuditEntity implements Serializable {	
 	
 	private static final long serialVersionUID = -1170840034409404138L;
 

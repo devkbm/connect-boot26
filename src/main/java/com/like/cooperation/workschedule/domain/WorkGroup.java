@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.AccessLevel;
@@ -32,7 +32,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "GRWWORKGROUP")
 @EntityListeners(AuditingEntityListener.class)
-public class WorkGroup extends AuditEntity {
+public class WorkGroup extends AbstractAuditEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

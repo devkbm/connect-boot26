@@ -8,13 +8,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Comment;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "HRMSTAFFSALARYITEM")
-public class StaffSalaryItem extends AuditEntity {
+public class StaffSalaryItem extends AbstractAuditEntity {
 
 	@Id		
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

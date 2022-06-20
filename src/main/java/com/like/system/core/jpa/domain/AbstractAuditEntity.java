@@ -15,13 +15,14 @@ import javax.persistence.PreUpdate;
 
 import java.time.LocalDateTime;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 
 /**
  * @see https://stackoverflow.com/questions/61813715/spring-boot-auditing-hostname-and-hostip
  *
  */
-@Getter
+@Getter(value = AccessLevel.PUBLIC)
 @TypeDef(name = "AuditorDetails",
     typeClass = AuditorDetailsType.class,
     defaultForType = AuditorDetails.class)
@@ -31,27 +32,27 @@ public abstract class AbstractAuditEntity{
 
     @CreatedDate    
     @Column(name = "CREATED_DT", updatable = false)
-    private LocalDateTime createdDt;
+    LocalDateTime createdDt;
 
     @CreatedBy
     @Columns(columns = {
     					@Column(name = "CREATED_USER_ID", updatable = false),    
     					@Column(name = "CREATED_HOST_IP", updatable = false)
-    				   })
-    private AuditorDetails createdBy;
+    				   })	
+    AuditorDetails createdBy;
 
     String createdAppId;
     
     @LastModifiedDate
     @Column(name = "MODIFIED_DT")    
-    private LocalDateTime modifiedDt;
+    LocalDateTime modifiedDt;
 
     @LastModifiedBy
     @Columns(columns = {
     					@Column(name = "MODIFIED_USER_ID"),        
     					@Column(name = "MODIFIED_HOST_IP")
     				   })
-    private AuditorDetails modifiedBy;   
+    AuditorDetails modifiedBy;   
 
     String modifiedAppId;
     

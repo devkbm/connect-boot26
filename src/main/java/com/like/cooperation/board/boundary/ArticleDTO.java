@@ -159,9 +159,9 @@ public class ArticleDTO {
 			return ArticleDTO.ResponseArticle
 							 .builder()
 							 .createdDt(entity.getCreatedDt())
-							 .createdBy(entity.getCreatedBy())
+							 .createdBy(entity.getCreatedBy().getLoggedUser())
 							 .modifiedDt(entity.getModifiedDt())
-							 .modifiedBy(entity.getModifiedBy())
+							 .modifiedBy(entity.getModifiedBy().getLoggedUser())
 							 .pkArticle(entity.getPkArticle())
 							 .ppkArticle(entity.getPpkArticle())							 
 							 .userName(entity.getUserName())

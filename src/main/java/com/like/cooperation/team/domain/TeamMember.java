@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.AccessLevel;
@@ -20,7 +20,7 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "GRWTEAMUSER")
-public class TeamMember extends AuditEntity {	
+public class TeamMember extends AbstractAuditEntity {	
 
 	@EmbeddedId
 	TeamMemberId id;

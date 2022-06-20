@@ -85,9 +85,9 @@ public class BoardDTO {
 			
 			return FormBoard.builder()
 						    .createdDt(entity.getCreatedDt())
-						    .createdBy(entity.getCreatedBy())
+						    .createdBy(entity.getCreatedBy().getLoggedUser())
 						    .modifiedDt(entity.getModifiedDt())
-						    .modifiedBy(entity.getModifiedBy())
+						    .modifiedBy(entity.getModifiedBy().getLoggedUser())
 						    .pkBoard(entity.getPkBoard())	
 						    .ppkBoard(parent.map(Board::getPkBoard).orElse(null))
 						    .boardType(entity.getBoardType().toString())

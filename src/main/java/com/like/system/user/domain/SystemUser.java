@@ -20,7 +20,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
-import com.like.system.core.jpa.domain.AuditEntity;
 import com.like.system.dept.domain.Dept;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.user.domain.vo.AccountSpec;
@@ -38,7 +37,7 @@ import lombok.ToString;
 @Getter
 @Entity
 @Table(name = "comuser")
-public class SystemUser extends AbstractAuditEntity /*AuditEntity*/ implements UserDetails {	
+public class SystemUser extends AbstractAuditEntity implements UserDetails {	
 	
 	private static final long serialVersionUID = -4328973281359262612L;
 

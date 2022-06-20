@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.util.Assert;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.core.jpa.vo.LocalDatePeriod;
 
 import lombok.AccessLevel;
@@ -33,7 +33,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "comdept")
 @EntityListeners(AuditingEntityListener.class)
-public class Dept extends AuditEntity implements Serializable {
+public class Dept extends AbstractAuditEntity implements Serializable {
 
 	private static final long serialVersionUID = -969524977226888898L;
 

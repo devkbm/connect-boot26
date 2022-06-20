@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.file.domain.FileInfo;
 
 import lombok.AccessLevel;
@@ -38,7 +38,7 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "GRWARTICLEFILE")
-public class ArticleAttachedFile extends AuditEntity implements Serializable {
+public class ArticleAttachedFile extends AbstractAuditEntity implements Serializable {
 		
 		
 	private static final long serialVersionUID = 1933620773768936638L;

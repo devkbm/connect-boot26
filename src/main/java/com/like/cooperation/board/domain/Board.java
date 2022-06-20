@@ -8,7 +8,7 @@ import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.Nullable;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,7 +29,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "GRWBOARD")
 @EntityListeners(AuditingEntityListener.class)
-public class Board extends AuditEntity {		
+public class Board extends AbstractAuditEntity {		
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

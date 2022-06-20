@@ -24,8 +24,8 @@ public class TodoQueryDTO {
 	
 	public BooleanBuilder getQueryFilter() {		
 		
-		if (StringUtils.hasText(this.userId))
-			builder.and(qTodoGroup.modifiedBy.eq(userId));
+		//if (StringUtils.hasText(this.userId))
+		//	builder.and(qTodoGroup.modifiedBy.eq(userId));
 		
 		if (StringUtils.hasText(this.todo))
 			builder.and(qTodo.todo.like("%"+todo+"%"));

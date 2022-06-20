@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class SystemUserId {
 
-	@Comment("회사코드")
-	@Column(name="COMPANY_CODE")
-	String companyCode;
+	@Comment("조직코드")
+	@Column(name="ORG_CODE")
+	String organizationCode;
         
 	@Comment("사용자 아이디")
 	@Column(name="USER_ID")

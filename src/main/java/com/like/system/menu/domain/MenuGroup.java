@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -29,7 +29,7 @@ import lombok.ToString;
 @Getter
 @Table(name = "commenugroup")
 @EntityListeners(AuditingEntityListener.class)
-public class MenuGroup extends AuditEntity implements Serializable {		
+public class MenuGroup extends AbstractAuditEntity implements Serializable {		
 	
 	private static final long serialVersionUID = -638113137072530575L;
 

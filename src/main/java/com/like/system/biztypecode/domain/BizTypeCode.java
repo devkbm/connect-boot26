@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import org.springframework.util.StringUtils;
 
-import com.like.system.core.jpa.domain.AuditEntity;
+import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "BIZTYPECODE")
-public class BizTypeCode extends AuditEntity {
+public class BizTypeCode extends AbstractAuditEntity {
 
 	@Id
 	@Column(name="TYPE_CODE")
