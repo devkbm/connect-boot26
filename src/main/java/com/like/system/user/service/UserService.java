@@ -1,7 +1,10 @@
 package com.like.system.user.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,10 +56,7 @@ public class UserService {
 		
 	public SystemUser getFullUser(String userId) {
 		SystemUser user = repository.findById(userId).orElse(null);
-		List<MenuGroup> menuGroupList = user.getMenuGroupList();
-		
-		log.info(menuGroupList.toString());
-		
+							
 		return user;				
 	}
 	
@@ -68,9 +68,9 @@ public class UserService {
 		SystemUser user = repository.findById(dto.getUserId()).orElse(null);
 		Dept dept = dto.getDeptCode() == null ? null : deptRepository.findById(dto.getDeptCode()).orElse(null); 
 		
-		List<Authority> authorityList = authorityRepository.findAllById(dto.getAuthorityList());		
-		List<MenuGroup> menuGroupList = menuRepository.findAllById(dto.getMenuGroupList());		 
-						
+		Set<Authority> authorityList = new LinkedHashSet(authorityRepository.findAllById(dto.getAuthorityList()));		
+		Set<MenuGroup> menuGroupList = new LinkedHashSet(menuRepository.findAllById(dto.getMenuGroupList()));		 
+							
 		if (user == null) {
 			user = dto.newUser(dept, authorityList, menuGroupList);
 		} else {
@@ -130,7 +130,7 @@ public class UserService {
 	 * @param userId	사용자아이디
 	 * @return 사용자 권한 리스트
 	 */
-	public List<Authority> getUserAuthorities(String userId) {        									
+	public Set<Authority> getUserAuthorities(String userId) {        									
         return repository.findById(userId).orElse(null).getAuthoritiesList();
 	}
 					
@@ -154,9 +154,10 @@ public class UserService {
 	 * @param user	사용자 도메인
 	 */
 	private void initAuthority(SystemUser user) {							
-		List<Authority> authorities = new ArrayList<Authority>();
+		Set<Authority> authorities = new LinkedHashSet<Authority>();
 		
-		authorities.add(authorityRepository.findById("ROLE_USER").orElse(null));			
+		authorities.add(authorityRepository.findById("ROLE_USER").orElse(null));
+		
 		user.setAuthorities(authorities);
 	}
 }

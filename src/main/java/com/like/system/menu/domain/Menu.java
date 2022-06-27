@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +17,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.webresource.domain.WebResource;
 
@@ -59,8 +59,9 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="p_menu_code", nullable = true )
 	Menu parent;
-			 				
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@JsonIgnore	
+	@ManyToOne
 	@JoinColumn(name = "menu_group_code", nullable=false, updatable=false)
 	MenuGroup menuGroup = new MenuGroup();
 	

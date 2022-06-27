@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
@@ -42,8 +41,7 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 		
 	@Column(name="description")
 	String description;
-	
-	@JsonIgnore
+		
 	@OneToMany(mappedBy = "menuGroup", cascade = CascadeType.ALL, orphanRemoval = true)          
     List<Menu> menuList = new ArrayList<Menu>();
 			

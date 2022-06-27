@@ -43,6 +43,12 @@ public class LoginService {
 		return AuthenticationToken.of(user, session.getId());
 	}
 	
+	public AuthenticationToken getAuthenticationToken(String userId, HttpSession session) {
+		SystemUser user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+		
+		return AuthenticationToken.of(user, session.getId());
+	}
+	
 	private void authentication(String username, String password, Collection<? extends GrantedAuthority> collection, HttpSession session) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, collection);
 		

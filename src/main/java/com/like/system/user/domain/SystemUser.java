@@ -1,8 +1,8 @@
 package com.like.system.user.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -72,14 +72,14 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
     @JoinTable(name="comuserauthority",
     		joinColumns= @JoinColumn(name="user_id"),
     		inverseJoinColumns=@JoinColumn(name="authority_name"))	
-	List<Authority> authorities = new ArrayList<>();
+	Set<Authority> authorities = new LinkedHashSet<>();
 			
 	@Setter
-	@ManyToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="comusermenugroup",
     		joinColumns= @JoinColumn(name="user_id"),
     		inverseJoinColumns=@JoinColumn(name="menu_group_code"))	
-	List<MenuGroup> menuGroupList = new ArrayList<>();		
+	Set<MenuGroup> menuGroupList = new LinkedHashSet<>();		
 		
 	@Builder
 	public SystemUser(String userId
@@ -89,8 +89,8 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,String mobileNum
 					 ,String email
 					 ,AccountSpec accountSpec
-					 ,List<Authority> authorities
-					 ,List<MenuGroup> menuGroupList) {		
+					 ,Set<Authority> authorities
+					 ,Set<MenuGroup> menuGroupList) {		
 		this.userId = userId;
 		this.name = name;
 		this.password = password;
@@ -108,8 +108,8 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 							,String mobileNum
 							,String email							 
 							,Dept dept
-							,List<Authority> authorities
-							,List<MenuGroup> menuGroupList) {
+							,Set<Authority> authorities
+							,Set<MenuGroup> menuGroupList) {
 		this.name = name;				
 		this.mobileNum = mobileNum;
 		this.email = email;		
@@ -123,7 +123,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		return authorities;
 	}
 	
-	public List<Authority> getAuthoritiesList() {
+	public Set<Authority> getAuthoritiesList() {
 		return this.authorities;
 	}
 			
@@ -163,7 +163,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		
 	public void addAuthoritiy(Authority authority) {
 		if (this.authorities == null) {
-			this.authorities = new ArrayList<>();
+			this.authorities = new LinkedHashSet<>();
 		}
 		
 		this.authorities.add(authority);

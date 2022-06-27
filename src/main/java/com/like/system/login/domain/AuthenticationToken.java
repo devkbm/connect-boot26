@@ -2,6 +2,7 @@ package com.like.system.login.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -24,7 +25,7 @@ public class AuthenticationToken implements Serializable {
 	private String oAuthAccessToken;
     //private Collection<? extends GrantedAuthority> authorities;
 	private List<String> authorities;
-    private List<MenuGroup> menuGroupList;
+    private Set<MenuGroup> menuGroupList;
     
        
     @Builder
@@ -35,7 +36,7 @@ public class AuthenticationToken implements Serializable {
     						  ,String token
     						  ,String oAuthAccessToken
     						  ,List<String> collection
-    						  ,List<MenuGroup> menuGroupList) {
+    						  ,Set<MenuGroup> menuGroupList) {
     	this.userId = userId;
         this.userName = userName;
         this.imageUrl = imageUrl;
@@ -43,8 +44,7 @@ public class AuthenticationToken implements Serializable {
         this.token = token;
         this.oAuthAccessToken = oAuthAccessToken;
         this.authorities = collection;
-        this.menuGroupList = menuGroupList;
-        
+        this.menuGroupList = menuGroupList;        
     }     
     
     public static AuthenticationToken of(SystemUser user, String sessionId) {

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
@@ -148,12 +149,12 @@ public class UserDTO {
 		Boolean enabled;
 					
 		@Singular(value = "authorityList")
-		List<String> authorityList;
+		Set<String> authorityList;
 
 		@Singular(value = "menuGroupList")
-		List<String> menuGroupList; 
+		Set<String> menuGroupList; 
 		
-		public SystemUser newUser(Dept dept, List<Authority> authorityList, List<MenuGroup> menuGroupList) {
+		public SystemUser newUser(Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
 			return SystemUser.builder()
 					   .userId(this.userId)
 					   .name(this.name)					   
@@ -168,7 +169,7 @@ public class UserDTO {
 			
 		}
 		
-		public void modifyUser(SystemUser user, Dept dept, List<Authority> authorityList, List<MenuGroup> menuGroupList) {
+		public void modifyUser(SystemUser user, Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
 			user.modifyEntity(name							 
 							 //,enabled
 							 ,mobileNum
