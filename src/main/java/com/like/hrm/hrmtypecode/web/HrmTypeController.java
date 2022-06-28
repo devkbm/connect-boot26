@@ -16,7 +16,7 @@ import com.like.hrm.hrmtypecode.boundary.HrmTypeDetailCodeDTO;
 import com.like.hrm.hrmtypecode.domain.HrmTypeDetailCodeId;
 import com.like.hrm.hrmtypecode.service.HrmTypeService;
 import com.like.system.core.web.exception.ControllerException;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class HrmTypeController {
@@ -32,7 +32,7 @@ public class HrmTypeController {
 		
 		HrmTypeDTO.FormHrmType hrmType = service.getHrmTypeDTO(id);
 					
-		return WebControllerUtil.getResponse(hrmType											
+		return WebResponseUtil.toOne(hrmType											
 											,String.format("%d 건 조회되었습니다.", hrmType == null ? 0 : 1)
 											,HttpStatus.OK);
 	}
@@ -46,7 +46,7 @@ public class HrmTypeController {
 																	
 		service.saveHrmType(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1)
 											,HttpStatus.OK);
 	}
@@ -57,7 +57,7 @@ public class HrmTypeController {
 																		
 		service.deleteHrmType(id);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1)
 											,HttpStatus.OK);
 	}			
@@ -68,7 +68,7 @@ public class HrmTypeController {
 		
 		HrmTypeDetailCodeDTO.FormHrmTypeDetailCode dto = service.getTypeDetailCodeDTO(new HrmTypeDetailCodeId(type, code));
 					
-		return WebControllerUtil.getResponse(dto
+		return WebResponseUtil.toOne(dto
 											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1)
 											,HttpStatus.OK);
 	}
@@ -82,7 +82,7 @@ public class HrmTypeController {
 																	
 		service.saveTypeDetailCode(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1)
 											,HttpStatus.OK);
 	}
@@ -92,7 +92,7 @@ public class HrmTypeController {
 																		
 		service.deleteTypeDetailCode(new HrmTypeDetailCodeId(type, code));						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1)
 											,HttpStatus.OK);
 	}

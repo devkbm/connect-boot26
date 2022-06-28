@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.webresource.boundary.WebResourceDTO;
 import com.like.system.webresource.boundary.WebResourceDTO.FormWebResource;
 import com.like.system.webresource.domain.WebResource;
@@ -32,7 +32,7 @@ public class WebResourceController {
 		
 		WebResourceDTO.FormWebResource dto = FormWebResource.convertDTO(resource);
 		
-		return WebControllerUtil.getResponse(dto											
+		return WebResponseUtil.toOne(dto											
 											,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
 	}
 		
@@ -41,7 +41,7 @@ public class WebResourceController {
 																												
 		service.saveWebResource(dto);																						
 										 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
@@ -50,7 +50,7 @@ public class WebResourceController {
 												
 		service.deleteWebResource(code);							
 		
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

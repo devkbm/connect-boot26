@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.hrmtypecode.boundary.HrmRelationCodeDTO;
 import com.like.hrm.hrmtypecode.service.HrmRelationCodeQueryService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class HrmRelationCodeQueryController {
@@ -25,7 +25,7 @@ public class HrmRelationCodeQueryController {
 						
 		List<?> list = service.getHrmRelationCodeList(dto);
 					
-		return WebControllerUtil.getResponse(list											
+		return WebResponseUtil.toList(list											
 											,String.format("%d 건 조회되었습니다.", list.size())
 											,HttpStatus.OK);
 	}

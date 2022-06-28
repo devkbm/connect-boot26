@@ -13,7 +13,7 @@ import com.like.hrm.staff.boundary.AppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.service.StaffAppointmentService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class StaffAppointmentController {
@@ -33,8 +33,8 @@ public class StaffAppointmentController {
 					     .map(e -> AppointmentRecordDTO.FormStaffAppointmentRecord.convert(e))
 						 .toList(); 		
 		
-		return WebControllerUtil
-				.getResponse(list
+		return WebResponseUtil
+				.toList(list
 						    ,"%d 건 조회되었습니다.".formatted(list.size()));
 	}
 	
@@ -46,8 +46,8 @@ public class StaffAppointmentController {
 				
 		var dto = AppointmentRecordDTO.FormStaffAppointmentRecord.convert(entity) ;
 		
-		return WebControllerUtil
-				.getResponse(dto											
+		return WebResponseUtil
+				.toOne(dto											
 							,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1));
 	}
 		
@@ -56,8 +56,8 @@ public class StaffAppointmentController {
 									
 		service.saveAppointmentRecord(dto);
 											 				
-		return WebControllerUtil
-				.getResponse(null							
+		return WebResponseUtil
+				.toList(null							
 							,"1 건 저장되었습니다.");
 	}
 	
@@ -70,8 +70,8 @@ public class StaffAppointmentController {
 		
 		service.applyAppointmentRecord(staffId, id);
 											 				
-		return WebControllerUtil
-				.getResponse(null							
+		return WebResponseUtil
+				.toList(null							
 							,"1 건 저장되었습니다.");
 	}
 }

@@ -20,7 +20,7 @@ import com.like.hrm.payitem.domain.model.PayTable;
 import com.like.hrm.payitem.domain.model.PayTableItem;
 import com.like.hrm.payitem.service.PayTableService;
 import com.like.system.core.web.exception.ControllerException;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class PayTableController {
@@ -39,7 +39,7 @@ public class PayTableController {
 															 .map(e -> PayTableDTO.SavePayTable.convert(e))
 															 .collect(Collectors.toList());
 				
-		return WebControllerUtil.getResponse(list											
+		return WebResponseUtil.toList(list											
 											,String.format("%d 건 조회되었습니다.", list.size())
 											,HttpStatus.OK);
 	}
@@ -51,7 +51,7 @@ public class PayTableController {
 						
 		PayTableDTO.SavePayTable dto = PayTableDTO.SavePayTable.convert(entity);			
 				
-		return WebControllerUtil.getResponse(dto											
+		return WebResponseUtil.toOne(dto											
 											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1)
 											,HttpStatus.OK);
 	}
@@ -65,7 +65,7 @@ public class PayTableController {
 							
 		payTableService.save(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1)
 											,HttpStatus.OK);
 	}
@@ -76,7 +76,7 @@ public class PayTableController {
 																		
 		payTableService.delete(id);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1)
 											,HttpStatus.OK);
 	}
@@ -90,7 +90,7 @@ public class PayTableController {
 													  .map(e -> PayTableDTO.SavePayTableItem.convert(e))
 													  .collect(Collectors.toList());			
 				
-		return WebControllerUtil.getResponse(dto											
+		return WebResponseUtil.toList(dto											
 											,String.format("%d 건 조회되었습니다.", dto.size())
 											,HttpStatus.OK);
 	}
@@ -103,7 +103,7 @@ public class PayTableController {
 						
 		PayTableDTO.SavePayTableItem dto = PayTableDTO.SavePayTableItem.convert(entity);			
 				
-		return WebControllerUtil.getResponse(dto											
+		return WebResponseUtil.toOne(dto											
 											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1)
 											,HttpStatus.OK);
 	}
@@ -117,7 +117,7 @@ public class PayTableController {
 							
 		payTableService.save(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1)
 											,HttpStatus.OK);
 	}
@@ -129,7 +129,7 @@ public class PayTableController {
 																		
 		payTableService.delete(payTableId, id);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1)
 											,HttpStatus.OK);
 	}

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.holiday.domain.Holiday;
 import com.like.system.holiday.service.HolidayService;
 
@@ -29,7 +29,7 @@ public class HolidayController {
 		
 		Holiday entity = holidayService.getHoliyday(id);
 					
-		return WebControllerUtil.getResponse(entity											
+		return WebResponseUtil.toOne(entity											
 											,String.format("%d 건 조회되었습니다.", entity == null ? 0 : 1));
 	}
 		
@@ -38,7 +38,7 @@ public class HolidayController {
 																	
 		holidayService.saveHoliday(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
@@ -47,7 +47,7 @@ public class HolidayController {
 												
 		holidayService.deleteHoliday(id);
 								 						
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

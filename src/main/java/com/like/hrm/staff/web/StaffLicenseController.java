@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.license.License;
 import com.like.hrm.staff.service.StaffLicenseService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class StaffLicenseController {
@@ -29,8 +29,8 @@ public class StaffLicenseController {
 				
 		License license = service.getLicense(staffId, id);  									
 		
-		return WebControllerUtil
-				.getResponse(license	
+		return WebResponseUtil
+				.toOne(license	
 						    ,"%d 건 조회되었습니다.".formatted(license == null ? 0 : 1));
 	}
 		
@@ -39,8 +39,8 @@ public class StaffLicenseController {
 				
 		service.saveLicense(dto);
 											 				
-		return WebControllerUtil
-				.getResponse(null							
+		return WebResponseUtil
+				.toList(null							
 							,"1 건 저장되었습니다.");
 	}
 }

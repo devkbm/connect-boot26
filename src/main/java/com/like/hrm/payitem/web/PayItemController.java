@@ -19,7 +19,7 @@ import com.like.hrm.payitem.boundary.PayItemDTO;
 import com.like.hrm.payitem.domain.model.PayItem;
 import com.like.hrm.payitem.service.PayItemService;
 import com.like.system.core.web.exception.ControllerException;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class PayItemController {
@@ -38,7 +38,7 @@ public class PayItemController {
 										   .map(e -> PayItemDTO.SavePayItem.convert(e))
 										   .collect(Collectors.toList());															
 					
-		return WebControllerUtil.getResponse(list											
+		return WebResponseUtil.toList(list											
 											,String.format("%d 건 조회되었습니다.", list.size())
 											,HttpStatus.OK);
 	}
@@ -50,7 +50,7 @@ public class PayItemController {
 						
 		PayItemDTO.SavePayItem dto = PayItemDTO.SavePayItem.convert(entity);			
 				
-		return WebControllerUtil.getResponse(dto											
+		return WebResponseUtil.toOne(dto											
 											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1)
 											,HttpStatus.OK);
 	}
@@ -64,7 +64,7 @@ public class PayItemController {
 							
 		payItemService.save(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1)
 											,HttpStatus.OK);
 	}
@@ -75,7 +75,7 @@ public class PayItemController {
 																		
 		payItemService.delete(code);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1)
 											,HttpStatus.OK);
 	}

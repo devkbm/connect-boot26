@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.hrmtypecode.domain.HrmTypeDetailCodeId;
 import com.like.hrm.hrmtypecode.domain.HrmTypeDetailCodeRepository;
 import com.like.hrm.hrmtypecode.domain.HrmTypeRepository;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class HrmCodeValidController {
@@ -28,7 +28,7 @@ public class HrmCodeValidController {
 		
 		boolean exist = repository.existsById(id);
 					
-		return WebControllerUtil.getResponse(exist											
+		return WebResponseUtil.toOne(exist											
 											,exist ? "중복된 인사유형 코드가 있습니다." : "사용가능한 코드입니다."
 											,HttpStatus.OK);
 	}
@@ -38,7 +38,7 @@ public class HrmCodeValidController {
 		
 		boolean exist = hrmTypeDetailCodeRepository.existsById(new HrmTypeDetailCodeId(type, code));
 					
-		return WebControllerUtil.getResponse(exist
+		return WebResponseUtil.toOne(exist
 											,exist ? "중복된 인사유형 코드가 있습니다." : "사용가능한 코드입니다."
 											,HttpStatus.OK);
 	}

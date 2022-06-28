@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.duty.domain.repository.DutyApplicationRepository;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class DutyApplicationFormValidController {
@@ -23,7 +23,7 @@ public class DutyApplicationFormValidController {
 		
 		boolean exist = repository.existsById(id);
 					
-		return WebControllerUtil.getResponse(exist											
+		return WebResponseUtil.toOne(exist											
 											,exist == true ? "사용가능한 근태 코드입니다." : "기존 근태 코드가 존재합니다."
 											,HttpStatus.OK);
 	}

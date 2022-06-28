@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.dept.service.DeptService;
 
 @RestController
@@ -22,7 +22,7 @@ public class DeptFormVaildController {
 							
 		Boolean exist = deptService.isDept(id);  	
 						
-		return WebControllerUtil.getResponse(exist								
+		return WebResponseUtil.toOne(exist								
 											,exist ? "중복된 부서 코드가 있습니다." : "사용가능한 부서 코드입니다.");
 	}
 	

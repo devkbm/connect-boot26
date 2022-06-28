@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.user.domain.Authority;
 import com.like.system.user.service.AuthorityService;
 import com.like.system.user.service.UserService;
@@ -27,7 +27,7 @@ public class SystemUserFormValidController {
 						
 		boolean isDuplicated = userService.CheckDuplicationUser(userId);					
 				
-		return WebControllerUtil.getResponse(isDuplicated ? false : true
+		return WebResponseUtil.toOne(isDuplicated ? false : true
 						    				,isDuplicated ? "기존 아이디가 존재합니다." : "신규 등록 가능합니다."); 
 	}
 		
@@ -38,7 +38,7 @@ public class SystemUserFormValidController {
 		
 		boolean rtn = authority == null ? true : false;
 						
-		return WebControllerUtil.getResponse(rtn
+		return WebResponseUtil.toOne(rtn
 											,rtn == false? "기존에 등록된 권한이 존재합니다." : "신규 등록 가능합니다.");
 	}
 }

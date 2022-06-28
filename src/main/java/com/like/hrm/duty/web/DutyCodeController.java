@@ -15,7 +15,7 @@ import com.like.hrm.duty.service.DutyCodeCommandService;
 import com.like.hrm.dutycode.boundary.DutyCodeDTO;
 import com.like.hrm.dutycode.domain.DutyCode;
 import com.like.system.core.web.exception.ControllerException;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +34,7 @@ public class DutyCodeController {
 		
 		DutyCode entity = service.getDutyCode(id);
 					
-		return WebControllerUtil.getResponse(entity											
+		return WebResponseUtil.toOne(entity											
 											,String.format("%d 건 조회되었습니다.", entity == null ? 0 : 1)
 											,HttpStatus.OK);
 	}
@@ -49,7 +49,7 @@ public class DutyCodeController {
 		log.info(dto.toString());
 		service.saveDutyCode(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1)
 											,HttpStatus.OK);
 	}
@@ -60,7 +60,7 @@ public class DutyCodeController {
 																		
 		service.deleteDutyCode(id);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1)
 											,HttpStatus.OK);
 	}

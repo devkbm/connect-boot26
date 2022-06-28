@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
 import com.like.hrm.staff.service.StaffSchoolCareerService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class StaffSchoolCareerController {
@@ -29,8 +29,8 @@ public class StaffSchoolCareerController {
 				
 		SchoolCareer education = service.getSchoolCareer(staffId, id);  									
 		
-		return WebControllerUtil
-				.getResponse(education											
+		return WebResponseUtil
+				.toOne(education											
 							,"%d 건 조회되었습니다.".formatted(education == null ? 0 : 1));
 	}
 		
@@ -39,8 +39,8 @@ public class StaffSchoolCareerController {
 				
 		service.saveSchoolCareer(dto);
 											 				
-		return WebControllerUtil
-				.getResponse(null							
+		return WebResponseUtil
+				.toList(null							
 							,"1 건 저장되었습니다.");
 	}
 	

@@ -11,7 +11,7 @@ import com.like.cooperation.workschedule.boundary.WorkDTO;
 import com.like.cooperation.workschedule.domain.WorkGroup;
 import com.like.cooperation.workschedule.service.WorkGroupQueryService;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class WorkGroupQueryController {
@@ -27,7 +27,7 @@ public class WorkGroupQueryController {
 						
 		List<WorkGroup> workGroupList = service.getWorkGroupList(searchCondition);				
 		
-		return WebControllerUtil.getResponse(workGroupList													
+		return WebResponseUtil.toList(workGroupList													
 											,workGroupList.size() + "건 조회 되었습니다.");												
 	}
 	
@@ -38,7 +38,7 @@ public class WorkGroupQueryController {
 		
 		List<WorkGroup> workGroupList = service.getMyWorkGroupList(sessionId);				
 		
-		return WebControllerUtil.getResponse(workGroupList													
+		return WebResponseUtil.toList(workGroupList													
 											,workGroupList.size() + "건 조회 되었습니다.");												
 	}
 }

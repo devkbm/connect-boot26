@@ -17,7 +17,7 @@ import com.like.cooperation.survey.surveyform.domain.SurveyForm;
 import com.like.cooperation.survey.surveyform.domain.SurveyItem;
 import com.like.cooperation.survey.surveyform.service.SurveyQueryService;
 import com.like.cooperation.survey.surveyform.service.SurveyService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class SurveyController {
@@ -36,7 +36,7 @@ public class SurveyController {
 		
 		List<SurveyForm> list = surveyQueryService.getSurveyFormList(dto); 		
 								
-		return WebControllerUtil.getResponse(list																					
+		return WebResponseUtil.toList(list																					
 											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
@@ -45,7 +45,7 @@ public class SurveyController {
 		
 		SurveyForm surveryForm = surveyService.getSurveyForm(formId); 		
 								
-		return WebControllerUtil.getResponse(surveryForm																					
+		return WebResponseUtil.toOne(surveryForm																					
 											,String.format("%d 건 조회되었습니다.", surveryForm != null ? 1 : 0));
 	}
 	
@@ -55,7 +55,7 @@ public class SurveyController {
 																			
 		surveyService.saveSurveyForm(dto);			
 										 					
-		return WebControllerUtil.getResponse(null										
+		return WebResponseUtil.toList(null										
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
@@ -64,7 +64,7 @@ public class SurveyController {
 		
 		surveyService.deleteSurveyForm(formId); 		
 								
-		return WebControllerUtil.getResponse(null																		
+		return WebResponseUtil.toList(null																		
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
@@ -74,7 +74,7 @@ public class SurveyController {
 		
 		SurveyItem surveryForm = surveyService.getSurveyItem(formId, itemId); 		
 								
-		return WebControllerUtil.getResponse(surveryForm											
+		return WebResponseUtil.toOne(surveryForm											
 											,String.format("%d 건 조회되었습니다.", surveryForm != null ? 1 : 0));
 	}
 	
@@ -83,7 +83,7 @@ public class SurveyController {
 																			
 		surveyService.saveSurveyItem(dto);			
 										 					
-		return WebControllerUtil.getResponse(null																			
+		return WebResponseUtil.toList(null																			
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
@@ -93,7 +93,7 @@ public class SurveyController {
 		
 		surveyService.deleteSurveyItem(formId, itemId); 		
 								
-		return WebControllerUtil.getResponse(null																				
+		return WebResponseUtil.toList(null																				
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlOptionRecord;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.menu.boundary.MenuDTO;
 import com.like.system.menu.boundary.MenuGroupDTO;
 import com.like.system.menu.boundary.ResponseMenuHierarchy;
@@ -36,7 +36,7 @@ public class MenuQueryController {
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 							
 		
-		return WebControllerUtil.getResponse(menuGroup											
+		return WebResponseUtil.toList(menuGroup											
 											,String.format("%d 건 조회되었습니다.", menuGroup.size()));
 	}
 	
@@ -45,7 +45,7 @@ public class MenuQueryController {
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 										
 		
-		return WebControllerUtil.getResponse(menuGroup											
+		return WebResponseUtil.toList(menuGroup											
 											,String.format("%d 건 조회되었습니다.", menuGroup.size()));
 	}
 	
@@ -56,7 +56,7 @@ public class MenuQueryController {
 		
 		List<MenuGroupDTO.FormMenuGroup> dtoList = list.stream().map(e -> FormMenuGroup.convert(e)).collect(Collectors.toList());
 		
-		return WebControllerUtil.getResponse(dtoList											
+		return WebResponseUtil.toList(dtoList											
 											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
@@ -67,7 +67,7 @@ public class MenuQueryController {
 		
 		List<MenuDTO.FormMenu> dtoList = list.stream().map(e -> MenuDTO.FormMenu.convert(e)).collect(Collectors.toList());
 		
-		return WebControllerUtil.getResponse(dtoList											
+		return WebResponseUtil.toList(dtoList											
 											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
@@ -80,7 +80,7 @@ public class MenuQueryController {
 			list.add(new HtmlOptionRecord(menuType.getLabel(), menuType.toString()));
 		}
 		
-		return WebControllerUtil.getResponse(list											
+		return WebResponseUtil.toList(list											
 											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

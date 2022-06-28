@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.duty.service.DutyCodeQueryService;
 import com.like.hrm.dutycode.boundary.DutyCodeDTO;
 import com.like.hrm.dutycode.domain.DutyCode;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class DutyCodeQueryController {
@@ -31,7 +31,7 @@ public class DutyCodeQueryController {
 													 .map(e -> DutyCodeDTO.SaveDutyCode.convert(e))
 													 .collect(Collectors.toList());
 		
-		return WebControllerUtil.getResponse(dtoList											
+		return WebResponseUtil.toList(dtoList											
 											,String.format("%d 건 조회되었습니다.", dtoList.size())
 											,HttpStatus.OK);
 	}

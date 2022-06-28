@@ -16,7 +16,7 @@ import com.like.cooperation.board.boundary.BoardDTO;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardBookmark;
 import com.like.cooperation.board.service.BoardCommandService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class BoardController {
@@ -34,7 +34,7 @@ public class BoardController {
 		
 		BoardDTO.FormBoard dto = BoardDTO.FormBoard.convertDTO(board);				
 							
-		return WebControllerUtil.getResponse(dto											
+		return WebResponseUtil.toOne(dto											
 											,String.format("%d 건 조회되었습니다.", board != null ? 1 : 0));
 	}	
 			
@@ -43,7 +43,7 @@ public class BoardController {
 		
 		boardCommandService.saveBoard(boardDTO);				
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1));
 	}	
 		
@@ -52,7 +52,7 @@ public class BoardController {
 												
 		boardCommandService.deleteBoard(id);							
 		
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}		
 	
@@ -61,7 +61,7 @@ public class BoardController {
 		
 		List<BoardBookmark> list = boardCommandService.getBookmarkList(userId); 										
 							
-		return WebControllerUtil.getResponse(list											
+		return WebResponseUtil.toList(list											
 											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 		
@@ -70,7 +70,7 @@ public class BoardController {
 											
 		boardCommandService.saveBookmark(entity);				
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
@@ -79,7 +79,7 @@ public class BoardController {
 												
 		boardCommandService.deleteBookmark(id);							
 		
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}	
 			

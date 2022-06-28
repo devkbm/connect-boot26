@@ -16,7 +16,7 @@ import com.like.cooperation.todo.boundary.TodoDTO;
 import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.service.TodoCommandService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class TodoController {	
@@ -32,7 +32,7 @@ public class TodoController {
 										
 		TodoGroup taskGroup = taskCommandService.newDefaultTodoGroup();										
 								 					
-		return WebControllerUtil.getResponse(taskGroup
+		return WebResponseUtil.toOne(taskGroup
 										    ,"생성되었습니다.");
 	}
 		
@@ -41,7 +41,7 @@ public class TodoController {
 			
 		taskCommandService.saveTodoGroup(dto);
 																				 			
-		return WebControllerUtil.getResponse(null
+		return WebResponseUtil.toList(null
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 		
@@ -50,7 +50,7 @@ public class TodoController {
 			
 		taskCommandService.deleteTodoGroup(id);
 											 				
-		return WebControllerUtil.getResponse(null
+		return WebResponseUtil.toList(null
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 		
@@ -63,7 +63,7 @@ public class TodoController {
 											 .map(e -> TodoDTO.FormTodo.convert(e))
 											 .toList(); 											
 		
-		return WebControllerUtil.getResponse(dtoList
+		return WebResponseUtil.toList(dtoList
 											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
@@ -72,7 +72,7 @@ public class TodoController {
 			
 		TodoDTO.FormTodo todo = TodoDTO.FormTodo.convert(taskCommandService.saveTodo(dto));
 																				 			
-		return WebControllerUtil.getResponse(todo
+		return WebResponseUtil.toOne(todo
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
@@ -82,7 +82,7 @@ public class TodoController {
 			
 		taskCommandService.deleteTodo(groupid, id);
 											 				
-		return WebControllerUtil.getResponse(null
+		return WebResponseUtil.toList(null
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	

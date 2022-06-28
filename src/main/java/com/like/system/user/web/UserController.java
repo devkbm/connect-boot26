@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.user.boundary.PasswordChangeRequestDTO;
 import com.like.system.user.boundary.UserDTO;
 import com.like.system.user.domain.SystemUser;
@@ -36,7 +36,7 @@ public class UserController {
 		
 		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
 		
-		return WebControllerUtil.getResponse(dto							
+		return WebResponseUtil.toOne(dto							
 								,String.format("%d 건 조회되었습니다.", 1));
 	}
 	
@@ -47,7 +47,7 @@ public class UserController {
 		
 		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
 		
-		return WebControllerUtil.getResponse(dto							
+		return WebResponseUtil.toOne(dto							
 								,String.format("%d 건 조회되었습니다.", 1));
 	}		
 	
@@ -56,7 +56,7 @@ public class UserController {
 											
 		userService.saveUser(dto);					
 																					 		
-		return WebControllerUtil.getResponse(null							
+		return WebResponseUtil.toList(null							
 											,String.format("%d 건 저장되었습니다.", 1));
 	}	
 	
@@ -65,7 +65,7 @@ public class UserController {
 										
 		userService.deleteUser(userId);															
 								 					
-		return WebControllerUtil.getResponse(null							
+		return WebResponseUtil.toList(null							
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}
 		
@@ -74,7 +74,7 @@ public class UserController {
 						
 		userService.changePassword(dto.userId(), dto.beforePassword(), dto.afterPassword());													
 								 					
-		return WebControllerUtil.getResponse(null							
+		return WebResponseUtil.toList(null							
 											,"비밀번호가 변경되었습니다.");
 	}
 			
@@ -83,7 +83,7 @@ public class UserController {
 				
 		userService.initPassword(userId);														
 								 					
-		return WebControllerUtil.getResponse(null							
+		return WebResponseUtil.toList(null							
 											,"비밀번호가 초기화되었습니다.");
 	}	
 			

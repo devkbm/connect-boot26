@@ -15,7 +15,7 @@ import com.like.hrm.hrmtypecode.boundary.SaveHrmRelationCode;
 import com.like.hrm.hrmtypecode.domain.HrmRelationCode;
 import com.like.hrm.hrmtypecode.service.HrmRelationCodeService;
 import com.like.system.core.web.exception.ControllerException;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class HrmRelationCodeController {
@@ -31,7 +31,7 @@ public class HrmRelationCodeController {
 		
 		HrmRelationCode hrmType = service.getRelationCode(id);
 					
-		return WebControllerUtil.getResponse(hrmType											
+		return WebResponseUtil.toOne(hrmType											
 											,String.format("%d 건 조회되었습니다.", hrmType == null ? 0 : 1)
 											,HttpStatus.OK);
 	}
@@ -45,7 +45,7 @@ public class HrmRelationCodeController {
 																	
 		service.saveRelationCode(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1)
 											,HttpStatus.OK);
 	}
@@ -55,7 +55,7 @@ public class HrmRelationCodeController {
 						
 		service.deleteRelationCode(id);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1)
 											,HttpStatus.OK);
 	}

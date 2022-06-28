@@ -17,7 +17,7 @@ import com.like.hrm.duty.boundary.DutyApplicationDTO;
 import com.like.hrm.duty.domain.model.DutyApplication;
 import com.like.hrm.duty.service.DutyApplicationCommandService;
 import com.like.hrm.duty.service.DutyApplicationQueryService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.holiday.service.DateInfoService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class DutyApplicationController {
 																   .map(e -> DutyApplicationDTO.SaveDutyApplication.convert(e, holidayUtilService))
 																   .collect(Collectors.toList());
 		
-		return WebControllerUtil.getResponse(dtoList											
+		return WebResponseUtil.toList(dtoList											
 											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
@@ -61,7 +61,7 @@ public class DutyApplicationController {
 		DutyApplicationDTO.SaveDutyApplication dto = DutyApplicationDTO.SaveDutyApplication.convert(entity, holidayUtilService);			
 		
 		log.info(dto.toString());
-		return WebControllerUtil.getResponse(dto											
+		return WebResponseUtil.toOne(dto											
 											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 	
@@ -71,7 +71,7 @@ public class DutyApplicationController {
 						
 		List<DutyApplicationDTO.DutyDate> dtoList = DutyApplicationDTO.DutyDate.convertDutyDate(holidayUtilService.getDateInfoList(from, to));			
 		
-		return WebControllerUtil.getResponse(dtoList											
+		return WebResponseUtil.toList(dtoList											
 											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 		
@@ -80,7 +80,7 @@ public class DutyApplicationController {
 																			
 		dutyApplicationCommandService.saveDutyApplication(dto);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
@@ -89,7 +89,7 @@ public class DutyApplicationController {
 																		
 		dutyApplicationCommandService.deleteDutyApplication(id);						
 								 					
-		return WebControllerUtil.getResponse(null											
+		return WebResponseUtil.toList(null											
 											,String.format("%d 건 삭제되었습니다.", 1));
 	}	
 		

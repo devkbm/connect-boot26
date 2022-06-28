@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.dept.boundary.DeptDTO;
 import com.like.system.dept.boundary.ResponseDeptHierarchy;
 import com.like.system.dept.domain.Dept;
@@ -27,7 +27,7 @@ public class DeptQueryController {
 							
 		List<ResponseDeptHierarchy> list = service.getDeptHierarchyList();  						 						
 		
-		return WebControllerUtil.getResponse(list											
+		return WebResponseUtil.toList(list											
 											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
@@ -36,7 +36,7 @@ public class DeptQueryController {
 							
 		List<Dept> list = service.getDeptList(searchCondition);  						 						
 		
-		return WebControllerUtil.getResponse(list											
+		return WebResponseUtil.toList(list											
 											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.family.Family;
 import com.like.hrm.staff.service.StaffFamilyService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class StaffFamilyController {
@@ -31,8 +31,8 @@ public class StaffFamilyController {
 				
 		StaffDTO.FormFamily dto = StaffDTO.FormFamily.convert(entity) ;
 		
-		return WebControllerUtil
-				.getResponse(dto											
+		return WebResponseUtil
+				.toOne(dto											
 							,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1));
 							
 	}
@@ -42,8 +42,8 @@ public class StaffFamilyController {
 							
 		service.saveFamily(dto);
 											 				
-		return WebControllerUtil
-				.getResponse(null							
+		return WebResponseUtil
+				.toList(null							
 							,"1 건 저장되었습니다.");
 	}
 }

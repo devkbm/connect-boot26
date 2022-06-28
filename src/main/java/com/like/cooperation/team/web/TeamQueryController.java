@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.service.TeamQueryService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 import com.like.system.user.boundary.UserDTO;
 import com.like.system.user.domain.SystemUser;
 
@@ -29,7 +29,7 @@ public class TeamQueryController {
 						
 		List<Team> teamList = service.getTeamList(searchCondition);				
 		
-		return WebControllerUtil.getResponse(teamList
+		return WebResponseUtil.toList(teamList
 											,teamList.size() + "건 조회 되었습니다.");												
 	}
 	
@@ -38,7 +38,7 @@ public class TeamQueryController {
 						
 		var list = service.getTeamMemberList(id);				
 		
-		return WebControllerUtil.getResponse(list
+		return WebResponseUtil.toList(list
 											,"{0} 건 조회되었습니다.".formatted(list.size()));												
 	}
 	
@@ -47,7 +47,7 @@ public class TeamQueryController {
 				
 		List<SystemUser> userList = service.getAllMember(condition);						 				
 		
-		return WebControllerUtil.getResponse(userList
+		return WebResponseUtil.toList(userList
 											,"조회 되었습니다.");
 	}
 	

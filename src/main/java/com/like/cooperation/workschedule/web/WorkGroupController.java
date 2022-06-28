@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.cooperation.workschedule.boundary.WorkDTO;
 import com.like.cooperation.workschedule.domain.WorkGroup;
 import com.like.cooperation.workschedule.service.WorkGroupService;
-import com.like.system.core.web.util.WebControllerUtil;
+import com.like.system.core.web.util.WebResponseUtil;
 
 @RestController
 public class WorkGroupController {	
@@ -30,7 +30,7 @@ public class WorkGroupController {
 		
 		WorkDTO.FormWorkGroup dto = WorkDTO.FormWorkGroup.convertDTO(entity);
 		
-		return WebControllerUtil.getResponse(dto										
+		return WebResponseUtil.toOne(dto										
 											,"조회 되었습니다.");													
 	}
 		
@@ -39,7 +39,7 @@ public class WorkGroupController {
 					
 		workGroupService.saveWorkGroup(dto);		
 		
-		return WebControllerUtil.getResponse(dto											
+		return WebResponseUtil.toOne(dto											
 											,String.format("%d 건 저장되었습니다.", dto != null ? 1 : 0));
 	}
 			
