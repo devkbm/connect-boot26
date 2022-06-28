@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.AuthorityDTO;
 import com.like.system.user.domain.Authority;
@@ -27,8 +28,8 @@ public class AuthorityController {
 		
 		Authority authority = service.getAuthority(authorityName);										
 		
-		return ResponseEntityUtil.toOne(authority							
-									   ,String.format("%d 건 조회되었습니다.", authority == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(authority
+									   ,MessageUtil.getQueryMessage(authority == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/common/authority")
@@ -37,7 +38,7 @@ public class AuthorityController {
 		service.createAuthority(dto);					
 																				 				
 		return ResponseEntityUtil.toList(null							
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}	
 	
 	@DeleteMapping("/api/common/authority/{authorityName}")
@@ -46,6 +47,6 @@ public class AuthorityController {
 		service.deleteAuthority(authorityName);					
 			
 		return ResponseEntityUtil.toList(null							
-										,String.format("%d 건 삭제되었습니다.", 1));
+										,MessageUtil.getDeleteMessage(1));
 	}
 }

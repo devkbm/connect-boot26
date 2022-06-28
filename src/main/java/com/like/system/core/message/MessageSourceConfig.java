@@ -20,16 +20,16 @@ public class MessageSourceConfig {
 		//쿠키 기준
 		//CookieLocaleResolver localeResolver = new CookieLocaleResolver();
 	
-		localeResolver.setDefaultLocale(Locale.US);
+		localeResolver.setDefaultLocale(Locale.KOREA);
 		return localeResolver;
 	}
 	
 	@Bean
 	public ReloadableResourceBundleMessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("classpath:/resource/messages");
-		messageSource.setCacheSeconds(3600);
+		messageSource.setBasename("classpath:/message/messages");		
 		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setCacheSeconds(3600);
 		
 		return messageSource;
 	}

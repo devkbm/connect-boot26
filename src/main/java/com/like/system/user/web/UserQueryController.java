@@ -2,13 +2,13 @@ package com.like.system.user.web;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.UserDTO;
 import com.like.system.user.domain.SystemUser;
@@ -22,19 +22,25 @@ public class UserQueryController {
 	public UserQueryController(UserQueryService service) {
 		this.service = service;
 	}
-	
-	@GetMapping(value={"/api/common/user"})
+		
+	@GetMapping("/api/common/user")
 	public ResponseEntity<?> getUserList(UserDTO.SearchUser condition) throws FileNotFoundException, IOException {
 				
 		List<SystemUser> userList = service.getUserList(condition);						
 		
+		List<UserDTO.FormSystemUser> dtoList = userList.stream()
+													   .map(user -> UserDTO.convertDTO(user))
+													   .toList();
+		
+		/*
 		List<UserDTO.FormSystemUser> dtoList = new ArrayList<>();
 		
 		for (SystemUser user : userList) {
 			dtoList.add(UserDTO.convertDTO(user));
 		}
+		*/
 		
-		return ResponseEntityUtil.toList(dtoList							
-										,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(dtoList
+										,MessageUtil.getQueryMessage(dtoList.size()));
 	}
 }

@@ -1,7 +1,5 @@
 package com.like.system.user.boundary;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -32,7 +30,7 @@ import lombok.Singular;
 
 public class UserDTO {
 	
-	public static UserDTO.FormSystemUser convertDTO(SystemUser entity) throws FileNotFoundException, IOException {					
+	public static UserDTO.FormSystemUser convertDTO(SystemUser entity) {					
 		
 		if (entity == null) return null;
 		

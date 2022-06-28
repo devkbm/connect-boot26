@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.PasswordChangeRequestDTO;
@@ -37,7 +38,7 @@ public class UserController {
 		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
 		
 		return ResponseEntityUtil.toOne(dto							
-									   ,String.format("%d 건 조회되었습니다.", 1));
+									   ,MessageUtil.getQueryMessage(1));
 	}
 	
 	@GetMapping("/api/common/user/{userId}")
@@ -48,7 +49,7 @@ public class UserController {
 		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
 		
 		return ResponseEntityUtil.toOne(dto							
-									   ,String.format("%d 건 조회되었습니다.", 1));
+									   ,MessageUtil.getQueryMessage(1));
 	}		
 	
 	@PostMapping("/api/common/user")	
@@ -57,7 +58,7 @@ public class UserController {
 		userService.saveUser(dto);					
 																					 		
 		return ResponseEntityUtil.toList(null							
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}	
 	
 	@DeleteMapping("/api/common/user/{userId}")
@@ -66,7 +67,7 @@ public class UserController {
 		userService.deleteUser(userId);															
 								 					
 		return ResponseEntityUtil.toList(null							
-										,String.format("%d 건 삭제되었습니다.", 1));
+										,MessageUtil.getDeleteMessage(1));
 	}
 		
 	@PostMapping("/api/common/user/{id}/changepassword")

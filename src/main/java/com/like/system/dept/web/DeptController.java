@@ -1,7 +1,10 @@
 package com.like.system.dept.web;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +23,11 @@ import com.like.system.dept.service.DeptService;
 public class DeptController {
 	
 	private DeptService deptService;
+	private MessageSource messageSource;
 	
-	public DeptController(DeptService deptService) {
+	public DeptController(DeptService deptService, MessageSource messageSource) {
 		this.deptService = deptService;
+		this.messageSource = messageSource;
 	}
 		
 	@GetMapping("/api/common/dept/{deptCode}")
@@ -33,7 +38,7 @@ public class DeptController {
 		FormDept dto = DeptDTO.FormDept.convertDTO(dept);
 		
 		return ResponseEntityUtil.toOne(dto											
-									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+									   ,messageSource.getMessage("common.query", new Integer[] {1}, Locale.getDefault()));
 	}
 		
 	@PostMapping("/api/common/dept")

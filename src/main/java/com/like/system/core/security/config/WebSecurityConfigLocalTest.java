@@ -20,7 +20,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.NimbusAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
@@ -54,7 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableWebSecurity
 @Profile("localtest")
-public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfigLocalTest extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	SpringSecurityUserService userService;
@@ -177,12 +176,7 @@ public class WebSecurityConfigLocal extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
          return super.authenticationManagerBean();
-	}
-		
-	@Bean
-	public PasswordEncoder noOpPasswordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
+	}		
 	
 	@Bean
 	public PasswordEncoder bCryptPasswordEncoder() {

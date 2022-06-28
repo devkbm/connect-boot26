@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class JsonUtil {
 
-private static final ObjectMapper mapper = new ObjectMapper();
+	private static final ObjectMapper mapper = new ObjectMapper();
 	
 	/**
 	 * Json 스트링을 List 형태로 변환한다.
