@@ -5,9 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +17,7 @@ import com.like.hrm.payitem.boundary.PayTableDTO;
 import com.like.hrm.payitem.domain.model.PayTable;
 import com.like.hrm.payitem.domain.model.PayTableItem;
 import com.like.hrm.payitem.service.PayTableService;
-import com.like.system.core.web.exception.ControllerException;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class PayTableController {
@@ -39,9 +36,8 @@ public class PayTableController {
 															 .map(e -> PayTableDTO.SavePayTable.convert(e))
 															 .collect(Collectors.toList());
 				
-		return WebResponseUtil.toList(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(list											
+										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/hrm/paytable/{id}")
@@ -51,34 +47,27 @@ public class PayTableController {
 						
 		PayTableDTO.SavePayTable dto = PayTableDTO.SavePayTable.convert(entity);			
 				
-		return WebResponseUtil.toOne(dto											
-											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toOne(dto											
+									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/hrm/paytable")
-	public ResponseEntity<?> savePayTable(@RequestBody @Valid PayTableDTO.SavePayTable dto, BindingResult result) {				
-		
-		if ( result.hasErrors()) {			
-			throw new ControllerException(result.toString());
-		} 
+	public ResponseEntity<?> savePayTable(@RequestBody @Valid PayTableDTO.SavePayTable dto) {							
 							
 		payTableService.save(dto);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 		
 	@DeleteMapping("/hrm/paytable/{id}")
-	public ResponseEntity<?> deletePayTable(@PathVariable(value="id") Long id) {				
+	public ResponseEntity<?> deletePayTable(@PathVariable Long id) {				
 																		
 		payTableService.delete(id);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	@GetMapping("/hrm/paytable/{payTableId}/item")
@@ -90,47 +79,39 @@ public class PayTableController {
 													  .map(e -> PayTableDTO.SavePayTableItem.convert(e))
 													  .collect(Collectors.toList());			
 				
-		return WebResponseUtil.toList(dto											
-											,String.format("%d 건 조회되었습니다.", dto.size())
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(dto											
+										,String.format("%d 건 조회되었습니다.", dto.size()));
 	}
 	
 	@GetMapping("/hrm/paytable/{payTableId}/item/{id}")
-	public ResponseEntity<?> getPayTableItem(@PathVariable(value="payTableId") Long payTableId
-			                                ,@PathVariable(value="id") Long id) {
+	public ResponseEntity<?> getPayTableItem(@PathVariable Long payTableId
+			                                ,@PathVariable Long id) {
 		
 		PayTableItem entity = payTableService.getPayTableItem(payTableId, id);
 						
 		PayTableDTO.SavePayTableItem dto = PayTableDTO.SavePayTableItem.convert(entity);			
 				
-		return WebResponseUtil.toOne(dto											
-											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toOne(dto											
+										,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 	
 	@PostMapping("/hrm/paytable/item")
-	public ResponseEntity<?> savePayTableItem(@RequestBody @Valid PayTableDTO.SavePayTableItem dto, BindingResult result) {				
-		
-		if ( result.hasErrors()) {			
-			throw new ControllerException(result.toString());
-		} 
+	public ResponseEntity<?> savePayTableItem(@RequestBody @Valid PayTableDTO.SavePayTableItem dto) {						
 							
 		payTableService.save(dto);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 		
 	@DeleteMapping("/hrm/paytable/{payTableId}/item/{id}")
-	public ResponseEntity<?> deletePayTableItem(@PathVariable(value="payTableId") Long payTableId
-            								   ,@PathVariable(value="id") Long id) {				
+	public ResponseEntity<?> deletePayTableItem(@PathVariable Long payTableId
+            								   ,@PathVariable Long id) {				
 																		
 		payTableService.delete(payTableId, id);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

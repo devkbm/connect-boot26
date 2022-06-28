@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.like.cooperation.board.boundary.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.service.ArticleQueryService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @Controller
 public class ArticleQueryController {
@@ -29,7 +29,7 @@ public class ArticleQueryController {
 													   .map(e -> ArticleDTO.ResponseArticle.converDTO((e)))
 													   .toList();		
 		
-		return WebResponseUtil.toList(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(dtoList											
+										,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

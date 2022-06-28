@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.service.MenuCommandService;
@@ -24,8 +24,8 @@ public class MenuFormValidController {
 		MenuGroup menuGroup = menuQueryService.getMenuGroup(menuGroupCode);
 		Boolean isValid = menuGroup == null ? true : false;				
 								
-		return WebResponseUtil.toOne(isValid
-											,String.format("%d 건 조회되었습니다.", menuGroup != null ? 1 : 0));
+		return ResponseEntityUtil.toOne(isValid
+									   ,String.format("%d 건 조회되었습니다.", menuGroup != null ? 1 : 0));
 	}
 	
 	@GetMapping("/api/common/menu/{menuCode}/check")
@@ -33,8 +33,8 @@ public class MenuFormValidController {
 		Menu menu = menuQueryService.getMenu(menuCode); 		
 		Boolean isValid = menu == null ? true : false;			
 		
-		return WebResponseUtil.toOne(isValid
-											,String.format("%d 건 조회되었습니다.", menu != null ? 1 : 0));
+		return ResponseEntityUtil.toOne(isValid
+									   ,String.format("%d 건 조회되었습니다.", menu != null ? 1 : 0));
 	}
 	
 }

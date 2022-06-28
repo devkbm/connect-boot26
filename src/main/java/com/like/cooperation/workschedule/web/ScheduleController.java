@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.cooperation.workschedule.boundary.ScheduleDTO;
 import com.like.cooperation.workschedule.domain.Schedule;
 import com.like.cooperation.workschedule.service.ScheduleService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class ScheduleController {
@@ -31,8 +31,8 @@ public class ScheduleController {
 		
 		ScheduleDTO.ResponseSchedule dto = ScheduleDTO.ResponseSchedule.convertResDTO(entity);
 		
-		return WebResponseUtil.toOne(dto													
-											,"조회 되었습니다.");													
+		return ResponseEntityUtil.toOne(dto													
+									   ,"조회 되었습니다.");													
 	}
 		
 	@PostMapping("/api/grw/schedule")
@@ -40,8 +40,8 @@ public class ScheduleController {
 		
 		service.saveSchedule(dto);		
 										 					
-		return WebResponseUtil.toOne(dto								
-											,String.format("%d 건 저장되었습니다.", dto != null ? 1 : 0));
+		return ResponseEntityUtil.toOne(dto								
+									   ,String.format("%d 건 저장되었습니다.", dto != null ? 1 : 0));
 	}
 	
 	@DeleteMapping("/api/grw/schedule/{id}")
@@ -49,7 +49,7 @@ public class ScheduleController {
 						
 		service.deleteSchedule(id);							
 				
-		return WebResponseUtil.toList(null											
-											,"삭제 되었습니다.");													
+		return ResponseEntityUtil.toList(null											
+										,"삭제 되었습니다.");													
 	}
 }

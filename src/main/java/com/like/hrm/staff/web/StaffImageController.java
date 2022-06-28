@@ -25,8 +25,7 @@ import com.like.system.file.service.FileService;
 @Controller
 public class StaffImageController {
 	
-	private StaffService employeeService;
-	
+	private StaffService employeeService;	
 	private FileService fileService;
 				
 	public StaffImageController(StaffService employeeService,

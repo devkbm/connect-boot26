@@ -2,7 +2,6 @@ package com.like.system.menu.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlOptionRecord;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.menu.boundary.MenuDTO;
 import com.like.system.menu.boundary.MenuGroupDTO;
 import com.like.system.menu.boundary.ResponseMenuHierarchy;
@@ -36,8 +35,8 @@ public class MenuQueryController {
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 							
 		
-		return WebResponseUtil.toList(menuGroup											
-											,String.format("%d 건 조회되었습니다.", menuGroup.size()));
+		return ResponseEntityUtil.toList(menuGroup											
+										,String.format("%d 건 조회되었습니다.", menuGroup.size()));
 	}
 	
 	@GetMapping("/api/common/menuhierarchy/{menuGroupCode}")
@@ -45,8 +44,8 @@ public class MenuQueryController {
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 										
 		
-		return WebResponseUtil.toList(menuGroup											
-											,String.format("%d 건 조회되었습니다.", menuGroup.size()));
+		return ResponseEntityUtil.toList(menuGroup											
+										,String.format("%d 건 조회되었습니다.", menuGroup.size()));
 	}
 	
 	@GetMapping("/api/common/menugroup")
@@ -54,10 +53,12 @@ public class MenuQueryController {
 		
 		List<MenuGroup> list = menuQueryService.getMenuGroupList(dto); 							
 		
-		List<MenuGroupDTO.FormMenuGroup> dtoList = list.stream().map(e -> FormMenuGroup.convert(e)).collect(Collectors.toList());
+		List<MenuGroupDTO.FormMenuGroup> dtoList = list.stream()
+													   .map(e -> FormMenuGroup.convert(e))
+													   .toList();													   
 		
-		return WebResponseUtil.toList(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(dtoList											
+										,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
 	@GetMapping("/api/common/menu")
@@ -65,10 +66,12 @@ public class MenuQueryController {
 		
 		List<Menu> list = menuQueryService.getMenuList(dto);			
 		
-		List<MenuDTO.FormMenu> dtoList = list.stream().map(e -> MenuDTO.FormMenu.convert(e)).collect(Collectors.toList());
+		List<MenuDTO.FormMenu> dtoList = list.stream()
+											 .map(e -> MenuDTO.FormMenu.convert(e))
+											 .toList();											 
 		
-		return WebResponseUtil.toList(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(dtoList											
+										,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 	
 	@GetMapping("/api/common/menu/menutype")
@@ -80,7 +83,7 @@ public class MenuQueryController {
 			list.add(new HtmlOptionRecord(menuType.getLabel(), menuType.toString()));
 		}
 		
-		return WebResponseUtil.toList(list											
-											,String.format("%d 건 조회되었습니다.", list.size()));
+		return ResponseEntityUtil.toList(list											
+										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

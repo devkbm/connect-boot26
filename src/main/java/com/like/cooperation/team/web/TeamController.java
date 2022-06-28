@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.service.TeamService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class TeamController {
@@ -31,8 +31,8 @@ public class TeamController {
 		
 		TeamDTO.FormTeam dto = TeamDTO.FormTeam.convert(team);
 		
-		return WebResponseUtil.toOne(dto
-											,"조회 되었습니다.");					
+		return ResponseEntityUtil.toOne(dto
+									   ,"조회 되었습니다.");					
 	}
 		
 	@PostMapping("/api/grw/team")
@@ -40,8 +40,8 @@ public class TeamController {
 		 												
 		teamService.saveTeam(dto);		
 										 					
-		return WebResponseUtil.toList(null
-											,"1건 저장되었습니다.");
+		return ResponseEntityUtil.toList(null
+										,"1건 저장되었습니다.");
 	}
 	
 	/*
@@ -61,8 +61,8 @@ public class TeamController {
 		
 		teamService.deleteTeam(teamId);							
 		
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	@PostMapping("/api/grw/team/{teamId}/join/{userId}")
@@ -71,8 +71,8 @@ public class TeamController {
 
 		teamService.joinTeam(teamId, userId);			
 										 					
-		return WebResponseUtil.toList(null
-											,String.format("팀에 등록 되었습니다."));
+		return ResponseEntityUtil.toList(null
+										,String.format("팀에 등록 되었습니다."));
 	}
 			
 }

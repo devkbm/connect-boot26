@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.hierarchycode.boundary.CodeDTO;
 import com.like.system.hierarchycode.domain.Code;
 import com.like.system.hierarchycode.service.CommonCodeCommandService;
@@ -29,8 +29,8 @@ public class CommonCodeController {
 		
 		CodeDTO.FormCode dto = CodeDTO.FormCode.convertDTO(entity);
 		
-		return WebResponseUtil.toOne(dto							
-											,String.format("%d 건 조회되었습니다.", 1));
+		return ResponseEntityUtil.toOne(dto							
+									   ,String.format("%d 건 조회되었습니다.", 1));
 	}
 			
 	@PostMapping("/api/common/code")
@@ -38,8 +38,8 @@ public class CommonCodeController {
 		
 		service.saveCode(dto);		
 											 				
-		return WebResponseUtil.toList(null							
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null							
+										,String.format("%d 건 저장되었습니다.", 1));
 	}	
 		
 	@DeleteMapping("/api/common/code/{id}")
@@ -47,8 +47,8 @@ public class CommonCodeController {
 												
 		service.deleteCode(id);
 								 						
-		return WebResponseUtil.toList(null							
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null							
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	

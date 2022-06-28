@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.anualleave.boundary.AnualLeaveDTO;
 import com.like.hrm.anualleave.domain.model.AnualLeave;
 import com.like.hrm.anualleave.service.AnualLeaveService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class AnualLeaveController {
@@ -30,8 +30,8 @@ public class AnualLeaveController {
 		
 		AnualLeaveDTO.SaveAnualLeave dto = AnualLeaveDTO.SaveAnualLeave.convertDTO(entity); 
 		
-		return WebResponseUtil.toOne(dto											
-											,String.format("%d 건 조회되었습니다.", 1));
+		return ResponseEntityUtil.toOne(dto											
+									   ,String.format("%d 건 조회되었습니다.", 1));
 	}
 		
 	@PostMapping("/hrm/anualleave")
@@ -39,8 +39,8 @@ public class AnualLeaveController {
 																	
 		anualLeaveService.saveAnualLeave(dto);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 	@DeleteMapping("/hrm/anualleave/{yyyy}/{staffId}")
@@ -49,7 +49,7 @@ public class AnualLeaveController {
 																		
 		anualLeaveService.deleteAnualLeave(yyyy, staffId);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

@@ -1,8 +1,6 @@
 package com.like.hrm.duty.web;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.duty.service.DutyCodeCommandService;
 import com.like.hrm.dutycode.boundary.DutyCodeDTO;
 import com.like.hrm.dutycode.domain.DutyCode;
-import com.like.system.core.web.exception.ControllerException;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RestController
 public class DutyCodeController {
 
@@ -34,24 +28,17 @@ public class DutyCodeController {
 		
 		DutyCode entity = service.getDutyCode(id);
 					
-		return WebResponseUtil.toOne(entity											
-											,String.format("%d 건 조회되었습니다.", entity == null ? 0 : 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toOne(entity											
+									   ,String.format("%d 건 조회되었습니다.", entity == null ? 0 : 1));
 	}
 	
 	@RequestMapping(value={"/hrm/dutycode"}, method={RequestMethod.POST,RequestMethod.PUT}) 
-	public ResponseEntity<?> saveDutyCode(@RequestBody DutyCodeDTO.SaveDutyCode dto, BindingResult result) {				
-		
-		if ( result.hasErrors()) {			
-			throw new ControllerException(result.toString());
-		} 
-					
-		log.info(dto.toString());
+	public ResponseEntity<?> saveDutyCode(@RequestBody DutyCodeDTO.SaveDutyCode dto) {				
+									
 		service.saveDutyCode(dto);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 		
@@ -60,8 +47,7 @@ public class DutyCodeController {
 																		
 		service.deleteDutyCode(id);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1)
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

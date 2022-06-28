@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +12,7 @@ import com.like.hrm.hrmtypecode.boundary.HrmTypeDTO;
 import com.like.hrm.hrmtypecode.boundary.HrmTypeDetailCodeDTO;
 import com.like.hrm.hrmtypecode.domain.AppointmentTypeEnum;
 import com.like.hrm.hrmtypecode.service.HrmTypeQueryService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class HrmTypeQueryContoller {
@@ -38,9 +37,8 @@ public class HrmTypeQueryContoller {
 											,""));
 		}										
 					
-		return WebResponseUtil.toList(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(list											
+										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/hrm/hrmtype")
@@ -54,9 +52,8 @@ public class HrmTypeQueryContoller {
 												.collect(Collectors.toList());
 		
 		//HrmTypeDTO.SaveCode.convert(entity)
-		return WebResponseUtil.toList(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(list											
+										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/hrm/hrmtype/code")
@@ -65,12 +62,11 @@ public class HrmTypeQueryContoller {
 		//List<HrmTypeDetailCode> list = service.getHrmDeptTypeList(dto);												
 		
 		List<HrmTypeDetailCodeDTO.FormHrmTypeDetailCode> list = service.getTypeDetailCodeList(dto)
-														  .stream()
-														  .map(e -> HrmTypeDetailCodeDTO.FormHrmTypeDetailCode.convert(e))
-														  .collect(Collectors.toList());
+																	   .stream()
+																	   .map(e -> HrmTypeDetailCodeDTO.FormHrmTypeDetailCode.convert(e))
+																	   .collect(Collectors.toList());
 		
-		return WebResponseUtil.toList(list											
-											,String.format("%d 건 조회되었습니다.", list.size())
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(list											
+										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

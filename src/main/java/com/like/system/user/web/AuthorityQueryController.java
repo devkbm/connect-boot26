@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.AuthorityDTO;
 import com.like.system.user.domain.Authority;
 import com.like.system.user.service.AuthorityQueryService;
@@ -25,7 +25,7 @@ public class AuthorityQueryController {
 		
 		List<Authority> authorityList = service.getAuthorityList(dto);								 				
 		
-		return WebResponseUtil.toList(authorityList							
-											,String.format("%d 건 조회되었습니다.", authorityList.size()));
+		return ResponseEntityUtil.toList(authorityList							
+										,String.format("%d 건 조회되었습니다.", authorityList.size()));
 	}
 }

@@ -1,9 +1,6 @@
 package com.like.system.user.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,9 +18,6 @@ import com.like.system.user.domain.AuthorityRepository;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.UserRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Transactional
 @Service
 public class UserService {	
@@ -68,8 +62,8 @@ public class UserService {
 		SystemUser user = repository.findById(dto.getUserId()).orElse(null);
 		Dept dept = dto.getDeptCode() == null ? null : deptRepository.findById(dto.getDeptCode()).orElse(null); 
 		
-		Set<Authority> authorityList = new LinkedHashSet(authorityRepository.findAllById(dto.getAuthorityList()));		
-		Set<MenuGroup> menuGroupList = new LinkedHashSet(menuRepository.findAllById(dto.getMenuGroupList()));		 
+		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.getAuthorityList()));		
+		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.getMenuGroupList()));		 
 							
 		if (user == null) {
 			user = dto.newUser(dept, authorityList, menuGroupList);

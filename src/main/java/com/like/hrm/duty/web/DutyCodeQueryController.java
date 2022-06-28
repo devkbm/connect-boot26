@@ -3,7 +3,6 @@ package com.like.hrm.duty.web;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.duty.service.DutyCodeQueryService;
 import com.like.hrm.dutycode.boundary.DutyCodeDTO;
 import com.like.hrm.dutycode.domain.DutyCode;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class DutyCodeQueryController {
@@ -31,8 +30,7 @@ public class DutyCodeQueryController {
 													 .map(e -> DutyCodeDTO.SaveDutyCode.convert(e))
 													 .collect(Collectors.toList());
 		
-		return WebResponseUtil.toList(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size())
-											,HttpStatus.OK);
+		return ResponseEntityUtil.toList(dtoList											
+										,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

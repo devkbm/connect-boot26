@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import com.like.system.core.web.response.ResponseObject;
 import com.like.system.core.web.response.ResponseObjectList;
 
-public abstract class WebResponseUtil {		
+public abstract class ResponseEntityUtil {		
 			
 	/**
 	 * ResponseEntity 객체를 반환한다.

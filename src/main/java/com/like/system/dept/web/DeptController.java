@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.dept.boundary.DeptDTO;
 import com.like.system.dept.boundary.DeptDTO.FormDept;
 import com.like.system.dept.domain.Dept;
@@ -32,8 +32,8 @@ public class DeptController {
 		
 		FormDept dto = DeptDTO.FormDept.convertDTO(dept);
 		
-		return WebResponseUtil.toOne(dto											
-											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(dto											
+									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/common/dept")
@@ -41,8 +41,8 @@ public class DeptController {
 																
 		deptService.saveDept(dto);		
 											 				
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}		
 	
 	@DeleteMapping("/api/common/dept/{deptCode}")
@@ -50,8 +50,8 @@ public class DeptController {
 												
 		deptService.deleteDept(deptCode);							
 		
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 }

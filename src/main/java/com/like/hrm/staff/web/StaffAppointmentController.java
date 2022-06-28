@@ -13,7 +13,7 @@ import com.like.hrm.staff.boundary.AppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.service.StaffAppointmentService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class StaffAppointmentController {
@@ -33,9 +33,8 @@ public class StaffAppointmentController {
 					     .map(e -> AppointmentRecordDTO.FormStaffAppointmentRecord.convert(e))
 						 .toList(); 		
 		
-		return WebResponseUtil
-				.toList(list
-						    ,"%d 건 조회되었습니다.".formatted(list.size()));
+		return ResponseEntityUtil.toList(list
+						    			,"%d 건 조회되었습니다.".formatted(list.size()));
 	}
 	
 	@GetMapping("/hrm/staff/{staffId}/appointmentrecord/{id}")
@@ -46,7 +45,7 @@ public class StaffAppointmentController {
 				
 		var dto = AppointmentRecordDTO.FormStaffAppointmentRecord.convert(entity) ;
 		
-		return WebResponseUtil
+		return ResponseEntityUtil
 				.toOne(dto											
 							,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1));
 	}
@@ -56,22 +55,18 @@ public class StaffAppointmentController {
 									
 		service.saveAppointmentRecord(dto);
 											 				
-		return WebResponseUtil
-				.toList(null							
-							,"1 건 저장되었습니다.");
+		return ResponseEntityUtil.toList(null							
+										,"1 건 저장되었습니다.");
 	}
 	
 	@GetMapping("/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
 	//@RequestMapping(value={"/hrm/staff/{staffId}/appointmentrecord/{id}/apply"}, method={RequestMethod.POST})	
 	public ResponseEntity<?> applyAppointmentRecord(@PathVariable String staffId
  			 									   ,@PathVariable Long id) {									
-		
-		System.out.println(staffId + " : " + id.toString());
-		
+						
 		service.applyAppointmentRecord(staffId, id);
 											 				
-		return WebResponseUtil
-				.toList(null							
-							,"1 건 저장되었습니다.");
+		return ResponseEntityUtil.toList(null							
+										,"1 건 저장되었습니다.");
 	}
 }

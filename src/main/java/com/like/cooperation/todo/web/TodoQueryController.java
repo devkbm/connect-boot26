@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.service.TodoQueryService;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class TodoQueryController {
@@ -27,8 +27,8 @@ public class TodoQueryController {
 		
 		List<TodoGroup> list = service.getTodoGroupList(userId);			 					
 		
-		return WebResponseUtil.toList(list
-											,String.format("%d 건 조회되었습니다.", list.size()));
+		return ResponseEntityUtil.toList(list
+										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 }

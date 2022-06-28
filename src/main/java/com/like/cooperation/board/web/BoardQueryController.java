@@ -13,7 +13,7 @@ import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardType;
 import com.like.cooperation.board.service.BoardQueryService;
 import com.like.system.core.dto.HtmlOptionRecord;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class BoardQueryController {
@@ -33,7 +33,7 @@ public class BoardQueryController {
 			list.add(new HtmlOptionRecord(boardType.getName(), boardType.toString()));
 		}				 					
 								
-		return WebResponseUtil.toList(list				
+		return ResponseEntityUtil.toList(list				
 											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
@@ -42,7 +42,7 @@ public class BoardQueryController {
 											
 		List<?> list = boardQueryService.getBoardHierarchy();				 			
 		
-		return WebResponseUtil.toList(list						
+		return ResponseEntityUtil.toList(list						
 											,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 
@@ -54,7 +54,7 @@ public class BoardQueryController {
 											   .map(e -> BoardDTO.FormBoard.convertDTO(e))
 											   .collect(Collectors.toList());
 				
-		return WebResponseUtil.toList(dtoList											
+		return ResponseEntityUtil.toList(dtoList											
 											,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

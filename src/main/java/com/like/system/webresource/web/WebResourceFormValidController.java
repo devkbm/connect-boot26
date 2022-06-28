@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.webresource.domain.WebResource;
 import com.like.system.webresource.service.WebResourceService;
 
@@ -23,9 +23,8 @@ public class WebResourceFormValidController {
 		WebResource resource = service.getResource(code); 							
 		Boolean isValid = resource == null ? true : false;
 						
-		return WebResponseUtil
-				.toOne(isValid
-							,isValid == true ? "사용가능한 리소스 코드입니다." : "중복된 리소스 코드가 있습니다.");
+		return ResponseEntityUtil.toOne(isValid
+									   ,isValid == true ? "사용가능한 리소스 코드입니다." : "중복된 리소스 코드가 있습니다.");
 	}
 	
 }

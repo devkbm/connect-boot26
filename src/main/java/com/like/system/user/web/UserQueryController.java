@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.UserDTO;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.service.UserQueryService;
@@ -34,7 +34,7 @@ public class UserQueryController {
 			dtoList.add(UserDTO.convertDTO(user));
 		}
 		
-		return WebResponseUtil.toList(dtoList							
-											,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(dtoList							
+										,String.format("%d 건 조회되었습니다.", dtoList.size()));
 	}
 }

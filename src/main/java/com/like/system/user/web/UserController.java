@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.PasswordChangeRequestDTO;
 import com.like.system.user.boundary.UserDTO;
 import com.like.system.user.domain.SystemUser;
@@ -36,8 +36,8 @@ public class UserController {
 		
 		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
 		
-		return WebResponseUtil.toOne(dto							
-								,String.format("%d 건 조회되었습니다.", 1));
+		return ResponseEntityUtil.toOne(dto							
+									   ,String.format("%d 건 조회되었습니다.", 1));
 	}
 	
 	@GetMapping("/api/common/user/{userId}")
@@ -47,8 +47,8 @@ public class UserController {
 		
 		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
 		
-		return WebResponseUtil.toOne(dto							
-								,String.format("%d 건 조회되었습니다.", 1));
+		return ResponseEntityUtil.toOne(dto							
+									   ,String.format("%d 건 조회되었습니다.", 1));
 	}		
 	
 	@PostMapping("/api/common/user")	
@@ -56,8 +56,8 @@ public class UserController {
 											
 		userService.saveUser(dto);					
 																					 		
-		return WebResponseUtil.toList(null							
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null							
+										,String.format("%d 건 저장되었습니다.", 1));
 	}	
 	
 	@DeleteMapping("/api/common/user/{userId}")
@@ -65,8 +65,8 @@ public class UserController {
 										
 		userService.deleteUser(userId);															
 								 					
-		return WebResponseUtil.toList(null							
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null							
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 		
 	@PostMapping("/api/common/user/{id}/changepassword")
@@ -74,8 +74,8 @@ public class UserController {
 						
 		userService.changePassword(dto.userId(), dto.beforePassword(), dto.afterPassword());													
 								 					
-		return WebResponseUtil.toList(null							
-											,"비밀번호가 변경되었습니다.");
+		return ResponseEntityUtil.toList(null							
+										,"비밀번호가 변경되었습니다.");
 	}
 			
 	@PostMapping("/api/common/user/{userId}/initpassword")
@@ -83,8 +83,8 @@ public class UserController {
 				
 		userService.initPassword(userId);														
 								 					
-		return WebResponseUtil.toList(null							
-											,"비밀번호가 초기화되었습니다.");
+		return ResponseEntityUtil.toList(null							
+										,"비밀번호가 초기화되었습니다.");
 	}	
 			
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.service.StaffQueryService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class StaffQueryController {
@@ -30,8 +30,8 @@ public class StaffQueryController {
 												   .map(e -> StaffDTO.ResponseStaff.convert(e))
 												   .toList(); 
 		
-		return WebResponseUtil.toList(dtoList																						
-											,"%d 건 조회되었습니다.".formatted(dtoList.size()));
+		return ResponseEntityUtil.toList(dtoList																						
+										,"%d 건 조회되었습니다.".formatted(dtoList.size()));
 	}
 	
 	@GetMapping("/hrm/staff/{id}/record")
@@ -39,7 +39,7 @@ public class StaffQueryController {
 		
 		List<?> list = service.getStaffAppointmentRecordList(id);								
 		
-		return WebResponseUtil.toList(list											
-											,"%d 건 조회되었습니다.".formatted(list.size()));
+		return ResponseEntityUtil.toList(list											
+										,"%d 건 조회되었습니다.".formatted(list.size()));
 	}
 }

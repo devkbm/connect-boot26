@@ -12,7 +12,7 @@ import com.like.system.biztypecode.boundary.BizDetailCodeDTO;
 import com.like.system.biztypecode.boundary.BizTypeCodeDTO;
 import com.like.system.biztypecode.domain.BizDetailCodeId;
 import com.like.system.biztypecode.service.BizTypeCodeService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class BizTypeCodeController {
@@ -28,8 +28,8 @@ public class BizTypeCodeController {
 		
 		BizTypeCodeDTO.FormBizTypeCode dto = BizTypeCodeDTO.FormBizTypeCode.convert(service.getBizTypeCode(id));
 					
-		return WebResponseUtil.toOne(dto											
-											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(dto											
+									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 			
 	@PostMapping("/common/biztype")	
@@ -37,8 +37,8 @@ public class BizTypeCodeController {
 																			
 		service.saveBizTypeCode(dto);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 		
@@ -47,8 +47,8 @@ public class BizTypeCodeController {
 																		
 		service.deleteBizTypeCode(id);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	@GetMapping("/common/biztype/{typeCode}/bizdetail/{detailCode}")
@@ -57,8 +57,8 @@ public class BizTypeCodeController {
 		
 		BizDetailCodeDTO.FormBizDetailCode dto = BizDetailCodeDTO.FormBizDetailCode.convert(service.getBizDetailCode(new BizDetailCodeId(typeCode, detailCode)));
 					
-		return WebResponseUtil.toOne(dto											
-											,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(dto											
+									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 			
 	@PostMapping("/common/biztype/bizdetail")	
@@ -66,8 +66,8 @@ public class BizTypeCodeController {
 																		
 		service.saveBizDetailCode(dto);						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}	
 		
 	@DeleteMapping("/common/biztype/{typeCode}/bizdetail/{detailCode}")
@@ -76,8 +76,8 @@ public class BizTypeCodeController {
 																		
 		service.deleteBizDetailCode(new BizDetailCodeId(typeCode, detailCode));						
 								 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 }

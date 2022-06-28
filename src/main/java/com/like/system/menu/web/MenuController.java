@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.menu.boundary.MenuDTO;
 import com.like.system.menu.boundary.MenuGroupDTO;
 import com.like.system.menu.boundary.MenuGroupDTO.FormMenuGroup;
@@ -34,8 +34,8 @@ public class MenuController {
 		
 		MenuGroupDTO.FormMenuGroup dto = FormMenuGroup.convert(menuGroup);
 								
-		return WebResponseUtil.toOne(dto											
-											,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
+		return ResponseEntityUtil.toOne(dto											
+									   ,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
 	}		
 		
 	@PostMapping("/api/common/menugroup/{id}")
@@ -43,8 +43,8 @@ public class MenuController {
 																			
 		menuCommandService.saveMenuGroup(dto);			
 										 					
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 		
 	@DeleteMapping("/api/common/menugroup/{menuGroupCode}")
@@ -52,8 +52,8 @@ public class MenuController {
 												
 		menuCommandService.deleteMenuGroup(menuGroupCode);							
 		
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	
@@ -64,8 +64,8 @@ public class MenuController {
 		
 		MenuDTO.FormMenu dto = MenuDTO.FormMenu.convert(menu);			
 		
-		return WebResponseUtil.toOne(dto											
-											,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
+		return ResponseEntityUtil.toOne(dto											
+									   ,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
 	}
 	
 	
@@ -75,8 +75,8 @@ public class MenuController {
 									
 		menuCommandService.saveMenu(dto);																			
 														 				
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 	@DeleteMapping("/api/common/menu/{menuCode}")
@@ -84,8 +84,8 @@ public class MenuController {
 												
 		menuCommandService.deleteMenu(menuCode);							
 		
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	

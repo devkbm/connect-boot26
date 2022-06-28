@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlOptionRecord;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.webresource.boundary.WebResourceDTO;
 import com.like.system.webresource.boundary.WebResourceDTO.FormWebResource;
 import com.like.system.webresource.domain.WebResource;
@@ -34,8 +34,8 @@ public class WebResourceQueryController {
 														   .map(e -> FormWebResource.convertDTO(e))
 														   .collect(Collectors.toList());
 		
-		return WebResponseUtil.toList(dtoList											
-											,String.format("%d 건 조회되었습니다.", dtoList.size())); 
+		return ResponseEntityUtil.toList(dtoList											
+										,String.format("%d 건 조회되었습니다.", dtoList.size())); 
 	}
 	
 	@GetMapping("/api/common/webresource/resourcetype")
@@ -47,7 +47,7 @@ public class WebResourceQueryController {
 			list.add(new HtmlOptionRecord(type.getLabel(), type.toString()));
 		}
 		
-		return WebResponseUtil.toList(list											
-											,String.format("%d 건 조회되었습니다.", list.size()));
+		return ResponseEntityUtil.toList(list											
+										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

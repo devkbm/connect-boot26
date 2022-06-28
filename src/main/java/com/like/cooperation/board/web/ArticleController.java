@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.like.cooperation.board.boundary.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.service.ArticleCommandService;
-import com.like.system.core.web.util.WebResponseUtil;
+import com.like.system.core.web.util.ResponseEntityUtil;
 
 @Controller
 public class ArticleController {	
@@ -36,8 +36,8 @@ public class ArticleController {
 	
 		ArticleDTO.ResponseArticle response = ArticleDTO.ResponseArticle.converDTO(article);				
 		
-		return WebResponseUtil.toOne(response											
-											,String.format("%d 건 조회되었습니다.", 1));
+		return ResponseEntityUtil.toOne(response											
+									   ,String.format("%d 건 조회되었습니다.", 1));
 	}
 		
 	@DeleteMapping("/api/grw/board/article/{id}")
@@ -45,8 +45,8 @@ public class ArticleController {
 		
 		service.deleteArticle(id);							
 		
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 			
 	@DeleteMapping("/api/grw/board/article")
@@ -54,8 +54,8 @@ public class ArticleController {
 		
 		service.deleteArticle(articleList);									
 		
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 삭제되었습니다.", articleList.size()));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 삭제되었습니다.", articleList.size()));
 	}	
 		
 	@PostMapping("/api/grw/board/articletemp")
@@ -64,8 +64,8 @@ public class ArticleController {
 											
 		service.saveArticle(dto);											
 		
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 		
 	@PostMapping("/api/grw/board/article")
@@ -74,8 +74,8 @@ public class ArticleController {
 										
 		service.saveArticle(dto);											
 		
-		return WebResponseUtil.toList(null											
-											,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null											
+										,String.format("%d 건 저장되었습니다.", 1));
 	}
 			
 	@GetMapping("/grw/board/article/hitcnt")
@@ -84,8 +84,8 @@ public class ArticleController {
 				
 		Article aritlce = service.updateArticleHitCnt(id, userId);			
 										
-		return WebResponseUtil.toOne(aritlce											
-											,String.format("%d건 업데이트 하였습니다.", 1));
+		return ResponseEntityUtil.toOne(aritlce											
+									   ,String.format("%d건 업데이트 하였습니다.", 1));
 	}	
 	
 }
