@@ -11,24 +11,27 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @see https://stackoverflow.com/questions/61813715/spring-boot-auditing-hostname-and-hostip
  *
  */
+@ToString()
 @Getter(value = AccessLevel.PUBLIC)
 @TypeDef(name = "AuditorDetails",
     typeClass = AuditorDetailsType.class,
     defaultForType = AuditorDetails.class)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractAuditEntity{
+public abstract class AbstractAuditEntity {
 
     @CreatedDate    
     @Column(name = "CREATED_DT", updatable = false)
@@ -41,7 +44,8 @@ public abstract class AbstractAuditEntity{
     				   })	
     AuditorDetails createdBy;
 
-    String createdAppId;
+    @Column(name = "CREATED_APP_ID", updatable = false)
+    protected String createdAppId;
     
     @LastModifiedDate
     @Column(name = "MODIFIED_DT")    
@@ -54,13 +58,23 @@ public abstract class AbstractAuditEntity{
     				   })
     AuditorDetails modifiedBy;   
 
-    String modifiedAppId;
+    @Column(name = "MODIFIED_APP_ID")
+    protected String modifiedAppId;       
     
     protected AbstractAuditEntity() {}
         
+    @PrePersist
+    protected void prePersist() {    	
+    	this.modifiedAppId = this.createdAppId;    	
+    }
+ 
     @PreUpdate
-    public void preUpdate() {
-    	
+    protected void preUpdate() {
+    	this.modifiedAppId = this.createdAppId;    	
+    }
+    
+    public void setAppId(String appId) {
+    	this.createdAppId = appId;
     }
     
 }

@@ -41,17 +41,23 @@ public class AuthorityDTO {
 	}
 	
 	public record FormAuthority(
+			String appId,
 			@NotEmpty(message="권한은 필수 항목입니다.")
 			String authority,
 			String description
 			) {
 		
 		public Authority newEntity() {
-			return new Authority(this.authority, this.description);
+			Authority entity = new Authority(this.authority, this.description);
+			entity.setAppId(appId);
+			System.out.println(entity.toString());
+			
+			return entity;
 		}
 		
-		public void modifyEntity(Authority authority) {
+		public void modifyEntity(Authority authority) {			
 			authority.modifyEntity(description);
+			authority.setAppId(appId);
 		}
 	}
 	
