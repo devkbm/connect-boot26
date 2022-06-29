@@ -57,7 +57,7 @@ public class UserDTO {
 													.collect(Collectors.toList()))
 								.menuGroupList(entity.getMenuGroupList()
 													.stream()
-													.map(menuGroup -> menuGroup.getMenuGroupCode())
+													.map(menuGroup -> menuGroup.getId())
 													.collect(Collectors.toList()))
 								.build();
 		

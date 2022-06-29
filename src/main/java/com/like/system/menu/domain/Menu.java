@@ -40,15 +40,15 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 
 	@Id
 	@Column(name = "menu_code")
-	String menuCode;
+	String id;
 	
 	@Column(name="menu_name")
-	String menuName; 		
+	String name; 		
 				
 	@Enumerated(EnumType.STRING)
 	@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 	@Column(name="menu_type")
-	MenuType menuType;
+	MenuType type;
 	
 	@Column(name="seq")
 	long sequence;
@@ -78,9 +78,9 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 				long level, 				
 				WebResource resource) {
 		
-		this.menuCode = menuCode;
-		this.menuName = menuName;			
-		this.menuType = menuType;
+		this.id = menuCode;
+		this.name = menuName;			
+		this.type = menuType;
 		this.sequence = sequence;
 		this.level = level;
 		this.menuGroup = menuGroup;
@@ -103,8 +103,8 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 							,Menu parent
 							,MenuGroup menuGroup
 							,WebResource resource) {
-		this.menuName = menuName;
-		this.menuType = menuType;
+		this.name = menuName;
+		this.type = menuType;
 		this.sequence = sequence;
 		this.level = level;
 		this.parent = parent;

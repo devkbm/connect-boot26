@@ -35,19 +35,19 @@ public class MenuDTO {
 		}
 		
 		private BooleanExpression equalMenuGroupCode(String menuGroupCode) {					
-			return QMenuGroup.menuGroup.menuGroupCode.eq(menuGroupCode);
+			return QMenuGroup.menuGroup.id.eq(menuGroupCode);
 		}
 		
 		private BooleanExpression likeMenuCode(String menuCode) {
 			if (!StringUtils.hasText(menuCode)) return null;
 			
-			return qMenu.menuCode.like("%"+menuCode+"%");
+			return qMenu.id.like("%"+menuCode+"%");
 		}
 		
 		private BooleanExpression likeMenuName(String menuName) {
 			if (!StringUtils.hasText(menuName)) return null;
 			
-			return qMenu.menuName.like("%"+menuName+"%");
+			return qMenu.name.like("%"+menuName+"%");
 		}
 	}	
 	
@@ -100,13 +100,13 @@ public class MenuDTO {
 					   	   .createdBy(menu.getCreatedBy().getLoggedUser())
 					   	   .modifiedDt(menu.getModifiedDt())
 					   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())
-					   	   .menuGroupCode(menu.getMenuGroup().getMenuGroupCode())
-					   	   .menuCode(menu.getMenuCode())
-					   	   .menuName(menu.getMenuName())
-					   	   .menuType(menu.getMenuType().toString())
+					   	   .menuGroupCode(menu.getMenuGroup().getId())
+					   	   .menuCode(menu.getId())
+					   	   .menuName(menu.getName())
+					   	   .menuType(menu.getType().toString())
 					   	   .sequence(menu.getSequence())
 					   	   .level(menu.getLevel())
-					   	   .parentMenuCode(menu.getParent() == null ? null : menu.getParent().getMenuCode())
+					   	   .parentMenuCode(menu.getParent() == null ? null : menu.getParent().getId())
 					   	   .resource(menu.getResource() == null ? null : menu.getResource().getResourceCode())
 					   	   .build();
 		}

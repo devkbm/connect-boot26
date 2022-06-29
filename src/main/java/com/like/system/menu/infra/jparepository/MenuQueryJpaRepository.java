@@ -43,7 +43,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 	public List<MenuGroup> getMenuGroupList(String likeMenuGroupName) {
 		return queryFactory
 				.selectFrom(qMenuGroup)
-				.where(qMenuGroup.menuGroupName.like(likeMenuGroupName+"%"))
+				.where(qMenuGroup.name.like(likeMenuGroupName+"%"))
 				.fetch();
 	}
 
@@ -63,8 +63,8 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 				.select(projections(qMenu))
 				.from(qMenu)
 					.leftJoin(qMenu.resource, qWebResource)					
-				.where(qMenu.menuGroup.menuGroupCode.eq(menuGroupCode)
-					.and(qMenu.parent.menuCode.isNull()));													
+				.where(qMenu.menuGroup.id.eq(menuGroupCode)
+					.and(qMenu.parent.id.isNull()));													
 				
 		return query.fetch();
 	}
@@ -83,8 +83,8 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 				.select(projections(qMenu))
 				.from(qMenu)				
 					.leftJoin(qMenu.resource, qWebResource)
-				.where(qMenu.menuGroup.menuGroupCode.eq(menuGroupCode)
-					.and(qMenu.parent.menuCode.eq(parentMenuCode)));
+				.where(qMenu.menuGroup.id.eq(menuGroupCode)
+					.and(qMenu.parent.id.eq(parentMenuCode)));
 																		
 		return query.fetch();
 	}
@@ -109,12 +109,18 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 	}
 	
 	private QResponseMenuHierarchy projections(QMenu qMenu) {
-		Expression<Boolean> isLeaf = new CaseBuilder()										
-				.when(qMenu.parent.menuCode.isNotNull()).then(true)
-				.otherwise(false).as("isLeaf");
+		Expression<Boolean> isLeaf = new CaseBuilder().when(qMenu.parent.id.isNotNull()).then(true)
+													  .otherwise(false).as("isLeaf");
 		
-		return new QResponseMenuHierarchy(qMenu.menuGroup.menuGroupCode, qMenu.menuCode, qMenu.menuName
-				, qMenu.parent.menuCode, qMenu.menuType, qMenu.sequence, qMenu.level, qWebResource.url, isLeaf);
+		return new QResponseMenuHierarchy(qMenu.menuGroup.id
+										 ,qMenu.id
+										 ,qMenu.name
+										 ,qMenu.parent.id
+										 ,qMenu.type
+										 ,qMenu.sequence
+										 ,qMenu.level
+										 ,qWebResource.url
+										 ,isLeaf);
 	}
 
 }

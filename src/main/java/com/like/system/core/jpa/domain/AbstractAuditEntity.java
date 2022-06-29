@@ -44,8 +44,8 @@ public abstract class AbstractAuditEntity {
     				   })	
     AuditorDetails createdBy;
 
-    @Column(name = "CREATED_APP_ID", updatable = false)
-    protected String createdAppId;
+    @Column(name = "CREATED_APP_URL", updatable = false)
+    protected String createdAppUrl;
     
     @LastModifiedDate
     @Column(name = "MODIFIED_DT")    
@@ -58,23 +58,23 @@ public abstract class AbstractAuditEntity {
     				   })
     AuditorDetails modifiedBy;   
 
-    @Column(name = "MODIFIED_APP_ID")
-    protected String modifiedAppId;       
+    @Column(name = "MODIFIED_APP_URL")
+    protected String modifiedAppUrl;       
     
     protected AbstractAuditEntity() {}
         
     @PrePersist
     protected void prePersist() {    	
-    	this.modifiedAppId = this.createdAppId;    	
+    	this.modifiedAppUrl = this.createdAppUrl;    	
     }
  
     @PreUpdate
     protected void preUpdate() {
-    	this.modifiedAppId = this.createdAppId;    	
+    	this.modifiedAppUrl = this.createdAppUrl;    	
     }
     
-    public void setAppId(String appId) {
-    	this.createdAppId = appId;
+    public void setAppUrl(String appUrl) {
+    	this.createdAppUrl = appUrl;
     }
     
 }

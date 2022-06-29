@@ -34,10 +34,10 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 
 	@Id
 	@Column(name="menu_group_code")
-	String menuGroupCode;
+	String id;
 	
 	@Column(name="menu_group_name")
-	String menuGroupName; 
+	String name; 
 		
 	@Column(name="description")
 	String description;
@@ -46,9 +46,9 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
     List<Menu> menuList = new ArrayList<Menu>();
 			
 	@Builder
-	public MenuGroup(String menuGroupCode, String menuGroupName, String description) {	
-		this.menuGroupCode = menuGroupCode;
-		this.menuGroupName = menuGroupName;
+	public MenuGroup(String id, String name, String description) {	
+		this.id = id;
+		this.name = name;
 		this.description = description;
 	}	
 	
@@ -58,7 +58,7 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 	 */
 	public void modifyEntity(String menuGroupName
 							,String description) {
-		this.menuGroupName = menuGroupName;
+		this.name = menuGroupName;
 		this.description = description;
 	}
 	

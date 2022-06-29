@@ -34,13 +34,13 @@ public class MenuGroupDTO {
 		private BooleanExpression likeMenGroupCode(String menuGroupCode) {
 			if (!StringUtils.hasText(menuGroupCode)) return null;
 			
-			return qMenuGroup.menuGroupCode.like("%"+menuGroupCode+"%");
+			return qMenuGroup.id.like("%"+menuGroupCode+"%");
 		}
 		
 		private BooleanExpression likeMenGroupName(String menuGroupName) {
 			if (!StringUtils.hasText(menuGroupName)) return null;
 			
-			return qMenuGroup.menuGroupName.like("%"+menuGroupName+"%");
+			return qMenuGroup.name.like("%"+menuGroupName+"%");
 		}
 	}	
 	
@@ -59,8 +59,8 @@ public class MenuGroupDTO {
 		
 		public MenuGroup newMenuGroup() {
 			return MenuGroup.builder()
-						    .menuGroupCode(this.menuGroupCode)
-						    .menuGroupName(this.menuGroupName)
+						    .id(this.menuGroupCode)
+						    .name(this.menuGroupName)
 						    .description(this.description)
 						    .build();	
 		}
@@ -77,8 +77,8 @@ public class MenuGroupDTO {
 								.createdBy(entity.getCreatedBy().getLoggedUser())
 								.modifiedDt(entity.getModifiedDt())
 								.modifiedBy(entity.getModifiedBy().getLoggedUser())
-								.menuGroupCode(entity.getMenuGroupCode())
-								.menuGroupName(entity.getMenuGroupName())
+								.menuGroupCode(entity.getId())
+								.menuGroupName(entity.getName())
 								.description(entity.getDescription())
 								.build();
 		}
