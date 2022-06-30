@@ -16,7 +16,7 @@ import lombok.Builder;
 public class MenuGroupDTO {
 
 	public record Search(
-			String menuGroupCode,
+			String menuGroupId,
 			String menuGroupName
 			) {
 		private static final QMenuGroup qMenuGroup = QMenuGroup.menuGroup;
@@ -25,16 +25,16 @@ public class MenuGroupDTO {
 			BooleanBuilder builder = new BooleanBuilder();
 			
 			builder
-				.and(likeMenGroupCode(this.menuGroupCode))
+				.and(likeMenGroupId(this.menuGroupId))
 				.and(likeMenGroupName(this.menuGroupName));
 											
 			return builder;
 		}
 		
-		private BooleanExpression likeMenGroupCode(String menuGroupCode) {
-			if (!StringUtils.hasText(menuGroupCode)) return null;
+		private BooleanExpression likeMenGroupId(String menuGroupId) {
+			if (!StringUtils.hasText(menuGroupId)) return null;
 			
-			return qMenuGroup.id.like("%"+menuGroupCode+"%");
+			return qMenuGroup.id.like("%"+menuGroupId+"%");
 		}
 		
 		private BooleanExpression likeMenGroupName(String menuGroupName) {
@@ -51,7 +51,7 @@ public class MenuGroupDTO {
 			LocalDateTime modifiedDt,
 			String modifiedBy,
 			@NotEmpty
-			String menuGroupCode,
+			String menuGroupId,
 			@NotEmpty
 			String menuGroupName,
 			String description
@@ -59,7 +59,7 @@ public class MenuGroupDTO {
 		
 		public MenuGroup newMenuGroup() {
 			return MenuGroup.builder()
-						    .id(this.menuGroupCode)
+						    .id(this.menuGroupId)
 						    .name(this.menuGroupName)
 						    .description(this.description)
 						    .build();	
@@ -77,7 +77,7 @@ public class MenuGroupDTO {
 								.createdBy(entity.getCreatedBy().getLoggedUser())
 								.modifiedDt(entity.getModifiedDt())
 								.modifiedBy(entity.getModifiedBy().getLoggedUser())
-								.menuGroupCode(entity.getId())
+								.menuGroupId(entity.getId())
 								.menuGroupName(entity.getName())
 								.description(entity.getDescription())
 								.build();

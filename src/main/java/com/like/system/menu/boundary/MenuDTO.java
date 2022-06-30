@@ -21,27 +21,27 @@ public class MenuDTO {
 	
 	public record Search(
 			@NotEmpty(message = "필수 입력 값입니다.")
-			String menuGroupCode,
-			String menuCode,
+			String menuGroupId,
+			String menuId,
 			String menuName
 			) {
 		private static final QMenu qMenu = QMenu.menu;
 		
 		public BooleanBuilder getBooleanBuilder() {																
 			return new BooleanBuilder()
-					.and(equalMenuGroupCode(this.menuGroupCode))
-					.and(likeMenuCode(this.menuCode))
+					.and(equalMenuGroupCode(this.menuGroupId))
+					.and(likeMenuId(this.menuId))
 					.and(likeMenuName(this.menuName));
 		}
 		
-		private BooleanExpression equalMenuGroupCode(String menuGroupCode) {					
-			return QMenuGroup.menuGroup.id.eq(menuGroupCode);
+		private BooleanExpression equalMenuGroupCode(String menuGroupId) {					
+			return QMenuGroup.menuGroup.id.eq(menuGroupId);
 		}
 		
-		private BooleanExpression likeMenuCode(String menuCode) {
-			if (!StringUtils.hasText(menuCode)) return null;
+		private BooleanExpression likeMenuId(String menuId) {
+			if (!StringUtils.hasText(menuId)) return null;
 			
-			return qMenu.id.like("%"+menuCode+"%");
+			return qMenu.id.like("%"+menuId+"%");
 		}
 		
 		private BooleanExpression likeMenuName(String menuName) {
@@ -58,12 +58,12 @@ public class MenuDTO {
 			LocalDateTime modifiedDt,
 			String modifiedBy,
 			@NotEmpty
-			String menuGroupCode,
+			String menuGroupId,
 			@NotEmpty
-			String menuCode,
+			String menuId,
 			@NotEmpty
 			String menuName,
-			String parentMenuCode,
+			String parentMenuId,
 			String menuType,
 			long sequence,
 			long level,
@@ -73,7 +73,7 @@ public class MenuDTO {
 		public Menu newMenu(MenuGroup menuGroup, WebResource resource) {
 			return Menu.builder()
 					   .menuGroup(menuGroup)
-					   .menuCode(this.menuCode)
+					   .menuCode(this.menuId)
 					   .menuName(this.menuName)
 					   .menuType(MenuType.valueOf(this.menuType))
 					   .sequence(this.sequence)
@@ -100,13 +100,13 @@ public class MenuDTO {
 					   	   .createdBy(menu.getCreatedBy().getLoggedUser())
 					   	   .modifiedDt(menu.getModifiedDt())
 					   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())
-					   	   .menuGroupCode(menu.getMenuGroup().getId())
-					   	   .menuCode(menu.getId())
+					   	   .menuGroupId(menu.getMenuGroup().getId())
+					   	   .menuId(menu.getId())
 					   	   .menuName(menu.getName())
 					   	   .menuType(menu.getType().toString())
 					   	   .sequence(menu.getSequence())
 					   	   .level(menu.getLevel())
-					   	   .parentMenuCode(menu.getParent() == null ? null : menu.getParent().getId())
+					   	   .parentMenuId(menu.getParent() == null ? null : menu.getParent().getId())
 					   	   .resource(menu.getResource() == null ? null : menu.getResource().getResourceCode())
 					   	   .build();
 		}

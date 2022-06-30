@@ -88,16 +88,7 @@ public class OauthLoginController {
         
         //userService.saveLogInOutHistory(new LogInOutHistory("1", "LOGIN", this.getClientIp(request), true));
 				
-		token = AuthenticationToken.builder()
-									.userId(user.getUsername())
-									.userName(user.getName())
-									.imageUrl(user.getImage())
-									.email("")
-									.token(session.getId())
-									.oAuthAccessToken(client.getAccessToken().getTokenValue())
-									.collection(user.getAuthorities().stream().map(o -> o.getAuthority()).collect(Collectors.toList()))
-									.menuGroupList(user.getMenuGroupList())				
-									.build();
+		token = AuthenticationToken.of(user,session.getId());
 		
 		session.setAttribute("user", token);
 					

@@ -27,10 +27,10 @@ public class MenuController {
 		this.menuCommandService = menuCommandService;		
 	}
 			
-	@GetMapping("/api/common/menugroup/{menuGroupCode}")
-	public ResponseEntity<?> getMenuGroup(@PathVariable String menuGroupCode) {				
+	@GetMapping("/api/common/menugroup/{menuGroupId}")
+	public ResponseEntity<?> getMenuGroup(@PathVariable String menuGroupId) {				
 		
-		MenuGroup menuGroup = menuCommandService.getMenuGroup(menuGroupCode);
+		MenuGroup menuGroup = menuCommandService.getMenuGroup(menuGroupId);
 		
 		MenuGroupDTO.FormMenuGroup dto = FormMenuGroup.convert(menuGroup);
 								
@@ -47,20 +47,20 @@ public class MenuController {
 										,String.format("%d 건 저장되었습니다.", 1));
 	}
 		
-	@DeleteMapping("/api/common/menugroup/{menuGroupCode}")
-	public ResponseEntity<?> delCodeGroup(@PathVariable String menuGroupCode) {				
+	@DeleteMapping("/api/common/menugroup/{menuGroupId}")
+	public ResponseEntity<?> delCodeGroup(@PathVariable String menuGroupId) {				
 												
-		menuCommandService.deleteMenuGroup(menuGroupCode);							
+		menuCommandService.deleteMenuGroup(menuGroupId);							
 		
 		return ResponseEntityUtil.toList(null											
 										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	
-	@GetMapping("/api/common/menu/{menucode}")
-	public ResponseEntity<?> getMenu(@PathVariable String menuCode) {				
+	@GetMapping("/api/common/menu/{menuId}")
+	public ResponseEntity<?> getMenu(@PathVariable String menuId) {				
 		
-		Menu menu = menuCommandService.getMenu(menuCode); 		
+		Menu menu = menuCommandService.getMenu(menuId); 		
 		
 		MenuDTO.FormMenu dto = MenuDTO.FormMenu.convert(menu);			
 		
@@ -70,7 +70,7 @@ public class MenuController {
 	
 	
 		
-	@PostMapping("/api/common/menu/{menucode}")
+	@PostMapping("/api/common/menu/{menuId}")
 	public ResponseEntity<?> saveMenu(@RequestBody @Valid MenuDTO.FormMenu dto) throws Exception {												
 									
 		menuCommandService.saveMenu(dto);																			
@@ -79,10 +79,10 @@ public class MenuController {
 										,String.format("%d 건 저장되었습니다.", 1));
 	}
 	
-	@DeleteMapping("/api/common/menu/{menuCode}")
-	public ResponseEntity<?> delMenu(@PathVariable String menuCode) {				
+	@DeleteMapping("/api/common/menu/{menuId}")
+	public ResponseEntity<?> delMenu(@PathVariable String menuId) {				
 												
-		menuCommandService.deleteMenu(menuCode);							
+		menuCommandService.deleteMenu(menuId);							
 		
 		return ResponseEntityUtil.toList(null											
 										,String.format("%d 건 삭제되었습니다.", 1));

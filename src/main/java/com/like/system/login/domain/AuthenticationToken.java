@@ -2,11 +2,10 @@ package com.like.system.login.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.like.system.menu.domain.MenuGroup;
+import com.like.system.core.dto.HtmlOptionRecord;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.Builder;
@@ -25,7 +24,7 @@ public class AuthenticationToken implements Serializable {
 	private String oAuthAccessToken;
     //private Collection<? extends GrantedAuthority> authorities;
 	private List<String> authorities;
-    private Set<MenuGroup> menuGroupList;
+    private List<HtmlOptionRecord> menuGroupList;
     
        
     @Builder
@@ -36,7 +35,7 @@ public class AuthenticationToken implements Serializable {
     						  ,String token
     						  ,String oAuthAccessToken
     						  ,List<String> collection
-    						  ,Set<MenuGroup> menuGroupList) {
+    						  ,List<HtmlOptionRecord> menuGroupList) {
     	this.userId = userId;
         this.userName = userName;
         this.imageUrl = imageUrl;
@@ -55,8 +54,8 @@ public class AuthenticationToken implements Serializable {
 				.imageUrl(user.getImage())
 				.email(user.getEmail())
 				.token(sessionId)
-				.collection(user.getAuthorities().stream().map(o -> o.getAuthority()).toList())
-				.menuGroupList(user.getMenuGroupList())				
+				.collection(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
+				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlOptionRecord(e.getName(), e.getId())).toList())
 				.build();
     }
        
