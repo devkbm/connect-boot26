@@ -30,19 +30,19 @@ public class MenuQueryController {
 		this.menuQueryService = menuQueryService;		
 	}
 	
-	@GetMapping("/api/common/menutest/{menuGroupCode}")
-	public ResponseEntity<?> getMenuGroupHierachyTest(@PathVariable String menuGroupCode) {				
+	@GetMapping("/api/common/menutest/{menuGroupId}")
+	public ResponseEntity<?> getMenuGroupHierachyTest(@PathVariable String menuGroupId) {				
 		
-		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 							
+		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 							
 		
 		return ResponseEntityUtil.toList(menuGroup											
 										,String.format("%d 건 조회되었습니다.", menuGroup.size()));
 	}
 	
-	@GetMapping("/api/common/menuhierarchy/{menuGroupCode}")
-	public ResponseEntity<?> getMenuGroupHierachy(@PathVariable String menuGroupCode) {				
+	@GetMapping("/api/common/menuhierarchy/{menuGroupId}")
+	public ResponseEntity<?> getMenuGroupHierachy(@PathVariable String menuGroupId) {				
 		
-		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupCode); 										
+		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 										
 		
 		return ResponseEntityUtil.toList(menuGroup											
 										,String.format("%d 건 조회되었습니다.", menuGroup.size()));

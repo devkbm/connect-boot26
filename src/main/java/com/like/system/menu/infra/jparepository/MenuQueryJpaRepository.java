@@ -57,19 +57,19 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 				.fetch();
 	}
 	
-	public List<ResponseMenuHierarchy> getMenuRootList(String menuGroupCode) {			
+	public List<ResponseMenuHierarchy> getMenuRootList(String menuGroupId) {			
 						
 		JPAQuery<ResponseMenuHierarchy> query = queryFactory
 				.select(projections(qMenu))
 				.from(qMenu)
 					.leftJoin(qMenu.resource, qWebResource)					
-				.where(qMenu.menuGroup.id.eq(menuGroupCode)
+				.where(qMenu.menuGroup.id.eq(menuGroupId)
 					.and(qMenu.parent.id.isNull()));													
 				
 		return query.fetch();
 	}
 			
-	public List<ResponseMenuHierarchy> getMenuChildrenList(String menuGroupCode, String parentMenuCode) {					
+	public List<ResponseMenuHierarchy> getMenuChildrenList(String menuGroupId, String parentMenuId) {					
 		/*
 		Expression<Boolean> isLeaf = new CaseBuilder()										
 											.when(qMenu.parent.menuCode.isNotNull()).then(true)
@@ -83,8 +83,8 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 				.select(projections(qMenu))
 				.from(qMenu)				
 					.leftJoin(qMenu.resource, qWebResource)
-				.where(qMenu.menuGroup.id.eq(menuGroupCode)
-					.and(qMenu.parent.id.eq(parentMenuCode)));
+				.where(qMenu.menuGroup.id.eq(menuGroupId)
+					.and(qMenu.parent.id.eq(parentMenuId)));
 																		
 		return query.fetch();
 	}
