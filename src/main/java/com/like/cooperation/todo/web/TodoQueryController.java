@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.service.TodoQueryService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
@@ -22,13 +23,11 @@ public class TodoQueryController {
 	
 	@GetMapping("/api/todo/group/mylist")
 	public ResponseEntity<?> getMyTodoGroupList() {
-						
-		String userId = SessionUtil.getUserId();
-		
-		List<TodoGroup> list = service.getTodoGroupList(userId);			 					
+										
+		List<TodoGroup> list = service.getTodoGroupList(SessionUtil.getUserId());			 					
 		
 		return ResponseEntityUtil.toList(list
-										,String.format("%d 건 조회되었습니다.", list.size()));
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 }

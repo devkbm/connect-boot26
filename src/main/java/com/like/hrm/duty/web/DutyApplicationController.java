@@ -2,7 +2,6 @@ package com.like.hrm.duty.web;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +16,10 @@ import com.like.hrm.duty.boundary.DutyApplicationDTO;
 import com.like.hrm.duty.domain.model.DutyApplication;
 import com.like.hrm.duty.service.DutyApplicationCommandService;
 import com.like.hrm.duty.service.DutyApplicationQueryService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.holiday.service.DateInfoService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RestController
 public class DutyApplicationController {
 
@@ -42,15 +39,14 @@ public class DutyApplicationController {
 	
 	@GetMapping("/hrm/dutyapplication")
 	public ResponseEntity<?> getDutyApplicationList(DutyApplicationDTO.Search dto) {
+											
+		List<DutyApplicationDTO.SaveDutyApplication> list = dutyApplicationQueryService.getDutyApplicationList(dto)
+																					   .stream()
+																					   .map(e -> DutyApplicationDTO.SaveDutyApplication.convert(e, holidayUtilService))
+																					   .toList();
 		
-		List<DutyApplication> list = dutyApplicationQueryService.getDutyApplicationList(dto);					
-		
-		List<DutyApplicationDTO.SaveDutyApplication> dtoList = list.stream()
-																   .map(e -> DutyApplicationDTO.SaveDutyApplication.convert(e, holidayUtilService))
-																   .collect(Collectors.toList());
-		
-		return ResponseEntityUtil.toList(dtoList											
-										,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(list
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/hrm/dutyapplication/{id}")
@@ -59,20 +55,19 @@ public class DutyApplicationController {
 		DutyApplication entity = dutyApplicationCommandService.getDutyApplication(id);
 						
 		DutyApplicationDTO.SaveDutyApplication dto = DutyApplicationDTO.SaveDutyApplication.convert(entity, holidayUtilService);			
-		
-		log.info(dto.toString());
-		return ResponseEntityUtil.toOne(dto											
-									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+				
+		return ResponseEntityUtil.toOne(dto
+									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 	
 	@GetMapping("/hrm/dutyapplication/period/{from}/{to}")
 	public ResponseEntity<?> getDutyApplicationPeriod(@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate from
 													 ,@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate to) {
 						
-		List<DutyApplicationDTO.DutyDate> dtoList = DutyApplicationDTO.DutyDate.convertDutyDate(holidayUtilService.getDateInfoList(from, to));			
+		List<DutyApplicationDTO.DutyDate> list = DutyApplicationDTO.DutyDate.convertDutyDate(holidayUtilService.getDateInfoList(from, to));			
 		
-		return ResponseEntityUtil.toList(dtoList											
-										,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(list	
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 		
 	@PostMapping("/hrm/dutyapplication")
@@ -81,7 +76,7 @@ public class DutyApplicationController {
 		dutyApplicationCommandService.saveDutyApplication(dto);						
 								 					
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/hrm/dutyapplication/{id}")
@@ -89,8 +84,8 @@ public class DutyApplicationController {
 																		
 		dutyApplicationCommandService.deleteDutyApplication(id);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null	
+										,MessageUtil.getDeleteMessage(1));
 	}	
 		
 }

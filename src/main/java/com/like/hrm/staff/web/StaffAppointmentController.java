@@ -1,5 +1,7 @@
 package com.like.hrm.staff.web;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.AppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
-import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.service.StaffAppointmentService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -26,15 +28,14 @@ public class StaffAppointmentController {
 	
 	@GetMapping("/hrm/staff/{staffId}/appointmentrecord")
 	public ResponseEntity<?> getAppointmentRecordList(@PathVariable String staffId) {
-				
-		AppointmentRecordList entity = service.getAppointmentRecord(staffId);  									
-				
-		var list = entity.getStream()
-					     .map(e -> AppointmentRecordDTO.FormStaffAppointmentRecord.convert(e))
-						 .toList(); 		
+										
+		List<AppointmentRecordDTO.FormStaffAppointmentRecord> list = service.getAppointmentRecord(staffId)
+																			.stream()
+																			.map(e -> AppointmentRecordDTO.FormStaffAppointmentRecord.convert(e))
+																			.toList(); 		
 		
 		return ResponseEntityUtil.toList(list
-						    			,"%d 건 조회되었습니다.".formatted(list.size()));
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/hrm/staff/{staffId}/appointmentrecord/{id}")
@@ -45,9 +46,8 @@ public class StaffAppointmentController {
 				
 		var dto = AppointmentRecordDTO.FormStaffAppointmentRecord.convert(entity) ;
 		
-		return ResponseEntityUtil
-				.toOne(dto											
-							,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(dto
+									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/hrm/staff/{staffId}/appointmentrecord")
@@ -55,8 +55,8 @@ public class StaffAppointmentController {
 									
 		service.saveAppointmentRecord(dto);
 											 				
-		return ResponseEntityUtil.toList(null							
-										,"1 건 저장되었습니다.");
+		return ResponseEntityUtil.toList(null
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 	@GetMapping("/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
@@ -66,7 +66,7 @@ public class StaffAppointmentController {
 						
 		service.applyAppointmentRecord(staffId, id);
 											 				
-		return ResponseEntityUtil.toList(null							
-										,"1 건 저장되었습니다.");
+		return ResponseEntityUtil.toList(null
+										,"발령처리되었습니다.");
 	}
 }

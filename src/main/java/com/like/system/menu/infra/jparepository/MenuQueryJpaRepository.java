@@ -13,7 +13,6 @@ import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuQueryRepository;
 import com.like.system.menu.domain.QMenu;
 import com.like.system.menu.domain.QMenuGroup;
-import com.like.system.webresource.domain.QWebResource;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -24,8 +23,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 
 	private JPAQueryFactory queryFactory;
 	private final QMenuGroup qMenuGroup = QMenuGroup.menuGroup;	
-	private final QMenu qMenu = QMenu.menu;
-	private final QWebResource qWebResource = QWebResource.webResource;
+	private final QMenu qMenu = QMenu.menu;	
 	
 	public MenuQueryJpaRepository(JPAQueryFactory queryFactory) {
 		this.queryFactory = queryFactory;
@@ -61,8 +59,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 						
 		JPAQuery<ResponseMenuHierarchy> query = queryFactory
 				.select(projections(qMenu))
-				.from(qMenu)
-					.leftJoin(qMenu.resource, qWebResource)					
+				.from(qMenu)								
 				.where(qMenu.menuGroup.id.eq(menuGroupId)
 					.and(qMenu.parent.id.isNull()));													
 				
@@ -81,8 +78,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 											, qMenu.menuGroup.menuGroupCode, qMenu.menuCode, qMenu.menuName
 											, qMenu.parent.menuCode, qMenu.menuType, qMenu.sequence, qMenu.level, qWebResource.url, isLeaf))*/
 				.select(projections(qMenu))
-				.from(qMenu)				
-					.leftJoin(qMenu.resource, qWebResource)
+				.from(qMenu)									
 				.where(qMenu.menuGroup.id.eq(menuGroupId)
 					.and(qMenu.parent.id.eq(parentMenuId)));
 																		
@@ -119,7 +115,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 										 ,qMenu.type
 										 ,qMenu.sequence
 										 ,qMenu.level
-										 ,qWebResource.url
+										 ,qMenu.appUrl
 										 ,isLeaf);
 	}
 

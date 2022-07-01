@@ -2,7 +2,6 @@ package com.like.hrm.hrmtypecode.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +11,7 @@ import com.like.hrm.hrmtypecode.boundary.HrmTypeDTO;
 import com.like.hrm.hrmtypecode.boundary.HrmTypeDetailCodeDTO;
 import com.like.hrm.hrmtypecode.domain.AppointmentTypeEnum;
 import com.like.hrm.hrmtypecode.service.HrmTypeQueryService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -29,44 +29,33 @@ public class HrmTypeQueryContoller {
 		List<HrmTypeDTO.FormHrmType> list = new ArrayList<HrmTypeDTO.FormHrmType>();
 		
 		for (AppointmentTypeEnum menuType : AppointmentTypeEnum.values()) {			
-			list.add(new HrmTypeDTO.FormHrmType(menuType.getCode()
-											,menuType.getName()
-											,true
-											,0
-											,"HRMTYPE"
-											,""));
+			list.add(new HrmTypeDTO.FormHrmType(menuType.getCode(),menuType.getName(),true,0,"HRMTYPE",""));
 		}										
 					
-		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+		return ResponseEntityUtil.toList(list		
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/hrm/hrmtype")
-	public ResponseEntity<?> getHrmTypeList(HrmTypeDTO.SearchHrmType dto) {
-		
-		//List<HrmType> list = service.getHrmDeptTypeList(dto);												
+	public ResponseEntity<?> getHrmTypeList(HrmTypeDTO.SearchHrmType dto) {														
 		
 		List<HrmTypeDTO.FormHrmType> list = service.getHrmTypeList(dto)
-												.stream()
-												.map(e -> HrmTypeDTO.FormHrmType.convert(e))
-												.collect(Collectors.toList());
-		
-		//HrmTypeDTO.SaveCode.convert(entity)
-		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+												   .stream()
+												   .map(e -> HrmTypeDTO.FormHrmType.convert(e))
+												   .toList();												   		
+		return ResponseEntityUtil.toList(list	
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/hrm/hrmtype/code")
-	public ResponseEntity<?> getHrmTypeDetailCodeList(HrmTypeDetailCodeDTO.SearchHrmTypeDetailCode dto) {
-		
-		//List<HrmTypeDetailCode> list = service.getHrmDeptTypeList(dto);												
+	public ResponseEntity<?> getHrmTypeDetailCodeList(HrmTypeDetailCodeDTO.SearchHrmTypeDetailCode dto) {														
 		
 		List<HrmTypeDetailCodeDTO.FormHrmTypeDetailCode> list = service.getTypeDetailCodeList(dto)
 																	   .stream()
 																	   .map(e -> HrmTypeDetailCodeDTO.FormHrmTypeDetailCode.convert(e))
-																	   .collect(Collectors.toList());
+																	   .toList();																	   
 		
-		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+		return ResponseEntityUtil.toList(list	
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 }

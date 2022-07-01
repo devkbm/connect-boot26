@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.duty.service.DutyCodeCommandService;
 import com.like.hrm.dutycode.boundary.DutyCodeDTO;
 import com.like.hrm.dutycode.domain.DutyCode;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -28,8 +29,8 @@ public class DutyCodeController {
 		
 		DutyCode entity = service.getDutyCode(id);
 					
-		return ResponseEntityUtil.toOne(entity											
-									   ,String.format("%d 건 조회되었습니다.", entity == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(entity		
+									   ,MessageUtil.getQueryMessage(entity == null ? 0 : 1));
 	}
 	
 	@RequestMapping(value={"/hrm/dutycode"}, method={RequestMethod.POST,RequestMethod.PUT}) 
@@ -37,8 +38,8 @@ public class DutyCodeController {
 									
 		service.saveDutyCode(dto);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 		
@@ -47,7 +48,7 @@ public class DutyCodeController {
 																		
 		service.deleteDutyCode(id);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null	
+										,MessageUtil.getDeleteMessage(1));
 	}
 }

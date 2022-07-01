@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.license.License;
 import com.like.hrm.staff.service.StaffLicenseService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -30,7 +31,7 @@ public class StaffLicenseController {
 		License license = service.getLicense(staffId, id);  									
 		
 		return ResponseEntityUtil.toOne(license	
-						    		   ,"%d 건 조회되었습니다.".formatted(license == null ? 0 : 1));
+									   ,MessageUtil.getQueryMessage(license == null ? 0 : 1));
 	}
 		
 	@PostMapping("/hrm/employee/license")
@@ -38,7 +39,7 @@ public class StaffLicenseController {
 				
 		service.saveLicense(dto);
 											 				
-		return ResponseEntityUtil.toList(null							
-										,"1 건 저장되었습니다.");
+		return ResponseEntityUtil.toList(null	
+										,MessageUtil.getSaveMessage(1));
 	}
 }

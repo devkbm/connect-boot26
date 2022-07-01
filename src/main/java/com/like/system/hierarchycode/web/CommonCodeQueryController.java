@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlOptionRecord;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.hierarchycode.boundary.CodeDTO;
 import com.like.system.hierarchycode.boundary.CodeHierarchy;
@@ -34,8 +35,8 @@ public class CommonCodeQueryController {
 			list.add(new HtmlOptionRecord(type.getDescription(), type.toString()));
 		}
 		
-		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+		return ResponseEntityUtil.toList(list
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/common/codetree") 
@@ -44,7 +45,7 @@ public class CommonCodeQueryController {
 		List<CodeHierarchy> list = service.getCodeHierarchyList(searchCondition);  						 						
 		
 		return ResponseEntityUtil.toList(list							
-										,String.format("%d 건 조회되었습니다.", list.size()));
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/common/code") 
@@ -57,6 +58,6 @@ public class CommonCodeQueryController {
 											 .toList();
 		
 		return ResponseEntityUtil.toList(dtoList							
-										,String.format("%d 건 조회되었습니다.", dtoList.size()));
+										,MessageUtil.getQueryMessage(dtoList.size()));
 	}
 }

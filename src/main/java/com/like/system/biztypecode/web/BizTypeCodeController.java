@@ -12,6 +12,7 @@ import com.like.system.biztypecode.boundary.BizDetailCodeDTO;
 import com.like.system.biztypecode.boundary.BizTypeCodeDTO;
 import com.like.system.biztypecode.domain.BizDetailCodeId;
 import com.like.system.biztypecode.service.BizTypeCodeService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -28,8 +29,8 @@ public class BizTypeCodeController {
 		
 		BizTypeCodeDTO.FormBizTypeCode dto = BizTypeCodeDTO.FormBizTypeCode.convert(service.getBizTypeCode(id));
 					
-		return ResponseEntityUtil.toOne(dto											
-									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(dto		
+									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
 	@PostMapping("/common/biztype")	
@@ -38,7 +39,7 @@ public class BizTypeCodeController {
 		service.saveBizTypeCode(dto);						
 								 					
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 		
@@ -48,7 +49,7 @@ public class BizTypeCodeController {
 		service.deleteBizTypeCode(id);						
 								 					
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+										,MessageUtil.getDeleteMessage(1));
 	}
 	
 	@GetMapping("/common/biztype/{typeCode}/bizdetail/{detailCode}")
@@ -58,7 +59,7 @@ public class BizTypeCodeController {
 		BizDetailCodeDTO.FormBizDetailCode dto = BizDetailCodeDTO.FormBizDetailCode.convert(service.getBizDetailCode(new BizDetailCodeId(typeCode, detailCode)));
 					
 		return ResponseEntityUtil.toOne(dto											
-									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
 	@PostMapping("/common/biztype/bizdetail")	
@@ -67,7 +68,7 @@ public class BizTypeCodeController {
 		service.saveBizDetailCode(dto);						
 								 					
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}	
 		
 	@DeleteMapping("/common/biztype/{typeCode}/bizdetail/{detailCode}")
@@ -77,7 +78,7 @@ public class BizTypeCodeController {
 		service.deleteBizDetailCode(new BizDetailCodeId(typeCode, detailCode));						
 								 					
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+										,MessageUtil.getDeleteMessage(1));
 	}
 	
 }

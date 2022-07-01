@@ -1,10 +1,7 @@
 package com.like.system.dept.web;
 
-import java.util.Locale;
-
 import javax.validation.Valid;
 
-import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.dept.boundary.DeptDTO;
 import com.like.system.dept.boundary.DeptDTO.FormDept;
@@ -22,12 +20,10 @@ import com.like.system.dept.service.DeptService;
 @RestController
 public class DeptController {
 	
-	private DeptService deptService;
-	private MessageSource messageSource;
+	private DeptService deptService;	
 	
-	public DeptController(DeptService deptService, MessageSource messageSource) {
-		this.deptService = deptService;
-		this.messageSource = messageSource;
+	public DeptController(DeptService deptService) {
+		this.deptService = deptService;		
 	}
 		
 	@GetMapping("/api/common/dept/{deptCode}")
@@ -37,8 +33,8 @@ public class DeptController {
 		
 		FormDept dto = DeptDTO.FormDept.convertDTO(dept);
 		
-		return ResponseEntityUtil.toOne(dto											
-									   ,messageSource.getMessage("common.query", new Integer[] {1}, Locale.getDefault()));
+		return ResponseEntityUtil.toOne(dto	
+									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/common/dept")
@@ -47,7 +43,7 @@ public class DeptController {
 		deptService.saveDept(dto);		
 											 				
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}		
 	
 	@DeleteMapping("/api/common/dept/{deptCode}")
@@ -56,7 +52,7 @@ public class DeptController {
 		deptService.deleteDept(deptCode);							
 		
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+										,MessageUtil.getDeleteMessage(1));
 	}
 	
 }

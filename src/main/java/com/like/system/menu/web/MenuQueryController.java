@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlOptionRecord;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.menu.boundary.MenuDTO;
 import com.like.system.menu.boundary.MenuGroupDTO;
@@ -35,8 +36,8 @@ public class MenuQueryController {
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 							
 		
-		return ResponseEntityUtil.toList(menuGroup											
-										,String.format("%d 건 조회되었습니다.", menuGroup.size()));
+		return ResponseEntityUtil.toList(menuGroup
+										,MessageUtil.getQueryMessage(menuGroup.size()));
 	}
 	
 	@GetMapping("/api/common/menuhierarchy/{menuGroupId}")
@@ -45,7 +46,7 @@ public class MenuQueryController {
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 										
 		
 		return ResponseEntityUtil.toList(menuGroup											
-										,String.format("%d 건 조회되었습니다.", menuGroup.size()));
+										,MessageUtil.getQueryMessage(menuGroup.size()));
 	}
 	
 	@GetMapping("/api/common/menugroup")
@@ -57,8 +58,8 @@ public class MenuQueryController {
 													   .map(e -> FormMenuGroup.convert(e))
 													   .toList();													   
 		
-		return ResponseEntityUtil.toList(dtoList											
-										,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(dtoList	
+										,MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
 	@GetMapping("/api/common/menu")
@@ -71,7 +72,7 @@ public class MenuQueryController {
 											 .toList();											 
 		
 		return ResponseEntityUtil.toList(dtoList											
-										,String.format("%d 건 조회되었습니다.", dtoList.size()));
+										,MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
 	@GetMapping("/api/common/menu/menutype")
@@ -84,6 +85,6 @@ public class MenuQueryController {
 		}
 		
 		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 }

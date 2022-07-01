@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.service.StaffService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -27,8 +28,8 @@ public class StaffController {
 								
 		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(staffService.getStaff(id)); 
 		
-		return ResponseEntityUtil.toOne(dto											
-									   ,"%d 건 조회되었습니다.".formatted(dto == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(dto		
+									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/hrm/staff/create")
@@ -46,7 +47,7 @@ public class StaffController {
 		staffService.saveStaff(dto);
 											 				
 		return ResponseEntityUtil.toList(null											
-						    			,"1 건 저장되었습니다.");
+										,MessageUtil.getSaveMessage(1));
 	}
 			
 }

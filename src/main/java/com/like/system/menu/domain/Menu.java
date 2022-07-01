@@ -19,7 +19,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
-import com.like.system.webresource.domain.WebResource;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -39,44 +38,43 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	private static final long serialVersionUID = -8469789281288988098L;
 
 	@Id
-	@Column(name = "menu_code")
+	@Column(name = "MENU_CODE")
 	String id;
 	
-	@Column(name="menu_name")
+	@Column(name="MENU_NAME")
 	String name; 		
 				
 	@Enumerated(EnumType.STRING)
 	@JsonFormat(shape = JsonFormat.Shape.OBJECT)
-	@Column(name="menu_type")
+	@Column(name="MENU_TYPE")
 	MenuType type;
 	
-	@Column(name="seq")
+	@Column(name="APP_URL")
+	String appUrl;
+	
+	@Column(name="SEQ")
 	long sequence;
 	
-	@Column(name="lvl")
+	@Column(name="LVL")
 	long level;
 	
 	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="p_menu_code", nullable = true )
+	@JoinColumn(name="P_MENU_CODE", nullable = true )
 	Menu parent;
 	
 	@JsonIgnore	
 	@ManyToOne
-	@JoinColumn(name = "menu_group_code", nullable=false, updatable=false)
-	MenuGroup menuGroup = new MenuGroup();
-	
-	@OneToOne(optional=true)
-	@JoinColumn(name = "resource_code", nullable=true)
-	WebResource resource;
+	@JoinColumn(name = "MENU_GROUP_CODE", nullable=false, updatable=false)
+	MenuGroup menuGroup = new MenuGroup();	
 		
 	@Builder
 	public Menu(@NonNull MenuGroup menuGroup,
 				String menuCode, 
 				String menuName, 				 			
-				MenuType menuType, 
+				MenuType menuType,
+				String appUrl,
 				long sequence,
-				long level, 				
-				WebResource resource) {
+				long level) {
 		
 		this.id = menuCode;
 		this.name = menuName;			
@@ -84,40 +82,41 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 		this.sequence = sequence;
 		this.level = level;
 		this.menuGroup = menuGroup;
-		this.resource = resource;
+		this.appUrl = appUrl;
 	}
 	
 	/**
+	 * 
 	 * @param menuName
 	 * @param menuType
+	 * @param appUrl
 	 * @param sequence
 	 * @param level
 	 * @param parent
 	 * @param menuGroup
-	 * @param resource
 	 */
 	public void modifyEntity(String menuName
 							,MenuType menuType
+							,String appUrl
 							,long sequence
 							,long level
 							,Menu parent
-							,MenuGroup menuGroup
-							,WebResource resource) {
+							,MenuGroup menuGroup) {
 		this.name = menuName;
 		this.type = menuType;
 		this.sequence = sequence;
 		this.level = level;
 		this.parent = parent;
 		this.menuGroup = menuGroup;
-		this.resource = resource;
+		this.appUrl = appUrl;
 	}
 							
 	public void setMenuGroup(MenuGroup menuGroup) {
 		this.menuGroup = menuGroup;
 	}
 	
-	public void registerProgram(WebResource resource) {
-		this.resource = resource;
+	public void registerAppUrl(String appUrl) {
+		this.appUrl = appUrl;
 	}
 
 }

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.cooperation.workschedule.boundary.ScheduleDTO;
-import com.like.cooperation.workschedule.domain.Schedule;
 import com.like.cooperation.workschedule.service.ScheduleQueryService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -22,15 +22,14 @@ public class ScheduleQueryController {
 	}
 	
 	@GetMapping("/api/grw/schedule")
-	public ResponseEntity<?> getScheduleList(@ModelAttribute ScheduleDTO.SearchSchedule searchCondition) {
-						
-		List<Schedule> workGroupList = service.getScheduleList(searchCondition);				
+	public ResponseEntity<?> getScheduleList(@ModelAttribute ScheduleDTO.SearchSchedule searchCondition) {										
 		
-		List<ScheduleDTO.ResponseSchedule> dtoList = workGroupList.stream()
-																  .map( r -> ScheduleDTO.ResponseSchedule.convertResDTO(r))
-																  .toList();
+		List<ScheduleDTO.ResponseSchedule> list = service.getScheduleList(searchCondition)
+														 .stream()
+														 .map( r -> ScheduleDTO.ResponseSchedule.convertResDTO(r))
+														 .toList();
 		
-		return ResponseEntityUtil.toList(dtoList							
-										,dtoList.size() + "건 조회 되었습니다.");												
+		return ResponseEntityUtil.toList(list							
+										,MessageUtil.getQueryMessage(list.size()));												
 	}
 }

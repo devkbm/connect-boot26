@@ -32,9 +32,9 @@ public class StaffAppointmentService {
 	}
 	
 	public void saveAppointmentRecord(AppointmentRecordDTO.FormStaffAppointmentRecord dto) {
-		Staff emp = getStaffInfo(dto.getStaffId());
+		Staff emp = getStaffInfo(dto.staffId());
 		
-		AppointmentRecord entity = emp.getAppointmentRecordList().get(dto.getId());
+		AppointmentRecord entity = emp.getAppointmentRecordList().get(dto.id());
 		
 		if (entity == null) {
 			entity = dto.newEntity(emp);

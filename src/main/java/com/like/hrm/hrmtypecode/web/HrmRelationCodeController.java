@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.hrmtypecode.boundary.SaveHrmRelationCode;
 import com.like.hrm.hrmtypecode.domain.HrmRelationCode;
 import com.like.hrm.hrmtypecode.service.HrmRelationCodeService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -26,10 +27,10 @@ public class HrmRelationCodeController {
 	@GetMapping("/hrm/hrmrelation/{id}")
 	public ResponseEntity<?> getHrmRelationCode(@PathVariable Long id) {				
 		
-		HrmRelationCode hrmType = service.getRelationCode(id);
+		HrmRelationCode hrmRelationCode = service.getRelationCode(id);
 					
-		return ResponseEntityUtil.toOne(hrmType											
-									   ,String.format("%d 건 조회되었습니다.", hrmType == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(hrmRelationCode			
+									   ,MessageUtil.getQueryMessage(hrmRelationCode == null ? 0 : 1));
 	}
 	
 	@RequestMapping(value={"/hrm/hrmrelation"}, method={RequestMethod.POST,RequestMethod.PUT}) 
@@ -37,8 +38,8 @@ public class HrmRelationCodeController {
 																		
 		service.saveRelationCode(dto);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null	
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/hrm/hrmrelation/{id}")
@@ -46,7 +47,7 @@ public class HrmRelationCodeController {
 						
 		service.deleteRelationCode(id);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null	
+										,MessageUtil.getDeleteMessage(1));
 	}
 }

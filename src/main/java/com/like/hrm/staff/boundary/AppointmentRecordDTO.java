@@ -1,6 +1,5 @@
 package com.like.hrm.staff.boundary;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -10,52 +9,27 @@ import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.appointment.AppointmentInformation;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class AppointmentRecordDTO {
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Builder
-	public static class FormStaffAppointmentRecord implements Serializable {
-				
-		private static final long serialVersionUID = -907086321137174863L;
-
-		@NotEmpty
-		private String staffId;
-		
-		private Long id;			
-				
-		private LocalDate appointmentDate;
-				
-		private LocalDate appointmentEndDate;
-				
-		private String recordName;
-				
-		private String comment;
-				
-		private String processWatingYn;
-		
-		private String blngDeptCode;
-		
-		private String workDeptCode;
-		
-		private String jobGroupCode;
-		
-		private String jobPositionCode;
-		
-		private String occupationCode;
-		
-		private String jobGradeCode;
-		
-		private String payStepCode;
-		
-		private String jobCode;
-		
-		private String dutyResponsibilityCode;
+	
+	public record FormStaffAppointmentRecord(
+			@NotEmpty
+			String staffId,
+			Long id,
+			LocalDate appointmentDate,
+			LocalDate appointmentEndDate,			
+			String recordName,
+			String comment,				
+			String processWatingYn,
+			String blngDeptCode,			
+			String workDeptCode,			
+			String jobGroupCode,			
+			String jobPositionCode,			
+			String occupationCode,			
+			String jobGradeCode,
+			String payStepCode,			
+			String jobCode,			
+			String dutyResponsibilityCode
+			) {
 		
 		public AppointmentRecord newEntity(Staff staff) {		
 			AppointmentInformation info = newAppointmentInformation();
@@ -79,24 +53,22 @@ public class AppointmentRecordDTO {
 
 			Optional<AppointmentInformation> info = Optional.ofNullable(entity.getInfo());
 			
-			return FormStaffAppointmentRecord.builder()
-							 			.staffId(entity.getStaff().getId())
-							 			.id(entity.getId())
-							 			.appointmentDate(entity.getAppointmentDate())
-							 			.appointmentEndDate(entity.getAppointmentEndDate())
-							 			.recordName(entity.getRecordName())
-							 			.comment(entity.getComment())
-							 			.processWatingYn(entity.getProcessWatingYn())
-							 			.blngDeptCode(info.map(AppointmentInformation::getBlngDeptCode).orElse(null))
-							 			.workDeptCode(info.map(AppointmentInformation::getWorkDeptCode).orElse(null))
-							 			.jobGroupCode(info.map(AppointmentInformation::getJobGroupCode).orElse(null))
-							 			.jobPositionCode(info.map(AppointmentInformation::getJobPositionCode).orElse(null))
-							 			.occupationCode(info.map(AppointmentInformation::getOccupationCode).orElse(null))
-							 			.jobGradeCode(info.map(AppointmentInformation::getJobGradeCode).orElse(null))
-							 			.payStepCode(info.map(AppointmentInformation::getPayStepCode).orElse(null))
-							 			.jobCode(info.map(AppointmentInformation::getJobCode).orElse(null))
-							 			.dutyResponsibilityCode(info.map(AppointmentInformation::getDutyResponsibilityCode).orElse(null))
-							 			.build();
+			return new FormStaffAppointmentRecord(entity.getStaff().getId()
+												 ,entity.getId()
+												 ,entity.getAppointmentDate()
+												 ,entity.getAppointmentEndDate()
+												 ,entity.getRecordName()
+												 ,entity.getComment()
+												 ,entity.getProcessWatingYn()
+												 ,info.map(AppointmentInformation::getBlngDeptCode).orElse(null)
+												 ,info.map(AppointmentInformation::getWorkDeptCode).orElse(null)
+												 ,info.map(AppointmentInformation::getJobGroupCode).orElse(null)
+												 ,info.map(AppointmentInformation::getJobPositionCode).orElse(null)
+												 ,info.map(AppointmentInformation::getOccupationCode).orElse(null)
+												 ,info.map(AppointmentInformation::getJobGradeCode).orElse(null)
+												 ,info.map(AppointmentInformation::getPayStepCode).orElse(null)
+												 ,info.map(AppointmentInformation::getJobCode).orElse(null)
+												 ,info.map(AppointmentInformation::getDutyResponsibilityCode).orElse(null));					
 		}
 		
 		private AppointmentInformation newAppointmentInformation() {
@@ -111,4 +83,5 @@ public class AppointmentRecordDTO {
 											 ,dutyResponsibilityCode);
 		}
 	}
+		
 }

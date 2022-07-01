@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.like.cooperation.board.boundary.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.service.ArticleCommandService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @Controller
@@ -36,8 +37,8 @@ public class ArticleController {
 	
 		ArticleDTO.ResponseArticle response = ArticleDTO.ResponseArticle.converDTO(article);				
 		
-		return ResponseEntityUtil.toOne(response											
-									   ,String.format("%d 건 조회되었습니다.", 1));
+		return ResponseEntityUtil.toOne(response
+									   ,MessageUtil.getQueryMessage(response == null ? 0 : 1));
 	}
 		
 	@DeleteMapping("/api/grw/board/article/{id}")
@@ -46,7 +47,7 @@ public class ArticleController {
 		service.deleteArticle(id);							
 		
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+										,MessageUtil.getDeleteMessage(1));
 	}
 			
 	@DeleteMapping("/api/grw/board/article")
@@ -55,7 +56,7 @@ public class ArticleController {
 		service.deleteArticle(articleList);									
 		
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", articleList.size()));
+										,MessageUtil.getDeleteMessage(articleList.size()));
 	}	
 		
 	@PostMapping("/api/grw/board/articletemp")
@@ -65,7 +66,7 @@ public class ArticleController {
 		service.saveArticle(dto);											
 		
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}
 		
 	@PostMapping("/api/grw/board/article")
@@ -75,12 +76,12 @@ public class ArticleController {
 		service.saveArticle(dto);											
 		
 		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}
 			
 	@GetMapping("/grw/board/article/hitcnt")
-	public ResponseEntity<?> updateArticleHitCnt(@RequestParam(value="id", required=true) Long id,
-												 @RequestParam(value="userid", required=true) String userId) {								
+	public ResponseEntity<?> updateArticleHitCnt(@RequestParam Long id,
+												 @RequestParam String userId) {								
 				
 		Article aritlce = service.updateArticleHitCnt(id, userId);			
 										

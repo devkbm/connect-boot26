@@ -222,13 +222,13 @@ public class StaffDTO {
 			if (entity == null) return null;
 			
 			return new FormFamily(entity.getStaff().getId()
-									,entity.getId()
-									,entity.getName()
-									,entity.getResidentRegistrationNumber()
-									,entity.getRelation()
-									,entity.getOccupation()
-									,entity.getSchoolCareerType()
-									,entity.getComment());							 							 							 							 						
+								 ,entity.getId()
+								 ,entity.getName()
+								 ,entity.getResidentRegistrationNumber()
+								 ,entity.getRelation()
+								 ,entity.getOccupation()
+								 ,entity.getSchoolCareerType()
+								 ,entity.getComment());							 							 							 							 						
 		}
 	}	
 	

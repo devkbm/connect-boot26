@@ -11,7 +11,6 @@ import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuType;
 import com.like.system.menu.domain.QMenu;
 import com.like.system.menu.domain.QMenuGroup;
-import com.like.system.webresource.domain.WebResource;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -67,10 +66,10 @@ public class MenuDTO {
 			String menuType,
 			long sequence,
 			long level,
-			String resource
+			String appUrl
 			) {
 		
-		public Menu newMenu(MenuGroup menuGroup, WebResource resource) {
+		public Menu newMenu(MenuGroup menuGroup) {
 			return Menu.builder()
 					   .menuGroup(menuGroup)
 					   .menuCode(this.menuId)
@@ -78,18 +77,18 @@ public class MenuDTO {
 					   .menuType(MenuType.valueOf(this.menuType))
 					   .sequence(this.sequence)
 					   .level(this.level)					   
-					   .resource(resource)
+					   .appUrl(this.appUrl)
 					   .build();
 		}
 		
-		public void modifyMenu(Menu menu, Menu parentMenu, MenuGroup menuGroup, WebResource resource) {
+		public void modifyMenu(Menu menu, Menu parentMenu, MenuGroup menuGroup) {
 			menu.modifyEntity(this.menuName
 					         ,MenuType.valueOf(this.menuType)
+					         ,this.appUrl
 					         ,this.sequence
 					         ,this.level
 					         ,parentMenu
-					         ,menuGroup
-					         ,resource);
+					         ,menuGroup);
 			
 		}
 		
@@ -107,7 +106,7 @@ public class MenuDTO {
 					   	   .sequence(menu.getSequence())
 					   	   .level(menu.getLevel())
 					   	   .parentMenuId(menu.getParent() == null ? null : menu.getParent().getId())
-					   	   .resource(menu.getResource() == null ? null : menu.getResource().getResourceCode())
+					   	   .appUrl(menu.getAppUrl())
 					   	   .build();
 		}
 	}	

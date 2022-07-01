@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.duty.service.DutyCodeQueryService;
 import com.like.hrm.dutycode.boundary.DutyCodeDTO;
-import com.like.hrm.dutycode.domain.DutyCode;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -23,14 +23,14 @@ public class DutyCodeQueryController {
 	
 	@GetMapping("/hrm/dutycode")
 	public ResponseEntity<?> getDutyCodeList(DutyCodeDTO.SearchDutyCode dto) {
+								
 		
-		List<DutyCode> list = service.getDutyCodeList(dto);					
-		
-		List<DutyCodeDTO.SaveDutyCode> dtoList = list.stream()
+		List<DutyCodeDTO.SaveDutyCode> list = service.getDutyCodeList(dto)
+													 .stream()
 													 .map(e -> DutyCodeDTO.SaveDutyCode.convert(e))
 													 .collect(Collectors.toList());
 		
-		return ResponseEntityUtil.toList(dtoList											
-										,String.format("%d 건 조회되었습니다.", dtoList.size()));
+		return ResponseEntityUtil.toList(list
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 }

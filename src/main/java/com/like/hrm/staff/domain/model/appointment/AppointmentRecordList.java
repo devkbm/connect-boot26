@@ -40,7 +40,7 @@ public class AppointmentRecordList {
 		this.appointmentRecordList.removeIf(e -> e.getId().equals(id));			
 	}
 	
-	public Stream<AppointmentRecord> getStream() {
+	public Stream<AppointmentRecord> stream() {
 		return this.appointmentRecordList.stream();
 	}
 }

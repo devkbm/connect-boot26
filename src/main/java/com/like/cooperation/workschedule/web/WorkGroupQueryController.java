@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.cooperation.workschedule.boundary.WorkDTO;
 import com.like.cooperation.workschedule.domain.WorkGroup;
 import com.like.cooperation.workschedule.service.WorkGroupQueryService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
@@ -25,20 +26,18 @@ public class WorkGroupQueryController {
 	@GetMapping("/api/grw/workgroup")
 	public ResponseEntity<?> getWorkGroupList(@ModelAttribute WorkDTO.SearchWorkGroup searchCondition) {
 						
-		List<WorkGroup> workGroupList = service.getWorkGroupList(searchCondition);				
+		List<WorkGroup> list = service.getWorkGroupList(searchCondition);				
 		
-		return ResponseEntityUtil.toList(workGroupList													
-										,workGroupList.size() + "건 조회 되었습니다.");												
+		return ResponseEntityUtil.toList(list	
+										,MessageUtil.getQueryMessage(list.size()));												
 	}
 	
 	@GetMapping("/api/grw/myworkgroup")
-	public ResponseEntity<?> getWorkGroupList() {
-						
-		String sessionId = SessionUtil.getUserId(); // SecurityContextHolder.getContext().getAuthentication().getName();
+	public ResponseEntity<?> getWorkGroupList() {							
 		
-		List<WorkGroup> workGroupList = service.getMyWorkGroupList(sessionId);				
+		List<WorkGroup> list = service.getMyWorkGroupList(SessionUtil.getUserId());				
 		
-		return ResponseEntityUtil.toList(workGroupList													
-										,workGroupList.size() + "건 조회 되었습니다.");												
+		return ResponseEntityUtil.toList(list													
+										,MessageUtil.getQueryMessage(list.size()));												
 	}
 }

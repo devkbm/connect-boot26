@@ -16,6 +16,7 @@ import com.like.cooperation.todo.boundary.TodoDTO;
 import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.service.TodoCommandService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -42,7 +43,7 @@ public class TodoController {
 		taskCommandService.saveTodoGroup(dto);
 																				 			
 		return ResponseEntityUtil.toList(null
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}
 		
 	@DeleteMapping("/api/todo/group/{id}")
@@ -51,7 +52,7 @@ public class TodoController {
 		taskCommandService.deleteTodoGroup(id);
 											 				
 		return ResponseEntityUtil.toList(null
-										,String.format("%d 건 삭제되었습니다.", 1));
+										,MessageUtil.getDeleteMessage(1));
 	}
 		
 	@GetMapping("/api/todo/group/{id}/list")
@@ -64,7 +65,7 @@ public class TodoController {
 											 .toList(); 											
 		
 		return ResponseEntityUtil.toList(dtoList
-										,String.format("%d 건 조회되었습니다.", dtoList.size()));
+										,MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
 	@PostMapping("/api/todo/group/todo")
@@ -73,7 +74,7 @@ public class TodoController {
 		TodoDTO.FormTodo todo = TodoDTO.FormTodo.convert(taskCommandService.saveTodo(dto));
 																				 			
 		return ResponseEntityUtil.toOne(todo
-									   ,String.format("%d 건 저장되었습니다.", 1));
+									   ,MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/todo/group/{groupid}/todo/{id}")
@@ -83,7 +84,7 @@ public class TodoController {
 		taskCommandService.deleteTodo(groupid, id);
 											 				
 		return ResponseEntityUtil.toList(null
-										,String.format("%d 건 삭제되었습니다.", 1));
+										,MessageUtil.getDeleteMessage(1));
 	}
 	
 }

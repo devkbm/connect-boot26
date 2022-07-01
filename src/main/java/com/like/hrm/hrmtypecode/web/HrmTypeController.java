@@ -13,6 +13,7 @@ import com.like.hrm.hrmtypecode.boundary.HrmTypeDTO;
 import com.like.hrm.hrmtypecode.boundary.HrmTypeDetailCodeDTO;
 import com.like.hrm.hrmtypecode.domain.HrmTypeDetailCodeId;
 import com.like.hrm.hrmtypecode.service.HrmTypeService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -29,8 +30,8 @@ public class HrmTypeController {
 		
 		HrmTypeDTO.FormHrmType hrmType = service.getHrmTypeDTO(id);
 					
-		return ResponseEntityUtil.toOne(hrmType											
-									   ,String.format("%d 건 조회되었습니다.", hrmType == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(hrmType
+									   ,MessageUtil.getQueryMessage(hrmType == null ? 0 : 1));
 	}
 	
 	@RequestMapping(value={"/hrm/hrmtype"}, method={RequestMethod.POST,RequestMethod.PUT}) 
@@ -38,8 +39,8 @@ public class HrmTypeController {
 																	
 		service.saveHrmType(dto);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 		
@@ -48,8 +49,8 @@ public class HrmTypeController {
 																		
 		service.deleteHrmType(id);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null
+										,MessageUtil.getDeleteMessage(1));
 	}			
 	
 	
@@ -59,7 +60,7 @@ public class HrmTypeController {
 		HrmTypeDetailCodeDTO.FormHrmTypeDetailCode dto = service.getTypeDetailCodeDTO(new HrmTypeDetailCodeId(type, code));
 					
 		return ResponseEntityUtil.toOne(dto
-									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 	
 	@RequestMapping(value={"/hrm/hrmtype/{type}/code"}, method={RequestMethod.POST,RequestMethod.PUT}) 
@@ -67,8 +68,8 @@ public class HrmTypeController {
 																			
 		service.saveTypeDetailCode(dto);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null	
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/hrm/hrmtype/{type}/code/{code}")
@@ -76,8 +77,8 @@ public class HrmTypeController {
 																		
 		service.deleteTypeDetailCode(new HrmTypeDetailCodeId(type, code));						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null		
+										,MessageUtil.getDeleteMessage(1));
 	}
 	
 

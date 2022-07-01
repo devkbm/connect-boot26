@@ -17,6 +17,7 @@ import com.like.cooperation.survey.surveyform.domain.SurveyForm;
 import com.like.cooperation.survey.surveyform.domain.SurveyItem;
 import com.like.cooperation.survey.surveyform.service.SurveyQueryService;
 import com.like.cooperation.survey.surveyform.service.SurveyService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -36,8 +37,8 @@ public class SurveyController {
 		
 		List<SurveyForm> list = surveyQueryService.getSurveyFormList(dto); 		
 								
-		return ResponseEntityUtil.toList(list																					
-										,String.format("%d 건 조회되었습니다.", list.size()));
+		return ResponseEntityUtil.toList(list		
+										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/survey/form/{formId}")
@@ -45,8 +46,8 @@ public class SurveyController {
 		
 		SurveyForm surveryForm = surveyService.getSurveyForm(formId); 		
 								
-		return ResponseEntityUtil.toOne(surveryForm																					
-									   ,String.format("%d 건 조회되었습니다.", surveryForm != null ? 1 : 0));
+		return ResponseEntityUtil.toOne(surveryForm		
+									   ,MessageUtil.getQueryMessage(surveryForm != null ? 1 : 0));
 	}
 	
 		
@@ -55,8 +56,8 @@ public class SurveyController {
 																			
 		surveyService.saveSurveyForm(dto);			
 										 					
-		return ResponseEntityUtil.toList(null										
-										,String.format("%d 건 저장되었습니다.", 1));
+		return ResponseEntityUtil.toList(null
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/survey/form/{id}")
@@ -64,8 +65,8 @@ public class SurveyController {
 		
 		surveyService.deleteSurveyForm(formId); 		
 								
-		return ResponseEntityUtil.toList(null																		
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null
+										,MessageUtil.getDeleteMessage(1));
 	}
 	
 	@GetMapping("/api/survey/form/{formId}/item/{itemId}")
@@ -74,8 +75,8 @@ public class SurveyController {
 		
 		SurveyItem surveryForm = surveyService.getSurveyItem(formId, itemId); 		
 								
-		return ResponseEntityUtil.toOne(surveryForm											
-									   ,String.format("%d 건 조회되었습니다.", surveryForm != null ? 1 : 0));
+		return ResponseEntityUtil.toOne(surveryForm		
+									   ,MessageUtil.getQueryMessage(surveryForm != null ? 1 : 0));
 	}
 	
 	@PostMapping("/api/survey/form/item") 
@@ -84,7 +85,7 @@ public class SurveyController {
 		surveyService.saveSurveyItem(dto);			
 										 					
 		return ResponseEntityUtil.toList(null																			
-										,String.format("%d 건 저장되었습니다.", 1));
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/survey/form/{formId}/item/{itemId}")
@@ -93,7 +94,7 @@ public class SurveyController {
 		
 		surveyService.deleteSurveyItem(formId, itemId); 		
 								
-		return ResponseEntityUtil.toList(null																				
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return ResponseEntityUtil.toList(null	
+										,MessageUtil.getDeleteMessage(1));
 	}
 }

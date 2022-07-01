@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
 import com.like.hrm.staff.service.StaffSchoolCareerService;
+import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
@@ -27,10 +28,10 @@ public class StaffSchoolCareerController {
 	public ResponseEntity<?> getEducation(@PathVariable String staffId,
 										  @PathVariable Long id) {
 				
-		SchoolCareer education = service.getSchoolCareer(staffId, id);  									
+		SchoolCareer schoolCareer = service.getSchoolCareer(staffId, id);  									
 		
-		return ResponseEntityUtil.toOne(education											
-									   ,"%d 건 조회되었습니다.".formatted(education == null ? 0 : 1));
+		return ResponseEntityUtil.toOne(schoolCareer		
+									   ,MessageUtil.getQueryMessage(schoolCareer == null ? 0 : 1));
 	}
 		
 	@PostMapping("/hrm/staff/education")
@@ -38,8 +39,8 @@ public class StaffSchoolCareerController {
 				
 		service.saveSchoolCareer(dto);
 											 				
-		return ResponseEntityUtil.toList(null							
-										,"1 건 저장되었습니다.");
+		return ResponseEntityUtil.toList(null	
+										,MessageUtil.getSaveMessage(1));
 	}
 	
 }
