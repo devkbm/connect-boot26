@@ -18,11 +18,14 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.dept.domain.Dept;
+import com.like.system.file.infra.file.LocalFileRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.user.domain.vo.AccountSpec;
+import com.like.system.user.domain.vo.SystemUserImage;
 import com.like.system.user.domain.vo.UserPassword;
 
 import lombok.AccessLevel;
@@ -48,15 +51,15 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@Column(name="USER_ID")
 	String id;
 	
+	@Column(name="ORG_CD")
+	String organizationCode;
+	
 	@Column(name="STAFF_NO")
 	String staffNo;
 	
 	@Column(name="USER_NAME")
 	String name;
-	
-	@Column(name="ORG_CD")
-	String organizationCode;	
-	
+			
 	@Embedded
 	UserPassword password;
 		
@@ -69,8 +72,10 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@Column(name="EMAIL")
 	String email;
 				
-	@Column(name="FK_FILE")
-	String image;
+	//@Column(name="FK_FILE")
+	//String image;
+	@Embedded
+	SystemUserImage image;
 	
 	@OneToOne(optional = true)
 	@JoinColumn(name = "DEPT_CD", nullable = true)
@@ -92,9 +97,9 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		
 	@Builder
 	public SystemUser(String id
-					 ,String staffNo
-					 ,String name
 					 ,String organizationCode
+					 ,String staffNo					 
+					 ,String name					 
 					 ,UserPassword password
 					 ,Dept dept
 					 ,String mobileNum
@@ -103,9 +108,9 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,Set<Authority> authorities
 					 ,Set<MenuGroup> menuGroupList) {		
 		this.id = id;
-		this.staffNo = staffNo;
-		this.name = name;
 		this.organizationCode = organizationCode;
+		this.staffNo = staffNo;
+		this.name = name;		
 		this.password = password;
 		this.dept = dept;
 		this.mobileNum = mobileNum;
@@ -117,17 +122,17 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		this.initPassword();
 	}	
 	
-	public void modifyEntity(String staffNo
-			 				,String name		
-			 				,String organizationCode
+	public void modifyEntity(String organizationCode
+							,String staffNo
+			 				,String name					 				
 							,String mobileNum
 							,String email							 
 							,Dept dept
 							,Set<Authority> authorities
 							,Set<MenuGroup> menuGroupList) {
-		this.staffNo = staffNo;
-		this.name = name;				
 		this.organizationCode = organizationCode;
+		this.staffNo = staffNo;
+		this.name = name;						
 		this.mobileNum = mobileNum;
 		this.email = email;		
 		this.dept = dept;
@@ -202,8 +207,16 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		}
 	}
 	
-	public void changeImage(String imageFileInfo) {
-		this.image = imageFileInfo;
+	public String getImage() {
+		if (this.image == null) return null;
+		
+		return this.image.getImage();
+	}
+	
+	public String changeImage(LocalFileRepository localFileRepository, MultipartFile sourceFile) {
+		if (this.image == null) this.image = new SystemUserImage(localFileRepository);		
+		
+		return this.image.changeImage(localFileRepository, sourceFile);
 	}	
 	
 }

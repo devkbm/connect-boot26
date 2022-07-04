@@ -15,7 +15,6 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.Base64;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -106,7 +105,7 @@ public class LocalFileRepository {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public Boolean deleteFile(File file) throws FileNotFoundException {				
+	public boolean deleteFile(File file) throws FileNotFoundException {				
 		if(file == null || !file.exists()) {			
 			throw new FileNotFoundException();
 		}			
@@ -121,8 +120,17 @@ public class LocalFileRepository {
 	 * @return 삭제 여부
 	 * @throws FileNotFoundException 
 	 */
-	public Boolean deleteFile(String path, String name) throws FileNotFoundException {		
+	public boolean deleteFile(String path, String name) throws FileNotFoundException {		
 		return deleteFile(new File(path, name));
+	}
+	
+	public boolean deleteStaticFile(String fileName) throws FileNotFoundException {
+		File file = new File(this.getStaticUploadPath(), fileName);
+		if(file == null || !file.exists()) {			
+			throw new FileNotFoundException();
+		}
+		
+		return file.delete();
 	}
 	
 	public String fileToBase64String(String path, String fileName) throws FileNotFoundException, IOException {

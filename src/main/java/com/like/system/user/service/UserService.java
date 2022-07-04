@@ -7,9 +7,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptRepository;
+import com.like.system.file.infra.file.LocalFileRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupRepository;
 import com.like.system.user.boundary.UserDTO;
@@ -26,15 +28,18 @@ public class UserService {
 	private MenuGroupRepository menuRepository;	
 	private DeptRepository deptRepository;		
 	private AuthorityRepository authorityRepository;			
+	private LocalFileRepository localFileRepository;
 	
 	public UserService(UserRepository repository
+					  ,AuthorityRepository authorityRepository
 			  		  ,MenuGroupRepository menuRepository
 			  		  ,DeptRepository deptRepository
-			  		  ,AuthorityRepository authorityRepository) {
+			  		  ,LocalFileRepository localFileRepository) {
 		this.repository = repository;
 		this.menuRepository = menuRepository;
 		this.deptRepository = deptRepository;
-		this.authorityRepository = authorityRepository;		
+		this.authorityRepository = authorityRepository;	
+		this.localFileRepository = localFileRepository;
 	}
 	
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();				
@@ -95,6 +100,18 @@ public class UserService {
 		repository.deleteById(userId);         
 	}	
 	
+	public String changeUserImage(String userId, MultipartFile file) {
+		SystemUser user = repository.findById(userId).orElseThrow();
+		
+		if (user == null) return null;
+						
+		String path = user.changeImage(localFileRepository, file);
+		
+		repository.save(user);
+		
+		return path;
+	}
+	
 	/**
 	 * 사용자 비밀번호를 변경한다.
 	 * @param userId
@@ -102,7 +119,7 @@ public class UserService {
 	 * @param afterPassword		변경후 비밀번호
 	 */
 	public void changePassword(String userId, String beforePassword, String afterPassword) {
-		SystemUser user = repository.findById(userId).orElse(null);			
+		SystemUser user = repository.findById(userId).orElseThrow();			
 		
 		if ( user.isVaild(beforePassword) ) {
 			user.changePassword(afterPassword);
@@ -114,7 +131,7 @@ public class UserService {
 	 * @param userId	사용자 아이디
 	 */
 	public void initPassword(String userId) {
-		SystemUser user = repository.findById(userId).orElse(null);
+		SystemUser user = repository.findById(userId).orElseThrow();
 				
 		user.initPassword();		
 	}			
@@ -141,8 +158,7 @@ public class UserService {
 	public PasswordEncoder passwordEncoder(){
 		return this.passwordEncoder;
 	}
-		
-	
+			
 	/**
 	 * 사용자 신규등록시 권한이 없을 경우 기본 권한을 추가한다.
 	 * @param user	사용자 도메인

@@ -90,11 +90,15 @@ public class FileService {
 	}		
 	
 	@Transactional
-	public void deleteFile(FileInfo fileInfo) throws Exception {
+	public void deleteFile(FileInfo fileInfo) throws FileNotFoundException {
 		
 		localFileRepository.deleteFile(fileInfo.getPath(), fileInfo.getUuid());
 		
 		fileInfoRepository.delete(fileInfo);											
+	}
+	
+	public void deleteStaticFile(String fileName) throws FileNotFoundException {
+		localFileRepository.deleteStaticFile(fileName);
 	}
 	
 	public FileInfo getFileInfo(String id) {

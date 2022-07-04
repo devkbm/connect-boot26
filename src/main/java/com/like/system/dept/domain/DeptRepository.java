@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeptRepository extends JpaRepository<Dept, String>, QuerydslPredicateExecutor<Dept> {
 				
+	Dept findByDeptCode(String deptCode);
 }

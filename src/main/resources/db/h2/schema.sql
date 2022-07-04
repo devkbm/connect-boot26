@@ -115,8 +115,8 @@ create table COMUSER (
     NON_LOCKED_YN		BOOLEAN			NOT NULL	,--COMMENT '계정잠금여부',
     PASS_NON_EXPIRED_YN	BOOLEAN			NOT NULL	,--COMMENT '비밀번호만료여부',
     ENABLED_YN			BOOLEAN			NOT NULL	,--COMMENT '사용여부',
-	constraint pk_comuser primary key(USER_ID),
-	constraint fk_comuser1	foreign key(FK_FILE) references COMFILEINFO(PK_FILE)
+	constraint pk_comuser primary key(USER_ID)
+	--constraint fk_comuser1	foreign key(FK_FILE) references COMFILEINFO(PK_FILE)
 ); -- COMMENT = '사용자관리';
 
 create table COMAUTHORITY (
