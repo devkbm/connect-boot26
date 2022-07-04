@@ -64,7 +64,7 @@ public class Team extends AbstractAuditEntity {
 									  .map(r -> r.getUser())					
 									  .anyMatch(e -> e.equals(user));
 		
-		if (isExist) throw new BusinessException("동일한 데이터가 존재합니다. 아이디 : " + user.getUserId(), ErrorCode.ID_DUPLICATION);
+		if (isExist) throw new BusinessException("동일한 데이터가 존재합니다. 아이디 : " + user.getId(), ErrorCode.ID_DUPLICATION);
 		
 		this.members.add(new TeamMember(this, user));
 	}

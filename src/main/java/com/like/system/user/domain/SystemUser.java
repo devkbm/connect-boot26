@@ -41,49 +41,60 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	
 	private static final long serialVersionUID = -4328973281359262612L;
 
-	@Id	
-	@Column(name="user_id")
-	String userId;
+	/**
+	 * 조직코드 + 유저명
+	 */
+	@Id
+	@Column(name="USER_ID")
+	String id;
 	
-	@Column(name="user_name")
+	@Column(name="STAFF_NO")
+	String staffNo;
+	
+	@Column(name="USER_NAME")
 	String name;
-			
+	
+	@Column(name="ORG_CD")
+	String organizationCode;	
+	
 	@Embedded
 	UserPassword password;
 		
 	@Embedded
-	AccountSpec accountSpec;
+	AccountSpec accountSpec;	
 	
-	@Column(name="mobile_num")
+	@Column(name="MOBILE_NUM")
 	String mobileNum;
 	
-	@Column(name="email")
+	@Column(name="EMAIL")
 	String email;
 				
-	@Column(name="fk_file")
+	@Column(name="FK_FILE")
 	String image;
 	
 	@OneToOne(optional = true)
-	@JoinColumn(name = "dept_cd", nullable = true)
+	@JoinColumn(name = "DEPT_CD", nullable = true)
 	Dept dept;
 		
 	@Setter
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name="comuserauthority",
-    		joinColumns= @JoinColumn(name="user_id"),
-    		inverseJoinColumns=@JoinColumn(name="authority_name"))	
+    @JoinTable(name="COMUSERAUTHORITY",
+    		joinColumns= @JoinColumn(name="USER_ID"),
+    		inverseJoinColumns=@JoinColumn(name="AUTHORITY_NAME"))	
 	Set<Authority> authorities = new LinkedHashSet<>();
 			
 	@Setter
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name="comusermenugroup",
-    		joinColumns= @JoinColumn(name="user_id"),
-    		inverseJoinColumns=@JoinColumn(name="menu_group_code"))	
+    @JoinTable(name="COMUSERMENUGROUP",
+    		joinColumns= @JoinColumn(name="USER_ID"),
+    		inverseJoinColumns=@JoinColumn(name="MENU_GROUP_CODE"))	
 	Set<MenuGroup> menuGroupList = new LinkedHashSet<>();		
 		
 	@Builder
-	public SystemUser(String userId
+	public SystemUser(String id
+					 ,String staffNo
 					 ,String name
+					 ,String organizationCode
 					 ,UserPassword password
 					 ,Dept dept
 					 ,String mobileNum
@@ -91,8 +102,10 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,AccountSpec accountSpec
 					 ,Set<Authority> authorities
 					 ,Set<MenuGroup> menuGroupList) {		
-		this.userId = userId;
+		this.id = id;
+		this.staffNo = staffNo;
 		this.name = name;
+		this.organizationCode = organizationCode;
 		this.password = password;
 		this.dept = dept;
 		this.mobileNum = mobileNum;
@@ -104,13 +117,17 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		this.initPassword();
 	}	
 	
-	public void modifyEntity(String name														
+	public void modifyEntity(String staffNo
+			 				,String name		
+			 				,String organizationCode
 							,String mobileNum
 							,String email							 
 							,Dept dept
 							,Set<Authority> authorities
 							,Set<MenuGroup> menuGroupList) {
+		this.staffNo = staffNo;
 		this.name = name;				
+		this.organizationCode = organizationCode;
 		this.mobileNum = mobileNum;
 		this.email = email;		
 		this.dept = dept;
@@ -129,7 +146,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 			
 	@Override	
 	public String getUsername() {		
-		return userId;
+		return id;
 	}
 
 	@Override		
@@ -182,7 +199,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 			this.password = new UserPassword();
 		} else {
 			this.password.init();
-		}							
+		}
 	}
 	
 	public void changeImage(String imageFileInfo) {

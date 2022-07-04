@@ -123,7 +123,7 @@ public class FileService {
 		
 		return FileInfo.builder()
 					   .uuid(uuid)
-				       .path(localFileRepository.getPath())
+				       .path(localFileRepository.getLocalUploadPath())
 				       .fileName(sourceFile.getOriginalFilename())
 				       .size(sourceFile.getSize())
 				       .contentType(sourceFile.getContentType())

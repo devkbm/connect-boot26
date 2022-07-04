@@ -17,12 +17,12 @@ public class DeptService {
 		this.deptRepository = deptRepository;
 	}
 
-	public boolean isDept(String deptCode) {
-		return deptRepository.existsById(deptCode);
+	public boolean isDept(String deptID) {
+		return deptRepository.existsById(deptID);
 	}
 	
-	public Dept getDept(String deptCode) {
-		return deptRepository.findById(deptCode).orElse(null);
+	public Dept getDept(String deptID) {
+		return deptRepository.findById(deptID).orElse(null);
 	}	
 	
 	public void createDept(Dept dept) {
@@ -34,8 +34,8 @@ public class DeptService {
 	}
 	
 	public void saveDept(DeptDTO.FormDept dto) {
-		Dept dept = deptRepository.findById(dto.deptCode()).orElse(null);
-		Dept parentDept = dto.parentDeptCode() == null ? null : deptRepository.findById(dto.parentDeptCode()).orElse(null); 			
+		Dept dept = deptRepository.findById(dto.deptId()).orElse(null);
+		Dept parentDept = dto.parentDeptId() == null ? null : deptRepository.findById(dto.parentDeptId()).orElse(null); 			
 		
 		if (dept == null) {
 			dept = dto.newDept(parentDept);
@@ -46,7 +46,7 @@ public class DeptService {
 		deptRepository.save(dept);
 	}
 	
-	public void deleteDept(String deptCode) {
-		deptRepository.deleteById(deptCode);
+	public void deleteDept(String deptID) {
+		deptRepository.deleteById(deptID);
 	}
 }

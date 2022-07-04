@@ -56,8 +56,10 @@ create table COMDEPT (
 	MODIFIED_USER_ID	VARCHAR(50)		NULL		,--COMMENT '최종수정유저',
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(50)		NULL		,--COMMENT '최종수정APPURL',
+	DEPT_ID				VARCHAR(10) 	NOT NULL 	,--COMMENT '부서ID',
+	ORG_CD				VARCHAR(50)		NULL		,--COMMENT '조직코드',
     DEPT_CD				VARCHAR(10) 	NOT NULL 	,--COMMENT '부서코드',
-    P_DEPT_CD			VARCHAR(255)	NULL 		,--COMMENT '상위부서코드',
+    P_DEPT_ID			VARCHAR(255)	NULL 		,--COMMENT '상위부ID',
     DEPT_NM_KOR			VARCHAR(255) 	NOT NULL 	,--COMMENT '부서명(한글)',
     DEPT_ABBR_KOR		VARCHAR(255) 	NULL 		,--COMMENT '부서약어(한글)',
     DEPT_NM_ENG			VARCHAR(255) 	NULL 		,--COMMENT '부서명(영어)',
@@ -66,8 +68,9 @@ create table COMDEPT (
 	TO_DT				DATE			NULL		,--COMMENT '종료일',	
 	PRT_SEQ				INT				NULL		,--COMMENT '출력순서',		
 	CMT					VARCHAR(2000) 	NOT NULL 	,--COMMENT '비고',
-	constraint pk_comdept primary key(DEPT_CD)	
-); -- COMMENT = '통합부서관리';
+	constraint pk_comdept 		primary key(DEPT_ID),
+	constraint fk_comdept1	 	foreign key(P_DEPT_ID) references COMDEPT(DEPT_ID)
+); -- COMMENT = '부서관리';
 
 create table COMFILEINFO (
 	CREATED_DT			DATETIME		NULL		,--COMMENT '최초등록일시',
@@ -100,7 +103,9 @@ create table COMUSER (
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(50)		NULL		,--COMMENT '최종수정APPURL',
     USER_ID				VARCHAR(50)		NOT NULL	,--COMMENT '유저ID',
-    USER_NAME			VARCHAR(100)	NULL		,--COMMENT '유저명',
+	ORG_CD				VARCHAR(50)		NULL		,--COMMENT '조직코드',
+	STAFF_NO			VARCHAR(50)		NULL		,--COMMNET '직원번호',
+    USER_NAME			VARCHAR(100)	NULL		,--COMMENT '유저명',	
     DEPT_CD				VARCHAR(10) 	NULL 		,--COMMENT '부서코드',
     MOBILE_NUM 			VARCHAR(20) 	NULL		,--COMMENT '핸드폰번호',
     EMAIL 				VARCHAR(320) 	NULL 		,--COMMENT '이메일주소',

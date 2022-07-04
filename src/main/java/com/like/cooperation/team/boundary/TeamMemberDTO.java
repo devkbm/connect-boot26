@@ -33,7 +33,7 @@ public class TeamMemberDTO {
 						
 			return FormTeamMember.builder()
 								 .teamId(entity.getTeam().getTeamId())
-								 .userId(entity.getUser().getUserId())
+								 .userId(entity.getUser().getId())
 								 .authority(entity.getAuthority())
 								 .build();
 		}

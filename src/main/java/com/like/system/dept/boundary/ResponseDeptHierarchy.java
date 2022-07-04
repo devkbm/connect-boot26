@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.like.system.core.jpa.vo.LocalDatePeriod;
+import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +19,12 @@ import lombok.Singular;
 @Builder
 public class ResponseDeptHierarchy {
 	
-	String parentDeptCode;
-			
+	String parentDeptId;
+	
+	String organizationCode;
+	
+	String deptId;
+	
 	String deptCode;		
 			
 	String deptNameKorean;		
@@ -51,10 +56,13 @@ public class ResponseDeptHierarchy {
 	@JsonProperty(value="isLeaf") 
 	boolean isLeaf;
 
-	public ResponseDeptHierarchy(String parentDeptCode, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
+	@QueryProjection
+	public ResponseDeptHierarchy(String parentDeptId, String organizationCode, String deptId, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
 			String deptNameEnglish, String deptAbbreviationEnglish, LocalDatePeriod period,
 			Integer seq, String comment) {				
-		this.parentDeptCode = parentDeptCode;
+		this.parentDeptId = parentDeptId;
+		this.organizationCode = organizationCode;
+		this.deptId = deptId;
 		this.deptCode = deptCode;
 		this.deptNameKorean = deptNameKorean;
 		this.deptAbbreviationKorean = deptAbbreviationKorean;
@@ -66,7 +74,7 @@ public class ResponseDeptHierarchy {
 		this.comment = comment;
 		
 		this.title 	= this.deptNameKorean;
-		this.key 	= this.deptCode;			
+		this.key 	= this.deptId;			
 	}
 
 	public void setChildren(List<ResponseDeptHierarchy> children) {

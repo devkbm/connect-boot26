@@ -31,7 +31,7 @@ public class UserControllerTest extends SpringMockMvcTestSupport {
 	@Test
 	void getUser() throws Exception {
 		SystemUser user = SystemUser.builder()
-									.userId("test")
+									.id("test")
 									.name("test")
 									.build();
 		userService.saveUser(user);			

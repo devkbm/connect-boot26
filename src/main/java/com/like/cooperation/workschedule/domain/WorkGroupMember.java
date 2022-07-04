@@ -43,12 +43,12 @@ public class WorkGroupMember extends AbstractAuditEntity {
 	}
 	
 	public String getUserId() {
-		return this.user.getUserId();
+		return this.user.getId();
 	}
 
 	@Override
 	public String toString() {
-		return "WorkGroupMember [workGroup=" + workGroup.id + ", user=" + user.getUserId() + "]";
+		return "WorkGroupMember [workGroup=" + workGroup.id + ", user=" + user.getId() + "]";
 	}
 	
 	public void setWorkGroup(WorkGroup workGroup) {

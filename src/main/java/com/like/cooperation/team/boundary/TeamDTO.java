@@ -93,7 +93,7 @@ public class TeamDTO {
 									.teamId(entity.getTeamId())
 									.teamName(entity.getTeamName())
 									.memberList(entity.getMembers().stream()
-																   .map(r -> r.getUser().getUserId())
+																   .map(r -> r.getUser().getId())
 																   .toList())																	  
 									.build();		
 			return dto;

@@ -19,41 +19,43 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.file.config.ServerFileProperties;
+
 @Repository
 public class LocalFileRepository {
-
-	@Value("${localFilePath}")
-	private String localUploadPath;
-	
-	@Value("${staticUploadPath}")
-	private String staticUploadPath;
-		
-	public static String fileDownLoadUrl;
-	
-	private int BUFFER_SIZE = 4096;
-	
-	public LocalFileRepository() {		
-	}
 	
 	public enum FileUploadLocation {
 		STATIC_PATH, LOCAL_PATH
 	}
 	
-	public String getPath() {	
-		return this.localUploadPath;
+	private ServerFileProperties properties;
+		
+	public static String fileDownLoadUrl;
+	
+	private int BUFFER_SIZE = 4096;
+	
+	public LocalFileRepository(ServerFileProperties properties) {
+		this.properties = properties;
+		LocalFileRepository.fileDownLoadUrl = properties.getClientDownloadUrl(); 
+	}	
+	
+	public String getLocalUploadPath() {	
+		return this.properties.getLocalLocation();
 	}
 	
 	public String getStaticUploadPath() {
-		return this.staticUploadPath;
+		return this.properties.getStaticLocation();
 	}
 	
+	/*
 	@Value("${fileDownLoadUrl}")
 	private void setFileDownLoadUrl(String url) {
 		LocalFileRepository.fileDownLoadUrl = url;
-	}	
+	}
+	*/	
 	
 	public File getStaticPathFile(String uuid) {
-		return new File(this.staticUploadPath, uuid);
+		return new File(this.getStaticUploadPath(), uuid);
 	}
 	
 	public String fileTransfer(MultipartFile sourceFile, String fileName, FileUploadLocation location) throws FileNotFoundException, IOException {
@@ -65,7 +67,7 @@ public class LocalFileRepository {
 		}
 		
 		if ( location == FileUploadLocation.LOCAL_PATH) {
-			path = this.getPath();
+			path = this.getLocalUploadPath();
 		} else {
 			path = this.getStaticUploadPath();
 		}
@@ -104,16 +106,12 @@ public class LocalFileRepository {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public Boolean deleteFile(File file) throws FileNotFoundException {
-		Boolean result = false;
-		
+	public Boolean deleteFile(File file) throws FileNotFoundException {				
 		if(file == null || !file.exists()) {			
 			throw new FileNotFoundException();
-		}
-		
-		result = file.delete();
+		}			
 				
-		return result;		
+		return file.delete();		
 	}
 	
 	/**

@@ -85,7 +85,7 @@ public class WorkDTO {
 													 .workGroupId(entity.getId())
 													 .workGroupName(entity.getName())
 													 .color(entity.getColor())
-													 .memberList(entity.getMemberList().stream().map( r -> r.getUser().getUserId()).collect(Collectors.toList()))
+													 .memberList(entity.getMemberList().stream().map( r -> r.getUser().getId()).collect(Collectors.toList()))
 													 .build();
 			
 			return dto;

@@ -24,8 +24,8 @@ public class DeptQueryService {
 		return repository.getDeptList(searchCondition);
 	}
 	
-	public List<ResponseDeptHierarchy> getDeptHierarchyList() {
-		return repository.getDeptHierarchy();
+	public List<ResponseDeptHierarchy> getDeptHierarchyList(String organizationCode) {
+		return repository.getDeptHierarchy(organizationCode);
 	}
 	
 }

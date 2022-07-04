@@ -15,11 +15,15 @@ import com.like.system.dept.domain.QDept;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 
 public class DeptDTO {	
 	
-	public record Search(			
+	
+	public record Search(
+			@NotEmpty(message="조직코드는 필수 입력 사항입니다.")
+			String organizationCode,
 			String deptCode,
 			String deptName,
 			Boolean isEnabled
@@ -31,12 +35,19 @@ public class DeptDTO {
 			BooleanBuilder builder = new BooleanBuilder();
 			
 			builder
+				.and(eqOrganizationCode(this.organizationCode))
 				.and(likeDeptCode(this.deptCode))
-				.and(likeDeptName(this.deptCode));
+				.and(likeDeptName(this.deptName));
 														
 			return builder;
 		}
 		
+		private BooleanExpression eqOrganizationCode(String organizationCode) {
+			if (!StringUtils.hasText(organizationCode)) return null;
+			
+			return qDept.organizationCode.eq(organizationCode);
+		}
+				
 		private BooleanExpression likeDeptCode(String deptCode) {
 			if (!StringUtils.hasText(deptCode)) return null;
 			
@@ -50,13 +61,15 @@ public class DeptDTO {
 		}
 	}	
 	
-	@Builder
+	@Builder(access = AccessLevel.PRIVATE)
 	public static record FormDept(
 			LocalDateTime createdDt,
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String parentDeptCode,
+			String parentDeptId,
+			String deptId,			
+			String organizationCode,
 			@NotEmpty(message="부서코드는 필수 입력 사항입니다.")
 			String deptCode,
 			@NotEmpty(message="부서명(한글)은 필수 입력 사항입니다.")
@@ -80,8 +93,10 @@ public class DeptDTO {
 									.createdBy(entity.getCreatedBy().getLoggedUser())
 									.modifiedDt(entity.getModifiedDt())
 									.modifiedBy(entity.getModifiedBy().getLoggedUser())
+									.deptId(entity.getDeptId())
+									.organizationCode(entity.getOrganizationCode())
 									.deptCode(entity.getDeptCode())
-									.parentDeptCode(parent.map(Dept::getDeptCode).orElse(null))
+									.parentDeptId(parent.map(Dept::getDeptId).orElse(null))
 									.deptNameKorean(entity.getDeptNameKorean())
 									.deptAbbreviationKorean(entity.getDeptAbbreviationKorean())
 									.deptNameEnglish(entity.getDeptNameEnglish())
@@ -95,11 +110,13 @@ public class DeptDTO {
 		}	
 		
 		public Dept newDept(@Nullable Dept parentDept) {
-			if (this.deptCode == null) {
-				new IllegalArgumentException("부서코드가 없습니다.");
-			}
+			if (this.organizationCode == null) new IllegalArgumentException("조직코드가 없습니다.");
+			if (this.deptCode == null) new IllegalArgumentException("부서코드가 없습니다.");
 			
-			return Dept.builder(this.deptCode)					   
+			
+			return Dept.builder(this.organizationCode,this.deptCode)		
+					   .organizationCode(this.organizationCode)
+					   .deptCode(this.deptCode)					   
 					   .deptNameKorean(this.deptNameKorean)
 					   .deptAbbreviationKorean(this.deptAbbreviationKorean)
 					   .deptNameEnglish(this.deptNameEnglish)

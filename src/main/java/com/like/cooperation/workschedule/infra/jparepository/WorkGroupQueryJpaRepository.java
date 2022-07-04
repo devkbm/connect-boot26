@@ -36,7 +36,7 @@ public class WorkGroupQueryJpaRepository implements WorkGroupQueryRepository {
 		return queryFactory
 				.selectFrom(qWorkGroup)
 				.join(qWorkGroup.memberList, qWorkGroupMember)
-				.where(qWorkGroupMember.user.userId.eq(userId))
+				.where(qWorkGroupMember.user.id.eq(userId))
 				.fetch();
 	}
 	

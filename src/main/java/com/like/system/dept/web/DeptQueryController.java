@@ -2,6 +2,8 @@ package com.like.system.dept.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,9 +25,9 @@ public class DeptQueryController {
 	}
 	
 	@GetMapping("/api/common/depttree")
-	public ResponseEntity<?> getDeptHierarchyList(@ModelAttribute DeptDTO.Search searchCondition) {
+	public ResponseEntity<?> getDeptHierarchyList(@ModelAttribute @Valid DeptDTO.Search searchCondition) {
 							
-		List<ResponseDeptHierarchy> list = service.getDeptHierarchyList();  						 						
+		List<ResponseDeptHierarchy> list = service.getDeptHierarchyList(searchCondition.organizationCode());  						 						
 		
 		return ResponseEntityUtil.toList(list											
 										,String.format("%d 건 조회되었습니다.", list.size()));

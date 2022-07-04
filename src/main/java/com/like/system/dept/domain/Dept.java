@@ -38,39 +38,48 @@ public class Dept extends AbstractAuditEntity implements Serializable {
 	private static final long serialVersionUID = -969524977226888898L;
 
 	@Id
-	@Column(name = "dept_cd", nullable = false)
+	@Column(name = "DEPT_ID", nullable = false)
+	String deptId;
+	
+	@Column(name = "ORG_CD", nullable = false)
+	String organizationCode;
+	
+	@Column(name = "DEPT_CD", nullable = false)
 	String deptCode;
 
-	@Column(name = "dept_nm_kor")
+	@Column(name = "DEPT_NM_KOR")
 	String deptNameKorean;
 
-	@Column(name = "dept_abbr_kor")
+	@Column(name = "DEPT_ABBR_KOR")
 	String deptAbbreviationKorean;
 
-	@Column(name = "dept_nm_eng")
+	@Column(name = "DEPT_NM_ENG")
 	String deptNameEnglish;
 
-	@Column(name = "dept_abbr_eng")
+	@Column(name = "DEPT_ABBR_ENG")
 	String deptAbbreviationEnglish;
 	
 	@Embedded
 	LocalDatePeriod period;
 	
 	@Builder.Default
-	@Column(name="prt_seq")
+	@Column(name="PRT_SEQ")
 	int seq = 0;
 	
-	@Column(name = "cmt")
+	@Column(name = "CMT")
 	String comment;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "p_dept_cd", nullable = true)
+	@JoinColumn(name = "P_DEPT_ID", nullable = true)
 	Dept parentDept;
 	
-	public static DeptBuilder builder(String deptCode) {
+	public static DeptBuilder builder(String organizationCode, String deptCode) {
+		Assert.hasText(organizationCode, "organizationCode must not be empty!");
 		Assert.hasText(deptCode, "deptCode must not be empty!");
 		
-		return internalBuilder().deptCode(deptCode);
+		return internalBuilder().deptId(organizationCode + deptCode)
+								.organizationCode(organizationCode)
+								.deptCode(deptCode);
 	}	
 
 	/**
@@ -101,10 +110,6 @@ public class Dept extends AbstractAuditEntity implements Serializable {
 		this.comment = comment;
 		this.parentDept = parentDept;
 	}	
-
-	public String getDeptCode() {
-		return this.deptCode;
-	}
 	
 	public Dept getParentDept() {
 		return parentDept;

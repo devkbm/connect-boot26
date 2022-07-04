@@ -9,5 +9,5 @@ public interface DeptQueryRepository {
 
 	List<Dept> getDeptList(Search searchCondition);
 	
-	List<ResponseDeptHierarchy> getDeptHierarchy();
+	List<ResponseDeptHierarchy> getDeptHierarchy(String organizationCode);
 }

@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.like.system.dept.boundary.DeptDTO.Search;
+import com.like.system.dept.boundary.QResponseDeptHierarchy;
 import com.like.system.dept.boundary.ResponseDeptHierarchy;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptQueryRepository;
 import com.like.system.dept.domain.QDept;
-import com.querydsl.core.types.ConstructorExpression;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
@@ -32,20 +31,20 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 	}
 
 	@Override
-	public List<ResponseDeptHierarchy> getDeptHierarchy() {
-		List<ResponseDeptHierarchy> rootNodeList = this.getDeptRootNodeList();
+	public List<ResponseDeptHierarchy> getDeptHierarchy(String organizationCode) {
+		List<ResponseDeptHierarchy> rootNodeList = this.getDeptRootNodeList(organizationCode);
 		
-		List<ResponseDeptHierarchy> result = this.addDeptChildNodeList(rootNodeList);
+		List<ResponseDeptHierarchy> result = this.addDeptChildNodeList(organizationCode, rootNodeList);
 		
 		return result;
 	}
 	
-	private List<ResponseDeptHierarchy> addDeptChildNodeList(List<ResponseDeptHierarchy> list) {
+	private List<ResponseDeptHierarchy> addDeptChildNodeList(String organizationCode, List<ResponseDeptHierarchy> list) {
 		List<ResponseDeptHierarchy> children = null;
 		
 		for ( ResponseDeptHierarchy node : list) {
 			
-			children = getDeptChildNodeList(node.getDeptCode());
+			children = getDeptChildNodeList(organizationCode, node.getDeptCode());
 			
 			if (children.isEmpty()) {
 				node.setLeaf(true);
@@ -55,43 +54,43 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 				node.setLeaf(false);
 				
 				// 재귀 호출
-				this.addDeptChildNodeList(children);
+				this.addDeptChildNodeList(organizationCode, children);
 			}			
 		}
 		
 		return list;
 	}
 
-	private List<ResponseDeptHierarchy> getDeptRootNodeList() {
+	private List<ResponseDeptHierarchy> getDeptRootNodeList(String organizationCode) {
 		return queryFactory
-				.select(this.getDeptHierarchyConstructor())
+				.select(this.getDeptHierarchy(qDept))				
 				.from(qDept)
-				.where(qDept.isRootNode())
+				.where(qDept.organizationCode.eq(organizationCode), qDept.isRootNode())
 				.orderBy(qDept.seq.asc())				
 				.fetch();
 	}
 	
-	private List<ResponseDeptHierarchy> getDeptChildNodeList(String parentDeptCode) {
+	private List<ResponseDeptHierarchy> getDeptChildNodeList(String organizationCode, String parentDeptCode) {
 		return queryFactory
-				.select(this.getDeptHierarchyConstructor())
+				.select(this.getDeptHierarchy(qDept))
 				.from(qDept)
-				.where(qDept.parentDept.deptCode.eq(parentDeptCode))
+				.where(qDept.organizationCode.eq(organizationCode), qDept.parentDept.deptCode.eq(parentDeptCode))
 				.orderBy(qDept.seq.asc())
 				.fetch();
 	}
 	
-	private ConstructorExpression<ResponseDeptHierarchy> getDeptHierarchyConstructor() {
-		return Projections.constructor(
-				ResponseDeptHierarchy.class,				
-				qDept.parentDept.deptCode,
-				qDept.deptCode,
-				qDept.deptNameKorean,
-				qDept.deptAbbreviationKorean,
-				qDept.deptNameEnglish,
-				qDept.deptAbbreviationEnglish,
-				qDept.period,
-				qDept.seq,
-				qDept.comment);
+	private QResponseDeptHierarchy getDeptHierarchy(QDept qDept) {
+		return new QResponseDeptHierarchy(qDept.parentDept.deptId
+										 ,qDept.organizationCode
+										 ,qDept.deptId
+										 ,qDept.deptCode
+										 ,qDept.deptNameKorean
+										 ,qDept.deptAbbreviationKorean
+										 ,qDept.deptNameEnglish
+										 ,qDept.deptAbbreviationEnglish
+										 ,qDept.period
+										 ,qDept.seq
+										 ,qDept.comment);
 	}
 
 }

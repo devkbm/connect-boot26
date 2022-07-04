@@ -42,7 +42,7 @@ public class UserImageController {
 		
 		File file = fileService.getStaticPathFile(user.getImage());
 				
-		response = this.setResponse(response, file.length(), user.getUserId());
+		response = this.setResponse(response, file.length(), user.getId());
 		
 		fileService.downloadFile(file, response);
 			

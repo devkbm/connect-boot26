@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import com.like.system.user.domain.SystemUser;
 
-import lombok.extern.slf4j.Slf4j;
-
 public class TeamTest {
 
 	@DisplayName("팀 생성")
@@ -38,14 +36,14 @@ public class TeamTest {
 	void TeamJoin() {
 		// Given 			
 		Team team = new Team("테스트 팀");
-		SystemUser user = new SystemUser("test", "테스트유저", null, null, null, null, null, null, null);
-		SystemUser user2 = new SystemUser("test2", "테스트유저2", null, null, null, null, null, null, null);		
+		SystemUser user = new SystemUser("test", "테스트유저", null, null, null, null, null, null, null, null, null);
+		SystemUser user2 = new SystemUser("test2", "테스트유저2", null, null, null, null, null, null, null, null, null);		
 		// When
 		team.addMember(user);			
 		team.addMember(user2);
 		// Then
 		assertThat(team.getMembers().size()).isEqualTo(2);
-		assertThat(team.getMembers().get(0).getUser().getUserId()).isEqualTo("test");
-		assertThat(team.getMembers().get(1).getUser().getUserId()).isEqualTo("test2");
+		assertThat(team.getMembers().get(0).getUser().getId()).isEqualTo("test");
+		assertThat(team.getMembers().get(1).getUser().getId()).isEqualTo("test2");
 	}
 }

@@ -36,30 +36,28 @@ public class UserDTO {
 		
 		Optional<Dept> dept = Optional.ofNullable(entity.getDept());
 		
-		FormSystemUser dto = FormSystemUser.builder()
-								.createdDt(entity.getCreatedDt())
-								//.createdBy(entity.getCreatedBy())
-								.modifiedDt(entity.getModifiedDt())
-								//.modifiedBy(entity.getModifiedBy())
-								.userId(entity.getUserId())
-								.name(entity.getName())								
-								.deptCode(dept.map(Dept::getDeptCode).orElse(null))
-								.mobileNum(entity.getMobileNum())
-								.email(entity.getEmail())
-								.imageBase64(entity.getImage())
-								.enabled(entity.isEnabled())	
-								.accountNonExpired(entity.isAccountNonExpired())
-								.accountNonLocked(entity.isAccountNonLocked())
-								.credentialsNonExpired(entity.isCredentialsNonExpired())
-								.authorityList(entity.getAuthoritiesList()
-													.stream()
-													.map(auth -> auth.getAuthority())
-													.collect(Collectors.toList()))
-								.menuGroupList(entity.getMenuGroupList()
-													.stream()
-													.map(menuGroup -> menuGroup.getId())
-													.collect(Collectors.toList()))
-								.build();
+		FormSystemUser dto = FormSystemUser.builder()								
+										   .userId(entity.getId())
+										   .staffNo(entity.getStaffNo())
+										   .name(entity.getName())	
+										   .organizationCode(entity.getOrganizationCode())
+										   .deptCode(dept.map(Dept::getDeptCode).orElse(null))
+										   .mobileNum(entity.getMobileNum())
+										   .email(entity.getEmail())
+										   .imageBase64(entity.getImage())
+										   .enabled(entity.isEnabled())	
+										   .accountNonExpired(entity.isAccountNonExpired())
+										   .accountNonLocked(entity.isAccountNonLocked())
+										   .credentialsNonExpired(entity.isCredentialsNonExpired())
+										   .authorityList(entity.getAuthoritiesList()
+																.stream()
+																.map(auth -> auth.getAuthority())
+																.collect(Collectors.toList()))
+										   .menuGroupList(entity.getMenuGroupList()
+																.stream()
+																.map(menuGroup -> menuGroup.getId())
+																.collect(Collectors.toList()))
+										   .build();
 		
 		return dto;
 	}
@@ -90,7 +88,7 @@ public class UserDTO {
 		private BooleanExpression likeUserId(String userId) {
 			if (!StringUtils.hasText(userId)) return null;
 						
-			return qUser.userId.like("%"+userId+"%");
+			return qUser.id.like("%"+userId+"%");
 		}
 		
 		private BooleanExpression likeUserName(String name) {
@@ -125,9 +123,12 @@ public class UserDTO {
 		@Pattern(regexp="^[A-Za-z0-9+]*$",message="영문,숫자로 이루어진 아이디만 사용 가능합니다")
 		@UserIdExists(message="이미 가입한 아이디입니다")
 		String userId;
+		
+		String staffNo;
 			
-		String name;
-				
+		String name;			
+		
+		String organizationCode;
 		
 		String deptCode;
 		
@@ -153,12 +154,13 @@ public class UserDTO {
 		
 		public SystemUser newUser(Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
 			return SystemUser.builder()
-					   .userId(this.userId)
-					   .name(this.name)					   
+					   .id(this.userId)
+					   .staffNo(this.staffNo)
+					   .name(this.name)		
+					   .organizationCode(this.organizationCode)
 					   .dept(dept)				
 					   .mobileNum(this.mobileNum)
-					   .email(this.email)
-					   //.accountSpec(new AccountSpec(accountNonExpired, accountNonLocked, credentialsNonExpired, enabled))					   
+					   .email(this.email)					  
 					   .accountSpec(new AccountSpec(true, true, true, true))
 					   .authorities(authorityList)
 					   .menuGroupList(menuGroupList)					
@@ -167,8 +169,9 @@ public class UserDTO {
 		}
 		
 		public void modifyUser(SystemUser user, Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
-			user.modifyEntity(name							 
-							 //,enabled
+			user.modifyEntity(staffNo
+							 ,name		
+							 ,organizationCode 
 							 ,mobileNum
 							 ,email							  
 							 ,dept
