@@ -11,19 +11,19 @@ import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamMember;
 import com.like.cooperation.team.domain.TeamRepository;
-import com.like.system.user.boundary.UserDTO;
+import com.like.system.user.boundary.SystemUserDTO;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.UserQueryService;
+import com.like.system.user.service.SystemUserQueryService;
 
 @Service
 @Transactional(readOnly=true)
 public class TeamQueryService {
 
 	private TeamRepository teamQueryRepository;
-	private UserQueryService userQueryService;
+	private SystemUserQueryService userQueryService;
 	
 	public TeamQueryService(TeamRepository teamQueryRepository
-						   ,UserQueryService userQueryService) {
+						   ,SystemUserQueryService userQueryService) {
 		this.teamQueryRepository = teamQueryRepository;
 		this.userQueryService = userQueryService;
 	}
@@ -52,7 +52,7 @@ public class TeamQueryService {
 	 * @param searchCondition 조회 조건
 	 * @return User 
 	 */
-	public List<SystemUser> getAllMember(UserDTO.Search searchCondition) {
+	public List<SystemUser> getAllMember(SystemUserDTO.Search searchCondition) {
 		return userQueryService.getUserList(searchCondition);
 	}	
 	

@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
-import com.like.system.user.boundary.UserDTO;
+import com.like.system.user.boundary.SystemUserDTO;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.UserQueryService;
+import com.like.system.user.service.SystemUserQueryService;
 
 @RestController
-public class UserQueryController {
+public class SystemUserQueryController {
 
-	private UserQueryService service;
+	private SystemUserQueryService service;
 	
-	public UserQueryController(UserQueryService service) {
+	public SystemUserQueryController(SystemUserQueryService service) {
 		this.service = service;
 	}
 		
 	@GetMapping("/api/common/user")
-	public ResponseEntity<?> getUserList(UserDTO.Search condition) throws FileNotFoundException, IOException {
+	public ResponseEntity<?> getUserList(SystemUserDTO.Search condition) throws FileNotFoundException, IOException {
 				
 		List<SystemUser> userList = service.getUserList(condition);						
 		
-		List<UserDTO.FormSystemUser> dtoList = userList.stream()
-													   .map(user -> UserDTO.FormSystemUser.convertDTO(user))
+		List<SystemUserDTO.FormSystemUser> dtoList = userList.stream()
+													   .map(user -> SystemUserDTO.FormSystemUser.convertDTO(user))
 													   .toList();
 		
 		/*

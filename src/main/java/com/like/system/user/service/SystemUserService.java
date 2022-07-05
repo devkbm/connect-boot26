@@ -14,23 +14,23 @@ import com.like.system.dept.domain.DeptRepository;
 import com.like.system.file.infra.file.LocalFileRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupRepository;
-import com.like.system.user.boundary.UserDTO;
+import com.like.system.user.boundary.SystemUserDTO;
 import com.like.system.user.domain.Authority;
 import com.like.system.user.domain.AuthorityRepository;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.domain.UserRepository;
+import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
 @Service
-public class UserService {	
+public class SystemUserService {	
 	
-	private UserRepository repository;					
+	private SystemUserRepository repository;					
 	private MenuGroupRepository menuRepository;	
 	private DeptRepository deptRepository;		
 	private AuthorityRepository authorityRepository;			
 	private LocalFileRepository localFileRepository;
 	
-	public UserService(UserRepository repository
+	public SystemUserService(SystemUserRepository repository
 					  ,AuthorityRepository authorityRepository
 			  		  ,MenuGroupRepository menuRepository
 			  		  ,DeptRepository deptRepository
@@ -63,7 +63,7 @@ public class UserService {
 	 * 사용자를 생성한다.
 	 * @param user	사용자 도메인
 	 */
-	public void saveUser(UserDTO.FormSystemUser dto) {
+	public void saveUser(SystemUserDTO.FormSystemUser dto) {
 		SystemUser user = repository.findById(dto.getUserId()).orElse(null);
 		Dept dept = dto.getDeptCode() == null ? null : deptRepository.findById(dto.getDeptCode()).orElse(null); 
 		

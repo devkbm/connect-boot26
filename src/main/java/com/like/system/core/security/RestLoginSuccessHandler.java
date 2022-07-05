@@ -22,7 +22,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.like.system.login.domain.AuthenticationToken;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.UserService;
+import com.like.system.user.service.SystemUserService;
 
 import lombok.extern.slf4j.Slf4j;
 

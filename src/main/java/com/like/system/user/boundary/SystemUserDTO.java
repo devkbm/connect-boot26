@@ -27,7 +27,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 
-public class UserDTO {
+public class SystemUserDTO {
 	
 	public record Search(
 			String userId,
@@ -135,7 +135,7 @@ public class UserDTO {
 							 ,menuGroupList);	
 		}
 		
-		public static UserDTO.FormSystemUser convertDTO(SystemUser entity) {					
+		public static SystemUserDTO.FormSystemUser convertDTO(SystemUser entity) {					
 			
 			if (entity == null) return null;
 			

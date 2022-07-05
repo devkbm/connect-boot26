@@ -12,17 +12,17 @@ import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamMember;
 import com.like.cooperation.team.domain.TeamRepository;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.UserService;
+import com.like.system.user.service.SystemUserService;
 
 @Service
 @Transactional
 public class TeamService {
 	
 	private TeamRepository teamRepository;	
-	private UserService userService;	
+	private SystemUserService userService;	
 	
 	public TeamService(TeamRepository teamRepository					  
-					  ,UserService userService) {
+					  ,SystemUserService userService) {
 		this.teamRepository = teamRepository;		
 		this.userService = userService;		
 	}

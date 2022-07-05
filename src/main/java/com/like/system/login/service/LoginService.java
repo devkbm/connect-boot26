@@ -17,17 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.system.login.boundary.LoginRequestDTO;
 import com.like.system.login.domain.AuthenticationToken;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.domain.UserRepository;
+import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
 @Service
 public class LoginService {
 
 	private AuthenticationManager authenticationManager;
-	private UserRepository userRepository;		 	
+	private SystemUserRepository userRepository;		 	
 	
 	public LoginService(AuthenticationManager authenticationManager
-					   ,UserRepository userRepository) {
+					   ,SystemUserRepository userRepository) {
 		this.authenticationManager = authenticationManager;
 		this.userRepository = userRepository;
 	}

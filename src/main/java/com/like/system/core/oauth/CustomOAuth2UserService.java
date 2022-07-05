@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.domain.UserRepository;
+import com.like.system.user.domain.SystemUserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User>{
 
-	private final UserRepository userRepository;
+	private final SystemUserRepository userRepository;
 	private final HttpSession httpSession;
 	   
 	@Override

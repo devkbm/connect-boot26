@@ -6,15 +6,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.user.domain.UserRepository;
+import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
 @Service
 public class SpringSecurityUserService implements UserDetailsService {
 
-	private UserRepository repository;
+	private SystemUserRepository repository;
 	
-	public SpringSecurityUserService(UserRepository repository) {
+	public SpringSecurityUserService(SystemUserRepository repository) {
 		this.repository = repository;
 	}
 	

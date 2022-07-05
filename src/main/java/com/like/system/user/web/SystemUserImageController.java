@@ -18,16 +18,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.service.FileService;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.UserService;
+import com.like.system.user.service.SystemUserService;
 
 @Controller
-public class UserImageController {
+public class SystemUserImageController {
 	
 	private FileService fileService;
 		
-	private UserService userService;
+	private SystemUserService userService;
 		
-	public UserImageController(FileService fileService, UserService userService) {
+	public SystemUserImageController(FileService fileService, SystemUserService userService) {
 		this.fileService = fileService;
 		this.userService = userService;
 	}

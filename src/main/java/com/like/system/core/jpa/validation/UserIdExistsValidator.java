@@ -5,14 +5,14 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.stereotype.Component;
 
-import com.like.system.user.service.UserService;
+import com.like.system.user.service.SystemUserService;
 
 @Component
 public class UserIdExistsValidator implements ConstraintValidator<UserIdExists, String> {
 	
-	private UserService userService;
+	private SystemUserService userService;
 	
-	public UserIdExistsValidator(UserService userService) {
+	public UserIdExistsValidator(SystemUserService userService) {
 		this.userService = userService;
 	}
 	

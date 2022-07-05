@@ -20,12 +20,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.like.SpringMockMvcTestSupport;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.UserService;
+import com.like.system.user.service.SystemUserService;
 
-public class UserControllerTest extends SpringMockMvcTestSupport {
+public class SystemUserControllerTest extends SpringMockMvcTestSupport {
 
 	@MockBean
-	private UserService userService;
+	private SystemUserService userService;
 					
 	@DisplayName("사용자 조회")
 	@Test

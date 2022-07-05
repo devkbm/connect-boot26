@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.domain.Authority;
 import com.like.system.user.service.AuthorityService;
-import com.like.system.user.service.UserService;
+import com.like.system.user.service.SystemUserService;
 
 @RestController
 public class SystemUserFormValidController {
 	
-	private UserService userService;
+	private SystemUserService userService;
 	private AuthorityService authorityService;
 		
-	public SystemUserFormValidController(UserService userService
+	public SystemUserFormValidController(SystemUserService userService
 							  			,AuthorityService authorityService) {
 		this.userService = userService;
 		this.authorityService = authorityService;

@@ -41,7 +41,7 @@ import com.like.system.core.security.RestAuthenticationEntryPoint;
 import com.like.system.core.security.RestLoginFailureHandler;
 import com.like.system.core.security.RestLoginSuccessHandler;
 import com.like.system.user.service.SpringSecurityUserService;
-import com.like.system.user.service.UserService;
+import com.like.system.user.service.SystemUserService;
 
 import lombok.extern.slf4j.Slf4j;
 

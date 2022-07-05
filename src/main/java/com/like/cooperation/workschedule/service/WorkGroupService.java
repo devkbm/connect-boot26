@@ -13,7 +13,7 @@ import com.like.cooperation.workschedule.domain.WorkGroupMemberId;
 import com.like.cooperation.workschedule.domain.WorkGroupMemberRepository;
 import com.like.cooperation.workschedule.domain.WorkGroupRepository;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.domain.UserRepository;
+import com.like.system.user.domain.SystemUserRepository;
 
 @Service
 @Transactional
@@ -21,11 +21,11 @@ public class WorkGroupService {
 
 	private WorkGroupRepository repository;
 	private WorkGroupMemberRepository workGroupMemberRepository;
-	private UserRepository userRepository;
+	private SystemUserRepository userRepository;
 	
 	public WorkGroupService(WorkGroupRepository repository
 						   ,WorkGroupMemberRepository workGroupMemberRepository	
-						   ,UserRepository userRepository) {		
+						   ,SystemUserRepository userRepository) {		
 		this.repository = repository;
 		this.workGroupMemberRepository = workGroupMemberRepository;
 		this.userRepository = userRepository;

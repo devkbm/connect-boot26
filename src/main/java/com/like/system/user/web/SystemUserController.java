@@ -17,16 +17,16 @@ import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
 import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.PasswordChangeRequestDTO;
-import com.like.system.user.boundary.UserDTO;
+import com.like.system.user.boundary.SystemUserDTO;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.UserService;
+import com.like.system.user.service.SystemUserService;
 
 @RestController
-public class UserController {		
+public class SystemUserController {		
 				
-	private UserService userService;
+	private SystemUserService userService;
 		
-	public UserController(UserService userService) {
+	public SystemUserController(SystemUserService userService) {
 		this.userService = userService;
 	}
 
@@ -35,7 +35,7 @@ public class UserController {
 														
 		SystemUser user = userService.getUser(SessionUtil.getUserId());				
 		
-		UserDTO.FormSystemUser dto = UserDTO.FormSystemUser.convertDTO(user);					
+		SystemUserDTO.FormSystemUser dto = SystemUserDTO.FormSystemUser.convertDTO(user);					
 		
 		return ResponseEntityUtil.toOne(dto							
 									   ,MessageUtil.getQueryMessage(1));
@@ -46,14 +46,14 @@ public class UserController {
 						
 		SystemUser user = userService.getUser(userId);				
 		
-		UserDTO.FormSystemUser dto = UserDTO.FormSystemUser.convertDTO(user);					
+		SystemUserDTO.FormSystemUser dto = SystemUserDTO.FormSystemUser.convertDTO(user);					
 		
 		return ResponseEntityUtil.toOne(dto							
 									   ,MessageUtil.getQueryMessage(1));
 	}		
 	
 	@PostMapping("/api/common/user")	
-	public ResponseEntity<?> saveUser(@Valid @RequestBody UserDTO.FormSystemUser dto) {			
+	public ResponseEntity<?> saveUser(@Valid @RequestBody SystemUserDTO.FormSystemUser dto) {			
 											
 		userService.saveUser(dto);					
 																					 		
