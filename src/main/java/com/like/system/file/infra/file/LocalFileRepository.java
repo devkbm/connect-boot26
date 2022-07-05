@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.config.ServerFileProperties;
+import com.like.system.file.util.FileConverterUtil;
 
 @Repository
 public class LocalFileRepository {

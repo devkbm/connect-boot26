@@ -66,7 +66,7 @@ public class FileController {
 		
 	@PostMapping("/common/file")
 	public ResponseEntity<?> fileUpload(final MultipartHttpServletRequest request
-									   ,@RequestParam(value="pgmId", required=false) String pgmId ) throws Exception {
+									   ,@RequestParam(value="appUrl", required=false) String appUrl ) throws Exception {
 						
 		List<FileInfo> list = new ArrayList<FileInfo>();
 		final Map<String, MultipartFile> files = request.getFileMap();
@@ -75,7 +75,7 @@ public class FileController {
 		while ( itr.hasNext() ) {			
 			Entry<String,MultipartFile> entry = itr.next(); 			
 			MultipartFile file = entry.getValue();					
-			list.add(fileService.uploadFile(file, "kbm", pgmId));																
+			list.add(fileService.uploadFile(file, "kbm", appUrl));																
 		}
 		
 								
@@ -86,7 +86,7 @@ public class FileController {
 			res.put("status", "success");
 			
 			Map<String, String> link = new HashMap<>();
-			link.put("download", LocalFileRepository.fileDownLoadUrl+info.getPkFile());
+			link.put("download", LocalFileRepository.fileDownLoadUrl+info.getId());
 			
 			FileResponseDTO response = FileResponseDTO.convert(info);
 			fileList.add(response);

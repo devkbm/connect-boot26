@@ -1,13 +1,13 @@
 package com.like.cooperation.survey.surveyform.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
 
 import com.like.cooperation.survey.surveyform.domain.QSurveyForm;
 import com.like.cooperation.survey.surveyform.domain.SurveyForm;
@@ -44,9 +44,7 @@ public class SurveyFormDTO {
 		}
 		
 		private BooleanExpression likeTitle(String title) {
-			if (!StringUtils.hasText(title)) return null;
-						
-			return qSurveyForm.title.like("%"+title+"%");
+			return hasText(title) ? qSurveyForm.title.like("%"+title+"%") : null;					
 		}		
 	}	
 	

@@ -52,7 +52,7 @@ public class TeamQueryService {
 	 * @param searchCondition 조회 조건
 	 * @return User 
 	 */
-	public List<SystemUser> getAllMember(UserDTO.SearchUser searchCondition) {
+	public List<SystemUser> getAllMember(UserDTO.Search searchCondition) {
 		return userQueryService.getUserList(searchCondition);
 	}	
 	

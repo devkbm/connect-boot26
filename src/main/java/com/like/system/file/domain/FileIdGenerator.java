@@ -1,4 +1,4 @@
-package com.like.system.file.util;
+package com.like.system.file.domain;
 
 import java.nio.ByteBuffer;
 import java.util.Base64;

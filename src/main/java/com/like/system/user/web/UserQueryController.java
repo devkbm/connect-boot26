@@ -24,12 +24,12 @@ public class UserQueryController {
 	}
 		
 	@GetMapping("/api/common/user")
-	public ResponseEntity<?> getUserList(UserDTO.SearchUser condition) throws FileNotFoundException, IOException {
+	public ResponseEntity<?> getUserList(UserDTO.Search condition) throws FileNotFoundException, IOException {
 				
 		List<SystemUser> userList = service.getUserList(condition);						
 		
 		List<UserDTO.FormSystemUser> dtoList = userList.stream()
-													   .map(user -> UserDTO.convertDTO(user))
+													   .map(user -> UserDTO.FormSystemUser.convertDTO(user))
 													   .toList();
 		
 		/*

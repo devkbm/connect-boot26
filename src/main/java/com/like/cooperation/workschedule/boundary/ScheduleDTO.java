@@ -1,5 +1,7 @@
 package com.like.cooperation.workschedule.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -11,7 +13,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.like.cooperation.workschedule.domain.QSchedule;
 import com.like.cooperation.workschedule.domain.Schedule;
@@ -78,9 +79,7 @@ public class ScheduleDTO {
 		}
 		
 		private BooleanExpression likeTitle(String title) {
-			if (!StringUtils.hasText(title)) return null;
-			
-			return qSchedule.title.like("%"+title+"%");
+			return hasText(title) ? qSchedule.title.like("%"+title+"%") : null;					
 		}
 		
 		/**

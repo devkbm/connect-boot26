@@ -1,5 +1,7 @@
 package com.like.system.dept.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -7,7 +9,6 @@ import java.util.Optional;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.lang.Nullable;
-import org.springframework.util.StringUtils;
 
 import com.like.system.core.jpa.vo.LocalDatePeriod;
 import com.like.system.dept.domain.Dept;
@@ -19,8 +20,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 
 public class DeptDTO {	
-	
-	
+		
 	public record Search(
 			@NotEmpty(message="조직코드는 필수 입력 사항입니다.")
 			String organizationCode,
@@ -29,7 +29,7 @@ public class DeptDTO {
 			Boolean isEnabled
 			) {
 		
-		private static final QDept qDept = QDept.dept;
+		private static final QDept qType = QDept.dept;
 				
 		public BooleanBuilder getCondition() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -43,21 +43,15 @@ public class DeptDTO {
 		}
 		
 		private BooleanExpression eqOrganizationCode(String organizationCode) {
-			if (!StringUtils.hasText(organizationCode)) return null;
-			
-			return qDept.organizationCode.eq(organizationCode);
+			return hasText(organizationCode) ? qType.organizationCode.eq(organizationCode) : null;										
 		}
 				
 		private BooleanExpression likeDeptCode(String deptCode) {
-			if (!StringUtils.hasText(deptCode)) return null;
-			
-			return qDept.deptCode.like("%"+deptCode+"%");
+			return hasText(deptCode) ? qType.deptCode.like("%"+deptCode+"%") : null;					
 		}
 		
-		private BooleanExpression likeDeptName(String deptName) {
-			if (!StringUtils.hasText(deptCode)) return null;
-			
-			return qDept.deptNameKorean.like("%"+deptName+"%");
+		private BooleanExpression likeDeptName(String deptName) {			
+			return hasText(deptName) ? qType.deptNameKorean.like("%"+deptName+"%") : null;			
 		}
 	}	
 	

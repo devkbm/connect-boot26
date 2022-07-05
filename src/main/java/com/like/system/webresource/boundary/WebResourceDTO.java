@@ -1,10 +1,10 @@
 package com.like.system.webresource.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
 
 import com.like.system.webresource.domain.QWebResource;
 import com.like.system.webresource.domain.WebResource;
@@ -23,7 +23,7 @@ public class WebResourceDTO {
 			String description
 			) {
 		
-		private static final QWebResource qWebResource = QWebResource.webResource;
+		private static final QWebResource qType = QWebResource.webResource;
 		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -39,33 +39,23 @@ public class WebResourceDTO {
 		}
 		
 		private BooleanExpression likeResourceCode(String resourceCode) {
-			if (!StringUtils.hasText(resourceCode)) return null;
-			
-			return qWebResource.resourceCode.like("%"+resourceCode+"%");
+			return hasText(resourceCode) ? qType.resourceCode.like("%"+resourceCode+"%") : null;					
 		}
 		
 		private BooleanExpression likeResourceName(String resourceName) {
-			if (!StringUtils.hasText(resourceName)) return null;
-			
-			return qWebResource.resourceName.like("%"+resourceName+"%");
+			return hasText(resourceName) ? qType.resourceName.like("%"+resourceName+"%") : null;					
 		}
 		
 		private BooleanExpression likeResourceType(String resourceType) {
-			if (!StringUtils.hasText(resourceType)) return null;
-			
-			return qWebResource.resourceType.like("%"+resourceType+"%");
+			return hasText(resourceName) ? qType.resourceType.like("%"+resourceType+"%") : null;			
 		}
 		
 		private BooleanExpression likeUrl(String url) {
-			if (!StringUtils.hasText(url)) return null;
-			
-			return qWebResource.url.like("%"+url+"%");
+			return hasText(url) ? qType.url.like("%"+url+"%") : null;					
 		}
 		
 		private BooleanExpression likeDescription(String description) {
-			if (!StringUtils.hasText(description)) return null;
-			
-			return qWebResource.description.like("%"+description+"%");
+			return hasText(description) ? qType.description.like("%"+description+"%") : null;
 		}
 		
 	}	

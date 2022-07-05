@@ -1,5 +1,6 @@
 package com.like.system.file.domain;
 
+import java.io.File;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -12,7 +13,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
-import com.like.system.file.util.FileIdGenerator;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -32,47 +32,51 @@ public class FileInfo extends AbstractAuditEntity implements Serializable {
 	private static final long serialVersionUID = 4108977246168878308L;
 
 	@Id
-	@Column(name="pk_file")
-	String pkFile;	
+	@Column(name="FILE_ID")
+	String id;	
 
-	@Column(name="pgm_id")
-	String pgmId;
+	@Column(name="APP_URL")
+	String appUrl;
 		
-	@Column(name="user_id")
+	@Column(name="USER_ID")
 	String userId;
 	
-	@Column(name="content_type")
+	@Column(name="CONTENT_TYPE")
 	String contentType;
 		
-	@Column(name="uuid")
+	@Column(name="UUID")
 	String uuid;
 	
-	@Column(name="file_path")
+	@Column(name="FILE_PATH")
 	String path;
 	
-	@Column(name="file_nm")
+	@Column(name="FILE_NM")
 	String fileName;
 	
-	@Column(name="file_size")
+	@Column(name="FILE_SIZE")
 	long size;
 	
-	@Column(name="download_cnt")
-	long downloadCnt;			
+	@Column(name="DOWNLOAD_CNT")
+	long downloadCount;			
 		
 	@Builder
-	public FileInfo(String pgmId, String userId, String contentType, String uuid, String path, String fileName, long size) {		
-		this.pkFile = FileIdGenerator.generateFileId();
-		this.pgmId = pgmId;
+	public FileInfo(String appUrl, String userId, String contentType, String uuid, String path, String fileName, long size) {		
+		this.id = FileIdGenerator.generateFileId();
+		this.appUrl = appUrl;
 		this.userId = userId;
 		this.contentType = contentType;
 		this.uuid = uuid;
 		this.path = path;
 		this.fileName = fileName;
 		this.size = size;
-	}	
+	}
 		
 	public void plusDownloadCount() {
-		this.downloadCnt = this.downloadCnt + 1;
+		this.downloadCount = this.downloadCount + 1;
+	}
+	
+	public File getFile() {
+		return new File(this.path, this.uuid);
 	}
 
 }

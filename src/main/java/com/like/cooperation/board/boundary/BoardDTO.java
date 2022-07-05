@@ -1,11 +1,11 @@
 package com.like.cooperation.board.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
 
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardType;
@@ -35,15 +35,11 @@ public class BoardDTO {
 		}
 		
 		private BooleanExpression likeBoardName(String boardName) {
-			if (!StringUtils.hasText(boardName)) return null;
-			
-			return qBoard.boardName.like("%"+boardName+"%");
+			return hasText(boardName) ? qBoard.boardName.like("%"+boardName+"%") : null;					
 		}
 		
 		private BooleanExpression equalBoardType(String boardType) {
-			if (!StringUtils.hasText(boardType)) return null;
-			
-			return qBoard.boardType.eq(BoardType.valueOf(boardType));
+			return hasText(boardType) ? qBoard.boardType.eq(BoardType.valueOf(boardType)) : null;			
 		}
 	}	
 	

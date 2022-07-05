@@ -1,11 +1,10 @@
 package com.like.hrm.hrmtypecode.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
-
 
 import com.like.hrm.hrmtypecode.domain.HrmTypeDetailCode;
 import com.like.hrm.hrmtypecode.domain.HrmTypeDetailCodeId;
@@ -44,17 +43,12 @@ public class HrmTypeDetailCodeDTO {
 			return builder;
 		}
 		
-		private BooleanExpression eqTypeId(String typeId) {			
-			
+		private BooleanExpression eqTypeId(String typeId) {						
 			return qType.id.codeType.eq(typeId);
 		}
 		
 		private BooleanExpression likeCodeName(String codeName) {
-			if (!StringUtils.hasText(codeName)) {
-				return null;
-			}
-			
-			return qType.codeName.like("%" + codeName + "%");
+			return hasText(codeName) ? qType.codeName.like("%" + codeName + "%") : null;					
 		}
 				
 	}

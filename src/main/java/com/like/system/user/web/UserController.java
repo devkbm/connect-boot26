@@ -35,7 +35,7 @@ public class UserController {
 														
 		SystemUser user = userService.getUser(SessionUtil.getUserId());				
 		
-		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
+		UserDTO.FormSystemUser dto = UserDTO.FormSystemUser.convertDTO(user);					
 		
 		return ResponseEntityUtil.toOne(dto							
 									   ,MessageUtil.getQueryMessage(1));
@@ -46,7 +46,7 @@ public class UserController {
 						
 		SystemUser user = userService.getUser(userId);				
 		
-		UserDTO.FormSystemUser dto = UserDTO.convertDTO(user);					
+		UserDTO.FormSystemUser dto = UserDTO.FormSystemUser.convertDTO(user);					
 		
 		return ResponseEntityUtil.toOne(dto							
 									   ,MessageUtil.getQueryMessage(1));

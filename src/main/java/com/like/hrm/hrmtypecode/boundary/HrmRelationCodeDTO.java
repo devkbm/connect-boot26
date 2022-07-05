@@ -1,8 +1,8 @@
 package com.like.hrm.hrmtypecode.boundary;
 
-import java.io.Serializable;
+import static org.springframework.util.StringUtils.hasText;
 
-import org.springframework.util.StringUtils;
+import java.io.Serializable;
 
 import com.like.hrm.hrmtypecode.domain.QHrmRelationCode;
 import com.querydsl.core.BooleanBuilder;
@@ -31,11 +31,7 @@ public class HrmRelationCodeDTO {
 		}
 		
 		private BooleanExpression eqRelCode(String relCode) {
-			if (StringUtils.isEmpty(relCode)) {
-				return null;
-			}
-			
-			return qType.relCode.eq(relCode);
+			return hasText(relCode) ? qType.relCode.eq(relCode) : null;					
 		}			
 				
 	}

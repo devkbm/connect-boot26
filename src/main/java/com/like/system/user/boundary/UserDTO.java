@@ -1,6 +1,7 @@
 package com.like.system.user.boundary;
 
-import java.io.Serializable;
+import static org.springframework.util.StringUtils.hasText;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
@@ -9,8 +10,6 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.springframework.util.StringUtils;
 
 import com.like.system.core.jpa.validation.UserIdExists;
 import com.like.system.dept.domain.Dept;
@@ -30,51 +29,14 @@ import lombok.Singular;
 
 public class UserDTO {
 	
-	public static UserDTO.FormSystemUser convertDTO(SystemUser entity) {					
+	public record Search(
+			String userId,
+			String name,
+			String deptCode
+			) {
 		
-		if (entity == null) return null;
+		private static final QSystemUser qType = QSystemUser.systemUser;
 		
-		Optional<Dept> dept = Optional.ofNullable(entity.getDept());
-		
-		FormSystemUser dto = FormSystemUser.builder()								
-										   .userId(entity.getId())
-										   .staffNo(entity.getStaffNo())
-										   .name(entity.getName())	
-										   .organizationCode(entity.getOrganizationCode())
-										   .deptCode(dept.map(Dept::getDeptCode).orElse(null))
-										   .mobileNum(entity.getMobileNum())
-										   .email(entity.getEmail())
-										   .imageBase64(entity.getImage())
-										   .enabled(entity.isEnabled())	
-										   .accountNonExpired(entity.isAccountNonExpired())
-										   .accountNonLocked(entity.isAccountNonLocked())
-										   .credentialsNonExpired(entity.isCredentialsNonExpired())
-										   .authorityList(entity.getAuthoritiesList()
-																.stream()
-																.map(auth -> auth.getAuthority())
-																.collect(Collectors.toList()))
-										   .menuGroupList(entity.getMenuGroupList()
-																.stream()
-																.map(menuGroup -> menuGroup.getId())
-																.collect(Collectors.toList()))
-										   .build();
-		
-		return dto;
-	}
-
-	@Data
-	public static class SearchUser implements Serializable {
-
-		private static final long serialVersionUID = -7886731992928427538L;
-
-		private final QSystemUser qUser = QSystemUser.systemUser;
-		
-		String userId;
-		
-		String name;
-		
-		String deptCode;
-					
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
@@ -86,23 +48,17 @@ public class UserDTO {
 		}
 		
 		private BooleanExpression likeUserId(String userId) {
-			if (!StringUtils.hasText(userId)) return null;
-						
-			return qUser.id.like("%"+userId+"%");
+			return hasText(userId) ? qType.id.like("%"+userId+"%") : null;					
 		}
 		
 		private BooleanExpression likeUserName(String name) {
-			if (!StringUtils.hasText(name)) return null;
-						
-			return qUser.name.like("%"+name+"%");
+			return hasText(name) ? qType.name.like("%"+name+"%") : null;					
 		}
 		
 		private BooleanExpression equalDeptCode(String deptCode) {
-			if (!StringUtils.hasText(deptCode)) return null;
-			
-			return qUser.dept.deptCode.eq(deptCode);
+			return hasText(deptCode) ? qType.dept.deptCode.eq(deptCode) : null;					
 		}
-	}
+	}		
 	
 	@Data
 	@Builder
@@ -177,6 +133,38 @@ public class UserDTO {
 							 ,dept
 							 ,authorityList
 							 ,menuGroupList);	
+		}
+		
+		public static UserDTO.FormSystemUser convertDTO(SystemUser entity) {					
+			
+			if (entity == null) return null;
+			
+			Optional<Dept> dept = Optional.ofNullable(entity.getDept());
+			
+			FormSystemUser dto = FormSystemUser.builder()								
+											   .userId(entity.getId())
+											   .staffNo(entity.getStaffNo())
+											   .name(entity.getName())	
+											   .organizationCode(entity.getOrganizationCode())
+											   .deptCode(dept.map(Dept::getDeptCode).orElse(null))
+											   .mobileNum(entity.getMobileNum())
+											   .email(entity.getEmail())
+											   .imageBase64(entity.getImage())
+											   .enabled(entity.isEnabled())	
+											   .accountNonExpired(entity.isAccountNonExpired())
+											   .accountNonLocked(entity.isAccountNonLocked())
+											   .credentialsNonExpired(entity.isCredentialsNonExpired())
+											   .authorityList(entity.getAuthoritiesList()
+																	.stream()
+																	.map(auth -> auth.getAuthority())
+																	.collect(Collectors.toList()))
+											   .menuGroupList(entity.getMenuGroupList()
+																	.stream()
+																	.map(menuGroup -> menuGroup.getId())
+																	.collect(Collectors.toList()))
+											   .build();
+			
+			return dto;
 		}
 								
 	}

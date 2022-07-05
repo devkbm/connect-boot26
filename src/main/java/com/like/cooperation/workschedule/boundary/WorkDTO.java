@@ -1,14 +1,13 @@
 package com.like.cooperation.workschedule.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
 
 import com.like.cooperation.workschedule.domain.QWorkGroup;
 import com.like.cooperation.workschedule.domain.WorkGroup;
@@ -41,9 +40,7 @@ public class WorkDTO {
 		}
 		
 		private BooleanExpression likeGroupName(String name) {
-			if (!StringUtils.hasText(name)) return null;
-			
-			return qWorkGroup.name.like("%"+this.name+"%");
+			return hasText(name) ? qWorkGroup.name.like("%"+this.name+"%") : null;			
 		}
 	}	
 	
@@ -85,7 +82,9 @@ public class WorkDTO {
 													 .workGroupId(entity.getId())
 													 .workGroupName(entity.getName())
 													 .color(entity.getColor())
-													 .memberList(entity.getMemberList().stream().map( r -> r.getUser().getId()).collect(Collectors.toList()))
+													 .memberList(entity.getMemberList().stream()
+															 						   .map(r -> r.getUser().getId())
+															 						   .toList())
 													 .build();
 			
 			return dto;

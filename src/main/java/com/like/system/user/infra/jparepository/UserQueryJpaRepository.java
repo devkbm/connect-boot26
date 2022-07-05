@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.user.boundary.UserDTO.SearchUser;
+import com.like.system.user.boundary.UserDTO.Search;
 import com.like.system.user.domain.QSystemUser;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.UserQueryRepository;
@@ -21,7 +21,7 @@ public class UserQueryJpaRepository implements UserQueryRepository {
 	}
 
 	@Override
-	public List<SystemUser> getUserList(SearchUser condition) {
+	public List<SystemUser> getUserList(Search condition) {
 		return  queryFactory
 				.selectFrom(qUser)
 				.where(condition.getBooleanBuilder())

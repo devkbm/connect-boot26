@@ -16,9 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.domain.FileInfo;
 import com.like.system.file.domain.FileInfoRepository;
-import com.like.system.file.infra.file.FileConverterUtil;
 import com.like.system.file.infra.file.LocalFileRepository;
 import com.like.system.file.infra.file.LocalFileRepository.FileUploadLocation;
+import com.like.system.file.util.FileConverterUtil;
 
 @Service
 public class FileService {
@@ -115,17 +115,17 @@ public class FileService {
 	
 	public String downloadBase64(String id) throws FileNotFoundException, IOException {
 		FileInfo info = fileInfoRepository.findById(id).orElse(null);					
-		File file = new File(info.getPath(), info.getUuid());
+		File file = info.getFile();
 		
 		return FileConverterUtil.getBase64String(file);		
 	}
 	
-	public File getStaticPathFile(String uuid) {
-		return localFileRepository.getStaticPathFile(uuid);
+	public File getStaticPathFile(String fileName) {
+		return localFileRepository.getStaticPathFile(fileName);
 	}
 	
-	private FileInfo createFileInfo(MultipartFile sourceFile, String uuid, String userId, String pgmId) {
-		
+	private FileInfo createFileInfo(MultipartFile sourceFile, String uuid, String userId, String appUrl) {
+						
 		return FileInfo.builder()
 					   .uuid(uuid)
 				       .path(localFileRepository.getLocalUploadPath())
@@ -133,7 +133,7 @@ public class FileService {
 				       .size(sourceFile.getSize())
 				       .contentType(sourceFile.getContentType())
 				       .userId(userId)
-				       .pgmId(pgmId)
+				       .appUrl(appUrl)
 				       .build();
 	}
 	

@@ -45,7 +45,7 @@ public class TeamQueryController {
 	}
 	
 	@GetMapping("/api/grw/allmember")
-	public ResponseEntity<?> getAllMemberList(UserDTO.SearchUser condition) {
+	public ResponseEntity<?> getAllMemberList(UserDTO.Search condition) {
 				
 		List<SystemUser> list = service.getAllMember(condition);						 				
 		

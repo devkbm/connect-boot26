@@ -1,15 +1,16 @@
 package com.like.system.term.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.like.system.term.domain.QTermDictionary;
 import com.like.system.term.domain.TermDictionary;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class TermDTO {
 		
 		private static final long serialVersionUID = 1L;
 
-		private final QTermDictionary qTermDictionary = QTermDictionary.termDictionary;
+		private final QTermDictionary qType = QTermDictionary.termDictionary;
 						
 		String domain;
 		
@@ -33,15 +34,18 @@ public class TermDTO {
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 									
-			if (StringUtils.hasText(this.domain)) {
-				builder.and(qTermDictionary.domain.like("%"+this.domain+"%"));
-			}
-			
-			if (StringUtils.hasText(this.term)) {
-				builder.and(qTermDictionary.term.like("%"+this.term+"%"));
-			}
-			
+			builder.and(likeMenuId(this.domain))
+				   .and(likeTerm(this.term));
+									
 			return builder;
+		}
+		
+		private BooleanExpression likeMenuId(String domain) {
+			return hasText(domain) ? qType.domain.like("%"+this.domain+"%") : null;					
+		}
+		
+		private BooleanExpression likeTerm(String term) {
+			return hasText(term) ? qType.term.like("%"+this.term+"%") : null;					
 		}
 	}
 	

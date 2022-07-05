@@ -1,10 +1,10 @@
 package com.like.hrm.dutycode.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.like.hrm.dutycode.domain.DutyCode;
@@ -42,19 +42,11 @@ public class DutyCodeDTO {
 		}
 		
 		private BooleanExpression likeDutyCode(String dutyCode) {
-			if (!StringUtils.hasText(dutyCode)) {
-				return null;
-			}
-			
-			return qDutyCode.dutyCode.like("%"+dutyCode+"%");
+			return hasText(dutyCode) ? qDutyCode.dutyCode.like("%"+dutyCode+"%") : null;					
 		}
 		
 		private BooleanExpression likeDutyName(String dutyName) {
-			if (!StringUtils.hasText(dutyName)) {
-				return null;
-			}
-			
-			return qDutyCode.dutyName.like("%"+dutyName+"%");
+			return hasText(dutyName) ? qDutyCode.dutyName.like("%"+dutyName+"%") : null;					
 		}
 	}
 	
@@ -65,6 +57,8 @@ public class DutyCodeDTO {
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class SaveDutyCode implements Serializable {				
 
+		private static final long serialVersionUID = -5993523394655458647L;
+
 		private String dutyCode;
 				
 		private String dutyName;
@@ -73,7 +67,7 @@ public class DutyCodeDTO {
 				
 		private String dutyGroup;
 					
-		private Boolean isFamilyEvent = false;
+		private Boolean isFamilyEvent;
 		
 		private Long familyEventAmt;		
 		

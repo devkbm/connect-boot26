@@ -1,9 +1,9 @@
 package com.like.hrm.payitem.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-
-import org.springframework.util.StringUtils;
 
 import com.like.hrm.payitem.domain.model.PayTable;
 import com.like.hrm.payitem.domain.model.PayTableItem;
@@ -40,11 +40,7 @@ public class PayTableDTO {
 		}			
 		
 		private BooleanExpression likeName(String name) {
-			if (StringUtils.isEmpty(name)) {
-				return null;
-			}
-			
-			return qType.name.like("%" + name + "%");
+			return hasText(name) ? qType.name.like("%" + name + "%") : null;			
 		}
 				
 	}
@@ -116,11 +112,7 @@ public class PayTableDTO {
 		}
 		
 		private BooleanExpression eqPayTableId(Long payTableId) {
-			if (StringUtils.isEmpty(payTableId)) {
-				return null;
-			}
-			
-			return qType.payTable.id.eq(payTableId);
+			return payTableId != null ? qType.payTable.id.eq(payTableId) : null;			
 		}			
 				
 	}

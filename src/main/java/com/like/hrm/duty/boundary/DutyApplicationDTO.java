@@ -1,11 +1,11 @@
 package com.like.hrm.duty.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.like.hrm.duty.domain.model.DutyApplication;
@@ -37,9 +37,7 @@ public class DutyApplicationDTO {
 		}
 		
 		private BooleanExpression eqStaffId(String staffId) {
-			if (!StringUtils.hasText(staffId)) return null;
-						
-			return qDutyApplication.staffId.eq(staffId);
+			return hasText(staffId) ? qDutyApplication.staffId.eq(staffId) : null;					
 		}
 	}	
 		

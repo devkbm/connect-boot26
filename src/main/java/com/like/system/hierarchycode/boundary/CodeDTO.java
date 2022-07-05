@@ -1,9 +1,9 @@
 package com.like.system.hierarchycode.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import org.springframework.util.StringUtils;
 
 import com.like.system.hierarchycode.domain.Code;
 import com.like.system.hierarchycode.domain.QCode;
@@ -22,7 +22,7 @@ public class CodeDTO {
 		
 		private static final long serialVersionUID = -4777670465777456711L;
 
-		private final QCode qCode = QCode.code1;
+		private final QCode qType = QCode.code1;
 		
 		String id;
 		
@@ -50,46 +50,34 @@ public class CodeDTO {
 				.and(likeCodeNameAbbreviation(this.codeNameAbbreviation));
 																					
 			if (this.isUse) {																						
-				builder.and(qCode.enabled());											
+				builder.and(qType.enabled());											
 			} 
 			
 			return builder;
 		}
 		
 		private BooleanExpression eqId(String id) {
-			if (!StringUtils.hasText(id)) return null;
-			
-			return qCode.id.eq(id);
+			return hasText(id) ? qType.id.eq(id) : null;					
 		}
 		
 		private BooleanExpression eqSystemTypeCode(String systemTypeCode) {
-			if (!StringUtils.hasText(systemTypeCode)) return null;
-			
-			return qCode.systemTypeCode.eq(systemTypeCode);
+			return hasText(systemTypeCode) ? qType.systemTypeCode.eq(systemTypeCode) : null;					
 		}
 		
 		private BooleanExpression eqParentId(String parentId) {
-			if (!StringUtils.hasText(parentId)) return null;
-			
-			return qCode.parentCode.id.eq(parentId);
+			return hasText(parentId) ? qType.parentCode.id.eq(parentId) : null;					
 		}
 		
 		private BooleanExpression likeCode(String code) {
-			if (!StringUtils.hasText(code)) return null;
-			
-			return qCode.code.like("%"+code+"%");
+			return hasText(code) ? qType.code.like("%"+code+"%") : null;					
 		}
 		
 		private BooleanExpression likeCodeName(String codeName) {
-			if (!StringUtils.hasText(codeName)) return null;
-			
-			return qCode.codeName.like("%"+codeName+"%");
+			return hasText(codeName) ? qType.codeName.like("%"+codeName+"%") : null;					
 		}
 		
 		private BooleanExpression likeCodeNameAbbreviation(String codeNameAbbreviation) {
-			if (!StringUtils.hasText(codeNameAbbreviation)) return null;
-			
-			return qCode.codeNameAbbreviation.like("%"+codeNameAbbreviation+"%");
+			return hasText(codeNameAbbreviation) ? qType.codeNameAbbreviation.like("%"+codeNameAbbreviation+"%") : null;
 		}
 	}
 	

@@ -1,6 +1,6 @@
 package com.like.system.biztypecode.boundary;
 
-import org.springframework.util.StringUtils;
+import static org.springframework.util.StringUtils.hasText;
 
 import com.like.system.biztypecode.domain.BizTypeCode;
 import com.like.system.biztypecode.domain.BizTypeEnum;
@@ -33,27 +33,19 @@ public class BizTypeCodeDTO {
 		}
 		
 		private BooleanExpression eqId(String id) {
-			if (!StringUtils.hasText(id)) return null;
-							
-			return qType.id.eq(id);		
+			return hasText(id) ? qType.id.eq(id) : null;				
 		}
 		
 		private BooleanExpression likeName(String name) {
-			if (!StringUtils.hasText(name)) return null;
-			
-			return qType.name.like("%" + name + "%");
+			return hasText(name) ? qType.name.like("%" + name + "%") : null;			
 		}
 		
 		private BooleanExpression eqUseYn(Boolean useYn) {
-			if (useYn == null) return null;
-							
-			return qType.useYn.eq(useYn);
+			return useYn != null ? qType.useYn.eq(useYn) : null;					
 		}
 		
 		private BooleanExpression eqBizType(String bizType) {
-			if (!StringUtils.hasText(bizType)) return null;
-			
-			return qType.bizType.eq(BizTypeEnum.valueOf(bizType));
+			return hasText(bizType) ? qType.bizType.eq(BizTypeEnum.valueOf(bizType)) : null;
 		}
 	}	
 	

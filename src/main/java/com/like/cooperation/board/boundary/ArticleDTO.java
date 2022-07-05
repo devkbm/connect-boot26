@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,6 +19,8 @@ import com.like.system.file.boundary.FileResponseDTO;
 import com.like.system.file.domain.FileInfo;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
+
+import static org.springframework.util.StringUtils.hasText;
 
 import lombok.Builder;
 
@@ -44,16 +45,11 @@ public class ArticleDTO {
 		}
 		
 		private BooleanExpression likeTitle(String title) {
-			if (!StringUtils.hasText(title)) return null;
-			
-			
-			return qArticle.content.title.like("%"+title+"%");
+			return hasText(title) ? qArticle.content.title.like("%"+title+"%") : null;					
 		}
 		
 		private BooleanExpression likeContents(String contents) {
-			if (!StringUtils.hasText(contents)) return null;
-						
-			return qArticle.content.contents.like("%"+contents+"%");
+			return hasText(contents) ? qArticle.content.contents.like("%"+contents+"%") : null;			
 		}
 	}	
 	

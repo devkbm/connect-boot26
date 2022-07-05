@@ -1,10 +1,10 @@
 package com.like.hrm.payitem.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
 
 import com.like.hrm.payitem.domain.model.PayItem;
 import com.like.hrm.payitem.domain.model.QPayItem;
@@ -42,11 +42,7 @@ public class PayItemDTO {
 		}			
 		
 		private BooleanExpression likeCodeName(String codeName) {
-			if (StringUtils.isEmpty(codeName)) {
-				return null;
-			}
-			
-			return qType.codeName.like("%" + codeName + "%");
+			return hasText(codeName) ? qType.codeName.like("%" + codeName + "%") : null;				
 		}
 				
 	}

@@ -1,10 +1,10 @@
 package com.like.system.menu.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
 
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
@@ -24,7 +24,7 @@ public class MenuDTO {
 			String menuId,
 			String menuName
 			) {
-		private static final QMenu qMenu = QMenu.menu;
+		private static final QMenu qType = QMenu.menu;
 		
 		public BooleanBuilder getBooleanBuilder() {																
 			return new BooleanBuilder()
@@ -38,15 +38,11 @@ public class MenuDTO {
 		}
 		
 		private BooleanExpression likeMenuId(String menuId) {
-			if (!StringUtils.hasText(menuId)) return null;
-			
-			return qMenu.id.like("%"+menuId+"%");
+			return hasText(menuId) ? qType.id.like("%"+menuId+"%") : null;					
 		}
 		
 		private BooleanExpression likeMenuName(String menuName) {
-			if (!StringUtils.hasText(menuName)) return null;
-			
-			return qMenu.name.like("%"+menuName+"%");
+			return hasText(menuName) ? qType.name.like("%"+menuName+"%") : null;					
 		}
 	}	
 	

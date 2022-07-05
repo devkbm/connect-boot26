@@ -1,10 +1,10 @@
 package com.like.cooperation.team.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import org.springframework.util.StringUtils;
 
 import com.like.cooperation.team.domain.QTeam;
 import com.like.cooperation.team.domain.Team;
@@ -42,9 +42,7 @@ public class TeamDTO {
 		}
 		
 		private BooleanExpression likeTeamName(String teamName) {
-			if (!StringUtils.hasText(teamName)) return null;
-							
-			return qType.teamName.like("%" + teamName + "%");		
+			return hasText(teamName) ? qType.teamName.like("%" + teamName + "%") : null;						
 		}
 		
 	}

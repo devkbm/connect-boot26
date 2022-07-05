@@ -1,4 +1,4 @@
-package com.like.system.file.infra.file;
+package com.like.system.file.util;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

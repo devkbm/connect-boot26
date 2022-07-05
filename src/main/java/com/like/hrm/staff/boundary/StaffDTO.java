@@ -1,11 +1,11 @@
 package com.like.hrm.staff.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -47,15 +47,11 @@ public class StaffDTO {
 		}
 		
 		private BooleanExpression likeId(String id) {
-			if (!StringUtils.hasText(id)) return null;
-									
-			return qStaff.id.like("%"+id+"%");
+			return hasText(id) ? qStaff.id.like("%"+id+"%") : null;					
 		}
 		
 		private BooleanExpression likeName(String name) {
-			if (!StringUtils.hasText(name)) return null;
-								
-			return qStaff.name.name.like("%"+name+"%");
+			return hasText(name) ? qStaff.name.name.like("%"+name+"%") : null;			
 		}	
 	}	
 		

@@ -1,8 +1,8 @@
 package com.like.system.user.boundary;
 
-import javax.validation.constraints.NotEmpty;
+import static org.springframework.util.StringUtils.hasText;
 
-import org.springframework.util.StringUtils;
+import javax.validation.constraints.NotEmpty;
 
 import com.like.system.user.domain.Authority;
 import com.like.system.user.domain.QAuthority;
@@ -16,7 +16,7 @@ public class AuthorityDTO {
 			String description
 			) {
 		
-		private static final QAuthority qAuthority = QAuthority.authority;
+		private static final QAuthority qType = QAuthority.authority;
 		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -28,15 +28,11 @@ public class AuthorityDTO {
 		}
 		
 		private BooleanExpression likeAuthority(String authority) {
-			if (!StringUtils.hasText(authority)) return null;
-						
-			return qAuthority.authorityName.like("%"+authority+"%");
+			return hasText(authority) ? qType.authorityName.like("%"+authority+"%") : null;					
 		}
 		
 		private BooleanExpression likeDescription(String description) {
-			if (!StringUtils.hasText(description)) return null;
-						
-			return qAuthority.description.like("%"+description+"%");
+			return hasText(description) ? qType.description.like("%"+description+"%") : null;					
 		}
 	}
 	

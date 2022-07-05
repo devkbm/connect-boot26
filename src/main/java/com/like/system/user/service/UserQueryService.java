@@ -24,7 +24,7 @@ public class UserQueryService  {
 	 * 유저 도메인 리스트를 조회한다.
 	 * @return	유저 도메인 리스트
 	 */
-	public List<SystemUser> getUserList(UserDTO.SearchUser condition) {
+	public List<SystemUser> getUserList(UserDTO.Search condition) {
 		return repository.getUserList(condition);
 	}		
 	

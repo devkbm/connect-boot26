@@ -1,9 +1,8 @@
 package com.like.hrm.hrmtypecode.boundary;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import java.io.Serializable;
-
-import org.springframework.util.StringUtils;
-
 
 import com.like.hrm.hrmtypecode.domain.HrmType;
 import com.like.hrm.hrmtypecode.domain.AppointmentTypeEnum;
@@ -43,19 +42,11 @@ public class HrmTypeDTO {
 		}
 		
 		private BooleanExpression eqHrmType(String appointmentType) {
-			if (!StringUtils.hasText(appointmentType)) {
-				return null;
-			}
-			
-			return qType.appointmentType.eq(AppointmentTypeEnum.valueOf(appointmentType));
+			return hasText(appointmentType) ? qType.appointmentType.eq(AppointmentTypeEnum.valueOf(appointmentType)) : null;					
 		}
 		
 		private BooleanExpression likeCodeName(String codeName) {
-			if (!StringUtils.hasText(codeName)) {
-				return null;
-			}
-			
-			return qType.name.like("%" + codeName + "%");
+			return hasText(codeName) ? qType.name.like("%" + codeName + "%") : null;					
 		}
 				
 	}
