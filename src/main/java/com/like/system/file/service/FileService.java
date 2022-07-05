@@ -16,14 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.domain.FileInfo;
 import com.like.system.file.domain.FileInfoRepository;
+import com.like.system.file.infra.file.FileConverterUtil;
 import com.like.system.file.infra.file.LocalFileRepository;
 import com.like.system.file.infra.file.LocalFileRepository.FileUploadLocation;
 
 @Service
 public class FileService {
 			
-	private FileInfoRepository fileInfoRepository;	
-		
+	private FileInfoRepository fileInfoRepository;			
 	private LocalFileRepository localFileRepository;	
 	
 	public FileService(FileInfoRepository fileInfoRepository
@@ -65,14 +65,14 @@ public class FileService {
 		
 	
 	public void downloadFile(File file, HttpServletResponse response) throws FileNotFoundException, IOException {				
-		localFileRepository.fileToStream(file, response.getOutputStream());			
+		FileConverterUtil.fileToStream(file, response.getOutputStream());			
 	}
 	
 	public FileInfo downloadFile(HttpServletResponse response, String pk) throws FileNotFoundException, IOException {
 		
 		FileInfo file = getFileInfo(pk);
 		
-		localFileRepository.fileToStream(new File(file.getPath(), file.getUuid()), response.getOutputStream());
+		FileConverterUtil.fileToStream(new File(file.getPath(), file.getUuid()), response.getOutputStream());
 		
 		return file;
 	}
@@ -81,7 +81,7 @@ public class FileService {
 	public void downloadFile(FileInfo fileInfo, OutputStream os) throws FileNotFoundException, IOException {		
 		File file = new File(fileInfo.getPath(), fileInfo.getUuid());
 		
-		localFileRepository.fileToStream(file, os);
+		FileConverterUtil.fileToStream(file, os);
 		
 		// 다운로드 카운트 + 1
 		fileInfo.plusDownloadCount();
@@ -92,7 +92,7 @@ public class FileService {
 	@Transactional
 	public void deleteFile(FileInfo fileInfo) throws FileNotFoundException {
 		
-		localFileRepository.deleteFile(fileInfo.getPath(), fileInfo.getUuid());
+		localFileRepository.deleteFile(new File(fileInfo.getPath(), fileInfo.getUuid()));
 		
 		fileInfoRepository.delete(fileInfo);											
 	}
@@ -114,9 +114,10 @@ public class FileService {
 	}
 	
 	public String downloadBase64(String id) throws FileNotFoundException, IOException {
-		FileInfo info = fileInfoRepository.findById(id).orElse(null);
-					
-		return localFileRepository.fileToBase64String(info.getPath(), info.getUuid());		
+		FileInfo info = fileInfoRepository.findById(id).orElse(null);					
+		File file = new File(info.getPath(), info.getUuid());
+		
+		return FileConverterUtil.getBase64String(file);		
 	}
 	
 	public File getStaticPathFile(String uuid) {
