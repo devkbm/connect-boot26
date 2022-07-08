@@ -25,12 +25,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * Aggregate Root
- * 
+ * Aggregate Root 
  * <p> 직원정보 </p>
- * 
- * @author CB457
- *
+ *  
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -42,9 +39,15 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	private static final long serialVersionUID = -3164713918774455925L;
 	
 	@Id
-	@Comment("직원번호")
+	@Comment("직원ID")
 	@Column(name="STAFF_ID")
-	String id;	
+	String id;
+	
+	@Column(name="ORG_CD")
+	String organizationCode;
+	
+	@Column(name="STAFF_NO")
+	String staffNo;
 		
 	@Embedded
 	StaffName name;

@@ -45,7 +45,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	private static final long serialVersionUID = -4328973281359262612L;
 
 	/**
-	 * 조직코드 + 유저명
+	 * 조직코드 + 직원번호
 	 */
 	@Id
 	@Column(name="USER_ID")
