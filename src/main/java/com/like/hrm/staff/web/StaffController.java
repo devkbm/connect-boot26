@@ -23,7 +23,7 @@ public class StaffController {
 		this.staffService = staffService;
 	}		
 	
-	@GetMapping("/hrm/staff/{id}")
+	@GetMapping("/api/hrm/staff/{id}")
 	public ResponseEntity<?> getStaff(@PathVariable String id) {
 								
 		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(staffService.getStaff(id)); 
@@ -32,7 +32,7 @@ public class StaffController {
 									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
-	@PostMapping("/hrm/staff/create")
+	@PostMapping("/api/hrm/staff/create")
 	public ResponseEntity<?> newStaff(@RequestBody @Valid StaffDTO.NewStaff dto) {											
 								
 		staffService.newStaff(dto);
@@ -41,7 +41,7 @@ public class StaffController {
 										,"직원번호 : %s , 생성되었습니다.".formatted(dto.staffId()));
 	}
 		
-	@PostMapping("/hrm/staff")
+	@PostMapping("/api/hrm/staff")
 	public ResponseEntity<?> saveStaff(@RequestBody @Valid StaffDTO.FormStaff dto) {			
 														
 		staffService.saveStaff(dto);

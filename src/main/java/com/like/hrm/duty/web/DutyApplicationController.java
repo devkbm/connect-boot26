@@ -37,7 +37,7 @@ public class DutyApplicationController {
 		this.holidayUtilService = holidayUtilService;
 	}
 	
-	@GetMapping("/hrm/dutyapplication")
+	@GetMapping("/api/hrm/dutyapplication")
 	public ResponseEntity<?> getDutyApplicationList(DutyApplicationDTO.Search dto) {
 											
 		List<DutyApplicationDTO.SaveDutyApplication> list = dutyApplicationQueryService.getDutyApplicationList(dto)
@@ -49,7 +49,7 @@ public class DutyApplicationController {
 										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
-	@GetMapping("/hrm/dutyapplication/{id}")
+	@GetMapping("/api/hrm/dutyapplication/{id}")
 	public ResponseEntity<?> getDutyApplication(@PathVariable Long id) {
 		
 		DutyApplication entity = dutyApplicationCommandService.getDutyApplication(id);
@@ -60,7 +60,7 @@ public class DutyApplicationController {
 									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 	
-	@GetMapping("/hrm/dutyapplication/period/{from}/{to}")
+	@GetMapping("/api/hrm/dutyapplication/period/{from}/{to}")
 	public ResponseEntity<?> getDutyApplicationPeriod(@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate from
 													 ,@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate to) {
 						
@@ -70,7 +70,7 @@ public class DutyApplicationController {
 										,MessageUtil.getQueryMessage(list.size()));
 	}
 		
-	@PostMapping("/hrm/dutyapplication")
+	@PostMapping("/api/hrm/dutyapplication")
 	public ResponseEntity<?> saveDutyApplication(@RequestBody DutyApplicationDTO.SaveDutyApplication dto) {				
 																			
 		dutyApplicationCommandService.saveDutyApplication(dto);						
@@ -79,7 +79,7 @@ public class DutyApplicationController {
 										,MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/hrm/dutyapplication/{id}")
+	@DeleteMapping("/api/hrm/dutyapplication/{id}")
 	public ResponseEntity<?> deleteDutyApplication(@PathVariable Long id) {				
 																		
 		dutyApplicationCommandService.deleteDutyApplication(id);						

@@ -23,7 +23,7 @@ public class HrmTypeQueryContoller {
 		this.service = service;
 	}
 	
-	@GetMapping("/hrm/typelist")
+	@GetMapping("/api/hrm/typelist")
 	public ResponseEntity<?> getTypeList() {
 		
 		List<HrmTypeDTO.FormHrmType> list = new ArrayList<HrmTypeDTO.FormHrmType>();
@@ -36,7 +36,7 @@ public class HrmTypeQueryContoller {
 										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
-	@GetMapping("/hrm/hrmtype")
+	@GetMapping("/api/hrm/hrmtype")
 	public ResponseEntity<?> getHrmTypeList(HrmTypeDTO.SearchHrmType dto) {														
 		
 		List<HrmTypeDTO.FormHrmType> list = service.getHrmTypeList(dto)
@@ -47,7 +47,7 @@ public class HrmTypeQueryContoller {
 										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
-	@GetMapping("/hrm/hrmtype/code")
+	@GetMapping("/api/hrm/hrmtype/code")
 	public ResponseEntity<?> getHrmTypeDetailCodeList(HrmTypeDetailCodeDTO.SearchHrmTypeDetailCode dto) {														
 		
 		List<HrmTypeDetailCodeDTO.FormHrmTypeDetailCode> list = service.getTypeDetailCodeList(dto)

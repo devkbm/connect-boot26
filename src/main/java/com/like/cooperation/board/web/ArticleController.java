@@ -79,7 +79,7 @@ public class ArticleController {
 										,MessageUtil.getSaveMessage(1));
 	}
 			
-	@GetMapping("/grw/board/article/hitcnt")
+	@GetMapping("/api/grw/board/article/hitcnt")
 	public ResponseEntity<?> updateArticleHitCnt(@RequestParam Long id,
 												 @RequestParam String userId) {								
 				

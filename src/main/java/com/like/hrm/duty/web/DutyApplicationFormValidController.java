@@ -17,7 +17,7 @@ public class DutyApplicationFormValidController {
 		this.repository = repository;
 	}
 	
-	@GetMapping("/hrm/dutyapplication/{id}/valid")
+	@GetMapping("/api/hrm/dutyapplication/{id}/valid")
 	public ResponseEntity<?> getDutyCode(@PathVariable(value="id") Long id) {
 		
 		boolean exist = repository.existsById(id);

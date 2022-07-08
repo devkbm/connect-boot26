@@ -17,7 +17,7 @@ public class StaffFormValidController {
 		this.repository = repository;		
 	}
 	
-	@GetMapping("/hrm/staff/{id}/valid")
+	@GetMapping("/api/hrm/staff/{id}/valid")
 	public ResponseEntity<?> isStaff(@PathVariable String id) {
 		
 		boolean exist = repository.existsById(id);

@@ -28,7 +28,7 @@ public class PayTableController {
 		this.payTableService = payTableService;
 	}
 	
-	@GetMapping("/hrm/paytable")
+	@GetMapping("/api/hrm/paytable")
 	public ResponseEntity<?> getPayTableList(PayTableDTO.SearchPayTable dto) {			
 						
 		List<PayTableDTO.SavePayTable> list = payTableService.getPayTableList(dto)
@@ -40,7 +40,7 @@ public class PayTableController {
 										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
-	@GetMapping("/hrm/paytable/{id}")
+	@GetMapping("/api/hrm/paytable/{id}")
 	public ResponseEntity<?> getPayTable(@PathVariable(value="id") Long id) {
 		
 		PayTable entity = payTableService.getPayTable(id);
@@ -51,7 +51,7 @@ public class PayTableController {
 									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 		
-	@PostMapping("/hrm/paytable")
+	@PostMapping("/api/hrm/paytable")
 	public ResponseEntity<?> savePayTable(@RequestBody @Valid PayTableDTO.SavePayTable dto) {							
 							
 		payTableService.save(dto);						
@@ -61,7 +61,7 @@ public class PayTableController {
 	}
 	
 		
-	@DeleteMapping("/hrm/paytable/{id}")
+	@DeleteMapping("/api/hrm/paytable/{id}")
 	public ResponseEntity<?> deletePayTable(@PathVariable Long id) {				
 																		
 		payTableService.delete(id);						
@@ -70,7 +70,7 @@ public class PayTableController {
 										,String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
-	@GetMapping("/hrm/paytable/{payTableId}/item")
+	@GetMapping("/api/hrm/paytable/{payTableId}/item")
 	public ResponseEntity<?> getPayTableItems(@PathVariable(value="payTableId") Long payTableId) {
 		
 		List<PayTableItem> entity = payTableService.getPayTableItem(payTableId);
@@ -83,7 +83,7 @@ public class PayTableController {
 										,String.format("%d 건 조회되었습니다.", dto.size()));
 	}
 	
-	@GetMapping("/hrm/paytable/{payTableId}/item/{id}")
+	@GetMapping("/api/hrm/paytable/{payTableId}/item/{id}")
 	public ResponseEntity<?> getPayTableItem(@PathVariable Long payTableId
 			                                ,@PathVariable Long id) {
 		
@@ -95,7 +95,7 @@ public class PayTableController {
 										,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 	
-	@PostMapping("/hrm/paytable/item")
+	@PostMapping("/api/hrm/paytable/item")
 	public ResponseEntity<?> savePayTableItem(@RequestBody @Valid PayTableDTO.SavePayTableItem dto) {						
 							
 		payTableService.save(dto);						
@@ -105,7 +105,7 @@ public class PayTableController {
 	}
 	
 		
-	@DeleteMapping("/hrm/paytable/{payTableId}/item/{id}")
+	@DeleteMapping("/api/hrm/paytable/{payTableId}/item/{id}")
 	public ResponseEntity<?> deletePayTableItem(@PathVariable Long payTableId
             								   ,@PathVariable Long id) {				
 																		

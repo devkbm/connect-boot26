@@ -4,9 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.hrmtypecode.boundary.SaveHrmRelationCode;
@@ -24,7 +23,7 @@ public class HrmRelationCodeController {
 		this.service = service;
 	}
 	
-	@GetMapping("/hrm/hrmrelation/{id}")
+	@GetMapping("/api/hrm/hrmrelation/{id}")
 	public ResponseEntity<?> getHrmRelationCode(@PathVariable Long id) {				
 		
 		HrmRelationCode hrmRelationCode = service.getRelationCode(id);
@@ -32,8 +31,8 @@ public class HrmRelationCodeController {
 		return ResponseEntityUtil.toOne(hrmRelationCode			
 									   ,MessageUtil.getQueryMessage(hrmRelationCode == null ? 0 : 1));
 	}
-	
-	@RequestMapping(value={"/hrm/hrmrelation"}, method={RequestMethod.POST,RequestMethod.PUT}) 
+		
+	@PostMapping("/api/hrm/hrmrelation")
 	public ResponseEntity<?> saveHrmRelationCode(@RequestBody SaveHrmRelationCode dto) {				
 																		
 		service.saveRelationCode(dto);						
@@ -42,7 +41,7 @@ public class HrmRelationCodeController {
 										,MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/hrm/hrmrelation/{id}")
+	@DeleteMapping("/api/hrm/hrmrelation/{id}")
 	public ResponseEntity<?> deleteHrmRelationCode(@PathVariable Long id) {				
 						
 		service.deleteRelationCode(id);						

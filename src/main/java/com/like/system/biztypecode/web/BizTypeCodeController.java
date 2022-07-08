@@ -24,7 +24,7 @@ public class BizTypeCodeController {
 		this.service = service;
 	}
 	
-	@GetMapping("/common/biztype/{id}")
+	@GetMapping("/api/common/biztype/{id}")
 	public ResponseEntity<?> getBizTypeCode(@PathVariable String id) {
 		
 		BizTypeCodeDTO.FormBizTypeCode dto = BizTypeCodeDTO.FormBizTypeCode.convert(service.getBizTypeCode(id));
@@ -33,7 +33,7 @@ public class BizTypeCodeController {
 									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
-	@PostMapping("/common/biztype")	
+	@PostMapping("/api/common/biztype")	
 	public ResponseEntity<?> saveHrmType(@RequestBody BizTypeCodeDTO.FormBizTypeCode dto) {				
 																			
 		service.saveBizTypeCode(dto);						
@@ -43,7 +43,7 @@ public class BizTypeCodeController {
 	}
 	
 		
-	@DeleteMapping("/common/biztype/{id}")
+	@DeleteMapping("/api/common/biztype/{id}")
 	public ResponseEntity<?> deleteHrmType(@PathVariable String id) {				
 																		
 		service.deleteBizTypeCode(id);						
@@ -52,7 +52,7 @@ public class BizTypeCodeController {
 										,MessageUtil.getDeleteMessage(1));
 	}
 	
-	@GetMapping("/common/biztype/{typeCode}/bizdetail/{detailCode}")
+	@GetMapping("/api/common/biztype/{typeCode}/bizdetail/{detailCode}")
 	public ResponseEntity<?> getBizDetailCode(@PathVariable String typeCode
 											 ,@PathVariable String detailCode) {
 		
@@ -62,7 +62,7 @@ public class BizTypeCodeController {
 									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
-	@PostMapping("/common/biztype/bizdetail")	
+	@PostMapping("/api/common/biztype/bizdetail")	
 	public ResponseEntity<?> saveBizDetailCode(@RequestBody BizDetailCodeDTO.FormBizDetailCode dto) {				
 																		
 		service.saveBizDetailCode(dto);						
@@ -71,7 +71,7 @@ public class BizTypeCodeController {
 										,MessageUtil.getSaveMessage(1));
 	}	
 		
-	@DeleteMapping("/common/biztype/{typeCode}/bizdetail/{detailCode}")
+	@DeleteMapping("/api/common/biztype/{typeCode}/bizdetail/{detailCode}")
 	public ResponseEntity<?> deleteBizDetailCode(@PathVariable String typeCode
 			 									,@PathVariable String detailCode) {				
 																		

@@ -27,7 +27,7 @@ public class PayItemController {
 		this.payItemService = payItemService;		
 	}
 	
-	@GetMapping("/hrm/payitem")
+	@GetMapping("/api/hrm/payitem")
 	public ResponseEntity<?> getHrmTypeList(PayItemDTO.SearchPayItem dto) {
 		
 		List<PayItemDTO.SavePayItem> list = payItemService.getPayItem(dto)
@@ -39,7 +39,7 @@ public class PayItemController {
 										,String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
-	@GetMapping("/hrm/payitem/{code}")
+	@GetMapping("/api/hrm/payitem/{code}")
 	public ResponseEntity<?> getPayItem(@PathVariable String code) {
 		
 		PayItem entity = payItemService.getPayItem(code);
@@ -50,7 +50,7 @@ public class PayItemController {
 									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 		
-	@PostMapping("/hrm/payitem")
+	@PostMapping("/api/hrm/payitem")
 	public ResponseEntity<?> savePayItem(@RequestBody @Valid PayItemDTO.SavePayItem dto) {						
 							
 		payItemService.save(dto);						
@@ -60,7 +60,7 @@ public class PayItemController {
 	}
 	
 		
-	@DeleteMapping("/hrm/payitem/{code}")
+	@DeleteMapping("/api/hrm/payitem/{code}")
 	public ResponseEntity<?> deleteDutyCode(@PathVariable String code) {				
 																		
 		payItemService.delete(code);						

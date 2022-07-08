@@ -24,7 +24,7 @@ public class StaffFamilyController {
 		this.service = service;	
 	}
 	
-	@GetMapping("/hrm/staff/{staffId}/family/{id}")
+	@GetMapping("/api/hrm/staff/{staffId}/family/{id}")
 	public ResponseEntity<?> getFamily(@PathVariable String staffId
 									  ,@PathVariable Long id) {
 				
@@ -37,7 +37,7 @@ public class StaffFamilyController {
 							
 	}
 		
-	@PostMapping("/hrm/staff/family")
+	@PostMapping("/api/hrm/staff/family")
 	public ResponseEntity<?> saveFamily(@Valid @RequestBody StaffDTO.FormFamily dto) {			
 							
 		service.saveFamily(dto);

@@ -22,7 +22,7 @@ public class HrmCodeValidController {
 		this.hrmTypeDetailCodeRepository = hrmTypeDetailCodeRepository;
 	}
 	
-	@GetMapping("/hrm/hrmtype/{id}/valid")
+	@GetMapping("/api/hrm/hrmtype/{id}/valid")
 	public ResponseEntity<?> validHrmType(@PathVariable(value="id") String id) {
 		
 		boolean exist = repository.existsById(id);
@@ -31,7 +31,7 @@ public class HrmCodeValidController {
 									   ,exist ? "중복된 인사유형 코드가 있습니다." : "사용가능한 코드입니다.");
 	}
 	
-	@GetMapping("/hrm/hrmtype/{type}/{code}/valid")
+	@GetMapping("/api/hrm/hrmtype/{type}/{code}/valid")
 	public ResponseEntity<?> validHrmCode(@PathVariable(value="type") String type, @PathVariable(value="code") String code) {
 		
 		boolean exist = hrmTypeDetailCodeRepository.existsById(new HrmTypeDetailCodeId(type, code));
@@ -41,7 +41,7 @@ public class HrmCodeValidController {
 	}
 	
 	/*
-	@GetMapping("/common/dept/{id}/valid")
+	@GetMapping("/api/common/dept/{id}/valid")
 	public ResponseEntity<?> getValidateDeptDuplication(@PathVariable String id) {
 							
 		Boolean exist = deptService.isDept(id);  	

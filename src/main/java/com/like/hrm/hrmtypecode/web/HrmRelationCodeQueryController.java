@@ -20,7 +20,7 @@ public class HrmRelationCodeQueryController {
 		this.service = service;
 	}
 	
-	@GetMapping("/hrm/hrmrelation")
+	@GetMapping("/api/hrm/hrmrelation")
 	public ResponseEntity<?> getHrmRelationCode(HrmRelationCodeDTO.SearchHrmRelationCode dto) {
 						
 		List<?> list = service.getHrmRelationCodeList(dto);

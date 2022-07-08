@@ -4,9 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.hrmtypecode.boundary.HrmTypeDTO;
@@ -25,7 +24,7 @@ public class HrmTypeController {
 		this.service = service;		
 	}							
 	
-	@GetMapping("/hrm/hrmtype/{id}")
+	@GetMapping("/api/hrm/hrmtype/{id}")
 	public ResponseEntity<?> getHrmType(@PathVariable String id) {
 		
 		HrmTypeDTO.FormHrmType hrmType = service.getHrmTypeDTO(id);
@@ -33,8 +32,8 @@ public class HrmTypeController {
 		return ResponseEntityUtil.toOne(hrmType
 									   ,MessageUtil.getQueryMessage(hrmType == null ? 0 : 1));
 	}
-	
-	@RequestMapping(value={"/hrm/hrmtype"}, method={RequestMethod.POST,RequestMethod.PUT}) 
+		
+	@PostMapping("/api/hrm/hrmtype")
 	public ResponseEntity<?> saveHrmType(@RequestBody HrmTypeDTO.FormHrmType dto) {						
 																	
 		service.saveHrmType(dto);						
@@ -44,7 +43,7 @@ public class HrmTypeController {
 	}
 	
 		
-	@DeleteMapping("/hrm/hrmtype/{id}")
+	@DeleteMapping("/api/hrm/hrmtype/{id}")
 	public ResponseEntity<?> deleteHrmType(@PathVariable(value="id") String id) {				
 																		
 		service.deleteHrmType(id);						
@@ -54,7 +53,7 @@ public class HrmTypeController {
 	}			
 	
 	
-	@GetMapping("/hrm/hrmtype/{type}/code/{code}")
+	@GetMapping("/api/hrm/hrmtype/{type}/code/{code}")
 	public ResponseEntity<?> getTypeDetailCode(@PathVariable String type, @PathVariable String code) {
 		
 		HrmTypeDetailCodeDTO.FormHrmTypeDetailCode dto = service.getTypeDetailCodeDTO(new HrmTypeDetailCodeId(type, code));
@@ -62,8 +61,8 @@ public class HrmTypeController {
 		return ResponseEntityUtil.toOne(dto
 									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
-	
-	@RequestMapping(value={"/hrm/hrmtype/{type}/code"}, method={RequestMethod.POST,RequestMethod.PUT}) 
+		
+	@PostMapping("/api/hrm/hrmtype/{type}/code")
 	public ResponseEntity<?> saveTypeDetailCode(@RequestBody HrmTypeDetailCodeDTO.FormHrmTypeDetailCode dto) {				
 																			
 		service.saveTypeDetailCode(dto);						
@@ -72,7 +71,7 @@ public class HrmTypeController {
 										,MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/hrm/hrmtype/{type}/code/{code}")
+	@DeleteMapping("/api/hrm/hrmtype/{type}/code/{code}")
 	public ResponseEntity<?> deleteTypeDetailCode(@PathVariable String type, @PathVariable String code) {				
 																		
 		service.deleteTypeDetailCode(new HrmTypeDetailCodeId(type, code));						

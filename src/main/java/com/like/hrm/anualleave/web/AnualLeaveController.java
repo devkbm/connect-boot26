@@ -23,7 +23,7 @@ public class AnualLeaveController {
 		this.anualLeaveService = anualLeaveService;		
 	}
 
-	@GetMapping("/hrm/anualleave/{yyyy}/{staffId}")
+	@GetMapping("/api/hrm/anualleave/{yyyy}/{staffId}")
 	public ResponseEntity<?> getAnualLeave(@PathVariable Integer yyyy
 									  	  ,@PathVariable String staffId) {
 				
@@ -35,7 +35,7 @@ public class AnualLeaveController {
 									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
-	@PostMapping("/hrm/anualleave")
+	@PostMapping("/api/hrm/anualleave")
 	public ResponseEntity<?> saveAnualLeave(@RequestBody AnualLeaveDTO.SaveAnualLeave dto) {							
 																	
 		anualLeaveService.saveAnualLeave(dto);						
@@ -44,7 +44,7 @@ public class AnualLeaveController {
 										,MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/hrm/anualleave/{yyyy}/{staffId}")
+	@DeleteMapping("/api/hrm/anualleave/{yyyy}/{staffId}")
 	public ResponseEntity<?> deleteLedger(@PathVariable Integer yyyy
 		  	  							 ,@PathVariable String staffId) {				
 																		

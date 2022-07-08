@@ -34,7 +34,7 @@ public class StaffImageController {
 		this.employeeService 	= employeeService;
 	}
 
-	@PostMapping("/hrm/staff/changeimage")
+	@PostMapping("/api/hrm/staff/changeimage")
 	public ResponseEntity<?> changeEmployeeImage(@RequestParam("file") MultipartFile file,
 												 @RequestParam("staffId") String staffId) throws Exception {				
 		
@@ -57,7 +57,7 @@ public class StaffImageController {
 		return new ResponseEntity<Map<String,Object>>(response, responseHeaders, HttpStatus.OK);
 	}
 		
-	@GetMapping("/hrm/staff/downloadimage")
+	@GetMapping("/api/hrm/staff/downloadimage")
 	public HttpServletResponse downloadEmployeeImage(HttpServletResponse response,
 													 @RequestParam("staffId") String staffId) throws Exception {
 				

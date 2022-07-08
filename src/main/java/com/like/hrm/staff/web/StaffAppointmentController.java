@@ -26,7 +26,7 @@ public class StaffAppointmentController {
 		this.service = service;
 	}
 	
-	@GetMapping("/hrm/staff/{staffId}/appointmentrecord")
+	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord")
 	public ResponseEntity<?> getAppointmentRecordList(@PathVariable String staffId) {
 										
 		List<AppointmentRecordDTO.FormStaffAppointmentRecord> list = service.getAppointmentRecord(staffId)
@@ -38,7 +38,7 @@ public class StaffAppointmentController {
 										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
-	@GetMapping("/hrm/staff/{staffId}/appointmentrecord/{id}")
+	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord/{id}")
 	public ResponseEntity<?> getAppointmentRecord(@PathVariable String staffId
 									  			 ,@PathVariable Long id) {
 				
@@ -50,7 +50,7 @@ public class StaffAppointmentController {
 									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
-	@PostMapping("/hrm/staff/{staffId}/appointmentrecord")
+	@PostMapping("/api/hrm/staff/{staffId}/appointmentrecord")
 	public ResponseEntity<?> saveAppointmentRecord(@Valid @RequestBody AppointmentRecordDTO.FormStaffAppointmentRecord dto) {			
 									
 		service.saveAppointmentRecord(dto);
@@ -59,7 +59,7 @@ public class StaffAppointmentController {
 										,MessageUtil.getSaveMessage(1));
 	}
 	
-	@GetMapping("/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
+	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
 	//@RequestMapping(value={"/hrm/staff/{staffId}/appointmentrecord/{id}/apply"}, method={RequestMethod.POST})	
 	public ResponseEntity<?> applyAppointmentRecord(@PathVariable String staffId
  			 									   ,@PathVariable Long id) {									

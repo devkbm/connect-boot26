@@ -21,7 +21,7 @@ public class StaffQueryController {
 		this.service = service;		
 	}
 	
-	@GetMapping("/hrm/staff")
+	@GetMapping("/api/hrm/staff")
 	public ResponseEntity<?> getStaffList(StaffDTO.SearchStaff dto) {
 									
 		List<StaffDTO.ResponseStaff> list = service.getStaff(dto)
@@ -33,7 +33,7 @@ public class StaffQueryController {
 										,MessageUtil.getQueryMessage(list.size()));
 	}
 	
-	@GetMapping("/hrm/staff/{id}/record")
+	@GetMapping("/api/hrm/staff/{id}/record")
 	public ResponseEntity<?> getStaffAppointmentRecordList(@PathVariable String id) {
 		
 		List<?> list = service.getStaffAppointmentRecordList(id);								

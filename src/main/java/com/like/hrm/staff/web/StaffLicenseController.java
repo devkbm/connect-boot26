@@ -24,7 +24,7 @@ public class StaffLicenseController {
 		this.service = service;
 	}
 	
-	@GetMapping("/hrm/staff/{staffId}/license/{id}")
+	@GetMapping("/api/hrm/staff/{staffId}/license/{id}")
 	public ResponseEntity<?> getLicense(@PathVariable String staffId,
 										@PathVariable Long id) {
 				
@@ -34,7 +34,7 @@ public class StaffLicenseController {
 									   ,MessageUtil.getQueryMessage(license == null ? 0 : 1));
 	}
 		
-	@PostMapping("/hrm/employee/license")
+	@PostMapping("/api/hrm/employee/license")
 	public ResponseEntity<?> saveLicense(@Valid @RequestBody StaffDTO.FormLicense dto) {						
 				
 		service.saveLicense(dto);

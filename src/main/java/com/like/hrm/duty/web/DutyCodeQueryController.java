@@ -21,7 +21,7 @@ public class DutyCodeQueryController {
 		this.service = service;
 	}
 	
-	@GetMapping("/hrm/dutycode")
+	@GetMapping("/api/hrm/dutycode")
 	public ResponseEntity<?> getDutyCodeList(DutyCodeDTO.SearchDutyCode dto) {
 								
 		

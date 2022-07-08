@@ -24,7 +24,7 @@ public class StaffSchoolCareerController {
 		this.service = service;
 	}
 	
-	@GetMapping("/hrm/staff/{staffId}/education/{id}")
+	@GetMapping("/api/hrm/staff/{staffId}/education/{id}")
 	public ResponseEntity<?> getEducation(@PathVariable String staffId,
 										  @PathVariable Long id) {
 				
@@ -34,7 +34,7 @@ public class StaffSchoolCareerController {
 									   ,MessageUtil.getQueryMessage(schoolCareer == null ? 0 : 1));
 	}
 		
-	@PostMapping("/hrm/staff/education")
+	@PostMapping("/api/hrm/staff/education")
 	public ResponseEntity<?> saveEducation(@RequestBody @Valid StaffDTO.FormEducation dto) {					
 				
 		service.saveSchoolCareer(dto);

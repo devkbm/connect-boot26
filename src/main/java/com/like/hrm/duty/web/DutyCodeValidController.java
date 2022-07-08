@@ -17,7 +17,7 @@ public class DutyCodeValidController {
 		this.dutyCodeRepository = dutyCodeRepository;
 	}
 	
-	@GetMapping("/hrm/dutycode/{id}/valid")
+	@GetMapping("/api/hrm/dutycode/{id}/valid")
 	public ResponseEntity<?> getDutyCode(@PathVariable(value="id") String id) {
 		
 		boolean exist = dutyCodeRepository.existsById(id);
