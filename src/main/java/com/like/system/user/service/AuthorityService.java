@@ -19,11 +19,11 @@ public class AuthorityService {
 	
 	/**
 	 * 권한 도메인을 조회한다.
-	 * @param authorityName	권한명
+	 * @param id	권한명
 	 * @return	권한 도메인
 	 */
-	public Authority getAuthority(String authorityName) {
-		return repository.findById(authorityName).orElse(null);
+	public Authority getAuthority(String id) {
+		return repository.findById(id).orElse(null);
 	}
 	
 	/**
@@ -33,8 +33,8 @@ public class AuthorityService {
 	public void createAuthority(AuthorityDTO.FormAuthority dto) {
 		Authority authority = null;
 		
-		if (dto.authority() != null) {
-			authority = repository.findById(dto.authority()).orElse(null);
+		if (dto.authorityId() != null) {
+			authority = repository.findById(dto.authorityId()).orElse(null);
 		} 
 		
 		if (authority == null) {
@@ -48,9 +48,9 @@ public class AuthorityService {
 		
 	/**
 	 * 권한 도메인을 삭제한다.
-	 * @param authorityName
+	 * @param id
 	 */
-	public void deleteAuthority(String authorityName) {
-		repository.deleteById(authorityName);
+	public void deleteAuthority(String id) {
+		repository.deleteById(id);
 	}
 }

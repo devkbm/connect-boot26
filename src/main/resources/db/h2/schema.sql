@@ -128,9 +128,11 @@ create table COMAUTHORITY (
 	MODIFIED_USER_ID	VARCHAR(50)		NULL		,--COMMENT '최종수정유저',
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(50)		NULL		,--COMMENT '최종수정APPURL',
-    AUTHORITY_NAME		VARCHAR(50)		NOT NULL	,--COMMENT '권한명',
+	AUTH_ID				VARCHAR(50)		NOT NULL	,--COMMENT '권한ID',
+	ORG_CD				VARCHAR(50)		NOT NULL	,--COMMENT '조직코드',
+	AUTH_CD				VARCHAR(50)		NOT NULL	,--COMMENT '권한코드',    
     DESCRIPTION			VARCHAR(500)	NULL		,--COMMENT '권한설명',
-	constraint pk_comauthority primary key(AUTHORITY_NAME)
+	constraint pk_comauthority primary key(AUTH_ID)
 ); -- COMMENT = '권한관리';
 
 create table COMUSERAUTHORITY (
@@ -142,11 +144,11 @@ create table COMUSERAUTHORITY (
 	MODIFIED_USER_ID	VARCHAR(50)		NULL		,--COMMENT '최종수정유저',
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(50)		NULL		,--COMMENT '최종수정APPURL',
-    USER_ID				VARCHAR(50)		NOT NULL	,--COMMENT '유저ID',
-    AUTHORITY_NAME		VARCHAR(2000)	NOT NULL	,--COMMENT '권한명',
-	constraint pk_comuserauthority 	primary key(USER_ID, AUTHORITY_NAME),
+    USER_ID				VARCHAR(50)		NOT NULL	,--COMMENT '유저ID',	
+    AUTH_ID				VARCHAR(50)		NOT NULL	,--COMMENT '권한명',
+	constraint pk_comuserauthority 	primary key(USER_ID, AUTH_ID),
 	constraint fk_comuserauthority1	foreign key(USER_ID) references COMUSER(USER_ID),
-	constraint fk_comuserauthority2	foreign key(AUTHORITY_NAME) references COMAUTHORITY(AUTHORITY_NAME)
+	constraint fk_comuserauthority2	foreign key(AUTH_ID) references COMAUTHORITY(AUTH_ID)
 ); -- COMMENT = '사용자권한매핑관리';
 
 create table COMRESOURCE (
