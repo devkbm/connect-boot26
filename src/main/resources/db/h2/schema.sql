@@ -177,10 +177,12 @@ create table COMMENUGROUP (
 	MODIFIED_USER_ID	VARCHAR(50)		NULL		,--COMMENT '최종수정유저',
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(50)		NULL		,--COMMENT '최종수정APPURL',
+	MENU_GROUP_ID		VARCHAR(50)		NOT NULL	,--COMMENT '메뉴그룹ID',
+	ORG_CD				VARCHAR(10)		NULL		,--COMMENT '조직코드',
     MENU_GROUP_CODE		VARCHAR(10)		NOT NULL	,--COMMENT '메뉴그룹코드',
     MENU_GROUP_NAME		VARCHAR(50)		NOT NULL	,--COMMENT '메뉴그룹명',
     DESCRIPTION			VARCHAR(500)	NULL		,--COMMENT '설명',
-	constraint pk_commenugroup	primary key(MENU_GROUP_CODE)
+	constraint pk_commenugroup	primary key(MENU_GROUP_ID)
 ); -- COMMENT = '메뉴그룹관리';
 
 create table COMMENU (
@@ -192,17 +194,19 @@ create table COMMENU (
 	MODIFIED_USER_ID	VARCHAR(50)		NULL		,--COMMENT '최종수정유저',
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(50)		NULL		,--COMMENT '최종수정APPURL',
+	MENU_ID				VARCHAR(50)		NOT NULL	,--COMMENT '메뉴코드',
+	ORG_CD				VARCHAR(10)		NOT NULL	,--COMMENT '조직코드',
 	MENU_CODE			VARCHAR(10)		NOT NULL	,--COMMENT '메뉴코드',
 	MENU_NAME			VARCHAR(50)		NOT NULL	,--COMMENT '메뉴명',
     MENU_TYPE			VARCHAR(10)		NOT NULL	,--COMMENT '메뉴타입',
-	P_MENU_CODE			VARCHAR(10)		NULL		,--COMMENT '상위메뉴코드',
-	MENU_GROUP_CODE		VARCHAR(10)		NOT NULL	,--COMMENT '메뉴그룹코드',	        
+	P_MENU_ID			VARCHAR(50)		NULL		,--COMMENT '상위메뉴코드',
+	MENU_GROUP_ID		VARCHAR(50)		NOT NULL	,--COMMENT '메뉴그룹코드',	        
     APP_URL				VARCHAR(50)		NULL		,--COMMENT 'APP_URL',
     SEQ					INT(11)			NULL		,--COMMENT '계층별 순번',
     LVL					INT(11)			NULL		,--COMMENT '계층레벨',    
-	constraint pk_commenu		primary key(MENU_CODE),
-	constraint fk_commenu1	 	foreign key(P_MENU_CODE) references COMMENU(MENU_CODE),
-	constraint fk_commenu2	 	foreign key(MENU_GROUP_CODE) references COMMENUGROUP(MENU_GROUP_CODE)
+	constraint pk_commenu		primary key(MENU_ID),
+	constraint fk_commenu1	 	foreign key(P_MENU_ID) references COMMENU(MENU_ID),
+	constraint fk_commenu2	 	foreign key(MENU_GROUP_ID) references COMMENUGROUP(MENU_GROUP_ID)
 ); -- COMMENT = '메뉴관리';
 
 create table COMUSERMENUGROUP (
@@ -215,10 +219,10 @@ create table COMUSERMENUGROUP (
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(50)		NULL		,--COMMENT '최종수정APPURL',
 	USER_ID				VARCHAR(50)		NOT NULL	,--COMMENT '유저ID',
-    MENU_GROUP_CODE		VARCHAR(10)		NOT NULL	,--COMMENT '메뉴그룹코드',
-	constraint pk_comusermenugroup 		primary key(USER_ID, MENU_GROUP_CODE),
+    MENU_GROUP_ID		VARCHAR(10)		NOT NULL	,--COMMENT '메뉴그룹코드',
+	constraint pk_comusermenugroup 		primary key(USER_ID, MENU_GROUP_ID),
 	constraint fk_comusermenugroup1 	foreign key(USER_ID) references COMUSER(USER_ID),
-	constraint fk_comusermenugroup2 	foreign key(MENU_GROUP_CODE) references COMMENUGROUP(MENU_GROUP_CODE)
+	constraint fk_comusermenugroup2 	foreign key(MENU_GROUP_ID) references COMMENUGROUP(MENU_GROUP_ID)
 ); -- COMMENT = '사용자메뉴그룹매핑관리';
 
 create table COMLOGINHISTORY (

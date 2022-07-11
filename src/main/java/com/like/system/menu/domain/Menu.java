@@ -38,8 +38,14 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	private static final long serialVersionUID = -8469789281288988098L;
 
 	@Id
-	@Column(name = "MENU_CODE")
+	@Column(name = "MENU_ID")
 	String id;
+	
+	@Column(name="ORG_CD")
+	String organizationCode;
+		
+	@Column(name="MENU_CODE")
+	String code;
 	
 	@Column(name="MENU_NAME")
 	String name; 		
@@ -59,16 +65,17 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	long level;
 	
 	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="P_MENU_CODE", nullable = true )
+	@JoinColumn(name="P_MENU_ID", nullable = true )
 	Menu parent;
 	
 	@JsonIgnore	
 	@ManyToOne
-	@JoinColumn(name = "MENU_GROUP_CODE", nullable=false, updatable=false)
+	@JoinColumn(name = "MENU_GROUP_ID", nullable=false, updatable=false)
 	MenuGroup menuGroup = new MenuGroup();	
 		
 	@Builder
 	public Menu(@NonNull MenuGroup menuGroup,
+				String organizationCode,
 				String menuCode, 
 				String menuName, 				 			
 				MenuType menuType,
@@ -76,7 +83,9 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 				long sequence,
 				long level) {
 		
-		this.id = menuCode;
+		this.id = organizationCode + menuCode;
+		this.organizationCode = organizationCode;
+		this.code = menuCode;
 		this.name = menuName;			
 		this.type = menuType;
 		this.sequence = sequence;

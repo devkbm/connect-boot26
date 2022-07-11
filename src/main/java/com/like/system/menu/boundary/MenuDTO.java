@@ -54,8 +54,9 @@ public class MenuDTO {
 			String modifiedBy,
 			@NotEmpty
 			String menuGroupId,
-			@NotEmpty
 			String menuId,
+			String organizationCode,
+			String menuCode,			
 			@NotEmpty
 			String menuName,
 			String parentMenuId,
@@ -68,7 +69,8 @@ public class MenuDTO {
 		public Menu newMenu(MenuGroup menuGroup) {
 			return Menu.builder()
 					   .menuGroup(menuGroup)
-					   .menuCode(this.menuId)
+					   .organizationCode(organizationCode)
+					   .menuCode(this.menuCode)
 					   .menuName(this.menuName)
 					   .menuType(MenuType.valueOf(this.menuType))
 					   .sequence(this.sequence)
@@ -97,6 +99,8 @@ public class MenuDTO {
 					   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())
 					   	   .menuGroupId(menu.getMenuGroup().getId())
 					   	   .menuId(menu.getId())
+					   	   .organizationCode(menu.getOrganizationCode())
+					   	   .menuCode(menu.getCode())
 					   	   .menuName(menu.getName())
 					   	   .menuType(menu.getType().toString())
 					   	   .sequence(menu.getSequence())

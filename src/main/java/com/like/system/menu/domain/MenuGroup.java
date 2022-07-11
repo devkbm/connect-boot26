@@ -33,21 +33,29 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 	private static final long serialVersionUID = -638113137072530575L;
 
 	@Id
-	@Column(name="menu_group_code")
+	@Column(name="MENU_GROUP_ID")
 	String id;
 	
-	@Column(name="menu_group_name")
+	@Column(name="ORG_CD")
+	String organizationCode;
+		
+	@Column(name="MENU_GROUP_CODE")
+	String code;
+	
+	@Column(name="MENU_GROUP_NAME")
 	String name; 
 		
-	@Column(name="description")
+	@Column(name="DESCRIPTION")
 	String description;
 		
 	@OneToMany(mappedBy = "menuGroup", cascade = CascadeType.ALL, orphanRemoval = true)          
     List<Menu> menuList = new ArrayList<Menu>();
 			
 	@Builder
-	public MenuGroup(String id, String name, String description) {	
-		this.id = id;
+	public MenuGroup(String organizationCode, String code, String name, String description) {	
+		this.id = organizationCode + code;
+		this.organizationCode = organizationCode;
+		this.code = code;
 		this.name = name;
 		this.description = description;
 	}	

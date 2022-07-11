@@ -4,8 +4,6 @@ import static org.springframework.util.StringUtils.hasText;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotEmpty;
-
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.QMenuGroup;
 import com.querydsl.core.BooleanBuilder;
@@ -45,17 +43,18 @@ public class MenuGroupDTO {
 			LocalDateTime createdDt,
 			String createdBy,
 			LocalDateTime modifiedDt,
-			String modifiedBy,
-			@NotEmpty
+			String modifiedBy,			
 			String menuGroupId,
-			@NotEmpty
+			String organizationCode,
+			String menuGroupCode,		
 			String menuGroupName,
 			String description
 			) {
 		
 		public MenuGroup newMenuGroup() {
 			return MenuGroup.builder()
-						    .id(this.menuGroupId)
+						    .organizationCode(this.organizationCode)
+						    .code(this.menuGroupCode)
 						    .name(this.menuGroupName)
 						    .description(this.description)
 						    .build();	
@@ -73,7 +72,9 @@ public class MenuGroupDTO {
 								.createdBy(entity.getCreatedBy().getLoggedUser())
 								.modifiedDt(entity.getModifiedDt())
 								.modifiedBy(entity.getModifiedBy().getLoggedUser())
+								.organizationCode(entity.getOrganizationCode())
 								.menuGroupId(entity.getId())
+								.menuGroupCode(entity.getCode())
 								.menuGroupName(entity.getName())
 								.description(entity.getDescription())
 								.build();
