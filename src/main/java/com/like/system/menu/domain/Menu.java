@@ -83,7 +83,7 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 				long sequence,
 				long level) {
 		
-		this.id = organizationCode + menuCode;
+		this.id = menuGroup.getId() + menuCode;
 		this.organizationCode = organizationCode;
 		this.code = menuCode;
 		this.name = menuName;			
