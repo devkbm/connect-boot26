@@ -92,7 +92,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="COMUSERMENUGROUP",
     		joinColumns= @JoinColumn(name="USER_ID"),
-    		inverseJoinColumns=@JoinColumn(name="MENU_GROUP_CODE"))	
+    		inverseJoinColumns=@JoinColumn(name="MENU_GROUP_ID"))	
 	Set<MenuGroup> menuGroupList = new LinkedHashSet<>();		
 		
 	@Builder
