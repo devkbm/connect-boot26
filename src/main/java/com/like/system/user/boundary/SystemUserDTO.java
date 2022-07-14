@@ -30,7 +30,9 @@ import lombok.Singular;
 public class SystemUserDTO {
 	
 	public record Search(
-			String userId,
+			@NotBlank(message="조직 코드를 선택해주세요.")
+			String organizationCode,
+			String staffNo,			
 			String name,
 			String deptCode
 			) {
@@ -40,15 +42,20 @@ public class SystemUserDTO {
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
-			builder.and(likeUserId(this.userId))
-			 	   .and(likeUserName(this.name))
+			builder.and(eqOrganizationCode(this.organizationCode))
+				   .and(likeStaffNo(this.staffNo))
+				   .and(likeUserName(this.name))
 			 	   .and(equalDeptCode(this.deptCode));						
 			
 			return builder;
 		}
 		
-		private BooleanExpression likeUserId(String userId) {
-			return hasText(userId) ? qType.id.like("%"+userId+"%") : null;					
+		private BooleanExpression eqOrganizationCode(String organizationCode) {
+			return qType.organizationCode.eq(organizationCode);
+		}
+				
+		private BooleanExpression likeStaffNo(String staffNo) {
+			return hasText(staffNo) ? qType.staffNo.like("%"+staffNo+"%") : null;					
 		}
 		
 		private BooleanExpression likeUserName(String name) {

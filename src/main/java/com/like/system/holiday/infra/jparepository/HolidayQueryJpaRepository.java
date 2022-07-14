@@ -21,11 +21,12 @@ public class HolidayQueryJpaRepository implements HolidayQueryRepository {
 	}
 	
 	@Override
-	public List<Holiday> getHoliday(LocalDate fromDate, LocalDate toDate) {		
+	public List<Holiday> getHoliday(String organizationCode, LocalDate fromDate, LocalDate toDate) {		
 		
 		return queryFactory
 				.selectFrom(qHoliday)
-				.where(qHoliday.date.goe(fromDate).and(qHoliday.date.loe(toDate)))
+				.where(qHoliday.id.organizationCode.eq(organizationCode)
+			 	  .and(qHoliday.id.date.goe(fromDate).and(qHoliday.id.date.loe(toDate))))
 				.fetch();				
 	}
 

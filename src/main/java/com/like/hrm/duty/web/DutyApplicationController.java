@@ -64,7 +64,7 @@ public class DutyApplicationController {
 	public ResponseEntity<?> getDutyApplicationPeriod(@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate from
 													 ,@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate to) {
 						
-		List<DutyApplicationDTO.DutyDate> list = DutyApplicationDTO.DutyDate.convertDutyDate(holidayUtilService.getDateInfoList(from, to));			
+		List<DutyApplicationDTO.DutyDate> list = null; //DutyApplicationDTO.DutyDate.convertDutyDate(holidayUtilService.getDateInfoList(from, to));			
 		
 		return ResponseEntityUtil.toList(list	
 										,MessageUtil.getQueryMessage(list.size()));

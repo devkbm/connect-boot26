@@ -39,7 +39,7 @@ public class RequestBodyReaderAuthenticationFilter extends UsernamePasswordAuthe
 			
 			if ( requestBody != null ) {			
 				authRequest = objectMapper.readValue(requestBody, LoginRequestDTO.class);
-				token = new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password());
+				token = new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.password());
 				setDetails(request, token);
 			} else {
 				throw new InternalAuthenticationServiceException("HttpRequest is Null");					

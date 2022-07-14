@@ -21,16 +21,16 @@ public class DateInfoService {
 		this.holidayRepository = holidayRepository;
 	}
 		
-	public DateInfoList getDateInfoList(LocalDate fromDate, LocalDate toDate) {
+	public DateInfoList getDateInfoList(String organizationCode, LocalDate fromDate, LocalDate toDate) {
 		List<DateInfo> days = this.getRawDateInfoList(fromDate, toDate);
 		
-		List<Holiday> holidays = this.getHolidayList(fromDate, toDate);
+		List<Holiday> holidays = this.getHolidayList(organizationCode, fromDate, toDate);
 		
 		return new DateInfoList(days, holidays);
 	}				
 		
-	private List<Holiday> getHolidayList(LocalDate fromDate, LocalDate toDate) {
-		return holidayRepository.getHoliday(fromDate, toDate);
+	private List<Holiday> getHolidayList(String organizationCode, LocalDate fromDate, LocalDate toDate) {
+		return holidayRepository.getHoliday(organizationCode, fromDate, toDate);
 	}
 	/*
 	private Map<LocalDate, Holiday> toHashMap(List<Holiday> holidays) {

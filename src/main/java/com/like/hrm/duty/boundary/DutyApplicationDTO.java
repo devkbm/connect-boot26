@@ -52,8 +52,8 @@ public class DutyApplicationDTO {
 			BigDecimal dutyTime) {
 		
 		public static SaveDutyApplication convert(DutyApplication e, DateInfoService service) {								
-			DateInfoList dateInfoList = service.getDateInfoList(e.getPeriod().getFrom()
-															   ,e.getPeriod().getTo());
+			DateInfoList dateInfoList = null; //service.getDateInfoList(e.getPeriod().getFrom()
+											  //				   ,e.getPeriod().getTo());
 								
 			return new SaveDutyApplication(e.getId()
 										  ,e.getStaffId()

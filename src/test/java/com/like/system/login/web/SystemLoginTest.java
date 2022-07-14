@@ -42,14 +42,15 @@ class SystemLoginTest extends SpringMockMvcTestSupport {
 														   .userName("test")
 														   .build();
 		
-		given(this.service.login(new LoginRequestDTO("1", "1234"), session)).willReturn(testToken);
+		given(this.service.login(new LoginRequestDTO("001", "1", "1234"), session)).willReturn(testToken);
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>(); 
 		params.add("username", "1"); 
 		params.add("password", "1234");
 						
 		LoginRequestDTO param = LoginRequestDTO.builder()
-											   .username("1")
+											   .organizationCode("001")	
+											   .staffNo("1")
 											   .password("1234")
 											   .build();
 							

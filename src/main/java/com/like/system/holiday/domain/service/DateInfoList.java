@@ -38,7 +38,7 @@ public class DateInfoList {
 	
 	private void setHolidayList(List<Holiday> holidayList) {
 		for (Holiday holiday: holidayList) {								
-			this.dates.get(holiday.getDate()).setHoliday(holiday);
+			this.dates.get(holiday.getId().getDate()).setHoliday(holiday);
 		}
 	}	
 }

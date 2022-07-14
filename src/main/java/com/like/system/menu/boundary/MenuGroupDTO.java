@@ -4,6 +4,8 @@ import static org.springframework.util.StringUtils.hasText;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
+
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.QMenuGroup;
 import com.querydsl.core.BooleanBuilder;
@@ -14,6 +16,8 @@ import lombok.Builder;
 public class MenuGroupDTO {
 
 	public record Search(
+			@NotBlank(message="조직 코드를 선택해주세요.")
+			String organizationCode,
 			String menuGroupId,
 			String menuGroupName
 			) {
@@ -23,10 +27,15 @@ public class MenuGroupDTO {
 			BooleanBuilder builder = new BooleanBuilder();
 			
 			builder
+				.and(eqOrganizationCode(this.organizationCode))
 				.and(likeMenGroupId(this.menuGroupId))
 				.and(likeMenGroupName(this.menuGroupName));
 											
-			return builder;
+			return builder;		
+		}
+		
+		private BooleanExpression eqOrganizationCode(String organizationCode) {
+			return qType.organizationCode.eq(organizationCode);
 		}
 		
 		private BooleanExpression likeMenGroupId(String menuGroupId) {

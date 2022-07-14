@@ -2,6 +2,8 @@ package com.like.system.user.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
+import javax.validation.constraints.NotBlank;
+
 import com.like.system.user.domain.Authority;
 import com.like.system.user.domain.QAuthority;
 import com.querydsl.core.BooleanBuilder;
@@ -10,9 +12,10 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 public class AuthorityDTO {
 					
 	public record SearchAuthority(
-			String authorityId,
+			@NotBlank(message="조직 코드를 선택해주세요.")
 			String organizationCode,
 			String authorityCode,
+			String authorityId,
 			String description
 			) {
 		
@@ -21,14 +24,24 @@ public class AuthorityDTO {
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
-			builder.and(likeAuthorityId(this.authorityId))
+			builder.and(eqOrganizationCode(this.organizationCode))
+				   .and(likeAuthorityCode(this.authorityCode))
+			       .and(eqAuthorityId(this.authorityId))
 				   .and(likeDescription(this.description));					
 			
 			return builder;
 		}
 		
-		private BooleanExpression likeAuthorityId(String authorityId) {
-			return hasText(authorityId) ? qType.id.like("%"+authorityId+"%") : null;					
+		private BooleanExpression eqOrganizationCode(String organizationCode) {
+			return qType.organizationCode.eq(organizationCode);
+		}
+		
+		private BooleanExpression likeAuthorityCode(String authorityCode) {
+			return hasText(authorityCode) ? qType.authorityCode.like("%"+authorityCode+"%") : null;					
+		}
+		
+		private BooleanExpression eqAuthorityId(String authorityId) {
+			return hasText(authorityId) ? qType.id.eq(authorityId) : null;					
 		}
 		
 		private BooleanExpression likeDescription(String description) {

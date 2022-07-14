@@ -48,7 +48,7 @@ public class DutyApplicationCommandService {
 	}
 	
 	public List<DateInfo> getDateList(LocalDate fromDate, LocalDate toDate) {
-		return this.holidayUtilService.getDateInfoList(fromDate, toDate).getDates();		
+		return null; //this.holidayUtilService.getDateInfoList(fromDate, toDate).getDates();		
 	}
 	
 }

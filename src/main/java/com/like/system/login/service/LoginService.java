@@ -33,10 +33,10 @@ public class LoginService {
 	}
 	
 	public AuthenticationToken login(LoginRequestDTO dto, HttpSession session) {
-		String username = dto.username();
+		String username = dto.getUsername();
 		String password = dto.password();
 		
-		SystemUser user = userRepository.findById(dto.username()).orElseThrow(EntityNotFoundException::new);
+		SystemUser user = userRepository.findById(username).orElseThrow(EntityNotFoundException::new);
 		
 		authentication(username, password, user.getAuthorities(), session);
 		

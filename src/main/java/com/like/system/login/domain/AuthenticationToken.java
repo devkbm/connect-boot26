@@ -18,31 +18,36 @@ public class AuthenticationToken implements Serializable {
 	
 	private String userId;
 	private String userName;
+	private String organizationCode;
+	private String staffNo;
 	private String email;
 	private String imageUrl;
 	private String token;
 	private String oAuthAccessToken;
-    //private Collection<? extends GrantedAuthority> authorities;
-	private List<String> authorities;
+	private List<String> authorityList;
     private List<HtmlOptionRecord> menuGroupList;
     
        
     @Builder
     public AuthenticationToken(String userId
     						  ,String userName
+    						  ,String organizationCode
+    						  ,String staffNo 
     						  ,String imageUrl
     						  ,String email
     						  ,String token
     						  ,String oAuthAccessToken
-    						  ,List<String> collection
+    						  ,List<String> authorityList
     						  ,List<HtmlOptionRecord> menuGroupList) {
     	this.userId = userId;
+    	this.organizationCode = organizationCode;    	
+    	this.staffNo = staffNo;
         this.userName = userName;
         this.imageUrl = imageUrl;
         this.email = email;
         this.token = token;
         this.oAuthAccessToken = oAuthAccessToken;
-        this.authorities = collection;
+        this.authorityList = authorityList;
         this.menuGroupList = menuGroupList;        
     }     
     
@@ -51,10 +56,12 @@ public class AuthenticationToken implements Serializable {
 				.builder()
 				.userId(user.getUsername())
 				.userName(user.getName())
+				.organizationCode(user.getOrganizationCode())
+				.staffNo(user.getStaffNo())
 				.imageUrl(user.getImage())
 				.email(user.getEmail())
 				.token(sessionId)
-				.collection(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
+				.authorityList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
 				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlOptionRecord(e.getName(), e.getId())).toList())
 				.build();
     }

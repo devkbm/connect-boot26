@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.holiday.domain.Holiday;
+import com.like.system.holiday.domain.HolidayId;
 import com.like.system.holiday.domain.HolidayRepository;
 
 @Service
@@ -18,16 +19,16 @@ public class HolidayService {
 		this.repository = repository;
 	}
 	
-	public Holiday getHoliyday(LocalDate date) {
-		return this.repository.findById(date).orElse(null);
+	public Holiday getHoliyday(String organizationCode, LocalDate date) {
+		return this.repository.findById(new HolidayId(organizationCode, date)).orElse(null);
 	}
 	
 	public void saveHoliday(Holiday entity) {
 		this.repository.save(entity);
 	}
 	
-	public void deleteHoliday(LocalDate date) {		
-		this.repository.deleteById(date);
+	public void deleteHoliday(String organizationCode, LocalDate date) {		
+		this.repository.deleteById(new HolidayId(organizationCode, date));
 	}
 	
 }
