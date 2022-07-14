@@ -28,8 +28,14 @@ import lombok.NoArgsConstructor;
 public class BizTypeCode extends AbstractAuditEntity {
 
 	@Id
-	@Column(name="TYPE_CODE")
+	@Column(name="TYPE_ID")
 	String id;
+	
+	@Column(name="ORG_CD")
+	String organizationCode;
+	
+	@Column(name="TYPE_CODE")
+	String code;
 	
 	@Column(name="TYPE_CODE_NAME")
 	String name;
@@ -54,22 +60,15 @@ public class BizTypeCode extends AbstractAuditEntity {
 	Set<BizDetailCode> codes = new HashSet<>();
 	
 	
-	public BizTypeCode(String id, String name, BizTypeEnum bizType, String comment) {
-		if (!StringUtils.hasText(id)) throw new IllegalArgumentException("ID는 필수 입력 값입니다."); 
+	public BizTypeCode(String organizationCode, String code, String name, BizTypeEnum bizType, String comment) {
+		if (!StringUtils.hasText(code)) throw new IllegalArgumentException("ID는 필수 입력 값입니다."); 
 		
-		this.id = id;
+		this.id = organizationCode + code;
+		this.organizationCode = organizationCode;
+		this.code = code;
 		this.name = name;
 		this.useYn = true;
 		this.sequence = 0;
-		this.bizType = bizType;
-		this.comment = comment;
-	}
-	
-	public BizTypeCode(String id, String name, Boolean useYn, Integer sequence, BizTypeEnum bizType, String comment) {
-		this.id = id;
-		this.name = name;
-		this.useYn = useYn;
-		this.sequence = sequence;
 		this.bizType = bizType;
 		this.comment = comment;
 	}	

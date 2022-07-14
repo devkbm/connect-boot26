@@ -2,6 +2,8 @@ package com.like.system.biztypecode.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
+import javax.validation.constraints.NotBlank;
+
 import com.like.system.biztypecode.domain.BizTypeCode;
 import com.like.system.biztypecode.domain.BizTypeEnum;
 import com.like.system.biztypecode.domain.QBizTypeCode;
@@ -11,6 +13,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 public class BizTypeCodeDTO {
 
 	public record Search(
+			@NotBlank(message="조직 코드를 선택해주세요.")
+			String organizationCode,
 			String id,
 			String name,
 			Boolean useYn,
@@ -23,6 +27,7 @@ public class BizTypeCodeDTO {
 			BooleanBuilder builder = new BooleanBuilder();
 			
 			builder
+				.and(eqOrganizationCode(this.organizationCode))
 				.and(eqId(this.id))
 				.and(likeName(this.name))
 				.and(eqUseYn(this.useYn))
@@ -30,6 +35,10 @@ public class BizTypeCodeDTO {
 				;
 			
 			return builder;
+		}
+		
+		private BooleanExpression eqOrganizationCode(String organizationCode) {
+			return qType.organizationCode.eq(organizationCode);
 		}
 		
 		private BooleanExpression eqId(String id) {
@@ -50,7 +59,9 @@ public class BizTypeCodeDTO {
 	}	
 	
 	public record FormBizTypeCode(
+			String organizationCode,
 			String id,
+			String code,
 			String name,
 			Boolean useYn,
 			Integer sequence,
@@ -62,7 +73,9 @@ public class BizTypeCodeDTO {
 			
 			if (entity == null) return null;
 			
-			return new FormBizTypeCode(entity.getId()
+			return new FormBizTypeCode(entity.getOrganizationCode()
+									  ,entity.getId()
+									  ,entity.getCode()
 									  ,entity.getName()
 									  ,entity.getUseYn()
 									  ,entity.getSequence()
@@ -70,8 +83,8 @@ public class BizTypeCodeDTO {
 									  ,entity.getComment());
 		}
 
-		public BizTypeCode newEntity() {
-			return new BizTypeCode(id, name, useYn, sequence, BizTypeEnum.valueOf(bizType), comment);
+		public BizTypeCode newEntity() {						
+			return new BizTypeCode(organizationCode, code, name, BizTypeEnum.valueOf(bizType), comment);
 		}
 		
 		public BizTypeCode modify(BizTypeCode entity) {
