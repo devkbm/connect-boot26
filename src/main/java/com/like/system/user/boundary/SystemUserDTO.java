@@ -8,10 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
-import com.like.system.core.jpa.validation.UserIdExists;
 import com.like.system.dept.domain.Dept;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.user.domain.Authority;
@@ -80,17 +77,15 @@ public class SystemUserDTO {
 		LocalDateTime modifiedDt;
 		
 		String modifiedBy;
-		
-		@NotBlank(message="아이디를 입력해주세요")
-		@Size(min=1, max=20, message="1자 이상 20자 이하의 아이디만 사용 가능합니다")
-		@Pattern(regexp="^[A-Za-z0-9+]*$",message="영문,숫자로 이루어진 아이디만 사용 가능합니다")
-		@UserIdExists(message="이미 가입한 아이디입니다")
+					
 		String userId;
 		
+		@NotBlank(message="직원번호를 입력해 주세요.")
 		String staffNo;
 			
 		String name;			
 		
+		@NotBlank(message="조직코드를 선택해 주세요.")
 		String organizationCode;
 		
 		String deptCode;
@@ -116,11 +111,10 @@ public class SystemUserDTO {
 		Set<String> menuGroupList; 
 		
 		public SystemUser newUser(Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
-			return SystemUser.builder()
-					   .id(this.userId)
-					   .staffNo(this.staffNo)
+			return SystemUser.builder()					  					  
 					   .name(this.name)		
 					   .organizationCode(this.organizationCode)
+					   .staffNo(this.staffNo)
 					   .dept(dept)				
 					   .mobileNum(this.mobileNum)
 					   .email(this.email)					  

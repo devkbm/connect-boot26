@@ -2,6 +2,7 @@ package com.like.system.file.domain;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,9 +32,9 @@ public class FileInfo extends AbstractAuditEntity implements Serializable {
 			
 	private static final long serialVersionUID = 4108977246168878308L;
 
-	@Id
-	@Column(name="FILE_ID")
-	String id;	
+	@Id	
+	@Column(name="FILE_ID", columnDefinition = "BINARY(16)")
+	UUID id;	
 
 	@Column(name="APP_URL")
 	String appUrl;
@@ -61,7 +62,7 @@ public class FileInfo extends AbstractAuditEntity implements Serializable {
 		
 	@Builder
 	public FileInfo(String appUrl, String userId, String contentType, String uuid, String path, String fileName, long size) {		
-		this.id = FileIdGenerator.generateFileId();
+		this.id = FileIdGenerator.generateSequencialUUID();
 		this.appUrl = appUrl;
 		this.userId = userId;
 		this.contentType = contentType;

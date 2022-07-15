@@ -96,8 +96,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	Set<MenuGroup> menuGroupList = new LinkedHashSet<>();		
 		
 	@Builder
-	public SystemUser(String id
-					 ,String organizationCode
+	public SystemUser(String organizationCode
 					 ,String staffNo					 
 					 ,String name					 
 					 ,UserPassword password
@@ -107,7 +106,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,AccountSpec accountSpec
 					 ,Set<Authority> authorities
 					 ,Set<MenuGroup> menuGroupList) {		
-		this.id = id;
+		this.id = organizationCode + staffNo;
 		this.organizationCode = organizationCode;
 		this.staffNo = staffNo;
 		this.name = name;		

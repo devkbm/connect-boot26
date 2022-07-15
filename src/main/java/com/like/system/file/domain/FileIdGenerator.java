@@ -1,24 +1,25 @@
 package com.like.system.file.domain;
 
-import java.nio.ByteBuffer;
-import java.util.Base64;
 import java.util.UUID;
 
+import com.fasterxml.uuid.Generators;
+
+/**
+ * 참조 URL <br>
+ * https://developer111.tistory.com/83 <br>
+ * https://github.com/cowtowncoder/java-uuid-generator
+ */
 public class FileIdGenerator {
 	
-	public static String generateUUID() {
-		UUID uuid = UUID.randomUUID();
-		
-		// URL에 포함될 수 있는 Base64 문자열로 변환
-	    ByteBuffer uuidBytes = ByteBuffer.wrap(new byte[16]);
-	    uuidBytes.putLong(uuid.getMostSignificantBits());
-	    uuidBytes.putLong(uuid.getLeastSignificantBits());
-	    	    	    
-	    return Base64.getUrlEncoder().encodeToString(uuidBytes.array());
+	public static UUID generateSequencialUUID() {
+		UUID uuid = Generators.timeBasedGenerator().generate();
+		String[] uuidArr = uuid.toString().split("-");
+		String uuidStr = uuidArr[2]+uuidArr[1]+uuidArr[0]+uuidArr[3]+uuidArr[4];
+		StringBuffer sb = new StringBuffer(uuidStr);
+		sb.insert(8, "-");
+		sb.insert(13, "-");
+		sb.insert(18, "-");
+		sb.insert(23, "-");
+		return UUID.fromString(sb.toString());
 	}
-	
-	public static String generateFileId() {
-		return FileIdGenerator.generateUUID() + System.nanoTime(); 
-	}
-	
 }

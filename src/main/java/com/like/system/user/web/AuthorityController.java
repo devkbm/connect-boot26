@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.AuthorityDTO;
 import com.like.system.user.domain.Authority;
 import com.like.system.user.service.AuthorityService;
@@ -23,13 +25,13 @@ public class AuthorityController {
 		this.service = service;
 	}		
 	
-	@GetMapping("/api/common/authority/{authorityName}")
-	public ResponseEntity<?> getAuthority(@PathVariable String authorityName) {			
+	@GetMapping("/api/common/authority/{authorityId}")
+	public ResponseEntity<?> getAuthority(@PathVariable String authorityId) {			
 		
-		Authority authority = service.getAuthority(authorityName);										
+		Authority authority = service.getAuthority(authorityId);										
 		
-		return ResponseEntityUtil.toOne(authority
-									   ,MessageUtil.getQueryMessage(authority == null ? 0 : 1));
+		return toOne(authority
+				    ,MessageUtil.getQueryMessage(authority == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/common/authority")
@@ -37,16 +39,16 @@ public class AuthorityController {
 		
 		service.createAuthority(dto);					
 																				 				
-		return ResponseEntityUtil.toList(null							
-										,MessageUtil.getSaveMessage(1));
+		return toList(null							
+				 	 ,MessageUtil.getSaveMessage(1));
 	}	
 	
-	@DeleteMapping("/api/common/authority/{authorityName}")
-	public ResponseEntity<?> deleteAuthority(@PathVariable String authorityName) {
+	@DeleteMapping("/api/common/authority/{authorityId}")
+	public ResponseEntity<?> deleteAuthority(@PathVariable String authorityId) {
 		
-		service.deleteAuthority(authorityName);					
+		service.deleteAuthority(authorityId);					
 			
-		return ResponseEntityUtil.toList(null							
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null							
+				 	 ,MessageUtil.getDeleteMessage(1));
 	}
 }

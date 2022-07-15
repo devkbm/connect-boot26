@@ -68,8 +68,7 @@ public class FileService {
 		FileConverterUtil.fileToStream(file, response.getOutputStream());			
 	}
 	
-	public FileInfo downloadFile(HttpServletResponse response, String pk) throws FileNotFoundException, IOException {
-		
+	public FileInfo downloadFile(HttpServletResponse response, String pk) throws FileNotFoundException, IOException {		
 		FileInfo file = getFileInfo(pk);
 		
 		FileConverterUtil.fileToStream(new File(file.getPath(), file.getUuid()), response.getOutputStream());
@@ -102,11 +101,13 @@ public class FileService {
 	}
 	
 	public FileInfo getFileInfo(String id) {
-		return fileInfoRepository.findById(id).orElse(null);
+		UUID uuid = UUID.fromString(id);
+		return fileInfoRepository.findById(uuid).orElse(null);
 	}
 	
-	public List<FileInfo> getFileInfoList(List<String> id) {		
-		return fileInfoRepository.findAllById(id);
+	public List<FileInfo> getFileInfoList(List<String> id) {
+		List<UUID> uuids = id.stream().map(e -> UUID.fromString(e)).toList();
+		return fileInfoRepository.findAllById(uuids);
 	}
 	
 	public String fileTransefer(MultipartFile sourceFile, String fileName, FileUploadLocation location) throws FileNotFoundException, IOException {
@@ -114,7 +115,8 @@ public class FileService {
 	}
 	
 	public String downloadBase64(String id) throws FileNotFoundException, IOException {
-		FileInfo info = fileInfoRepository.findById(id).orElse(null);					
+		UUID uid = UUID.fromString(id);
+		FileInfo info = fileInfoRepository.findById(uid).orElse(null);					
 		File file = info.getFile();
 		
 		return FileConverterUtil.getBase64String(file);		

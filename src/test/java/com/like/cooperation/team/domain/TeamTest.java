@@ -34,10 +34,11 @@ public class TeamTest {
 	@DisplayName("팀 가입")
 	@Test
 	void TeamJoin() {
+		
 		// Given 			
 		Team team = new Team("테스트 팀");
-		SystemUser user = new SystemUser("test", "테스트유저", null, null, null, null, null, null, null, null, null);
-		SystemUser user2 = new SystemUser("test2", "테스트유저2", null, null, null, null, null, null, null, null, null);		
+		SystemUser user = null; // new SystemUser("test", "테스트유저", null, null, null, null, null, null, null, null, null);
+		SystemUser user2 = null; // new SystemUser("test2", "테스트유저2", null, null, null, null, null, null, null, null, null);		
 		// When
 		team.addMember(user);			
 		team.addMember(user2);

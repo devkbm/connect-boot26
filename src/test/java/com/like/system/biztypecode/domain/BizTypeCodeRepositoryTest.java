@@ -25,7 +25,7 @@ public class BizTypeCodeRepositoryTest {
 	void saveBizTypeCode_ERROR() {			
 			
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> { 
-			new BizTypeCode(null, "테스트", BizTypeEnum.HRM, "비고"); 
+			//new BizTypeCode(null, "테스트", BizTypeEnum.HRM, "비고"); 
 		});	
 	}
 	
@@ -33,7 +33,7 @@ public class BizTypeCodeRepositoryTest {
 	@Test
 	void saveBizTypeCode() {
 		//Given
-		BizTypeCode bizType = new BizTypeCode("TEST", "테스트", BizTypeEnum.HRM, "비고");
+		BizTypeCode bizType = null;// new BizTypeCode("TEST", "테스트", BizTypeEnum.HRM, "비고");
 		
 		//When
 		repository.saveAndFlush(bizType);

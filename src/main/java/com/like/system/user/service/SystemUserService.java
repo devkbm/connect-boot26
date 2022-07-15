@@ -64,7 +64,12 @@ public class SystemUserService {
 	 * @param user	사용자 도메인
 	 */
 	public void saveUser(SystemUserDTO.FormSystemUser dto) {
-		SystemUser user = repository.findById(dto.getUserId()).orElse(null);
+		SystemUser user = null;
+		
+		if (dto.getUserId() != null) {
+			user = repository.findById(dto.getUserId()).orElse(null); 
+		}
+		
 		Dept dept = dto.getDeptCode() == null ? null : deptRepository.findById(dto.getDeptCode()).orElse(null); 
 		
 		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.getAuthorityList()));		

@@ -81,8 +81,8 @@ create table COMFILEINFO (
 	MODIFIED_USER_ID	VARCHAR(50)		NULL		,--COMMENT '최종수정유저',
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(50)		NULL		,--COMMENT '최종수정APPURL',
-    PK_FILE				VARCHAR(40) 	NOT NULL 	,--COMMENT '키',
-    PGM_ID				VARCHAR(10)		NOT NULL 	,--COMMENT '유저아이디',
+    FILE_ID				BINARY(16)	 	NOT NULL 	,--COMMENT '키',
+    APP_URL				VARCHAR(50)		NULL 		,--COMMENT '유저아이디',
     USER_ID				VARCHAR(20)		NULL		,--COMMENT '발령코드',
     CONTENT_TYPE		VARCHAR(50)		NULL 		,--COMMENT 'CONTENT-TYPE',
     UUID				VARCHAR(1000)	NOT NULL 	,--COMMENT 'UUID_서버에저장된파일명',
@@ -90,7 +90,7 @@ create table COMFILEINFO (
     FILE_NM				VARCHAR(1000)	NULL 		,--COMMENT '파일명',
     FILE_SIZE			INT				NULL 		,--COMMENT '파일사이즈',
     DOWNLOAD_CNT		INT				NULL 		,--COMMENT '다운로드횟수',
-	constraint pk_comfileinfo primary key(PK_FILE)
+	constraint pk_comfileinfo primary key(FILE_ID)
 ); -- COMMENT = '공통파일관리';
 
 create table COMUSER (

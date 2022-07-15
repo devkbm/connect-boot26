@@ -15,10 +15,10 @@ public record FileResponseDTO(
 		
 		// url 예시 - http://localhost:8090/common/file/"+info.getPkFile()
 		
-		return new FileResponseDTO(info.getId()
+		return new FileResponseDTO(info.getId().toString()
 								  ,info.getFileName()
 								  ,"done"
 								  ,"success"
-								  ,LocalFileRepository.fileDownLoadUrl+info.getId());
+								  ,LocalFileRepository.fileDownLoadUrl+info.getId().toString());
 	}
 }
