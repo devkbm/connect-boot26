@@ -28,7 +28,7 @@ public class TermController {
 	}
 		
 	@GetMapping("/api/common/terms/{id}")
-	public ResponseEntity<?> getTerm(@PathVariable Long id) {
+	public ResponseEntity<?> getTerm(@PathVariable String id) {
 		
 		TermDictionary term = termService.getTerm(id);								
 		
@@ -45,7 +45,7 @@ public class TermController {
 	}
 					
 	@DeleteMapping("/api/common/terms/{id}")
-	public ResponseEntity<?> delTerm(@PathVariable Long id) {
+	public ResponseEntity<?> delTerm(@PathVariable String id) {
 								
 		termService.deleteTerm(id);										
 		

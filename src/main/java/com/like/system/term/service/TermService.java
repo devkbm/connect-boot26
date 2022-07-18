@@ -19,7 +19,7 @@ public class TermService {
     	this.repository = repository;
     }
     
-	public TermDictionary getTerm(Long pkTerm) {
+	public TermDictionary getTerm(String pkTerm) {
 		return repository.findById(pkTerm).orElse(null);
 	}
 	
@@ -34,7 +34,7 @@ public class TermService {
 	public void saveTerm(TermDTO.SaveTerm dto) {
 		TermDictionary entity = null;
 		
-		if (dto.getPkTerm() != null) entity = repository.findById(dto.getPkTerm()).orElse(null); 
+		if (dto.getPkTerm() != null) entity = null; //repository.findById(dto.getPkTerm()).orElse(null); 
 									
 		if (entity == null) {
 			entity = dto.newEntity();
@@ -45,7 +45,7 @@ public class TermService {
 		repository.save(entity);
 	}	
 	
-	public void deleteTerm(Long pkTerm) {
+	public void deleteTerm(String pkTerm) {
 		repository.deleteById(pkTerm);		
 	}	
 		

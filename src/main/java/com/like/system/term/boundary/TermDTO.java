@@ -41,7 +41,8 @@ public class TermDTO {
 		}
 		
 		private BooleanExpression likeMenuId(String domain) {
-			return hasText(domain) ? qType.domain.like("%"+this.domain+"%") : null;					
+			return null;
+			//return hasText(domain) ? qType.domain.like("%"+this.domain+"%") : null;					
 		}
 		
 		private BooleanExpression likeTerm(String term) {
@@ -79,7 +80,7 @@ public class TermDTO {
 		String comment;
 		
 		public TermDictionary newEntity() {
-			return TermDictionary.builder()
+			return null; /* TermDictionary.builder()
 								 .domain(domain)
 								 .term(term)								 
 								 .nameEng(nameEng)
@@ -87,12 +88,11 @@ public class TermDTO {
 								 .description(description)
 								 .comment(comment)
 								 .build();
+								 */
 		}
 		
 		public void modifyEntity(TermDictionary entity) {
-			entity.modifyEntity(domain
-					           ,term					           
-					           ,nameEng
+			entity.modifyEntity(nameEng
 					           ,abbreviationEng
 					           ,description
 					           ,comment);
@@ -100,8 +100,8 @@ public class TermDTO {
 		}
 		
 		public static SaveTerm convert(TermDictionary entity) {
-			return SaveTerm.builder()
-						   .pkTerm(entity.getPkTerm())
+			return null; /*
+					SaveTerm.builder()						   
 						   .domain(entity.getDomain())
 						   .term(entity.getTerm())						   
 						   .nameEng(entity.getNameEng())
@@ -109,6 +109,7 @@ public class TermDTO {
 						   .description(entity.getDescription())
 						   .comment(entity.getComment())
 						   .build();
+						   */
 		}
 	}
 }

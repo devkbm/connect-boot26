@@ -28,7 +28,7 @@ public class TeamQueryController {
 	}
 	
 	@GetMapping("/api/grw/team")
-	public ResponseEntity<?> getTeamList(@ModelAttribute TeamDTO.SearchCondition searchCondition) {
+	public ResponseEntity<?> getTeamList(@ModelAttribute TeamDTO.Search searchCondition) {
 						
 		List<Team> list = service.getTeamList(searchCondition);				
 		

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class TeamDTO {
 	
 	@Data
-	public static class SearchCondition implements Serializable {
+	public static class Search implements Serializable {
 		
 		private static final long serialVersionUID = -4777670465777456711L;
 

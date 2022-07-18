@@ -1,9 +1,7 @@
 package com.like.cooperation.board.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.querydsl.QSort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +10,6 @@ import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardBookmark;
 import com.like.cooperation.board.domain.BoardBookmarkRepository;
 import com.like.cooperation.board.domain.BoardRepository;
-import com.like.cooperation.board.domain.QBoardBookmark;
 
 
 @Service
@@ -54,16 +51,8 @@ public class BoardCommandService {
 		boardRepository.delete(board);
 	}
 	
-	public List<BoardBookmark> getBookmarkList(String userId) {
-		QBoardBookmark qBoardBookmark = QBoardBookmark.boardBookmark;
-				
-		Iterable<BoardBookmark> result = bookmarkRepository.findAll(qBoardBookmark.userId.eq(userId), new QSort(qBoardBookmark.seq.asc()));
-		List<BoardBookmark> list = new ArrayList<>();
-				
-		for (BoardBookmark b: result) {
-			list.add(b);
-		}				
-		return list;
+	public List<BoardBookmark> getBookmarkList(String userId) {									
+		return bookmarkRepository.findByUserIdOrderBySeqAsc(userId);
 	}	
 	
 	public void saveBookmark(BoardBookmark entity) {
