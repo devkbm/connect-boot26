@@ -58,7 +58,7 @@ public class TermDictionary extends AbstractAuditEntity {
 	@Column(name="CMT")
 	String comment;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}  )
     @JoinColumn(name = "domain_id", referencedColumnName = "id")
 	TermDomain domainId;
 	
