@@ -1,5 +1,7 @@
 package com.like.system.hierarchycode.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.dto.HtmlOptionRecord;
+import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.hierarchycode.boundary.CodeDTO;
 import com.like.system.hierarchycode.boundary.CodeHierarchy;
 import com.like.system.hierarchycode.domain.Code;
@@ -29,14 +30,13 @@ public class CommonCodeQueryController {
 	@GetMapping("/api/common/code/systemtype")
 	public ResponseEntity<?> getWebResourceTypeList() {				
 		
-		List<HtmlOptionRecord> list = new ArrayList<HtmlOptionRecord>();
+		List<HtmlSelectOptionRecord> list = new ArrayList<HtmlSelectOptionRecord>();
 		
 		for (SystemType type : SystemType.values()) {			
-			list.add(new HtmlOptionRecord(type.getDescription(), type.toString()));
+			list.add(new HtmlSelectOptionRecord(type.getDescription(), type.toString()));
 		}
 		
-		return ResponseEntityUtil.toList(list
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/common/codetree") 
@@ -44,8 +44,7 @@ public class CommonCodeQueryController {
 							
 		List<CodeHierarchy> list = service.getCodeHierarchyList(searchCondition);  						 						
 		
-		return ResponseEntityUtil.toList(list							
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/common/code") 
@@ -57,7 +56,6 @@ public class CommonCodeQueryController {
 											 .map(e -> CodeDTO.FormCode.convertDTO(e))
 											 .toList();
 		
-		return ResponseEntityUtil.toList(dtoList							
-										,MessageUtil.getQueryMessage(dtoList.size()));
+		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 }

@@ -1,5 +1,8 @@
 package com.like.hrm.duty.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,7 +20,6 @@ import com.like.hrm.duty.domain.model.DutyApplication;
 import com.like.hrm.duty.service.DutyApplicationCommandService;
 import com.like.hrm.duty.service.DutyApplicationQueryService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.holiday.service.DateInfoService;
 
 @RestController
@@ -45,8 +47,7 @@ public class DutyApplicationController {
 																					   .map(e -> DutyApplicationDTO.SaveDutyApplication.convert(e, holidayUtilService))
 																					   .toList();
 		
-		return ResponseEntityUtil.toList(list
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/hrm/dutyapplication/{id}")
@@ -56,8 +57,7 @@ public class DutyApplicationController {
 						
 		DutyApplicationDTO.SaveDutyApplication dto = DutyApplicationDTO.SaveDutyApplication.convert(entity, holidayUtilService);			
 				
-		return ResponseEntityUtil.toOne(dto
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 	
 	@GetMapping("/api/hrm/dutyapplication/period/{from}/{to}")
@@ -66,8 +66,7 @@ public class DutyApplicationController {
 						
 		List<DutyApplicationDTO.DutyDate> list = null; //DutyApplicationDTO.DutyDate.convertDutyDate(holidayUtilService.getDateInfoList(from, to));			
 		
-		return ResponseEntityUtil.toList(list	
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 		
 	@PostMapping("/api/hrm/dutyapplication")
@@ -75,8 +74,7 @@ public class DutyApplicationController {
 																			
 		dutyApplicationCommandService.saveDutyApplication(dto);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/hrm/dutyapplication/{id}")
@@ -84,8 +82,7 @@ public class DutyApplicationController {
 																		
 		dutyApplicationCommandService.deleteDutyApplication(id);						
 								 					
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}	
 		
 }

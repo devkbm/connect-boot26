@@ -1,5 +1,7 @@
 package com.like.cooperation.workschedule.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,6 @@ import com.like.cooperation.workschedule.domain.WorkGroup;
 import com.like.cooperation.workschedule.service.WorkGroupQueryService;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class WorkGroupQueryController {
@@ -28,8 +29,7 @@ public class WorkGroupQueryController {
 						
 		List<WorkGroup> list = service.getWorkGroupList(searchCondition);				
 		
-		return ResponseEntityUtil.toList(list	
-										,MessageUtil.getQueryMessage(list.size()));												
+		return toList(list, MessageUtil.getQueryMessage(list.size()));												
 	}
 	
 	@GetMapping("/api/grw/myworkgroup")
@@ -37,7 +37,6 @@ public class WorkGroupQueryController {
 		
 		List<WorkGroup> list = service.getMyWorkGroupList(SessionUtil.getUserId());				
 		
-		return ResponseEntityUtil.toList(list													
-										,MessageUtil.getQueryMessage(list.size()));												
+		return toList(list, MessageUtil.getQueryMessage(list.size()));												
 	}
 }

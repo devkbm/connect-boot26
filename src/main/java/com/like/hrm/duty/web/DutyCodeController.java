@@ -1,5 +1,8 @@
 package com.like.hrm.duty.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +15,6 @@ import com.like.hrm.duty.service.DutyCodeCommandService;
 import com.like.hrm.dutycode.boundary.DutyCodeDTO;
 import com.like.hrm.dutycode.domain.DutyCode;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class DutyCodeController {
@@ -28,8 +30,7 @@ public class DutyCodeController {
 		
 		DutyCode entity = service.getDutyCode(id);
 					
-		return ResponseEntityUtil.toOne(entity		
-									   ,MessageUtil.getQueryMessage(entity == null ? 0 : 1));
+		return toOne(entity, MessageUtil.getQueryMessage(entity == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/dutycode")
@@ -37,8 +38,7 @@ public class DutyCodeController {
 									
 		service.saveDutyCode(dto);						
 								 					
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 		
@@ -47,7 +47,6 @@ public class DutyCodeController {
 																		
 		service.deleteDutyCode(id);						
 								 					
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 }

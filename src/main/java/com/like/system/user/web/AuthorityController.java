@@ -30,8 +30,7 @@ public class AuthorityController {
 		
 		Authority authority = service.getAuthority(authorityId);										
 		
-		return toOne(authority
-				    ,MessageUtil.getQueryMessage(authority == null ? 0 : 1));
+		return toOne(authority, MessageUtil.getQueryMessage(authority == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/common/authority")
@@ -39,8 +38,7 @@ public class AuthorityController {
 		
 		service.createAuthority(dto);					
 																				 				
-		return toList(null							
-				 	 ,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}	
 	
 	@DeleteMapping("/api/common/authority/{authorityId}")
@@ -48,7 +46,6 @@ public class AuthorityController {
 		
 		service.deleteAuthority(authorityId);					
 			
-		return toList(null							
-				 	 ,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 }

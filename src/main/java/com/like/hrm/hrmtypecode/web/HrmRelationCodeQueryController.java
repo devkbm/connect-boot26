@@ -1,5 +1,7 @@
 package com.like.hrm.hrmtypecode.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.hrmtypecode.boundary.HrmRelationCodeDTO;
 import com.like.hrm.hrmtypecode.service.HrmRelationCodeQueryService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class HrmRelationCodeQueryController {
@@ -25,7 +26,6 @@ public class HrmRelationCodeQueryController {
 						
 		List<?> list = service.getHrmRelationCodeList(dto);
 					
-		return ResponseEntityUtil.toList(list		
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 }

@@ -1,5 +1,7 @@
 package com.like.system.dept.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.dept.boundary.DeptDTO;
 import com.like.system.dept.boundary.ResponseDeptHierarchy;
 import com.like.system.dept.domain.Dept;
@@ -29,8 +30,7 @@ public class DeptQueryController {
 							
 		List<ResponseDeptHierarchy> list = service.getDeptHierarchyList(searchCondition.organizationCode());  						 						
 		
-		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+		return toList(list, String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/api/common/dept")
@@ -38,7 +38,6 @@ public class DeptQueryController {
 							
 		List<Dept> list = service.getDeptList(searchCondition);  						 						
 		
-		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+		return toList(list, String.format("%d 건 조회되었습니다.", list.size()));
 	}
 }

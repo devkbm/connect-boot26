@@ -1,5 +1,7 @@
 package com.like.system.menu.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.dto.HtmlOptionRecord;
+import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.menu.boundary.MenuDTO;
 import com.like.system.menu.boundary.MenuGroupDTO;
-import com.like.system.menu.boundary.ResponseMenuHierarchy;
 import com.like.system.menu.boundary.MenuGroupDTO.FormMenuGroup;
+import com.like.system.menu.boundary.ResponseMenuHierarchy;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuType;
@@ -36,8 +37,7 @@ public class MenuQueryController {
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 							
 		
-		return ResponseEntityUtil.toList(menuGroup
-										,MessageUtil.getQueryMessage(menuGroup.size()));
+		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}
 	
 	@GetMapping("/api/common/menuhierarchy/{menuGroupId}")
@@ -45,8 +45,7 @@ public class MenuQueryController {
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 										
 		
-		return ResponseEntityUtil.toList(menuGroup											
-										,MessageUtil.getQueryMessage(menuGroup.size()));
+		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}
 	
 	@GetMapping("/api/common/menugroup")
@@ -58,8 +57,7 @@ public class MenuQueryController {
 													   .map(e -> FormMenuGroup.convert(e))
 													   .toList();													   
 		
-		return ResponseEntityUtil.toList(dtoList	
-										,MessageUtil.getQueryMessage(dtoList.size()));
+		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
 	@GetMapping("/api/common/menu")
@@ -71,20 +69,18 @@ public class MenuQueryController {
 											 .map(e -> MenuDTO.FormMenu.convert(e))
 											 .toList();											 
 		
-		return ResponseEntityUtil.toList(dtoList											
-										,MessageUtil.getQueryMessage(dtoList.size()));
+		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
 	@GetMapping("/api/common/menu/menutype")
 	public ResponseEntity<?> getMenuTypeList() {				
 		
-		List<HtmlOptionRecord> list = new ArrayList<HtmlOptionRecord>();
+		List<HtmlSelectOptionRecord> list = new ArrayList<HtmlSelectOptionRecord>();
 		
 		for (MenuType menuType : MenuType.values()) {			
-			list.add(new HtmlOptionRecord(menuType.getLabel(), menuType.toString()));
+			list.add(new HtmlSelectOptionRecord(menuType.getLabel(), menuType.toString()));
 		}
 		
-		return ResponseEntityUtil.toList(list											
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 }

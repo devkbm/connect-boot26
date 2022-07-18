@@ -1,5 +1,8 @@
 package com.like.cooperation.todo.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,7 +20,6 @@ import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.service.TodoCommandService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class TodoController {	
@@ -33,8 +35,7 @@ public class TodoController {
 										
 		TodoGroup taskGroup = taskCommandService.newDefaultTodoGroup();										
 								 					
-		return ResponseEntityUtil.toOne(taskGroup
-									   ,"생성되었습니다.");
+		return toOne(taskGroup, "생성되었습니다.");
 	}
 		
 	@PostMapping("/api/todo/group")
@@ -42,8 +43,7 @@ public class TodoController {
 			
 		taskCommandService.saveTodoGroup(dto);
 																				 			
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 		
 	@DeleteMapping("/api/todo/group/{id}")
@@ -51,8 +51,7 @@ public class TodoController {
 			
 		taskCommandService.deleteTodoGroup(id);
 											 				
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 		
 	@GetMapping("/api/todo/group/{id}/list")
@@ -64,8 +63,7 @@ public class TodoController {
 											 .map(e -> TodoDTO.FormTodo.convert(e))
 											 .toList(); 											
 		
-		return ResponseEntityUtil.toList(dtoList
-										,MessageUtil.getQueryMessage(dtoList.size()));
+		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
 	@PostMapping("/api/todo/group/todo")
@@ -73,8 +71,7 @@ public class TodoController {
 			
 		TodoDTO.FormTodo todo = TodoDTO.FormTodo.convert(taskCommandService.saveTodo(dto));
 																				 			
-		return ResponseEntityUtil.toOne(todo
-									   ,MessageUtil.getSaveMessage(1));
+		return toOne(todo, MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/todo/group/{groupid}/todo/{id}")
@@ -83,8 +80,7 @@ public class TodoController {
 			
 		taskCommandService.deleteTodo(groupid, id);
 											 				
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 	
 }

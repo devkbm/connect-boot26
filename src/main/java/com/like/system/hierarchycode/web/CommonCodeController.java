@@ -1,5 +1,8 @@
 package com.like.system.hierarchycode.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.hierarchycode.boundary.CodeDTO;
 import com.like.system.hierarchycode.domain.Code;
 import com.like.system.hierarchycode.service.CommonCodeCommandService;
@@ -30,8 +32,7 @@ public class CommonCodeController {
 		
 		CodeDTO.FormCode dto = CodeDTO.FormCode.convertDTO(entity);
 		
-		return ResponseEntityUtil.toOne(dto							
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
 	@PostMapping("/api/common/code")
@@ -39,8 +40,7 @@ public class CommonCodeController {
 		
 		service.saveCode(dto);		
 											 				
-		return ResponseEntityUtil.toList(null							
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}	
 		
 	@DeleteMapping("/api/common/code/{id}")
@@ -48,8 +48,7 @@ public class CommonCodeController {
 												
 		service.deleteCode(id);
 								 						
-		return ResponseEntityUtil.toList(null							
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 	
 	

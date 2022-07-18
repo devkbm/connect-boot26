@@ -1,5 +1,7 @@
 package com.like.system.user.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.SystemUserDTO;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.service.SystemUserQueryService;
@@ -29,8 +30,8 @@ public class SystemUserQueryController {
 		List<SystemUser> userList = service.getUserList(condition);						
 		
 		List<SystemUserDTO.FormSystemUser> dtoList = userList.stream()
-													   .map(user -> SystemUserDTO.FormSystemUser.convertDTO(user))
-													   .toList();
+													   		 .map(user -> SystemUserDTO.FormSystemUser.convertDTO(user))
+													   		 .toList();
 		
 		/*
 		List<UserDTO.FormSystemUser> dtoList = new ArrayList<>();
@@ -40,7 +41,6 @@ public class SystemUserQueryController {
 		}
 		*/
 		
-		return ResponseEntityUtil.toList(dtoList
-										,MessageUtil.getQueryMessage(dtoList.size()));
+		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 }

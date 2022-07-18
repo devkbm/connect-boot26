@@ -1,5 +1,8 @@
 package com.like.hrm.payitem.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.payitem.boundary.PayItemDTO;
 import com.like.hrm.payitem.domain.model.PayItem;
 import com.like.hrm.payitem.service.PayItemService;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class PayItemController {
@@ -35,8 +37,7 @@ public class PayItemController {
 										   .map(e -> PayItemDTO.SavePayItem.convert(e))
 										   .collect(Collectors.toList());															
 					
-		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+		return toList(list, String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/api/hrm/payitem/{code}")
@@ -46,8 +47,7 @@ public class PayItemController {
 						
 		PayItemDTO.SavePayItem dto = PayItemDTO.SavePayItem.convert(entity);			
 				
-		return ResponseEntityUtil.toOne(dto											
-									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+		return toOne(dto, String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/payitem")
@@ -55,8 +55,7 @@ public class PayItemController {
 							
 		payItemService.save(dto);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+		return toList(null, String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 		
@@ -65,7 +64,6 @@ public class PayItemController {
 																		
 		payItemService.delete(code);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return toList(null, String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

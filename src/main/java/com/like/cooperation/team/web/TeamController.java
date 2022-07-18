@@ -1,5 +1,8 @@
 package com.like.cooperation.team.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,6 @@ import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.service.TeamService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class TeamController {
@@ -32,8 +34,7 @@ public class TeamController {
 		
 		TeamDTO.FormTeam dto = TeamDTO.FormTeam.convert(team);
 		
-		return ResponseEntityUtil.toOne(dto
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));					
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));					
 	}
 		
 	@PostMapping("/api/grw/team")
@@ -41,8 +42,7 @@ public class TeamController {
 		 												
 		teamService.saveTeam(dto);		
 										 					
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 	/*
@@ -62,8 +62,7 @@ public class TeamController {
 		
 		teamService.deleteTeam(teamId);							
 		
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 	
 	@PostMapping("/api/grw/team/{teamId}/join/{userId}")
@@ -72,8 +71,7 @@ public class TeamController {
 
 		teamService.joinTeam(teamId, userId);			
 										 					
-		return ResponseEntityUtil.toList(null
-										,String.format("팀에 등록 되었습니다."));
+		return toList(null, String.format("팀에 등록 되었습니다."));
 	}
 			
 }

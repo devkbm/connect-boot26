@@ -1,5 +1,8 @@
 package com.like.system.menu.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.menu.boundary.MenuDTO;
 import com.like.system.menu.boundary.MenuGroupDTO;
 import com.like.system.menu.boundary.MenuGroupDTO.FormMenuGroup;
@@ -35,8 +37,7 @@ public class MenuController {
 		
 		MenuGroupDTO.FormMenuGroup dto = FormMenuGroup.convert(menuGroup);
 								
-		return ResponseEntityUtil.toOne(dto											
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}		
 		
 	@PostMapping("/api/common/menugroup/{id}")
@@ -44,8 +45,7 @@ public class MenuController {
 																			
 		menuCommandService.saveMenuGroup(dto);			
 										 					
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 		
 	@DeleteMapping("/api/common/menugroup/{menuGroupId}")
@@ -53,8 +53,7 @@ public class MenuController {
 												
 		menuCommandService.deleteMenuGroup(menuGroupId);							
 		
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 	
 	
@@ -65,8 +64,7 @@ public class MenuController {
 		
 		MenuDTO.FormMenu dto = MenuDTO.FormMenu.convert(menu);			
 		
-		return ResponseEntityUtil.toOne(dto											
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 	
 	
@@ -76,8 +74,7 @@ public class MenuController {
 									
 		menuCommandService.saveMenu(dto);																			
 														 				
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/common/menu/{menuId}")
@@ -85,8 +82,7 @@ public class MenuController {
 												
 		menuCommandService.deleteMenu(menuId);							
 		
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}	
 	
 }

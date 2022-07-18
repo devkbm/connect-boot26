@@ -1,5 +1,8 @@
 package com.like.system.user.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.user.boundary.PasswordChangeRequestDTO;
 import com.like.system.user.boundary.SystemUserDTO;
 import com.like.system.user.domain.SystemUser;
@@ -37,8 +39,7 @@ public class SystemUserController {
 		
 		SystemUserDTO.FormSystemUser dto = SystemUserDTO.FormSystemUser.convertDTO(user);					
 		
-		return ResponseEntityUtil.toOne(dto							
-									   ,MessageUtil.getQueryMessage(1));
+		return toOne(dto, MessageUtil.getQueryMessage(1));
 	}
 	
 	@GetMapping("/api/common/user/{userId}")
@@ -48,8 +49,7 @@ public class SystemUserController {
 		
 		SystemUserDTO.FormSystemUser dto = SystemUserDTO.FormSystemUser.convertDTO(user);					
 		
-		return ResponseEntityUtil.toOne(dto							
-									   ,MessageUtil.getQueryMessage(1));
+		return toOne(dto, MessageUtil.getQueryMessage(1));
 	}		
 	
 	@PostMapping("/api/common/user")	
@@ -57,8 +57,7 @@ public class SystemUserController {
 											
 		userService.saveUser(dto);					
 																					 		
-		return ResponseEntityUtil.toList(null							
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}	
 	
 	@DeleteMapping("/api/common/user/{userId}")
@@ -66,8 +65,7 @@ public class SystemUserController {
 										
 		userService.deleteUser(userId);															
 								 					
-		return ResponseEntityUtil.toList(null							
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 		
 	@PostMapping("/api/common/user/{id}/changepassword")
@@ -75,8 +73,7 @@ public class SystemUserController {
 						
 		userService.changePassword(dto.userId(), dto.beforePassword(), dto.afterPassword());													
 								 					
-		return ResponseEntityUtil.toList(null							
-										,"비밀번호가 변경되었습니다.");
+		return toList(null, "비밀번호가 변경되었습니다.");
 	}
 			
 	@PostMapping("/api/common/user/{userId}/initpassword")
@@ -84,8 +81,7 @@ public class SystemUserController {
 				
 		userService.initPassword(userId);														
 								 					
-		return ResponseEntityUtil.toList(null							
-										,"비밀번호가 초기화되었습니다.");
+		return toList(null, "비밀번호가 초기화되었습니다.");
 	}	
 			
 }

@@ -1,5 +1,8 @@
 package com.like.system.webresource.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.webresource.boundary.WebResourceDTO;
 import com.like.system.webresource.boundary.WebResourceDTO.FormWebResource;
 import com.like.system.webresource.domain.WebResource;
@@ -32,8 +34,7 @@ public class WebResourceController {
 		
 		WebResourceDTO.FormWebResource dto = FormWebResource.convertDTO(resource);
 		
-		return ResponseEntityUtil.toOne(dto											
-									   ,String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
+		return toOne(dto, String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
 	}
 		
 	@PostMapping("/api/common/webresource")
@@ -41,8 +42,7 @@ public class WebResourceController {
 																												
 		service.saveWebResource(dto);																						
 										 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+		return toList(null, String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 	@DeleteMapping("/api/common/webresource/{code}")
@@ -50,7 +50,6 @@ public class WebResourceController {
 												
 		service.deleteWebResource(code);							
 		
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return toList(null, String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

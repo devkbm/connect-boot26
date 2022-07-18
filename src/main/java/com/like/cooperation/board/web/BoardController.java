@@ -1,5 +1,8 @@
 package com.like.cooperation.board.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,7 +20,6 @@ import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardBookmark;
 import com.like.cooperation.board.service.BoardCommandService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class BoardController {
@@ -35,8 +37,7 @@ public class BoardController {
 		
 		BoardDTO.FormBoard dto = BoardDTO.FormBoard.convertDTO(board);				
 							
-		return ResponseEntityUtil.toOne(dto	
-									   ,MessageUtil.getQueryMessage(board != null ? 1 : 0));
+		return toOne(dto, MessageUtil.getQueryMessage(board != null ? 1 : 0));
 	}	
 			
 	@PostMapping("/api/grw/board")
@@ -44,8 +45,7 @@ public class BoardController {
 		
 		boardCommandService.saveBoard(boardDTO);				
 								 					
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}	
 		
 	@DeleteMapping("/api/grw/board/{id}")
@@ -53,8 +53,7 @@ public class BoardController {
 												
 		boardCommandService.deleteBoard(id);							
 		
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}		
 	
 	@GetMapping("/api/grw/board/bookmark/{userId}")
@@ -62,8 +61,7 @@ public class BoardController {
 		
 		List<BoardBookmark> list = boardCommandService.getBookmarkList(userId); 										
 							
-		return ResponseEntityUtil.toList(list			
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 		
 	@PostMapping("/api/grw/board/bookmark")
@@ -71,8 +69,7 @@ public class BoardController {
 											
 		boardCommandService.saveBookmark(entity);				
 								 					
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/grw/board/bookmark/{id}")
@@ -80,8 +77,7 @@ public class BoardController {
 												
 		boardCommandService.deleteBookmark(id);							
 		
-		return ResponseEntityUtil.toList(null			
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}	
 			
 }

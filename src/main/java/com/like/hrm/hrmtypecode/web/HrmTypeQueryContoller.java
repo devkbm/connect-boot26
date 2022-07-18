@@ -1,5 +1,7 @@
 package com.like.hrm.hrmtypecode.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,6 @@ import com.like.hrm.hrmtypecode.boundary.HrmTypeDetailCodeDTO;
 import com.like.hrm.hrmtypecode.domain.AppointmentTypeEnum;
 import com.like.hrm.hrmtypecode.service.HrmTypeQueryService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class HrmTypeQueryContoller {
@@ -32,8 +33,7 @@ public class HrmTypeQueryContoller {
 			list.add(new HrmTypeDTO.FormHrmType(menuType.getCode(),menuType.getName(),true,0,"HRMTYPE",""));
 		}										
 					
-		return ResponseEntityUtil.toList(list		
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list ,MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/hrm/hrmtype")
@@ -43,8 +43,7 @@ public class HrmTypeQueryContoller {
 												   .stream()
 												   .map(e -> HrmTypeDTO.FormHrmType.convert(e))
 												   .toList();												   		
-		return ResponseEntityUtil.toList(list	
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/hrm/hrmtype/code")
@@ -55,7 +54,6 @@ public class HrmTypeQueryContoller {
 																	   .map(e -> HrmTypeDetailCodeDTO.FormHrmTypeDetailCode.convert(e))
 																	   .toList();																	   
 		
-		return ResponseEntityUtil.toList(list	
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 }

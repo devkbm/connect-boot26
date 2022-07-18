@@ -1,5 +1,8 @@
 package com.like.hrm.hrmtypecode.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +16,6 @@ import com.like.hrm.hrmtypecode.boundary.HrmTypeDetailCodeDTO;
 import com.like.hrm.hrmtypecode.domain.HrmTypeDetailCodeId;
 import com.like.hrm.hrmtypecode.service.HrmTypeService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class HrmTypeController {
@@ -29,8 +31,7 @@ public class HrmTypeController {
 		
 		HrmTypeDTO.FormHrmType hrmType = service.getHrmTypeDTO(id);
 					
-		return ResponseEntityUtil.toOne(hrmType
-									   ,MessageUtil.getQueryMessage(hrmType == null ? 0 : 1));
+		return toOne(hrmType, MessageUtil.getQueryMessage(hrmType == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/hrmtype")
@@ -38,8 +39,7 @@ public class HrmTypeController {
 																	
 		service.saveHrmType(dto);						
 								 					
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 		
@@ -48,8 +48,7 @@ public class HrmTypeController {
 																		
 		service.deleteHrmType(id);						
 								 					
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}			
 	
 	
@@ -58,8 +57,7 @@ public class HrmTypeController {
 		
 		HrmTypeDetailCodeDTO.FormHrmTypeDetailCode dto = service.getTypeDetailCodeDTO(new HrmTypeDetailCodeId(type, code));
 					
-		return ResponseEntityUtil.toOne(dto
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/hrmtype/{type}/code")
@@ -67,8 +65,7 @@ public class HrmTypeController {
 																			
 		service.saveTypeDetailCode(dto);						
 								 					
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/hrm/hrmtype/{type}/code/{code}")
@@ -76,8 +73,7 @@ public class HrmTypeController {
 																		
 		service.deleteTypeDetailCode(new HrmTypeDetailCodeId(type, code));						
 								 					
-		return ResponseEntityUtil.toList(null		
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 	
 

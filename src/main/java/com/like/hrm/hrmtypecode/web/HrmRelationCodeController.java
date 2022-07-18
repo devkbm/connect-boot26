@@ -1,5 +1,8 @@
 package com.like.hrm.hrmtypecode.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +15,6 @@ import com.like.hrm.hrmtypecode.boundary.SaveHrmRelationCode;
 import com.like.hrm.hrmtypecode.domain.HrmRelationCode;
 import com.like.hrm.hrmtypecode.service.HrmRelationCodeService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class HrmRelationCodeController {
@@ -28,8 +30,7 @@ public class HrmRelationCodeController {
 		
 		HrmRelationCode hrmRelationCode = service.getRelationCode(id);
 					
-		return ResponseEntityUtil.toOne(hrmRelationCode			
-									   ,MessageUtil.getQueryMessage(hrmRelationCode == null ? 0 : 1));
+		return toOne(hrmRelationCode, MessageUtil.getQueryMessage(hrmRelationCode == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/hrmrelation")
@@ -37,8 +38,7 @@ public class HrmRelationCodeController {
 																		
 		service.saveRelationCode(dto);						
 								 					
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/hrm/hrmrelation/{id}")
@@ -46,7 +46,6 @@ public class HrmRelationCodeController {
 						
 		service.deleteRelationCode(id);						
 								 					
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 }

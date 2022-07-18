@@ -1,5 +1,8 @@
 package com.like.hrm.payitem.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +20,6 @@ import com.like.hrm.payitem.boundary.PayTableDTO;
 import com.like.hrm.payitem.domain.model.PayTable;
 import com.like.hrm.payitem.domain.model.PayTableItem;
 import com.like.hrm.payitem.service.PayTableService;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class PayTableController {
@@ -36,8 +38,7 @@ public class PayTableController {
 															 .map(e -> PayTableDTO.SavePayTable.convert(e))
 															 .collect(Collectors.toList());
 				
-		return ResponseEntityUtil.toList(list											
-										,String.format("%d 건 조회되었습니다.", list.size()));
+		return toList(list, String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
 	@GetMapping("/api/hrm/paytable/{id}")
@@ -47,8 +48,7 @@ public class PayTableController {
 						
 		PayTableDTO.SavePayTable dto = PayTableDTO.SavePayTable.convert(entity);			
 				
-		return ResponseEntityUtil.toOne(dto											
-									   ,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+		return toOne(dto, String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/paytable")
@@ -56,8 +56,7 @@ public class PayTableController {
 							
 		payTableService.save(dto);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+		return toList(null, String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 		
@@ -66,8 +65,7 @@ public class PayTableController {
 																		
 		payTableService.delete(id);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return toList(null, String.format("%d 건 삭제되었습니다.", 1));
 	}
 	
 	@GetMapping("/api/hrm/paytable/{payTableId}/item")
@@ -79,8 +77,7 @@ public class PayTableController {
 													  .map(e -> PayTableDTO.SavePayTableItem.convert(e))
 													  .collect(Collectors.toList());			
 				
-		return ResponseEntityUtil.toList(dto											
-										,String.format("%d 건 조회되었습니다.", dto.size()));
+		return toList(dto, String.format("%d 건 조회되었습니다.", dto.size()));
 	}
 	
 	@GetMapping("/api/hrm/paytable/{payTableId}/item/{id}")
@@ -91,8 +88,7 @@ public class PayTableController {
 						
 		PayTableDTO.SavePayTableItem dto = PayTableDTO.SavePayTableItem.convert(entity);			
 				
-		return ResponseEntityUtil.toOne(dto											
-										,String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
+		return toOne(dto, String.format("%d 건 조회되었습니다.", dto == null ? 0 : 1));
 	}
 	
 	@PostMapping("/api/hrm/paytable/item")
@@ -100,8 +96,7 @@ public class PayTableController {
 							
 		payTableService.save(dto);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 저장되었습니다.", 1));
+		return toList(null, String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 		
@@ -111,7 +106,6 @@ public class PayTableController {
 																		
 		payTableService.delete(payTableId, id);						
 								 					
-		return ResponseEntityUtil.toList(null											
-										,String.format("%d 건 삭제되었습니다.", 1));
+		return toList(null, String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

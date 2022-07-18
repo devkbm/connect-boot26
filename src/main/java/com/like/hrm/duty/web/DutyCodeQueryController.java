@@ -1,5 +1,7 @@
 package com.like.hrm.duty.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.duty.service.DutyCodeQueryService;
 import com.like.hrm.dutycode.boundary.DutyCodeDTO;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class DutyCodeQueryController {
@@ -30,7 +31,6 @@ public class DutyCodeQueryController {
 													 .map(e -> DutyCodeDTO.SaveDutyCode.convert(e))
 													 .collect(Collectors.toList());
 		
-		return ResponseEntityUtil.toList(list
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 }

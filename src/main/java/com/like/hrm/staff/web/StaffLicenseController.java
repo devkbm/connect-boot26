@@ -1,5 +1,8 @@
 package com.like.hrm.staff.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,6 @@ import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.license.License;
 import com.like.hrm.staff.service.StaffLicenseService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class StaffLicenseController {
@@ -30,8 +32,7 @@ public class StaffLicenseController {
 				
 		License license = service.getLicense(staffId, id);  									
 		
-		return ResponseEntityUtil.toOne(license	
-									   ,MessageUtil.getQueryMessage(license == null ? 0 : 1));
+		return toOne(license, MessageUtil.getQueryMessage(license == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/employee/license")
@@ -39,7 +40,6 @@ public class StaffLicenseController {
 				
 		service.saveLicense(dto);
 											 				
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 }

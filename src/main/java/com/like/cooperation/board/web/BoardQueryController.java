@@ -1,6 +1,7 @@
 package com.like.cooperation.board.web;
 
-import java.util.ArrayList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,9 +13,8 @@ import com.like.cooperation.board.boundary.BoardDTO;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardType;
 import com.like.cooperation.board.service.BoardQueryService;
-import com.like.system.core.dto.HtmlOptionRecord;
+import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class BoardQueryController {
@@ -28,14 +28,9 @@ public class BoardQueryController {
 	@GetMapping("/api/grw/board/boardType")
 	public ResponseEntity<?> getMenuTypeList() {				
 		
-		List<HtmlOptionRecord> list = new ArrayList<>();
+		List<HtmlSelectOptionRecord> list = HtmlSelectOptionRecord.fromEnum(BoardType.class);			
 		
-		for (BoardType boardType : BoardType.values()) {			
-			list.add(new HtmlOptionRecord(boardType.getName(), boardType.toString()));
-		}				 					
-								
-		return ResponseEntityUtil.toList(list				
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/grw/boardHierarchy")
@@ -43,8 +38,7 @@ public class BoardQueryController {
 											
 		List<?> list = boardQueryService.getBoardHierarchy();				 			
 		
-		return ResponseEntityUtil.toList(list						
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 
 	@GetMapping("/api/grw/board")
@@ -55,7 +49,6 @@ public class BoardQueryController {
 											   .map(e -> BoardDTO.FormBoard.convertDTO(e))
 											   .collect(Collectors.toList());
 				
-		return ResponseEntityUtil.toList(dtoList
-										,MessageUtil.getQueryMessage(dtoList.size()));
+		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 }

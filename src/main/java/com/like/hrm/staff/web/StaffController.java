@@ -1,5 +1,8 @@
 package com.like.hrm.staff.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.service.StaffService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class StaffController {
@@ -28,8 +30,7 @@ public class StaffController {
 								
 		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(staffService.getStaff(id)); 
 		
-		return ResponseEntityUtil.toOne(dto		
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/staff/create")
@@ -37,8 +38,7 @@ public class StaffController {
 								
 		staffService.newStaff(dto);
 											 				
-		return ResponseEntityUtil.toList(null											
-										,"직원번호 : %s , 생성되었습니다.".formatted(dto.staffId()));
+		return toList(null, "직원번호 : %s , 생성되었습니다.".formatted(dto.staffId()));
 	}
 		
 	@PostMapping("/api/hrm/staff")
@@ -46,8 +46,7 @@ public class StaffController {
 														
 		staffService.saveStaff(dto);
 											 				
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 			
 }

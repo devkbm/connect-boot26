@@ -1,5 +1,8 @@
 package com.like.hrm.staff.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,7 +18,6 @@ import com.like.hrm.staff.boundary.AppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.service.StaffAppointmentService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class StaffAppointmentController {
@@ -34,8 +36,7 @@ public class StaffAppointmentController {
 																			.map(e -> AppointmentRecordDTO.FormStaffAppointmentRecord.convert(e))
 																			.toList(); 		
 		
-		return ResponseEntityUtil.toList(list
-										,MessageUtil.getQueryMessage(list.size()));
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord/{id}")
@@ -46,17 +47,15 @@ public class StaffAppointmentController {
 				
 		var dto = AppointmentRecordDTO.FormStaffAppointmentRecord.convert(entity) ;
 		
-		return ResponseEntityUtil.toOne(dto
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/staff/{staffId}/appointmentrecord")
 	public ResponseEntity<?> saveAppointmentRecord(@Valid @RequestBody AppointmentRecordDTO.FormStaffAppointmentRecord dto) {			
 									
 		service.saveAppointmentRecord(dto);
-											 				
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getSaveMessage(1));
+		
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
@@ -66,7 +65,6 @@ public class StaffAppointmentController {
 						
 		service.applyAppointmentRecord(staffId, id);
 											 				
-		return ResponseEntityUtil.toList(null
-										,"발령처리되었습니다.");
+		return toList(null, "발령처리되었습니다.");
 	}
 }

@@ -1,9 +1,11 @@
 package com.like.system.term.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.term.boundary.TermDTO;
 import com.like.system.term.domain.TermDictionary;
 import com.like.system.term.service.TermService;
@@ -31,8 +32,7 @@ public class TermController {
 		
 		TermDictionary term = termService.getTerm(id);								
 		
-		return ResponseEntityUtil.toOne(term	
-									   ,MessageUtil.getQueryMessage(term == null ? 0 : 1));
+		return toOne(term, MessageUtil.getQueryMessage(term == null ? 0 : 1));
 	}			
 		
 	@PostMapping("/api/common/terms")
@@ -40,8 +40,7 @@ public class TermController {
 														
 		termService.saveTerm(dto);										
 		
-		return ResponseEntityUtil.toList(null
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	
 	}
 					
@@ -50,8 +49,7 @@ public class TermController {
 								
 		termService.deleteTerm(id);										
 		
-		return ResponseEntityUtil.toList(null		
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}		
 	
 }

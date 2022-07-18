@@ -1,5 +1,8 @@
 package com.like.system.dept.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 import com.like.system.dept.boundary.DeptDTO;
 import com.like.system.dept.boundary.DeptDTO.FormDept;
 import com.like.system.dept.domain.Dept;
@@ -33,8 +35,7 @@ public class DeptController {
 		
 		FormDept dto = DeptDTO.FormDept.convertDTO(dept);
 		
-		return ResponseEntityUtil.toOne(dto	
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/common/dept")
@@ -42,8 +43,7 @@ public class DeptController {
 																
 		deptService.saveDept(dto);		
 											 				
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}		
 	
 	@DeleteMapping("/api/common/dept/{deptCode}")
@@ -51,8 +51,7 @@ public class DeptController {
 												
 		deptService.deleteDept(deptCode);							
 		
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 	
 }

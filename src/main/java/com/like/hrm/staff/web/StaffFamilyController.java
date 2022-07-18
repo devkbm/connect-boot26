@@ -1,5 +1,8 @@
 package com.like.hrm.staff.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,6 @@ import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.family.Family;
 import com.like.hrm.staff.service.StaffFamilyService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class StaffFamilyController {
@@ -32,8 +34,7 @@ public class StaffFamilyController {
 				
 		StaffDTO.FormFamily dto = StaffDTO.FormFamily.convert(entity) ;
 		
-		return ResponseEntityUtil.toOne(dto			
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 							
 	}
 		
@@ -42,7 +43,6 @@ public class StaffFamilyController {
 							
 		service.saveFamily(dto);
 											 				
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 }

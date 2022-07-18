@@ -1,5 +1,8 @@
 package com.like.cooperation.board.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +22,6 @@ import com.like.cooperation.board.boundary.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.service.ArticleCommandService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @Controller
 public class ArticleController {	
@@ -37,8 +39,7 @@ public class ArticleController {
 	
 		ArticleDTO.ResponseArticle response = ArticleDTO.ResponseArticle.converDTO(article);				
 		
-		return ResponseEntityUtil.toOne(response
-									   ,MessageUtil.getQueryMessage(response == null ? 0 : 1));
+		return toOne(response, MessageUtil.getQueryMessage(response == null ? 0 : 1));
 	}
 		
 	@DeleteMapping("/api/grw/board/article/{id}")
@@ -46,8 +47,7 @@ public class ArticleController {
 		
 		service.deleteArticle(id);							
 		
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getDeleteMessage(1));
+		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 			
 	@DeleteMapping("/api/grw/board/article")
@@ -55,8 +55,7 @@ public class ArticleController {
 		
 		service.deleteArticle(articleList);									
 		
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getDeleteMessage(articleList.size()));
+		return toList(null, MessageUtil.getDeleteMessage(articleList.size()));
 	}	
 		
 	@PostMapping("/api/grw/board/articletemp")
@@ -65,8 +64,7 @@ public class ArticleController {
 											
 		service.saveArticle(dto);											
 		
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 		
 	@PostMapping("/api/grw/board/article")
@@ -75,8 +73,7 @@ public class ArticleController {
 										
 		service.saveArticle(dto);											
 		
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 			
 	@GetMapping("/api/grw/board/article/hitcnt")
@@ -85,8 +82,7 @@ public class ArticleController {
 				
 		Article aritlce = service.updateArticleHitCnt(id, userId);			
 										
-		return ResponseEntityUtil.toOne(aritlce											
-									   ,String.format("%d건 업데이트 하였습니다.", 1));
+		return toOne(aritlce, String.format("%d건 업데이트 하였습니다.", 1));
 	}	
 	
 }

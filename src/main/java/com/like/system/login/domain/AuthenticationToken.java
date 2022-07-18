@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.like.system.core.dto.HtmlOptionRecord;
+import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class AuthenticationToken implements Serializable {
 	private String token;
 	private String oAuthAccessToken;
 	private List<String> authorityList;
-    private List<HtmlOptionRecord> menuGroupList;
+    private List<HtmlSelectOptionRecord> menuGroupList;
     
        
     @Builder
@@ -38,7 +38,7 @@ public class AuthenticationToken implements Serializable {
     						  ,String token
     						  ,String oAuthAccessToken
     						  ,List<String> authorityList
-    						  ,List<HtmlOptionRecord> menuGroupList) {
+    						  ,List<HtmlSelectOptionRecord> menuGroupList) {
     	this.userId = userId;
     	this.organizationCode = organizationCode;    	
     	this.staffNo = staffNo;
@@ -62,7 +62,7 @@ public class AuthenticationToken implements Serializable {
 				.email(user.getEmail())
 				.token(sessionId)
 				.authorityList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
-				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlOptionRecord(e.getName(), e.getId())).toList())
+				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getName(), e.getId())).toList())
 				.build();
     }
        

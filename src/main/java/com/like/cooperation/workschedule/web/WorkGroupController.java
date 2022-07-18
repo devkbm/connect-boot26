@@ -1,5 +1,7 @@
 package com.like.cooperation.workschedule.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,6 @@ import com.like.cooperation.workschedule.boundary.WorkDTO;
 import com.like.cooperation.workschedule.domain.WorkGroup;
 import com.like.cooperation.workschedule.service.WorkGroupService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class WorkGroupController {	
@@ -31,8 +32,7 @@ public class WorkGroupController {
 		
 		WorkDTO.FormWorkGroup dto = WorkDTO.FormWorkGroup.convertDTO(entity);
 		
-		return ResponseEntityUtil.toOne(dto										
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
 	}
 		
 	@PostMapping("/api/grw/workgroup")
@@ -40,8 +40,7 @@ public class WorkGroupController {
 					
 		workGroupService.saveWorkGroup(dto);		
 		
-		return ResponseEntityUtil.toOne(dto		
-									   ,MessageUtil.getSaveMessage(1));
+		return toOne(dto, MessageUtil.getSaveMessage(1));
 	}
 			
 }

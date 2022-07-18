@@ -1,5 +1,8 @@
 package com.like.hrm.staff.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,6 @@ import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
 import com.like.hrm.staff.service.StaffSchoolCareerService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class StaffSchoolCareerController {
@@ -30,8 +32,7 @@ public class StaffSchoolCareerController {
 				
 		SchoolCareer schoolCareer = service.getSchoolCareer(staffId, id);  									
 		
-		return ResponseEntityUtil.toOne(schoolCareer		
-									   ,MessageUtil.getQueryMessage(schoolCareer == null ? 0 : 1));
+		return toOne(schoolCareer, MessageUtil.getQueryMessage(schoolCareer == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/staff/education")
@@ -39,8 +40,7 @@ public class StaffSchoolCareerController {
 				
 		service.saveSchoolCareer(dto);
 											 				
-		return ResponseEntityUtil.toList(null	
-										,MessageUtil.getSaveMessage(1));
+		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
 }

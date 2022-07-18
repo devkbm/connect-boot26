@@ -1,5 +1,8 @@
 package com.like.cooperation.workschedule.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,6 @@ import com.like.cooperation.workschedule.boundary.ScheduleDTO;
 import com.like.cooperation.workschedule.domain.Schedule;
 import com.like.cooperation.workschedule.service.ScheduleService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.web.util.ResponseEntityUtil;
 
 @RestController
 public class ScheduleController {
@@ -32,8 +34,7 @@ public class ScheduleController {
 		
 		ScheduleDTO.ResponseSchedule dto = ScheduleDTO.ResponseSchedule.convertResDTO(entity);
 		
-		return ResponseEntityUtil.toOne(dto													
-									   ,MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
 	}
 		
 	@PostMapping("/api/grw/schedule")
@@ -41,8 +42,7 @@ public class ScheduleController {
 		
 		service.saveSchedule(dto);		
 										 					
-		return ResponseEntityUtil.toOne(dto		
-									   ,MessageUtil.getSaveMessage(1));
+		return toOne(dto, MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/grw/schedule/{id}")
@@ -50,7 +50,6 @@ public class ScheduleController {
 						
 		service.deleteSchedule(id);							
 				
-		return ResponseEntityUtil.toList(null											
-										,MessageUtil.getDeleteMessage(1));													
+		return toList(null, MessageUtil.getDeleteMessage(1));													
 	}
 }
