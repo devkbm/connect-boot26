@@ -59,7 +59,7 @@ public class TermDictionary extends AbstractAuditEntity {
 	String comment;
 
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}  )
-    @JoinColumn(name = "domain_id", referencedColumnName = "id")
+    @JoinColumn(name = "domain_id", referencedColumnName = "domain_id")
 	TermDomain domainId;
 	
 	@Builder

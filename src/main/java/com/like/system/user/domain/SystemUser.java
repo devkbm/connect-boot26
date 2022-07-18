@@ -85,7 +85,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="COMUSERAUTHORITY",
     		joinColumns= @JoinColumn(name="USER_ID"),
-    		inverseJoinColumns=@JoinColumn(name="AUTHORITY_NAME"))	
+    		inverseJoinColumns=@JoinColumn(name="AUTH_ID"))	
 	Set<Authority> authorities = new LinkedHashSet<>();
 			
 	@Setter
