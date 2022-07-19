@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -32,6 +33,7 @@ public class TermDomain extends AbstractAuditEntity {
 	@Column(name="DOMAIN_ID")
 	String id;
 	
+	@Column(name="DB")
 	@Enumerated(EnumType.STRING)
 	Database database; 
 	
@@ -44,8 +46,9 @@ public class TermDomain extends AbstractAuditEntity {
 	@Column(name="COLUMN_SIZE")
 	String columnSize;
 	
+	@Builder
 	public TermDomain(Database database, String domainName, String dataType, String columnSize) {
-		this.id = database + domainName;
+		this.id = database + "_" + domainName;
 		this.database = database;
 		this.domainName = domainName;
 		this.dataType = dataType;

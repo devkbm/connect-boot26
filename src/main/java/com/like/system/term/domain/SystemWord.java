@@ -1,5 +1,7 @@
 package com.like.system.term.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -11,7 +13,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -23,11 +24,10 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper=true, includeFieldNames=true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @Table(name = "COMTERMWORD")
 @EntityListeners(AuditingEntityListener.class)
-public class Word extends AbstractAuditEntity {
+public class SystemWord extends AbstractAuditEntity {
 
 	@Id
 	@Column(name="LOGICAL_NAME")
@@ -35,4 +35,11 @@ public class Word extends AbstractAuditEntity {
 	
 	@Column(name="PHYSICAL_NAME")
 	String physicalName;
+	
+	public SystemWord(String logicalName, String physicalName) {
+		Objects.requireNonNull(logicalName, "필수 입력 값입니다.");
+		
+		this.logicalName = logicalName;
+		this.physicalName= physicalName;
+	}
 }
