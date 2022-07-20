@@ -18,13 +18,11 @@ import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.ToString;
 
 /**
  * @see https://stackoverflow.com/questions/61813715/spring-boot-auditing-hostname-and-hostip
  *
  */
-@ToString()
 @Getter(value = AccessLevel.PUBLIC)
 @TypeDef(name = "AuditorDetails",
     typeClass = AuditorDetailsType.class,
@@ -76,5 +74,14 @@ public abstract class AbstractAuditEntity {
     public void setAppUrl(String appUrl) {
     	this.createdAppUrl = appUrl;
     }
+
+	@Override
+	public String toString() {
+						
+		return "AbstractAuditEntity [createdDt=" + createdDt + ", createdByLoggedUser=" + createdBy.getLoggedUser() 
+				+ ", createdByHospIp=" + createdBy.getHostIp() 	+ ", createdAppUrl=" + createdAppUrl 
+				+ ", modifiedDt=" + modifiedDt + ", modifiedByLoggedUser=" + modifiedBy.getLoggedUser() 
+				+ ", modifiedByHospIp=" + modifiedBy.getHostIp() + ", modifiedAppUrl=" + modifiedAppUrl + "]";
+	}
     
 }

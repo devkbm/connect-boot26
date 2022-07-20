@@ -3,6 +3,8 @@ package com.like.system.term.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +12,14 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.like.system.term.domain.TermDomain.Database;
+import com.like.system.term.domain.DomainDictionary.Database;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.ANY)
-public class TermDomainRepositoryTest {
+public class DomainDictionaryRepositoryTest {
 
 	@Autowired
-	private TermDomainRepository repository;
+	private DomainDictionaryRepository repository;
 
 	
 	@DisplayName("저장시 ID가 NULL이면 오류")
@@ -25,17 +27,17 @@ public class TermDomainRepositoryTest {
 	void saveSystemWord_ERROR() {			
 			
 		assertThatExceptionOfType(NullPointerException .class).isThrownBy(() -> { 
-			new SystemWord(null, "TEST2");
+			//new SystemWord(null, "TEST2");
 		});	
 	}
 	
-	
-	@DisplayName("시스템단어 저장")
+		
+	@DisplayName("단어 리스트로 용어 생성")
 	@Test
-	void saveSystemWord() {
+	void saveTermDomain() {
 		//Given
 		// Database database, String domainName, String dataType, String columnSize
-		TermDomain entity = TermDomain.builder()
+		DomainDictionary entity = DomainDictionary.builder()
 									  .database(Database.MYSQL)
 									  .domainName("직원번호")
 									  .dataType("VARCHAR")
@@ -44,7 +46,7 @@ public class TermDomainRepositoryTest {
 		
 		//When
 		repository.save(entity);		
-		TermDomain result = repository.findById("MYSQL_직원번호").orElse(null);					
+		DomainDictionary result = repository.findById("MYSQL_직원번호").orElse(null);					
 		
 		//Then
 		assertThat(result.getId()).isEqualTo("MYSQL_직원번호");
@@ -52,5 +54,10 @@ public class TermDomainRepositoryTest {
 		assertThat(result.getDomainName()).isEqualTo("직원번호");		
 		assertThat(result.getDataType()).isEqualTo("VARCHAR");
 		assertThat(result.getColumnSize()).isEqualTo("8");
+	}
+	
+	List<WordDictionary> createSystemWordList() {
+		return List.of(new WordDictionary("직원", "STAFF", "STF")
+					  ,new WordDictionary("번호", "NUMBER", "NO"));
 	}
 }

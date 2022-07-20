@@ -7,15 +7,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.term.boundary.TermDTO;
 import com.like.system.term.domain.TermDictionary;
-import com.like.system.term.domain.TermRepository;
+import com.like.system.term.domain.TermDictionaryRepository;
 
 @Service
 @Transactional
 public class TermService {
 	    
-	private TermRepository repository;      
+	private TermDictionaryRepository repository;      
 	
-    public TermService(TermRepository repository) {
+    public TermService(TermDictionaryRepository repository) {
     	this.repository = repository;
     }
     

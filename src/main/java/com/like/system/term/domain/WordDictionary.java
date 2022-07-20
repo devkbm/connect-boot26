@@ -27,19 +27,23 @@ import lombok.ToString;
 @Entity
 @Table(name = "COMTERMWORD")
 @EntityListeners(AuditingEntityListener.class)
-public class SystemWord extends AbstractAuditEntity {
+public class WordDictionary extends AbstractAuditEntity {
 
 	@Id
 	@Column(name="LOGICAL_NAME")
 	String logicalName;
+		
+	@Column(name="LOGICAL_NAME_ENG")
+	String logicalNameEng;
 	
 	@Column(name="PHYSICAL_NAME")
 	String physicalName;
 	
-	public SystemWord(String logicalName, String physicalName) {
+	public WordDictionary(String logicalName, String logicalNameEng, String physicalName) {
 		Objects.requireNonNull(logicalName, "필수 입력 값입니다.");
 		
 		this.logicalName = logicalName;
+		this.logicalNameEng = logicalNameEng;
 		this.physicalName= physicalName;
 	}
 }
