@@ -77,11 +77,16 @@ public abstract class AbstractAuditEntity {
 
 	@Override
 	public String toString() {
-						
-		return "AbstractAuditEntity [createdDt=" + createdDt + ", createdByLoggedUser=" + createdBy.getLoggedUser() 
-				+ ", createdByHospIp=" + createdBy.getHostIp() 	+ ", createdAppUrl=" + createdAppUrl 
-				+ ", modifiedDt=" + modifiedDt + ", modifiedByLoggedUser=" + modifiedBy.getLoggedUser() 
-				+ ", modifiedByHospIp=" + modifiedBy.getHostIp() + ", modifiedAppUrl=" + modifiedAppUrl + "]";
+		
+		String createdByLoggedUser = this.createdBy != null ? createdBy.getLoggedUser() : null;
+		String createdByHospIp = this.createdBy != null ? createdBy.getHostIp() : null;
+		String modifiedByLoggedUser = this.modifiedBy != null ? modifiedBy.getLoggedUser() : null;
+		String modifiedByHospIp = this.modifiedBy != null ? modifiedBy.getHostIp() : null;
+		
+		return "AbstractAuditEntity [createdDt=" + createdDt + ", createdByLoggedUser=" + createdByLoggedUser 
+				+ ", createdByHospIp=" + createdByHospIp 	+ ", createdAppUrl=" + createdAppUrl 
+				+ ", modifiedDt=" + modifiedDt + ", modifiedByLoggedUser=" + modifiedByLoggedUser 
+				+ ", modifiedByHospIp=" + modifiedByHospIp + ", modifiedAppUrl=" + modifiedAppUrl + "]";
 	}
     
 }

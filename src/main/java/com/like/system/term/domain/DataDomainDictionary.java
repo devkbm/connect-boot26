@@ -25,7 +25,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "COMTERMDOMAIN")
 @EntityListeners(AuditingEntityListener.class)
-public class DomainDictionary extends AbstractAuditEntity {
+public class DataDomainDictionary extends AbstractAuditEntity {
 	
 	public enum Database { ORACLE, MYSQL };
 	
@@ -47,7 +47,7 @@ public class DomainDictionary extends AbstractAuditEntity {
 	String columnSize;
 	
 	@Builder
-	public DomainDictionary(Database database, String domainName, String dataType, String columnSize) {
+	public DataDomainDictionary(Database database, String domainName, String dataType, String columnSize) {
 		this.id = database + "_" + domainName;
 		this.database = database;
 		this.domainName = domainName;

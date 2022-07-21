@@ -28,7 +28,7 @@ public class WordDictionaryRepositoryTest {
 	
 	@DisplayName("저장시 ID가 NULL이면 오류")
 	@Test
-	void saveSystemWord_ERROR() {			
+	void saveWordDictionary_ERROR() {			
 			
 		assertThatExceptionOfType(NullPointerException .class).isThrownBy(() -> { 
 			new WordDictionary(null, "NULL", "TEST2");
@@ -38,7 +38,7 @@ public class WordDictionaryRepositoryTest {
 	@WithMockCustomUser
 	@DisplayName("시스템단어 저장")
 	@Test
-	void saveSystemWord() {
+	void saveWordDictionary() {
 		//Given
 		WordDictionary entity = new WordDictionary("코드", "CODE", "CD");			
 		

@@ -60,34 +60,34 @@ public class TermDictionary extends AbstractAuditEntity {
 
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}  )
     @JoinColumn(name = "domain_id", referencedColumnName = "domain_id")
-	DomainDictionary domainId;
+	DataDomainDictionary dataDomain;
 	
 	@Builder
 	public TermDictionary(String system, String term, String termEng,
-			String physicalName, DomainDictionary termDomain, String description, String comment) {
-		this.id = system + term;
+			String physicalName, DataDomainDictionary dataDomain, String description, String comment) {
+		this.id = system + "_" + term;
 		this.system = system;
 		this.term = term;		
 		this.termEng = termEng;
-		this.domainId = termDomain; 
+		this.dataDomain = dataDomain; 
 		this.physicalName = physicalName;
 		this.description = description;
 		this.comment = comment;
 	}	
 	
-	public TermDictionary of(String system, WordDictionary word, DomainDictionary termDomain, String description, String comment) {	
+	public static TermDictionary of(String system, WordDictionary word, DataDomainDictionary dataDomain, String description, String comment) {	
 		return TermDictionary.builder()
 							 .system(system)
 							 .term(word.getLogicalName())
 							 .termEng(word.getLogicalNameEng())
-							 .termDomain(termDomain)
+							 .dataDomain(dataDomain)
 							 .physicalName(word.getPhysicalName())
 							 .description(description)
 							 .comment(comment)
 							 .build();
 	}
 	
-	public TermDictionary of(String system, List<WordDictionary> wordList, DomainDictionary termDomain, String description, String comment) {
+	public static TermDictionary of(String system, List<WordDictionary> wordList, DataDomainDictionary dataDomain, String description, String comment) {
 		String logicalName = String.join("_", wordList.stream().map(e -> e.getLogicalName()).toList());
 		String logicalNameEng = String.join("_", wordList.stream().map(e -> e.getLogicalNameEng()).toList());
 		String physicalName = String.join("_", wordList.stream().map(e -> e.getPhysicalName()).toList());					
@@ -96,7 +96,7 @@ public class TermDictionary extends AbstractAuditEntity {
 							 .system(system)
 							 .term(logicalName)
 							 .termEng(logicalNameEng)
-							 .termDomain(termDomain)
+							 .dataDomain(dataDomain)
 							 .physicalName(physicalName)
 							 .description(description)
 							 .comment(comment)
