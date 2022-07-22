@@ -11,12 +11,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.like.CustomDataJpaTest;
 import com.like.system.core.jpa.JpaRepositoryAuditConfigTest;
 import com.like.system.core.test.WithMockCustomUser;
 import com.like.system.term.domain.DataDomainDictionary.Database;
@@ -24,13 +22,12 @@ import com.like.system.term.domain.DataDomainDictionary.Database;
 import lombok.Getter;
 
 @DisplayName("TermDictionaryRepository Test")
-@Import(JpaRepositoryAuditConfigTest.class)
-@AutoConfigureTestDatabase(replace = Replace.ANY)
 public class TermDictionaryRepositoryTest { 
 	
 	@ExtendWith(SpringExtension.class)
 	@WithMockCustomUser
-	@DataJpaTest
+	@Import(JpaRepositoryAuditConfigTest.class)	
+	@CustomDataJpaTest
 	@Getter
 	class RepositoryTest {
 		@Autowired 
@@ -60,7 +57,7 @@ public class TermDictionaryRepositoryTest {
 				TermDictionary entity = TermDictionary.of("HRM", wordList, dataDomain, "용어설명", "비고");
 				System.out.println(entity.toString());
 				
-				getRepository().save(entity);
+				getRepository().saveAndFlush(entity);
 				
 				assertThat(entity.getId()).isEqualTo("HRM_직원_번호").as("용어사전ID는 시스템_복합단어(단어_단어)로 구성된다.");
 				assertThat(entity.getTerm()).isEqualTo("직원_번호");
@@ -83,7 +80,7 @@ public class TermDictionaryRepositoryTest {
 				WordDictionary word = new WordDictionary("직원", "STAFF", "STF");
 				TermDictionary entity = TermDictionary.of("HRM", word, dataDomain, "용어설명", "비고");
 				
-				getRepository().save(entity);
+				getRepository().saveAndFlush(entity);
 				
 				assertThat(entity.getId()).isEqualTo("HRM_직원");
 				assertThat(entity.getTerm()).isEqualTo("직원");

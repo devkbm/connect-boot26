@@ -123,11 +123,11 @@
 			<artifactId>querydsl-jpa</artifactId>
 		</dependency>	
 		
-		<!-- Log -->
+		<!-- Log -->			
 		<dependency>
-		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
-		    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-		    <version>1.16</version>
+		    <groupId>com.github.gavlyukovskiy</groupId>
+		    <artifactId>p6spy-spring-boot-starter</artifactId>
+		    <version>1.8.0</version>
 		</dependency>
 		
 		<dependency>

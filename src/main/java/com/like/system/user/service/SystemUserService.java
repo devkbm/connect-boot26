@@ -11,12 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptRepository;
-import com.like.system.file.infra.file.LocalFileRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupRepository;
 import com.like.system.user.boundary.SystemUserDTO;
 import com.like.system.user.domain.Authority;
 import com.like.system.user.domain.AuthorityRepository;
+import com.like.system.user.domain.ProfilePictureRepository;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserRepository;
 
@@ -28,18 +28,18 @@ public class SystemUserService {
 	private MenuGroupRepository menuRepository;	
 	private DeptRepository deptRepository;		
 	private AuthorityRepository authorityRepository;			
-	private LocalFileRepository localFileRepository;
+	private ProfilePictureRepository profilePictureRepository;
 	
 	public SystemUserService(SystemUserRepository repository
 					  ,AuthorityRepository authorityRepository
 			  		  ,MenuGroupRepository menuRepository
 			  		  ,DeptRepository deptRepository
-			  		  ,LocalFileRepository localFileRepository) {
+			  		  ,ProfilePictureRepository profilePictureRepository) {
 		this.repository = repository;
 		this.menuRepository = menuRepository;
 		this.deptRepository = deptRepository;
 		this.authorityRepository = authorityRepository;	
-		this.localFileRepository = localFileRepository;
+		this.profilePictureRepository = profilePictureRepository;
 	}
 	
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();				
@@ -110,7 +110,7 @@ public class SystemUserService {
 		
 		if (user == null) return null;
 						
-		String path = user.changeImage(localFileRepository, file);
+		String path = user.changeImage(profilePictureRepository, file);
 		
 		repository.save(user);
 		

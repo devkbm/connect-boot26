@@ -22,10 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.dept.domain.Dept;
-import com.like.system.file.infra.file.LocalFileRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.user.domain.vo.AccountSpec;
-import com.like.system.user.domain.vo.SystemUserImage;
+import com.like.system.user.domain.vo.SystemUserProfilePicture;
 import com.like.system.user.domain.vo.UserPassword;
 
 import lombok.AccessLevel;
@@ -75,7 +74,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	//@Column(name="FK_FILE")
 	//String image;
 	@Embedded
-	SystemUserImage image;
+	SystemUserProfilePicture image;
 	
 	@OneToOne(optional = true)
 	@JoinColumn(name = "DEPT_CD", nullable = true)
@@ -212,8 +211,8 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		return this.image.getImage();
 	}
 	
-	public String changeImage(LocalFileRepository localFileRepository, MultipartFile sourceFile) {
-		if (this.image == null) this.image = new SystemUserImage(localFileRepository);		
+	public String changeImage(ProfilePictureRepository localFileRepository, MultipartFile sourceFile) {
+		if (this.image == null) this.image = new SystemUserProfilePicture(localFileRepository);		
 		
 		return this.image.changeImage(localFileRepository, sourceFile);
 	}	
