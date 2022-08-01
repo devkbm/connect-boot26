@@ -103,6 +103,8 @@ public class SystemUserDTO {
 		Boolean credentialsNonExpired;
 			
 		Boolean enabled;
+		
+		String appUrl;
 					
 		@Singular(value = "authorityList")
 		Set<String> authorityList;
@@ -120,7 +122,7 @@ public class SystemUserDTO {
 					   .email(this.email)					  
 					   .accountSpec(new AccountSpec(true, true, true, true))
 					   .authorities(authorityList)
-					   .menuGroupList(menuGroupList)					
+					   .menuGroupList(menuGroupList)					  
 					   .build();
 			
 		}

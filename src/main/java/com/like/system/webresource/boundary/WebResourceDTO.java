@@ -66,6 +66,8 @@ public class WebResourceDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
+			String appUrl,
+			String organizationCode,
 			@NotEmpty
 			String resourceCode,
 			@NotEmpty
