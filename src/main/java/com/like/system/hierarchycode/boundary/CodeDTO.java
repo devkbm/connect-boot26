@@ -2,7 +2,6 @@ package com.like.system.hierarchycode.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.like.system.hierarchycode.domain.Code;
@@ -10,33 +9,21 @@ import com.like.system.hierarchycode.domain.QCode;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public class CodeDTO {	
 	
-	@Data
-	public static class SearchCode implements Serializable {
+	public record Search(
+			String id,
+			String systemTypeCode,
+			String parentId,
+			String code,
+			String codeName,
+			String codeNameAbbreviation,
+			Boolean isUse			
+			) {
 		
-		private static final long serialVersionUID = -4777670465777456711L;
-
-		private final QCode qType = QCode.code1;
-		
-		String id;
-		
-		String systemTypeCode;
-		
-		String parentId;
-			
-		String code;
-			
-		String codeName;
-			
-		String codeNameAbbreviation;					
-					
-		Boolean isUse = true;
+		private static final QCode qType = QCode.code1;
 		
 		public BooleanBuilder getCondition() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -81,50 +68,30 @@ public class CodeDTO {
 		}
 	}
 	
-	@Data
 	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class FormCode implements Serializable {
-				
-		private static final long serialVersionUID = -4482323353197356218L;
-
-		LocalDateTime createdDt;	
-		
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-		
-		String id;
-		
-		String systemTypeCode;
-		
-		String parentId;
-			
-		String code;
-			
-		String codeName;
-			
-		String codeNameAbbreviation;		
-						
-		LocalDateTime fromDate;
-			
-		LocalDateTime toDate;			
-		
-		Integer hierarchyLevel;
-				
-		Integer seq;
-			
-		boolean fixedLengthYn;
-		
-		Integer codeLength;
-		
-		String cmt;		
+	public static record Form(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			String appUrl,
+			String id,
+			String systemTypeCode,
+			String parentId,
+			String code,
+			String codeName,
+			String codeNameAbbreviation,
+			LocalDateTime fromDate,
+			LocalDateTime toDate,
+			Integer hierarchyLevel,
+			Integer seq,
+			boolean fixedLengthYn,
+			Integer codeLength,
+			String cmt
+			) {
 		
 		public Code newCode(Code parentCode) {
-						
+			
 			return Code.builder()
 					   .systemTypeCode(this.systemTypeCode)
 					   .parentCode(parentCode)
@@ -151,31 +118,29 @@ public class CodeDTO {
 							 ,this.cmt);
 		}
 		
-		public static CodeDTO.FormCode convertDTO(Code entity) {					
+		public static CodeDTO.Form convertDTO(Code entity) {					
 			
 			Code parent = entity.getParentCode();
 										
-			return FormCode.builder()
-						   .createdDt(entity.getCreatedDt())
-						   .createdBy(entity.getCreatedBy().getLoggedUser())
-						   .modifiedDt(entity.getModifiedDt())
-						   .modifiedBy(entity.getModifiedBy().getLoggedUser())
-						   .id(entity.getId())
-						   .systemTypeCode(entity.getSystemTypeCode())
-						   .parentId(parent == null ? null : parent.getId())
-						   .code(entity.getCode())
-						   .codeName(entity.getCodeName())
-						   .codeNameAbbreviation(entity.getCodeNameAbbreviation())								
-						   .fromDate(entity.getFromDate())
-						   .toDate(entity.getToDate())
-						   .seq(entity.getSeq())
-						   .fixedLengthYn(entity.isFixedLengthYn())
-						   .codeLength(entity.getCodeLength())
-						   .cmt(entity.getCmt())
-						   .build();	
+			return Form.builder()
+					   .createdDt(entity.getCreatedDt())
+					   .createdBy(entity.getCreatedBy().getLoggedUser())
+					   .modifiedDt(entity.getModifiedDt())
+					   .modifiedBy(entity.getModifiedBy().getLoggedUser())
+					   .id(entity.getId())
+					   .systemTypeCode(entity.getSystemTypeCode())
+					   .parentId(parent == null ? null : parent.getId())
+					   .code(entity.getCode())
+					   .codeName(entity.getCodeName())
+					   .codeNameAbbreviation(entity.getCodeNameAbbreviation())								
+					   .fromDate(entity.getFromDate())
+					   .toDate(entity.getToDate())
+					   .seq(entity.getSeq())
+					   .fixedLengthYn(entity.isFixedLengthYn())
+					   .codeLength(entity.getCodeLength())
+					   .cmt(entity.getCmt())
+					   .build();	
 		}
-				
-	}
-			
+	}		
 	
 }

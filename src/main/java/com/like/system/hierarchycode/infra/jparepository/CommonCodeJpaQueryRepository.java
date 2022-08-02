@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.like.system.hierarchycode.boundary.CodeComboDTO;
+import com.like.system.hierarchycode.boundary.CodeDTO.Search;
 import com.like.system.hierarchycode.boundary.CodeHierarchy;
-import com.like.system.hierarchycode.boundary.CodeDTO.SearchCode;
 import com.like.system.hierarchycode.domain.Code;
 import com.like.system.hierarchycode.domain.CommonCodeQueryRepository;
 import com.like.system.hierarchycode.domain.QCode;
@@ -43,8 +43,8 @@ public class CommonCodeJpaQueryRepository implements CommonCodeQueryRepository {
 	}
 
 	@Override
-	public List<CodeHierarchy> getCodeHierarchyList(SearchCode dto) {
-		List<CodeHierarchy> rootNodeList = this.getCodeRootNodeList(dto.getSystemTypeCode());
+	public List<CodeHierarchy> getCodeHierarchyList(Search dto) {
+		List<CodeHierarchy> rootNodeList = this.getCodeRootNodeList(dto.systemTypeCode());
 		
 		List<CodeHierarchy> result = this.addCodeChildrenList(rootNodeList);
 		

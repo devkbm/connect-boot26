@@ -52,7 +52,8 @@ public class MenuGroupDTO {
 			LocalDateTime createdDt,
 			String createdBy,
 			LocalDateTime modifiedDt,
-			String modifiedBy,			
+			String modifiedBy,	
+			String appUrl,
 			String menuGroupId,
 			String organizationCode,
 			String menuGroupCode,		
@@ -61,16 +62,22 @@ public class MenuGroupDTO {
 			) {
 		
 		public MenuGroup newMenuGroup() {
-			return MenuGroup.builder()
-						    .organizationCode(this.organizationCode)
-						    .code(this.menuGroupCode)
-						    .name(this.menuGroupName)
-						    .description(this.description)
-						    .build();	
+			MenuGroup entity = MenuGroup.builder()
+									    .organizationCode(this.organizationCode)
+									    .code(this.menuGroupCode)
+									    .name(this.menuGroupName)
+									    .description(this.description)						    
+									    .build();
+			
+			entity.setAppUrl(appUrl);
+			
+			return entity;	
 		}
 		
 		public void modifyMenuGroup(MenuGroup menuGroup) {
 			menuGroup.modifyEntity(this.menuGroupName, this.description);
+			
+			menuGroup.setAppUrl(appUrl);
 		}
 		
 		public static FormMenuGroup convert(MenuGroup entity) {
@@ -80,7 +87,7 @@ public class MenuGroupDTO {
 								.createdDt(entity.getCreatedDt())
 								.createdBy(entity.getCreatedBy().getLoggedUser())
 								.modifiedDt(entity.getModifiedDt())
-								.modifiedBy(entity.getModifiedBy().getLoggedUser())
+								.modifiedBy(entity.getModifiedBy().getLoggedUser())								
 								.organizationCode(entity.getOrganizationCode())
 								.menuGroupId(entity.getId())
 								.menuGroupCode(entity.getCode())

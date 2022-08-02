@@ -61,6 +61,7 @@ public class DeptDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
+			String appUrl,
 			String parentDeptId,
 			String deptId,			
 			String organizationCode,
@@ -83,23 +84,23 @@ public class DeptDTO {
 			Optional<LocalDatePeriod> period= Optional.ofNullable(entity.getPeriod());
 			
 			FormDept dto = FormDept.builder()
-									.createdDt(entity.getCreatedDt())
-									.createdBy(entity.getCreatedBy().getLoggedUser())
-									.modifiedDt(entity.getModifiedDt())
-									.modifiedBy(entity.getModifiedBy().getLoggedUser())
-									.deptId(entity.getDeptId())
-									.organizationCode(entity.getOrganizationCode())
-									.deptCode(entity.getDeptCode())
-									.parentDeptId(parent.map(Dept::getDeptId).orElse(null))
-									.deptNameKorean(entity.getDeptNameKorean())
-									.deptAbbreviationKorean(entity.getDeptAbbreviationKorean())
-									.deptNameEnglish(entity.getDeptNameEnglish())
-									.deptAbbreviationEnglish(entity.getDeptAbbreviationEnglish())
-									.fromDate(period.map(LocalDatePeriod::getFrom).orElse(null))
-									.toDate(period.map(LocalDatePeriod::getTo).orElse(null))
-									.seq(entity.getSeq())
-									.comment(entity.getComment())
-									.build();		
+								   .createdDt(entity.getCreatedDt())
+								   .createdBy(entity.getCreatedBy().getLoggedUser())
+								   .modifiedDt(entity.getModifiedDt())
+								   .modifiedBy(entity.getModifiedBy().getLoggedUser())
+								   .deptId(entity.getDeptId())
+								   .organizationCode(entity.getOrganizationCode())
+								   .deptCode(entity.getDeptCode())
+								   .parentDeptId(parent.map(Dept::getDeptId).orElse(null))
+								   .deptNameKorean(entity.getDeptNameKorean())
+								   .deptAbbreviationKorean(entity.getDeptAbbreviationKorean())
+								   .deptNameEnglish(entity.getDeptNameEnglish())
+								   .deptAbbreviationEnglish(entity.getDeptAbbreviationEnglish())
+								   .fromDate(period.map(LocalDatePeriod::getFrom).orElse(null))
+								   .toDate(period.map(LocalDatePeriod::getTo).orElse(null))
+								   .seq(entity.getSeq())
+								   .comment(entity.getComment())
+								   .build();		
 			return dto;		
 		}	
 		
@@ -107,19 +108,21 @@ public class DeptDTO {
 			if (this.organizationCode == null) new IllegalArgumentException("조직코드가 없습니다.");
 			if (this.deptCode == null) new IllegalArgumentException("부서코드가 없습니다.");
 			
+			Dept entity = Dept.builder(this.organizationCode,this.deptCode)		
+							   .organizationCode(this.organizationCode)
+							   .deptCode(this.deptCode)					   
+							   .deptNameKorean(this.deptNameKorean)
+							   .deptAbbreviationKorean(this.deptAbbreviationKorean)
+							   .deptNameEnglish(this.deptNameEnglish)
+							   .deptAbbreviationEnglish(this.deptAbbreviationEnglish)
+							   .period(new LocalDatePeriod(this.fromDate, this.toDate))					   
+							   .seq(this.seq)
+							   .comment(this.comment)
+							   .parentDept(parentDept)
+							   .build();
+			entity.setAppUrl(appUrl);
 			
-			return Dept.builder(this.organizationCode,this.deptCode)		
-					   .organizationCode(this.organizationCode)
-					   .deptCode(this.deptCode)					   
-					   .deptNameKorean(this.deptNameKorean)
-					   .deptAbbreviationKorean(this.deptAbbreviationKorean)
-					   .deptNameEnglish(this.deptNameEnglish)
-					   .deptAbbreviationEnglish(this.deptAbbreviationEnglish)
-					   .period(new LocalDatePeriod(this.fromDate, this.toDate))					   
-					   .seq(this.seq)
-					   .comment(this.comment)
-					   .parentDept(parentDept)
-					   .build();
+			return entity;
 		}
 		
 		public void modifyDept(Dept dept, @Nullable Dept parentDept) {
@@ -131,6 +134,8 @@ public class DeptDTO {
 							 ,seq
 							 ,comment
 							 ,parentDept);
+			
+			dept.setAppUrl(appUrl);
 		}
 	}	
 	

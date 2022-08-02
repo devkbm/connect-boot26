@@ -3,9 +3,9 @@ package com.like.system.user.boundary;
 import static org.springframework.util.StringUtils.hasText;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 
@@ -18,11 +18,7 @@ import com.like.system.user.domain.vo.AccountSpec;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Singular;
 
 public class SystemUserDTO {
 	
@@ -64,53 +60,30 @@ public class SystemUserDTO {
 		}
 	}		
 	
-	@Data
 	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class FormSystemUser {
-		
-		LocalDateTime createdDt;	
-		
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-					
-		String userId;
-		
-		@NotBlank(message="직원번호를 입력해 주세요.")
-		String staffNo;
-			
-		String name;			
-		
-		@NotBlank(message="조직코드를 선택해 주세요.")
-		String organizationCode;
-		
-		String deptCode;
-		
-		String mobileNum;
-		
-		String email;
-		
-		String imageBase64;
-				
-		Boolean accountNonExpired;
-			
-		Boolean accountNonLocked;
-			
-		Boolean credentialsNonExpired;
-			
-		Boolean enabled;
-		
-		String appUrl;
-					
-		@Singular(value = "authorityList")
-		Set<String> authorityList;
-
-		@Singular(value = "menuGroupList")
-		Set<String> menuGroupList; 
+	public static record FormSystemUser(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			String appUrl,
+			String userId,
+			@NotBlank(message="조직코드를 선택해 주세요.")
+			String organizationCode,
+			@NotBlank(message="직원번호를 입력해 주세요.")
+			String staffNo,
+			String name,
+			String deptCode,
+			String mobileNum,
+			String email,
+			String imageBase64,
+			Boolean accountNonExpired,
+			Boolean accountNonLocked,
+			Boolean credentialsNonExpired,
+			Boolean enabled,
+			List<String> authorityList,
+			List<String> menuGroupList
+			) {
 		
 		public SystemUser newUser(Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
 			return SystemUser.builder()					  					  
@@ -160,18 +133,18 @@ public class SystemUserDTO {
 											   .authorityList(entity.getAuthoritiesList()
 																	.stream()
 																	.map(auth -> auth.getAuthority())
-																	.collect(Collectors.toList()))
+																	.toList())
 											   .menuGroupList(entity.getMenuGroupList()
 																	.stream()
 																	.map(menuGroup -> menuGroup.getId())
-																	.collect(Collectors.toList()))
+																	.toList())
 											   .build();
 			
 			return dto;
 		}
-								
 	}
-
+	
+	
 	
 
 }

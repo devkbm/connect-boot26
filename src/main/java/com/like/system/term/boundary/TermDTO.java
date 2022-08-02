@@ -2,35 +2,22 @@ package com.like.system.term.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.like.system.term.domain.QTermDictionary;
 import com.like.system.term.domain.TermDictionary;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class TermDTO {
 
-	@Data
-	public static class SearchTerm implements Serializable {
+	public record Search(
+			String domain,
+			String term
+			) {
+				
+		private static final QTermDictionary qType = QTermDictionary.termDictionary;
 		
-		private static final long serialVersionUID = 1L;
-
-		private final QTermDictionary qType = QTermDictionary.termDictionary;
-						
-		String domain;
-		
-		String term;
-					
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 									
@@ -50,34 +37,20 @@ public class TermDTO {
 		}
 	}
 	
-	@JsonIgnoreProperties(ignoreUnknown = true)
-	@Data
-	@Builder
-	@AllArgsConstructor
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	public static class SaveTerm implements Serializable {
-				
-		private static final long serialVersionUID = 6104580538309815203L;
-
-		Long pkTerm;	
-				
-		@NotEmpty(message = "도메인은 필수 입력 값입니다.")
-		String domain;
-				
-		@NotEmpty(message = "용어는 필수 입력 값입니다.")
-		String term;
-					
-		String nameKor;
-				
-		String abbreviationKor;
-				
-		String nameEng;
-					
-		String abbreviationEng;
-				
-		String description;
-				
-		String comment;
+	public record FormTerm(
+			String appUrl,
+			Long pkTerm,
+			@NotEmpty(message = "도메인은 필수 입력 값입니다.")
+			String domain,
+			@NotEmpty(message = "용어는 필수 입력 값입니다.")
+			String term,
+			String nameKor,
+			String abbreviationKor,
+			String nameEng,
+			String abbreviationEng,
+			String description,
+			String comment
+			) {
 		
 		public TermDictionary newEntity() {
 			return null; /* TermDictionary.builder()
@@ -99,7 +72,7 @@ public class TermDTO {
 			
 		}
 		
-		public static SaveTerm convert(TermDictionary entity) {
+		public static FormTerm convert(TermDictionary entity) {
 			return null; /*
 					SaveTerm.builder()						   
 						   .domain(entity.getDomain())
@@ -112,4 +85,7 @@ public class TermDTO {
 						   */
 		}
 	}
+		
+	
+	
 }

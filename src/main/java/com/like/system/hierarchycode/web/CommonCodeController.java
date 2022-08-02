@@ -30,13 +30,13 @@ public class CommonCodeController {
 								  						 					
 		Code entity = service.getCode(id);
 		
-		CodeDTO.FormCode dto = CodeDTO.FormCode.convertDTO(entity);
+		CodeDTO.Form dto = CodeDTO.Form.convertDTO(entity);
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
 	@PostMapping("/api/common/code")
-	public ResponseEntity<?> saveCode(@RequestBody CodeDTO.FormCode dto) {					
+	public ResponseEntity<?> saveCode(@RequestBody CodeDTO.Form dto) {					
 		
 		service.saveCode(dto);		
 											 				

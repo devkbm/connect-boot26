@@ -40,7 +40,7 @@ public class CommonCodeQueryController {
 	}
 	
 	@GetMapping("/api/common/codetree") 
-	public ResponseEntity<?> getCodeHierarchyList(@ModelAttribute CodeDTO.SearchCode searchCondition) {
+	public ResponseEntity<?> getCodeHierarchyList(@ModelAttribute CodeDTO.Search searchCondition) {
 							
 		List<CodeHierarchy> list = service.getCodeHierarchyList(searchCondition);  						 						
 		
@@ -48,13 +48,13 @@ public class CommonCodeQueryController {
 	}
 	
 	@GetMapping("/api/common/code") 
-	public ResponseEntity<?> getCodeList(@ModelAttribute CodeDTO.SearchCode searchCondition) {
+	public ResponseEntity<?> getCodeList(@ModelAttribute CodeDTO.Search searchCondition) {
 							
 		List<Code> list = service.getCodeList(searchCondition);  						 						
 		
-		List<CodeDTO.FormCode> dtoList = list.stream()
-											 .map(e -> CodeDTO.FormCode.convertDTO(e))
-											 .toList();
+		List<CodeDTO.Form> dtoList = list.stream()
+										 .map(e -> CodeDTO.Form.convertDTO(e))
+										 .toList();
 		
 		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}

@@ -37,10 +37,10 @@ public class P6spyPrettySqlFormatter implements MessageFormattingStrategy {
             String tmpsql = sql.trim().toLowerCase(Locale.ROOT);
             if(tmpsql.startsWith("create") || tmpsql.startsWith("alter") || tmpsql.startsWith("comment")) {
                 sql = FormatStyle.DDL.getFormatter().format(sql);
-            }else {
+            } else {
                 sql = FormatStyle.BASIC.getFormatter().format(sql);
             }
-            sql = "|\nHeFormatSql(P6Spy sql,Hibernate format):"+ sql;
+            sql = "|\nFormatSql(P6Spy sql,Hibernate format):"+ sql;
         }
 
         return sql;

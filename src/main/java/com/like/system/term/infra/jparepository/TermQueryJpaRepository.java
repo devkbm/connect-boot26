@@ -22,7 +22,7 @@ public class TermQueryJpaRepository implements TermQueryRepository {
 	}	
 		
 	@Override
-	public List<TermDictionary> getTermList(TermDTO.SearchTerm condition) {									
+	public List<TermDictionary> getTermList(TermDTO.Search condition) {									
 		return queryFactory.selectFrom(qTermDictionary)
 						   .where(condition.getBooleanBuilder())
 						   .fetch();

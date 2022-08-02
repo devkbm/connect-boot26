@@ -25,11 +25,11 @@ public class CommonCodeQueryService {
 		return codeRepository.getCodeList(parentCodeId);
 	}
 	
-	public List<Code> getCodeList(CodeDTO.SearchCode searchCondition) {		
+	public List<Code> getCodeList(CodeDTO.Search searchCondition) {		
 		return codeRepository.getCodeList(searchCondition.getCondition());
 	}
 	
-	public List<CodeHierarchy> getCodeHierarchyList(CodeDTO.SearchCode searchCondition) {		
+	public List<CodeHierarchy> getCodeHierarchyList(CodeDTO.Search searchCondition) {		
 		
 		return codeRepository.getCodeHierarchyList(searchCondition);
 	}

@@ -52,6 +52,7 @@ public class MenuDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
+			String appUrl,
 			@NotEmpty
 			String menuGroupId,
 			String menuId,
@@ -62,21 +63,24 @@ public class MenuDTO {
 			String parentMenuId,
 			String menuType,
 			long sequence,
-			long level,
-			String appUrl
+			long level
 			) {
 		
 		public Menu newMenu(MenuGroup menuGroup) {
-			return Menu.builder()
-					   .menuGroup(menuGroup)
-					   .organizationCode(organizationCode)
-					   .menuCode(this.menuCode)
-					   .menuName(this.menuName)
-					   .menuType(MenuType.valueOf(this.menuType))
-					   .sequence(this.sequence)
-					   .level(this.level)					   
-					   .appUrl(this.appUrl)
-					   .build();
+			Menu entity = Menu.builder()
+							  .menuGroup(menuGroup)
+							  .organizationCode(organizationCode)
+							  .menuCode(this.menuCode)
+							  .menuName(this.menuName)
+							  .menuType(MenuType.valueOf(this.menuType))
+							  .sequence(this.sequence)
+							  .level(this.level)					   
+							  .appUrl(this.appUrl)
+							  .build();
+			
+			entity.setAppUrl(appUrl);
+			
+			return entity;
 		}
 		
 		public void modifyMenu(Menu menu, Menu parentMenu, MenuGroup menuGroup) {
@@ -88,6 +92,7 @@ public class MenuDTO {
 					         ,parentMenu
 					         ,menuGroup);
 			
+			menu.setAppUrl(appUrl);			
 		}
 		
 		public static FormMenu convert(Menu menu) {
@@ -97,6 +102,7 @@ public class MenuDTO {
 					   	   .createdBy(menu.getCreatedBy().getLoggedUser())
 					   	   .modifiedDt(menu.getModifiedDt())
 					   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())
+					   	   .appUrl(menu.getAppUrl())
 					   	   .menuGroupId(menu.getMenuGroup().getId())
 					   	   .menuId(menu.getId())
 					   	   .organizationCode(menu.getOrganizationCode())
@@ -105,8 +111,7 @@ public class MenuDTO {
 					   	   .menuType(menu.getType().toString())
 					   	   .sequence(menu.getSequence())
 					   	   .level(menu.getLevel())
-					   	   .parentMenuId(menu.getParent() == null ? null : menu.getParent().getId())
-					   	   .appUrl(menu.getAppUrl())
+					   	   .parentMenuId(menu.getParent() == null ? null : menu.getParent().getId())					   	   
 					   	   .build();
 		}
 	}	

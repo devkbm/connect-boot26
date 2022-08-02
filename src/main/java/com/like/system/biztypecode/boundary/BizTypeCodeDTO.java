@@ -59,6 +59,7 @@ public class BizTypeCodeDTO {
 	}	
 	
 	public record FormBizTypeCode(
+			String appUrl,
 			String organizationCode,
 			String id,
 			String code,
@@ -69,11 +70,11 @@ public class BizTypeCodeDTO {
 			String comment
 			) {
 				
-		public static FormBizTypeCode convert(BizTypeCode entity) {
-			
+		public static FormBizTypeCode convert(BizTypeCode entity) {			
 			if (entity == null) return null;
 			
-			return new FormBizTypeCode(entity.getOrganizationCode()
+			return new FormBizTypeCode(entity.getModifiedAppUrl()
+					                  ,entity.getOrganizationCode()
 									  ,entity.getId()
 									  ,entity.getCode()
 									  ,entity.getName()
@@ -84,16 +85,20 @@ public class BizTypeCodeDTO {
 		}
 
 		public BizTypeCode newEntity() {						
-			return new BizTypeCode(organizationCode, code, name, BizTypeEnum.valueOf(bizType), comment);
+			BizTypeCode entity = new BizTypeCode(organizationCode, code, name, BizTypeEnum.valueOf(bizType), comment);
+			entity.setAppUrl(appUrl);
+			
+			return entity;
 		}
 		
-		public BizTypeCode modify(BizTypeCode entity) {
-			
+		public BizTypeCode modify(BizTypeCode entity) {			
 			entity.modify(name
 						 ,useYn
 						 ,sequence
 						 ,null
 						 ,comment);
+			
+			entity.setAppUrl(appUrl);
 			
 			return entity;
 		}

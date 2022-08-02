@@ -25,16 +25,16 @@ public class CommonCodeCommandService {
 		codeRepository.save(code);		
 	}
 	
-	public void saveCode(CodeDTO.FormCode dto) {
+	public void saveCode(CodeDTO.Form dto) {
 		Code parentCode = null; 
 		Code code = null;
 		
-		if (dto.getParentId() != null) {
-			parentCode = codeRepository.findById(dto.getParentId()).orElse(null);
+		if (dto.parentId() != null) {
+			parentCode = codeRepository.findById(dto.parentId()).orElse(null);
 		}
 		
-		if (dto.getId() != null) {
-			code = codeRepository.findById(dto.getId()).orElse(null);
+		if (dto.id() != null) {
+			code = codeRepository.findById(dto.id()).orElse(null);
 		}
 		
 		if (code == null) {

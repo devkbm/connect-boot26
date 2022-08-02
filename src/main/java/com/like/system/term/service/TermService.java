@@ -31,10 +31,10 @@ public class TermService {
 		repository.save(term);
 	}
 	
-	public void saveTerm(TermDTO.SaveTerm dto) {
+	public void saveTerm(TermDTO.FormTerm dto) {
 		TermDictionary entity = null;
 		
-		if (dto.getPkTerm() != null) entity = null; //repository.findById(dto.getPkTerm()).orElse(null); 
+		if (dto.pkTerm() != null) entity = null; //repository.findById(dto.getPkTerm()).orElse(null); 
 									
 		if (entity == null) {
 			entity = dto.newEntity();

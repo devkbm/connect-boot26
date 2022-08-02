@@ -13,7 +13,7 @@ public interface CommonCodeQueryRepository {
 	
 	List<Code> getCodeList(Predicate predicate);
 	
-	List<CodeHierarchy> getCodeHierarchyList(CodeDTO.SearchCode dto);
+	List<CodeHierarchy> getCodeHierarchyList(CodeDTO.Search dto);
 	
 	List<CodeComboDTO> getCodeListByComboBox(String codeGroup);
 }

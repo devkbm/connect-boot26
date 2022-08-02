@@ -6,5 +6,5 @@ import com.like.system.term.boundary.TermDTO;
 
 public interface TermQueryRepository {
 
-	List<TermDictionary> getTermList(TermDTO.SearchTerm condition);
+	List<TermDictionary> getTermList(TermDTO.Search condition);
 }

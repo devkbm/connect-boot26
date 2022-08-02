@@ -36,7 +36,7 @@ public class TermController {
 	}			
 		
 	@PostMapping("/api/common/terms")
-	public ResponseEntity<?> saveTerm(@Valid @RequestBody TermDTO.SaveTerm dto) {
+	public ResponseEntity<?> saveTerm(@Valid @RequestBody TermDTO.FormTerm dto) {
 														
 		termService.saveTerm(dto);										
 		

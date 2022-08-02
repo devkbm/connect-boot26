@@ -66,14 +66,14 @@ public class SystemUserService {
 	public void saveUser(SystemUserDTO.FormSystemUser dto) {
 		SystemUser user = null;
 		
-		if (dto.getUserId() != null) {
-			user = repository.findById(dto.getUserId()).orElse(null); 
+		if (dto.userId() != null) {
+			user = repository.findById(dto.userId()).orElse(null); 
 		}
 		
-		Dept dept = dto.getDeptCode() == null ? null : deptRepository.findById(dto.getDeptCode()).orElse(null); 
+		Dept dept = dto.deptCode() == null ? null : deptRepository.findById(dto.deptCode()).orElse(null); 
 		
-		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.getAuthorityList()));		
-		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.getMenuGroupList()));		 
+		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.authorityList()));		
+		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.menuGroupList()));		 
 							
 		if (user == null) {
 			user = dto.newUser(dept, authorityList, menuGroupList);

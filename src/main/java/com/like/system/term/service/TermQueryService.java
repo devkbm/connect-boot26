@@ -19,7 +19,7 @@ public class TermQueryService {
 		this.repository = repository;
 	}
 	
-	public List<TermDictionary> getTermList(TermDTO.SearchTerm condition) {
+	public List<TermDictionary> getTermList(TermDTO.Search condition) {
 		return repository.getTermList(condition);
 	}
 }
