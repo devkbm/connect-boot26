@@ -6,7 +6,7 @@ import com.like.cooperation.workschedule.boundary.WorkDTO;
 
 public interface WorkGroupQueryRepository {
 
-	public List<WorkGroup> getWorkGroupList(WorkDTO.SearchWorkGroup searchCondition);
+	public List<WorkGroup> getWorkGroupList(WorkDTO.Search searchCondition);
 	
 	public List<WorkGroup> getWorkGroupList(String userId);
 }

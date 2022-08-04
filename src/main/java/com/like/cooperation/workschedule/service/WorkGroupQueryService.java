@@ -20,7 +20,7 @@ public class WorkGroupQueryService {
 		this.repository = repository;
 	}
 	
-	public List<WorkGroup> getWorkGroupList(WorkDTO.SearchWorkGroup searchCondition) {
+	public List<WorkGroup> getWorkGroupList(WorkDTO.Search searchCondition) {
 		return repository.getWorkGroupList(searchCondition);		
 	}
 			

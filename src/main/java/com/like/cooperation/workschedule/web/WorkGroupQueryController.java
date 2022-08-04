@@ -25,7 +25,7 @@ public class WorkGroupQueryController {
 	}
 	
 	@GetMapping("/api/grw/workgroup")
-	public ResponseEntity<?> getWorkGroupList(@ModelAttribute WorkDTO.SearchWorkGroup searchCondition) {
+	public ResponseEntity<?> getWorkGroupList(@ModelAttribute WorkDTO.Search searchCondition) {
 						
 		List<WorkGroup> list = service.getWorkGroupList(searchCondition);				
 		

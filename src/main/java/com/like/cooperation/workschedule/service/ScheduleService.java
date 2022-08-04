@@ -20,6 +20,7 @@ public class ScheduleService {
 	public ScheduleService(ScheduleRepository repository
 						  ,WorkGroupRepository workGroupRepository) {
 		this.repository = repository;
+		this.workGroupRepository = workGroupRepository;
 	}
 	
 	public Schedule getSchedule(Long id) {

@@ -141,6 +141,10 @@ public class ScheduleDTO {
 		
 		String modifiedBy;
 				
+		String appUrl;
+		
+		String organizationCode;
+		
 		Long id;
 				
 		@NotEmpty

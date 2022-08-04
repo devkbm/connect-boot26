@@ -2,7 +2,6 @@ package com.like.cooperation.workschedule.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -14,23 +13,17 @@ import com.like.cooperation.workschedule.domain.WorkGroup;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
 public class WorkDTO {	
 	
-	@Data
-	public static class SearchWorkGroup implements Serializable {
+	public record Search(
+			String name
+			) {
 		
-		private static final long serialVersionUID = 1L;
-
-		private final QWorkGroup qWorkGroup = QWorkGroup.workGroup;
-						
-		String name;			
-					
+		private static final QWorkGroup qWorkGroup = QWorkGroup.workGroup;
+		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 			
@@ -42,54 +35,50 @@ public class WorkDTO {
 		private BooleanExpression likeGroupName(String name) {
 			return hasText(name) ? qWorkGroup.name.like("%"+this.name+"%") : null;			
 		}
-	}	
+	}
 	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
 	@Builder
-	public static class FormWorkGroup implements Serializable {
-				
-		private static final long serialVersionUID = 8230052719254860669L;
-
-		LocalDateTime createdDt;	 
-		
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-				
-		Long workGroupId;
-				
-		@NotEmpty
-		String workGroupName;		
-		
-		String color;
-		
-		List<String> memberList;
+	public static record Form(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			String appUrl,
+			String organizationCode,
+			Long workGroupId,
+			@NotEmpty
+			String workGroupName,
+			String color,
+			List<String> memberList
+			) {
 		
 		public WorkGroup newWorkGroup() {
-			return new WorkGroup(this.workGroupName, this.color);
+			WorkGroup entity = new WorkGroup(this.workGroupName, this.color);
+			entity.setAppUrl(appUrl);
+			return entity;
 		}
 		
 		public void modifyWorkGroup(WorkGroup workGroup) {
 			workGroup.modifyEntity(this.workGroupName, color);
+			
+			workGroup.setAppUrl(appUrl);
 		}
 		
-		public static WorkDTO.FormWorkGroup convertDTO(WorkGroup entity) {
-			WorkDTO.FormWorkGroup dto = FormWorkGroup.builder()
-													 .workGroupId(entity.getId())
-													 .workGroupName(entity.getName())
-													 .color(entity.getColor())
-													 .memberList(entity.getMemberList().stream()
-															 						   .map(r -> r.getUser().getId())
-															 						   .toList())
-													 .build();
-			
+		public static WorkDTO.Form convertDTO(WorkGroup entity) {
+			WorkDTO.Form dto = Form.builder()
+								   .workGroupId(entity.getId())
+								   .workGroupName(entity.getName())
+								   .color(entity.getColor())
+								   .memberList(entity.getMemberList().stream()
+									  	 						     .map(r -> r.getUser().getId())
+ 										 						     .toList())
+								 .build();
+
 			return dto;
 		}
 	}
-		
+	
+	
+	
 	
 }

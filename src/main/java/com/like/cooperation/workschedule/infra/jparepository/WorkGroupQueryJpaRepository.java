@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.cooperation.workschedule.boundary.WorkDTO.SearchWorkGroup;
+import com.like.cooperation.workschedule.boundary.WorkDTO;
 import com.like.cooperation.workschedule.domain.QWorkGroup;
 import com.like.cooperation.workschedule.domain.QWorkGroupMember;
 import com.like.cooperation.workschedule.domain.WorkGroup;
@@ -23,7 +23,7 @@ public class WorkGroupQueryJpaRepository implements WorkGroupQueryRepository {
 	}
 	
 	@Override
-	public List<WorkGroup> getWorkGroupList(SearchWorkGroup searchCondition) {
+	public List<WorkGroup> getWorkGroupList(WorkDTO.Search searchCondition) {
 		return queryFactory
 				.selectFrom(qWorkGroup)
 				.where(searchCondition.getBooleanBuilder())

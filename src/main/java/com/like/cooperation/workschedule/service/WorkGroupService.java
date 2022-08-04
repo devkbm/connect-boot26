@@ -40,11 +40,11 @@ public class WorkGroupService {
 		return repository.findById(id).orElse(null);
 	}			
 	
-	public void saveWorkGroup(WorkDTO.FormWorkGroup dto) {
+	public void saveWorkGroup(WorkDTO.Form dto) {
 		WorkGroup entity = null;
 		
-		if (dto.getWorkGroupId() != null) {
-			entity = repository.findById(dto.getWorkGroupId()).orElse(null);
+		if (dto.workGroupId() != null) {
+			entity = repository.findById(dto.workGroupId()).orElse(null);
 		}
 		
 		if (entity == null) {
@@ -53,7 +53,7 @@ public class WorkGroupService {
 			dto.modifyWorkGroup(entity);
 		}
 		
-		List<String> dtoMemberList = dto.getMemberList();
+		List<String> dtoMemberList = dto.memberList();
 		entity.clearWorkGroupMember();
 		
 		if (dtoMemberList != null) {

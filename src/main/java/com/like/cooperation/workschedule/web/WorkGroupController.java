@@ -30,13 +30,13 @@ public class WorkGroupController {
 						
 		WorkGroup entity = workGroupService.getWorkGroup(id);										
 		
-		WorkDTO.FormWorkGroup dto = WorkDTO.FormWorkGroup.convertDTO(entity);
+		WorkDTO.Form dto = WorkDTO.Form.convertDTO(entity);
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
 	}
 		
 	@PostMapping("/api/grw/workgroup")
-	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody WorkDTO.FormWorkGroup dto) {				
+	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody WorkDTO.Form dto) {				
 					
 		workGroupService.saveWorkGroup(dto);		
 		

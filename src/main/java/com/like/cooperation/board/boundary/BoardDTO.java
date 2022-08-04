@@ -49,6 +49,8 @@ public class BoardDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
+			String appUrl,
+			String organizationCode,
 			Long pkBoard,
 			Long ppkBoard,
 			String boardType,
