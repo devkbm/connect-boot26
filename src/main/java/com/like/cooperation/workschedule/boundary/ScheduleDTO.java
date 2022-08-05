@@ -207,13 +207,13 @@ public class ScheduleDTO {
 		
 		Long id;
 				
-		String title;
+		String text;
 		
 		String color;
 				
-		OffsetDateTime start;
+		LocalDateTime start;
 				
-		OffsetDateTime end;
+		LocalDateTime end;
 		
 		Boolean allDay;		
 		
@@ -224,10 +224,10 @@ public class ScheduleDTO {
 			ResponseSchedule dto = ResponseSchedule.builder()
 												   .workGroupId(workGroup.getId())
 												   .id(entity.getId())
-												   .title(entity.getTitle())
+												   .text(entity.getTitle())
 												   .color(workGroup.getColor())
-												   .start(entity.getStart())
-												   .end(entity.getEnd())
+												   .start(entity.getStart().toLocalDateTime())
+												   .end(entity.getEnd().toLocalDateTime())
 												   .allDay(entity.getAllDay())																							
 												   .build();
 																	
