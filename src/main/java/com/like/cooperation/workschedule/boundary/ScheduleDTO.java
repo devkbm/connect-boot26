@@ -29,24 +29,18 @@ import lombok.NoArgsConstructor;
 
 public class ScheduleDTO {		
 	
-	@Data
-	public static class SearchSchedule implements Serializable {
+	public record Search(
+			@NotEmpty
+			String fkWorkGroup,
+			@NotEmpty
+			String fromDate,
+			@NotEmpty
+			String toDate,
+			String title
+			) {
 		
-		private static final long serialVersionUID = 1L;
-
-		private final QSchedule qSchedule = QSchedule.schedule;
+		private static final QSchedule qSchedule = QSchedule.schedule;
 		
-		@NotEmpty
-		String fkWorkGroup;
-		
-		@NotEmpty
-		String fromDate;
-		
-		@NotEmpty
-		String toDate;
-		
-		String title;			
-					
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 																									
@@ -124,7 +118,7 @@ public class ScheduleDTO {
 					ZoneOffset.ofHours(9));		
 		}
 	}
-	
+		
 	@Data
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -148,7 +142,7 @@ public class ScheduleDTO {
 		Long id;
 				
 		@NotEmpty
-		String title;
+		String text;
 		
 		OffsetDateTime start;
 		
@@ -161,7 +155,7 @@ public class ScheduleDTO {
 		
 		public Schedule newSchedule(WorkGroup workGroup) {
 			return Schedule.builder()
-						   .title(this.title)
+						   .title(this.text)
 						   .start(this.start)
 						   .end(this.end)
 						   .allDay(this.allDay)
@@ -170,13 +164,13 @@ public class ScheduleDTO {
 		}
 		
 		public void modifySchedule(Schedule schedule) {
-			schedule.modifyEntity(title, start, end, allDay);
+			schedule.modifyEntity(text, start, end, allDay);
 		}
 		
 		public static FormSchedule convertDTO(Schedule entity) {
 			FormSchedule dto = FormSchedule.builder()
 										   .id(entity.getId())
-										   .title(entity.getTitle())
+										   .text(entity.getTitle())
 										   .start(entity.getStart())
 										   .end(entity.getEnd())
 										   .allDay(entity.getAllDay())
@@ -187,51 +181,37 @@ public class ScheduleDTO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
 	@Builder
-	public static class ResponseSchedule implements Serializable {
-				
-		private static final long serialVersionUID = -8101598433251220343L;
-
-		LocalDateTime createdDt;	
+	public static record Response(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			Long workGroupId,
+			Long id,
+			String text,
+			String color,
+			LocalDateTime start,
+			LocalDateTime end,
+			Boolean allDay
+			) {
 		
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-				
-		Long workGroupId;
-		
-		Long id;
-				
-		String text;
-		
-		String color;
-				
-		LocalDateTime start;
-				
-		LocalDateTime end;
-		
-		Boolean allDay;		
-		
-		public static ResponseSchedule convertResDTO(Schedule entity) {
+		public static Response convert(Schedule entity) {
 			
 			WorkGroup workGroup = entity.getWorkGroup();
 			
-			ResponseSchedule dto = ResponseSchedule.builder()
-												   .workGroupId(workGroup.getId())
-												   .id(entity.getId())
-												   .text(entity.getTitle())
-												   .color(workGroup.getColor())
-												   .start(entity.getStart().toLocalDateTime())
-												   .end(entity.getEnd().toLocalDateTime())
-												   .allDay(entity.getAllDay())																							
-												   .build();
+			Response dto = Response.builder()
+								   .workGroupId(workGroup.getId())
+								   .id(entity.getId())
+								   .text(entity.getTitle())
+								   .color(workGroup.getColor())
+								   .start(entity.getStart().toLocalDateTime())
+								   .end(entity.getEnd().toLocalDateTime())
+								   .allDay(entity.getAllDay())																							
+								   .build();
 																	
 			return dto;
 		}
 	}
+		
 }

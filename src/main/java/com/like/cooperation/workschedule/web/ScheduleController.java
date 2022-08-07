@@ -32,7 +32,7 @@ public class ScheduleController {
 						
 		Schedule entity = service.getSchedule(id);							
 		
-		ScheduleDTO.ResponseSchedule dto = ScheduleDTO.ResponseSchedule.convertResDTO(entity);
+		ScheduleDTO.Response dto = ScheduleDTO.Response.convert(entity);
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
 	}

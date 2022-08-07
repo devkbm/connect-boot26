@@ -19,7 +19,7 @@ public class ScheduleQueryService {
 		this.repository = repository;
 	}
 	
-	public List<Schedule> getScheduleList(ScheduleDTO.SearchSchedule searchCondition) {
+	public List<Schedule> getScheduleList(ScheduleDTO.Search searchCondition) {
 		return repository.getScheduleList(searchCondition);		
 	}
 }

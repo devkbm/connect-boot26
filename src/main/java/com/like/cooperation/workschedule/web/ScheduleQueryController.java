@@ -23,12 +23,12 @@ public class ScheduleQueryController {
 	}
 	
 	@GetMapping("/api/grw/schedule")
-	public ResponseEntity<?> getScheduleList(@ModelAttribute ScheduleDTO.SearchSchedule searchCondition) {										
+	public ResponseEntity<?> getScheduleList(@ModelAttribute ScheduleDTO.Search searchCondition) {										
 		
-		List<ScheduleDTO.ResponseSchedule> list = service.getScheduleList(searchCondition)
-														 .stream()
-														 .map( r -> ScheduleDTO.ResponseSchedule.convertResDTO(r))
-														 .toList();
+		List<ScheduleDTO.Response> list = service.getScheduleList(searchCondition)
+												 .stream()
+												 .map( r -> ScheduleDTO.Response.convert(r))
+												 .toList();
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));												
 	}

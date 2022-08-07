@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.cooperation.workschedule.boundary.ScheduleDTO.SearchSchedule;
+import com.like.cooperation.workschedule.boundary.ScheduleDTO;
 import com.like.cooperation.workschedule.domain.QSchedule;
 import com.like.cooperation.workschedule.domain.Schedule;
 import com.like.cooperation.workschedule.domain.ScheduleQueryRepository;
@@ -20,7 +20,7 @@ public class ScheduleQueryJpaRepository implements ScheduleQueryRepository {
 	}
 	
 	@Override
-	public List<Schedule> getScheduleList(SearchSchedule searchCondition) {
+	public List<Schedule> getScheduleList(ScheduleDTO.Search searchCondition) {
 		return queryFactory
 				.selectFrom(qSchedule)
 				.where(searchCondition.getBooleanBuilder())

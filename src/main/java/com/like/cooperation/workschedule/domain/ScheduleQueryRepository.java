@@ -6,5 +6,5 @@ import com.like.cooperation.workschedule.boundary.ScheduleDTO;
 
 public interface ScheduleQueryRepository {
 
-	public List<Schedule> getScheduleList(ScheduleDTO.SearchSchedule searchCondition);
+	public List<Schedule> getScheduleList(ScheduleDTO.Search searchCondition);
 }
