@@ -54,17 +54,25 @@ public class StaffDTO {
 			return hasText(name) ? qStaff.name.name.like("%"+name+"%") : null;			
 		}	
 	}	
-		
+			
 	public record NewStaff(
+			String appUrl,
+			String organizationCode,
 			@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
-			String staffId,
+			String staffNo,
 			@NotEmpty(message = "이름은 필수 입력 값입니다.")
 			String name,
 			String nameEng,
 			String nameChi,
 			@NotEmpty(message = "주민등록번호는 필수 입력 값입니다.")
 			String residentRegistrationNumber
-			) {	}
+			) {	
+		
+		public String getStaffId() {
+			return this.organizationCode + "_" + this.staffNo;
+		}
+		
+	}
 		
 	public record ResponseStaff(
 			String staffId,

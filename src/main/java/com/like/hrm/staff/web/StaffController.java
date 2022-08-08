@@ -38,7 +38,7 @@ public class StaffController {
 								
 		staffService.newStaff(dto);
 											 				
-		return toList(null, "직원번호 : %s , 생성되었습니다.".formatted(dto.staffId()));
+		return toList(null, "직원번호 : %s , 생성되었습니다.".formatted(dto.staffNo()));
 	}
 		
 	@PostMapping("/api/hrm/staff")

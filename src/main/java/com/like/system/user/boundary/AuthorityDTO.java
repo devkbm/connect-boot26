@@ -3,7 +3,6 @@ package com.like.system.user.boundary;
 import static org.springframework.util.StringUtils.hasText;
 
 import javax.validation.constraints.NotBlank;
-
 import com.like.system.user.domain.Authority;
 import com.like.system.user.domain.QAuthority;
 import com.querydsl.core.BooleanBuilder;

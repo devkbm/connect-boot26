@@ -32,13 +32,13 @@ public class TeamController {
 						
 		Team team = teamService.getTeam(teamId);				
 		
-		TeamDTO.FormTeam dto = TeamDTO.FormTeam.convert(team);
+		TeamDTO.Form dto = TeamDTO.Form.convert(team);
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));					
 	}
 		
 	@PostMapping("/api/grw/team")
-	public ResponseEntity<?> saveTeam(@Valid @RequestBody TeamDTO.FormTeam dto) {				
+	public ResponseEntity<?> saveTeam(@Valid @RequestBody TeamDTO.Form dto) {				
 		 												
 		teamService.saveTeam(dto);		
 										 					

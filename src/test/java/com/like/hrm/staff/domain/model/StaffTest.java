@@ -3,37 +3,71 @@ package com.like.hrm.staff.domain.model;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import com.like.hrm.staff.boundary.StaffDTO;
+
+@DisplayName("직원번호 생성 Test")
 public class StaffTest {
 
-	@DisplayName("직원번호 생성")
-	@Test
-	void createStaff() {
-		// Given 			
-		// When
-		Staff staff = Staff.of("staffId", new StaffName("직원이름","staffname","한자"), "9912011111111");
-		
-		// Then
-		assertThat(staff.getId()).isEqualTo("staffId");
-		assertThat(staff.getName().getName()).isEqualTo("직원이름");
-		assertThat(staff.getName().getNameEng()).isEqualTo("staffname");
-		assertThat(staff.getName().getNameChi()).isEqualTo("한자");
-		assertThat(staff.getResidentRegistrationNumber().getNumber()).isEqualTo("9912011111111");
-	}
+	@Nested
+	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+	class 직원번호는 {
 	
-	@DisplayName("주민번호 입력형식 예외")
-	@Test
-	void createStaffException() {		
-		// Given 			
-		// When		
-		//Throwable thrown = catchThrowable(() -> { Staff.of("staffId", new StaffName("직원이름","staffname","한자"), "99120111111112"); });
-		
-		// Then
-		//assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
+		@Nested
+		@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+		class 수동_생성인_경우 {
+			
+			@Test
+			@DisplayName("직원번호를 String으로 입력한다.")	
+			void 직원번호를_직접_입력한다() {								
+				Staff staff = new Staff("001"
+						               ,() -> "2002"
+						               ,new StaffName("한글명", "영문명", "한문명")
+						               ,"9912011111111");
+				// Then
+				assertThat(staff.getId()).isEqualTo("001_2002");
+				assertThat(staff.getStaffNo()).isEqualTo("2002");
+				assertThat(staff.getName().getName()).isEqualTo("한글명");
+				assertThat(staff.getName().getNameEng()).isEqualTo("영문명");
+				assertThat(staff.getName().getNameChi()).isEqualTo("한문명");
+				assertThat(staff.getResidentRegistrationNumber().getNumber()).isEqualTo("9912011111111");
+			}
+			
+			@Test
+			@DisplayName("직원번호를 DTO로 입력한다.")	
+			void 직원번호를_DTO로_입력한다() {										
+				StaffDTO.NewStaff dto = new StaffDTO.NewStaff("appUrl", "001", "2002", "한글명", "영문명", "한문명", "9912011111111");
 				
-		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> { 
-			Staff.of("staffId", new StaffName("직원이름","staffname","한자"), "99120111111112"); 
+				StaffNoCreateStrategy strategy = new ManualStaffNoCreateStrategy(dto);
+				
+				Staff staff = new Staff("001"
+						               ,strategy
+						               ,new StaffName("한글명", "영문명", "한문명")
+						               ,"9912011111111");
+				// Then
+				assertThat(staff.getId()).isEqualTo("001_2002");
+				assertThat(staff.getStaffNo()).isEqualTo("2002");
+				assertThat(staff.getName().getName()).isEqualTo("한글명");
+				assertThat(staff.getName().getNameEng()).isEqualTo("영문명");
+				assertThat(staff.getName().getNameChi()).isEqualTo("한문명");
+				assertThat(staff.getResidentRegistrationNumber().getNumber()).isEqualTo("9912011111111");
+			}
+			
+		}
+	}
+		
+	
+	@DisplayName("주민번호 입력형식 예외 테스트")
+	@Test
+	void createStaffException() {						
+		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+			StaffNoCreateStrategy strategy = new ManualStaffNoCreateStrategy("2002");
+			
+			new Staff("001", strategy, new StaffName("한글명", "영문명", "한문명"), "99120111111112");			
 		});							
 	}
 	

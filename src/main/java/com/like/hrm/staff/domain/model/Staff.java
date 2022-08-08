@@ -88,18 +88,16 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	 */
 	@Embedded
 	LicenseList licenseList;			
-	
-	public static Staff of(String id, StaffName name, String residentRegistrationNumber) {
-		return new Staff(id, name, residentRegistrationNumber);
-	}
-	
-	private Staff(String id, StaffName name, String residentRegistrationNumber) {
-		this.id 						= id;
+			
+	public Staff(String organizationCode, StaffNoCreateStrategy strategy, StaffName name, String residentRegistrationNumber) {
+		this.id 						= organizationCode + "_" + strategy.create();
+		this.organizationCode 			= organizationCode;
+		this.staffNo					= strategy.create();
 		this.name 						= name; 
 		this.residentRegistrationNumber = ResidentRegistrationNumber.of(residentRegistrationNumber);
 		this.gender 					= this.residentRegistrationNumber.getGender();
-		this.birthday 					= this.residentRegistrationNumber.getBirthDay();
-	}
+		this.birthday 					= this.residentRegistrationNumber.getBirthDay();		
+	}	
 					
 	public void modifyEntity(StaffName name
 						    ,LocalDate birthday) {

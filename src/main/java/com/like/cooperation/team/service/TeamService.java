@@ -31,8 +31,8 @@ public class TeamService {
 		return teamRepository.findById(teamId).orElse(null);
 	}
 		
-	public void saveTeam(TeamDTO.FormTeam dto) {		
-		Team entity = dto.getTeamId() == null ? null : teamRepository.findById(dto.getTeamId()).orElse(null);
+	public void saveTeam(TeamDTO.Form dto) {		
+		Team entity = dto.teamId() == null ? null : teamRepository.findById(dto.teamId()).orElse(null);
 		
 		if (entity == null) {
 			entity = dto.newEntity();
