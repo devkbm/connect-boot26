@@ -42,7 +42,7 @@ public class StaffTest {
 			void 직원번호를_DTO로_입력한다() {										
 				StaffDTO.NewStaff dto = new StaffDTO.NewStaff("appUrl", "001", "2002", "한글명", "영문명", "한문명", "9912011111111");
 				
-				StaffNoCreateStrategy strategy = new ManualStaffNoCreateStrategy(dto);
+				StaffNoCreateStrategy strategy = () -> dto.staffNo();
 				
 				Staff staff = new Staff("001"
 						               ,strategy
@@ -65,7 +65,7 @@ public class StaffTest {
 	@Test
 	void createStaffException() {						
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			StaffNoCreateStrategy strategy = new ManualStaffNoCreateStrategy("2002");
+			StaffNoCreateStrategy strategy = () -> "2002";
 			
 			new Staff("001", strategy, new StaffName("한글명", "영문명", "한문명"), "99120111111112");			
 		});							
