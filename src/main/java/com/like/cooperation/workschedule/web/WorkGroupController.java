@@ -5,6 +5,7 @@ import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,14 @@ public class WorkGroupController {
 		workGroupService.saveWorkGroup(dto);		
 		
 		return toOne(dto, MessageUtil.getSaveMessage(1));
+	}
+	
+	@DeleteMapping("/api/grw/workgroup/{id}")
+	public ResponseEntity<?> deleteWorkGroup(@PathVariable Long id) {
+						
+		workGroupService.deleteWorkGroup(id);
+		
+		return toOne(null, MessageUtil.getDeleteMessage(1));													
 	}
 			
 }
