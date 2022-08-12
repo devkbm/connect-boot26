@@ -7,6 +7,9 @@ import com.like.system.dept.boundary.DeptDTO;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @Transactional
 public class DeptService {
@@ -34,7 +37,7 @@ public class DeptService {
 	}
 	
 	public void saveDept(DeptDTO.FormDept dto) {
-		Dept dept = deptRepository.findById(dto.deptId()).orElse(null);
+		Dept dept = dto.deptId() == null ? null : deptRepository.findById(dto.deptId()).orElse(null);
 		Dept parentDept = dto.parentDeptId() == null ? null : deptRepository.findById(dto.parentDeptId()).orElse(null); 			
 		
 		if (dept == null) {
@@ -42,6 +45,7 @@ public class DeptService {
 		} else {
 			dto.modifyDept(dept, parentDept);
 		}				
+		log.info(dept.toString());
 		
 		deptRepository.save(dept);
 	}
