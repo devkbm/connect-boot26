@@ -19,7 +19,7 @@ public class ArticleContents {
 	String title;
         
 	@Comment("내용")
-	@Column(name="CONTENTS")
+	@Column(name="CONTENTS", length = 4000)
     String contents;
 	
 	public ArticleContents(String title
