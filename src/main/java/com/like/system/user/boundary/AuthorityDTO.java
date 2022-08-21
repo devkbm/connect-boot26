@@ -50,7 +50,7 @@ public class AuthorityDTO {
 	
 	public record FormAuthority(
 			String appUrl,			
-			String authorityId,
+			String id,
 			String organizationCode,
 			String authorityCode,
 			String description
