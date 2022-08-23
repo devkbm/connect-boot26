@@ -1,9 +1,12 @@
 package com.like.system.login.web;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,9 @@ import com.like.system.login.boundary.LoginRequestDTO;
 import com.like.system.login.domain.AuthenticationToken;
 import com.like.system.login.service.LoginService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 public class LoginController {		
 		
@@ -38,4 +44,19 @@ public class LoginController {
 		return service.getAuthenticationToken(SessionUtil.getUserId(), session);
 	}			     
     
+	@Transactional
+	@GetMapping("/api/user/session")
+	public String getSession(HttpSession session) {
+		/*
+		session.getAttributeNames().asIterator()
+         		  .forEachRemaining(name -> log.info("session name={}, value={}",name, session.getAttribute(name) ));
+		*/
+		
+		log.info("sessionId={}", session.getId());
+		log.info("maxInactiveInterval={}", session.getMaxInactiveInterval());
+		log.info("creationTime={}", new Date(session.getCreationTime()));
+		log.info("lastAccessTjme={}",new Date(session.getLastAccessedTime()));
+		log.info("isNew={}", session.isNew());
+		return "세션 출력";
+	}
 }
