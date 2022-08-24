@@ -11,6 +11,7 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -117,7 +118,7 @@ public class ScheduleDTO {
 	}
 	
 	@Builder
-	public record Form(
+	public static record Form(
 			LocalDateTime createdDt,
 			String createdBy,
 			LocalDateTime modifiedDt,
@@ -179,9 +180,9 @@ public class ScheduleDTO {
 			String text,
 			String color,
 			//@DateTimeFormat(pattern="E MMM dd yyyy HH:mm:ss 'GMT'Z")
-			@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+			@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 			OffsetDateTime start,
-			@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+			@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 			OffsetDateTime end,
 			Boolean allDay
 			) {
@@ -195,8 +196,8 @@ public class ScheduleDTO {
 								   .id(entity.getId())
 								   .text(entity.getTitle())
 								   .color(workGroup.getColor())
-								   .start(entity.getStart())
-								   .end(entity.getEnd())
+								   .start(entity.getStart().minusHours(9))
+								   .end(entity.getEnd().minusHours(9))
 								   .allDay(entity.getAllDay())																							
 								   .build();
 																	
