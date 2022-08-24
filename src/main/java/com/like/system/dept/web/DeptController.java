@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
@@ -29,9 +30,9 @@ public class DeptController {
 	}
 		
 	@GetMapping("/api/common/dept/{deptCode}")
-	public ResponseEntity<?> getDept(@PathVariable String deptCode) {
+	public ResponseEntity<?> getDept(@PathVariable String deptCode, @RequestParam String organizationCode) {
 							
-		Dept dept = deptService.getDept(deptCode);  	
+		Dept dept = deptService.getDept(organizationCode + deptCode);  	
 		
 		FormDept dto = DeptDTO.FormDept.convertDTO(dept);
 		
