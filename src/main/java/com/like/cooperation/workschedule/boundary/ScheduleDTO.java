@@ -126,9 +126,8 @@ public class ScheduleDTO {
 			String organizationCode,			
 			Long id,					
 			@NotEmpty
-			String text,			
-			
-			//@DateTimeFormat(timezone=)
+			String text,						
+			//@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ssZ")
 			OffsetDateTime start,			
 			OffsetDateTime end,			
 			Boolean allDay,			
