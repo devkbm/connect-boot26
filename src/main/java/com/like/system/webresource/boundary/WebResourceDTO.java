@@ -66,7 +66,7 @@ public class WebResourceDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String organizationCode,
 			@NotEmpty
 			String resourceCode,
@@ -78,7 +78,7 @@ public class WebResourceDTO {
 			String description
 			) {
 		
-		public static FormWebResource convertDTO(WebResource entity) {
+		public static FormWebResource convertDTO(WebResource entity) {					
 			return FormWebResource.builder()
 								  .createdDt(entity.getCreatedDt())	
 								  .createdBy(entity.getCreatedBy().getLoggedUser())
@@ -93,13 +93,16 @@ public class WebResourceDTO {
 		}
 		
 		public WebResource newWebResource() {
-			return WebResource.builder()
-							  .resourceCode(this.resourceCode)
-							  .resourceName(this.resourceName)
-							  .resourceType(this.resourceType)
-							  .url(this.url)
-							  .description(this.description)
-							  .build();	
+			WebResource entity = WebResource.builder()
+											.resourceCode(this.resourceCode)
+											.resourceName(this.resourceName)
+											.resourceType(this.resourceType)
+											.url(this.url)
+											.description(this.description)
+											.build();	
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;	
 		}
 		
 		public void modifyWebResource(WebResource entity) {
@@ -107,6 +110,8 @@ public class WebResourceDTO {
 							   ,resourceType
 							   ,url
 							   ,description);
+			
+			entity.setAppUrl(clientAppUrl);
 		}			
 		
 	}

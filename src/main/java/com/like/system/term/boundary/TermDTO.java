@@ -38,7 +38,7 @@ public class TermDTO {
 	}
 	
 	public record FormTerm(
-			String appUrl,
+			String clientAppUrl,
 			Long pkTerm,
 			@NotEmpty(message = "도메인은 필수 입력 값입니다.")
 			String domain,

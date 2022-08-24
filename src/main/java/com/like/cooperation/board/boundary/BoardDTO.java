@@ -49,7 +49,7 @@ public class BoardDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String organizationCode,
 			Long pkBoard,
 			Long ppkBoard,
@@ -61,8 +61,11 @@ public class BoardDTO {
 			long sequence
 			) {
 		
-		public Board newBoard(Board parentBoard) {			
-			return new Board(parentBoard, BoardType.valueOf(this.boardType), this.boardName, this.boardDescription);					
+		public Board newBoard(Board parentBoard) {	
+			Board entity = new Board(parentBoard, BoardType.valueOf(this.boardType), this.boardName, this.boardDescription);
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;					
 		}	
 		
 		public void modifyBoard(Board board, Board parentBoard) {
@@ -72,6 +75,8 @@ public class BoardDTO {
 					          ,this.boardDescription					          
 					          ,this.useYn
 					          ,this.sequence);
+			
+			board.setAppUrl(clientAppUrl);
 		}
 		
 		public static BoardDTO.FormBoard convertDTO(Board entity) {					

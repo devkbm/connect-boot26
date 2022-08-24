@@ -58,7 +58,7 @@ public class ArticleDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String organizationCode,
 			Long fkBoard,
 			String pkArticle,
@@ -77,16 +77,20 @@ public class ArticleDTO {
 		}
 		
 		public Article newArticle(Board board) {									    			
+			Article entity = Article.builder()	
+									.board(board)						  
+									.content(new ArticleContents(title, contents))						  						  					 
+									.password(new ArticlePassword(this.pwd))
+									.build();
+			entity.setAppUrl(clientAppUrl);
 			
-			return Article.builder()	
-						  .board(board)						  
-						  .content(new ArticleContents(title, contents))						  						  					 
-						  .password(new ArticlePassword(this.pwd))
-						  .build();
+			return entity;
 		}
 	    
 	    public void modifyArticle(Article entity) {
-	    	entity.modifyEntity(new ArticleContents(title, contents));								
+	    	entity.modifyEntity(new ArticleContents(title, contents));
+	    	
+	    	entity.setAppUrl(clientAppUrl);
 		}
 	    
 	    public boolean isNew() {
@@ -99,7 +103,7 @@ public class ArticleDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String organizationCode,
 			Long fkBoard,
 			Long pkArticle,
@@ -115,17 +119,21 @@ public class ArticleDTO {
 			) {
 		
 		public Article newArticle(Board board) {				    				    	
-	    	
-			return Article.builder()	
-						  .board(board)
-						  .content(new ArticleContents(title, contents))						  						  
-						  .password(new ArticlePassword(this.pwd))
-						  .build();
+			Article entity = Article.builder()	
+								    .board(board)
+								    .content(new ArticleContents(title, contents))						  						  
+								    .password(new ArticlePassword(this.pwd))
+								    .build();
+			
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;
 		}
 	    
-	    public void modifyArticle(Article entity) {	    		  
+	    public void modifyArticle(Article entity) {	    		  	    	
+	    	entity.modifyEntity(new ArticleContents(title, contents));
 	    	
-	    	entity.modifyEntity(new ArticleContents(title, contents));								
+	    	entity.setAppUrl(clientAppUrl);
 		}
 	}	
 	

@@ -49,7 +49,7 @@ public class AuthorityDTO {
 	}
 	
 	public record FormAuthority(
-			String appUrl,			
+			String clientAppUrl,			
 			String id,
 			String organizationCode,
 			String authorityCode,
@@ -58,7 +58,7 @@ public class AuthorityDTO {
 		
 		public Authority newEntity() {
 			Authority entity = new Authority(this.organizationCode, this.authorityCode, this.description);
-			entity.setAppUrl(appUrl);
+			entity.setAppUrl(clientAppUrl);
 			System.out.println(entity.toString());
 			
 			return entity;
@@ -66,7 +66,7 @@ public class AuthorityDTO {
 		
 		public void modifyEntity(Authority authority) {			
 			authority.modifyEntity(description);
-			authority.setAppUrl(appUrl);
+			authority.setAppUrl(clientAppUrl);
 		}
 	}
 	

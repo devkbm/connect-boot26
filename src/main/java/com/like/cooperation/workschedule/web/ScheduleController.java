@@ -38,7 +38,7 @@ public class ScheduleController {
 	}
 		
 	@PostMapping("/api/grw/schedule")
-	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody ScheduleDTO.FormSchedule dto) {				
+	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody ScheduleDTO.Form dto) {				
 		
 		service.saveSchedule(dto);		
 										 					

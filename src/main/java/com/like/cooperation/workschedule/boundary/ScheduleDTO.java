@@ -2,7 +2,6 @@ package com.like.cooperation.workschedule.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -14,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.util.CollectionUtils;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.like.cooperation.workschedule.domain.QSchedule;
 import com.like.cooperation.workschedule.domain.Schedule;
 import com.like.cooperation.workschedule.domain.WorkGroup;
@@ -22,10 +22,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.Expressions;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public class ScheduleDTO {		
 	
@@ -118,68 +115,58 @@ public class ScheduleDTO {
 					ZoneOffset.ofHours(9));		
 		}
 	}
-		
-	@Data
-	@NoArgsConstructor
-	@AllArgsConstructor
+	
 	@Builder
-	public static class FormSchedule implements Serializable {
-				
-		private static final long serialVersionUID = -4732165212710032658L;
-
-		LocalDateTime createdDt;	
-		
-		String createdBy;
-		
-		LocalDateTime modifiedDt;
-		
-		String modifiedBy;
-				
-		String appUrl;
-		
-		String organizationCode;
-		
-		Long id;
-				
-		@NotEmpty
-		String text;
-		
-		OffsetDateTime start;
-		
-		OffsetDateTime end;
-		
-		Boolean allDay;
-		
-		@NotNull
-		Long workGroupId;
+	public record Form(
+			LocalDateTime createdDt,
+			String createdBy,
+			LocalDateTime modifiedDt,
+			String modifiedBy,
+			String clientAppUrl,		
+			String organizationCode,			
+			Long id,					
+			@NotEmpty
+			String text,			
+			//@DateTimeFormat(timezone=)
+			OffsetDateTime start,			
+			OffsetDateTime end,			
+			Boolean allDay,			
+			@NotNull
+			Long workGroupId
+			) {
 		
 		public Schedule newSchedule(WorkGroup workGroup) {
-			return Schedule.builder()
-						   .title(this.text)
-						   .start(this.start)
-						   .end(this.end)
-						   .allDay(this.allDay)
-						   .workGroup(workGroup)
+			
+			Schedule entity = Schedule.builder()
+									  .title(this.text)
+									  .start(this.start)
+									  .end(this.end)
+									  .allDay(this.allDay)
+									  .workGroup(workGroup)
+									  .build();
+			entity.setAppUrl(clientAppUrl);
+			return entity;
+		}
+		
+		public void modifySchedule(Schedule entity) {
+			entity.modifyEntity(text, start, end, allDay);
+			entity.setAppUrl(clientAppUrl);
+		}
+		
+		public static Form convertDTO(Schedule entity) {
+			Form dto = Form.builder()
+						   .id(entity.getId())
+						   .text(entity.getTitle())
+						   .start(entity.getStart())
+						   .end(entity.getEnd())
+						   .allDay(entity.getAllDay())
+						   .workGroupId(entity.getWorkGroup().getId())
 						   .build();
-		}
-		
-		public void modifySchedule(Schedule schedule) {
-			schedule.modifyEntity(text, start, end, allDay);
-		}
-		
-		public static FormSchedule convertDTO(Schedule entity) {
-			FormSchedule dto = FormSchedule.builder()
-										   .id(entity.getId())
-										   .text(entity.getTitle())
-										   .start(entity.getStart())
-										   .end(entity.getEnd())
-										   .allDay(entity.getAllDay())
-										   .workGroupId(entity.getWorkGroup().getId())
-										   .build();
 															
 			return dto;
 		}
 	}
+		
 	
 	@Builder
 	public static record Response(
@@ -191,8 +178,11 @@ public class ScheduleDTO {
 			Long id,
 			String text,
 			String color,
-			LocalDateTime start,
-			LocalDateTime end,
+			//@DateTimeFormat(pattern="E MMM dd yyyy HH:mm:ss 'GMT'Z")
+			@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+			OffsetDateTime start,
+			@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+			OffsetDateTime end,
 			Boolean allDay
 			) {
 		
@@ -205,8 +195,8 @@ public class ScheduleDTO {
 								   .id(entity.getId())
 								   .text(entity.getTitle())
 								   .color(workGroup.getColor())
-								   .start(entity.getStart().toLocalDateTime())
-								   .end(entity.getEnd().toLocalDateTime())
+								   .start(entity.getStart())
+								   .end(entity.getEnd())
 								   .allDay(entity.getAllDay())																							
 								   .build();
 																	

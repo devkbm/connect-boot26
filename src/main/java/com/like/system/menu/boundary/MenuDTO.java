@@ -52,7 +52,7 @@ public class MenuDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			@NotEmpty
 			String menuGroupId,
 			String menuId,
@@ -60,6 +60,7 @@ public class MenuDTO {
 			String menuCode,			
 			@NotEmpty
 			String menuName,
+			String appUrl,
 			String parentMenuId,
 			String menuType,
 			long sequence,
@@ -78,7 +79,7 @@ public class MenuDTO {
 							  .appUrl(this.appUrl)
 							  .build();
 			
-			entity.setAppUrl(appUrl);
+			entity.setAppUrl(clientAppUrl);
 			
 			return entity;
 		}
@@ -86,13 +87,13 @@ public class MenuDTO {
 		public void modifyMenu(Menu menu, Menu parentMenu, MenuGroup menuGroup) {
 			menu.modifyEntity(this.menuName
 					         ,MenuType.valueOf(this.menuType)
-					         ,this.appUrl
+					         ,this.clientAppUrl
 					         ,this.sequence
 					         ,this.level
 					         ,parentMenu
 					         ,menuGroup);
 			
-			menu.setAppUrl(appUrl);			
+			menu.setAppUrl(clientAppUrl);			
 		}
 		
 		public static FormMenu convert(Menu menu) {
@@ -101,14 +102,14 @@ public class MenuDTO {
 					   	   .createdDt(menu.getCreatedDt())
 					   	   .createdBy(menu.getCreatedBy().getLoggedUser())
 					   	   .modifiedDt(menu.getModifiedDt())
-					   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())
-					   	   .appUrl(menu.getAppUrl())
+					   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())					   	   
 					   	   .menuGroupId(menu.getMenuGroup().getId())
 					   	   .menuId(menu.getId())
 					   	   .organizationCode(menu.getOrganizationCode())
 					   	   .menuCode(menu.getCode())
 					   	   .menuName(menu.getName())
 					   	   .menuType(menu.getType().toString())
+					   	   .appUrl(menu.getAppUrl())
 					   	   .sequence(menu.getSequence())
 					   	   .level(menu.getLevel())
 					   	   .parentMenuId(menu.getParent() == null ? null : menu.getParent().getId())					   	   

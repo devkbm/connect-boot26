@@ -43,7 +43,7 @@ public class WorkDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String organizationCode,
 			Long workGroupId,
 			@NotEmpty
@@ -54,14 +54,14 @@ public class WorkDTO {
 		
 		public WorkGroup newWorkGroup() {
 			WorkGroup entity = new WorkGroup(this.workGroupName, this.color);
-			entity.setAppUrl(appUrl);
+			entity.setAppUrl(clientAppUrl);
 			return entity;
 		}
 		
 		public void modifyWorkGroup(WorkGroup workGroup) {
 			workGroup.modifyEntity(this.workGroupName, color);
 			
-			workGroup.setAppUrl(appUrl);
+			workGroup.setAppUrl(clientAppUrl);
 		}
 		
 		public static WorkDTO.Form convertDTO(WorkGroup entity) {
@@ -72,7 +72,7 @@ public class WorkDTO {
 								   .memberList(entity.getMemberList().stream()
 									  	 						     .map(r -> r.getUser().getId())
  										 						     .toList())
-								 .build();
+								   .build();
 
 			return dto;
 		}

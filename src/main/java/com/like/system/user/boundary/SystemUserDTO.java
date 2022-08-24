@@ -66,7 +66,7 @@ public class SystemUserDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String userId,
 			@NotBlank(message="조직코드를 선택해 주세요.")
 			String organizationCode,
@@ -86,17 +86,21 @@ public class SystemUserDTO {
 			) {
 		
 		public SystemUser newUser(Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
-			return SystemUser.builder()					  					  
-					   .name(this.name)		
-					   .organizationCode(this.organizationCode)
-					   .staffNo(this.staffNo)
-					   .dept(dept)				
-					   .mobileNum(this.mobileNum)
-					   .email(this.email)					  
-					   .accountSpec(new AccountSpec(true, true, true, true))
-					   .authorities(authorityList)
-					   .menuGroupList(menuGroupList)					  
-					   .build();
+			SystemUser entity = SystemUser.builder()					  					  
+										  .name(this.name)		
+										  .organizationCode(this.organizationCode)
+										  .staffNo(this.staffNo)
+										  .dept(dept)				
+										  .mobileNum(this.mobileNum)
+										  .email(this.email)					  
+										  .accountSpec(new AccountSpec(true, true, true, true))
+										  .authorities(authorityList)
+										  .menuGroupList(menuGroupList)					  
+										  .build();
+			
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;
 			
 		}
 		
@@ -109,6 +113,8 @@ public class SystemUserDTO {
 							 ,dept
 							 ,authorityList
 							 ,menuGroupList);	
+			
+			user.setAppUrl(clientAppUrl);
 		}
 		
 		public static SystemUserDTO.FormSystemUser convertDTO(SystemUser entity) {					

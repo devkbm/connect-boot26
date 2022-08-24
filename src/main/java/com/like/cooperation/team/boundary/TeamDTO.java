@@ -45,19 +45,25 @@ public class TeamDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String organizationCode,
 			Long teamId,
 			String teamName,
 			List<String> memberList
 			) {
 		
-		public Team newEntity() {						
-			return new Team(teamName);
+		public Team newEntity() {	
+			Team entity = new Team(teamName);
+			
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;
 		}
 		
 		public Team modify(Team entity) {
 			entity.modify(teamName);
+			
+			entity.setAppUrl(clientAppUrl);
 			
 			return entity;
 		}

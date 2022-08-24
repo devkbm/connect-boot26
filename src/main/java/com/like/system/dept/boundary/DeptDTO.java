@@ -61,7 +61,7 @@ public class DeptDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String parentDeptId,
 			String deptId,			
 			String organizationCode,
@@ -120,7 +120,7 @@ public class DeptDTO {
 							   .comment(this.comment)
 							   .parentDept(parentDept)
 							   .build();
-			entity.setAppUrl(appUrl);
+			entity.setAppUrl(clientAppUrl);
 			
 			return entity;
 		}
@@ -135,7 +135,7 @@ public class DeptDTO {
 							 ,comment
 							 ,parentDept);
 			
-			dept.setAppUrl(appUrl);
+			dept.setAppUrl(clientAppUrl);
 		}
 	}	
 	

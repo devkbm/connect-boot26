@@ -31,12 +31,12 @@ public class ScheduleService {
 		repository.save(schedule);
 	}
 	
-	public void saveSchedule(ScheduleDTO.FormSchedule dto) {
-		WorkGroup workGroup = workGroupRepository.findById(dto.getWorkGroupId()).orElse(null);
+	public void saveSchedule(ScheduleDTO.Form dto) {
+		WorkGroup workGroup = workGroupRepository.findById(dto.workGroupId()).orElse(null);
 		Schedule entity = null; 
 		
-		if (dto.getId() != null) {
-			entity = repository.findById(dto.getId()).orElse(null);
+		if (dto.id() != null) {
+			entity = repository.findById(dto.id()).orElse(null);
 		}
 		
 		if (entity == null) {

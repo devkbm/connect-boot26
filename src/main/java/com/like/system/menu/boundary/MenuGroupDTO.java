@@ -53,7 +53,7 @@ public class MenuGroupDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,	
-			String appUrl,
+			String clientAppUrl,
 			String menuGroupId,
 			String organizationCode,
 			String menuGroupCode,		
@@ -69,7 +69,7 @@ public class MenuGroupDTO {
 									    .description(this.description)						    
 									    .build();
 			
-			entity.setAppUrl(appUrl);
+			entity.setAppUrl(clientAppUrl);
 			
 			return entity;	
 		}
@@ -77,7 +77,7 @@ public class MenuGroupDTO {
 		public void modifyMenuGroup(MenuGroup menuGroup) {
 			menuGroup.modifyEntity(this.menuGroupName, this.description);
 			
-			menuGroup.setAppUrl(appUrl);
+			menuGroup.setAppUrl(clientAppUrl);
 		}
 		
 		public static FormMenuGroup convert(MenuGroup entity) {

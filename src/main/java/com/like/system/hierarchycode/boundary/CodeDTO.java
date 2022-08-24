@@ -74,7 +74,7 @@ public class CodeDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String appUrl,
+			String clientAppUrl,
 			String id,
 			String systemTypeCode,
 			String parentId,
@@ -92,19 +92,23 @@ public class CodeDTO {
 		
 		public Code newCode(Code parentCode) {
 			
-			return Code.builder()
-					   .systemTypeCode(this.systemTypeCode)
-					   .parentCode(parentCode)
-					   .code(this.code)
-					   .codeName(this.codeName)
-					   .codeNameAbbreviation(this.codeNameAbbreviation)				
-					   .fromDate(this.fromDate)
-					   .toDate(this.toDate)
-					   .seq(this.seq)
-					   .fixedLengthYn(this.fixedLengthYn)
-					   .codeLength(this.codeLength)
-					   .cmt(this.cmt)
-					   .build();
+			Code entity = Code.builder()
+							  .systemTypeCode(this.systemTypeCode)
+							  .parentCode(parentCode)
+							  .code(this.code)
+							  .codeName(this.codeName)
+							  .codeNameAbbreviation(this.codeNameAbbreviation)				
+							  .fromDate(this.fromDate)
+							  .toDate(this.toDate)
+							  .seq(this.seq)
+							  .fixedLengthYn(this.fixedLengthYn)
+							  .codeLength(this.codeLength)
+							  .cmt(this.cmt)
+							  .build();
+			
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;
 		}
 		
 		public void modifyCode(Code code) {
@@ -116,6 +120,8 @@ public class CodeDTO {
 							 ,this.fixedLengthYn
 							 ,this.codeLength
 							 ,this.cmt);
+			
+			code.setAppUrl(clientAppUrl);
 		}
 		
 		public static CodeDTO.Form convertDTO(Code entity) {					
