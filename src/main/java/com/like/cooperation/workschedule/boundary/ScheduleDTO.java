@@ -127,6 +127,7 @@ public class ScheduleDTO {
 			Long id,					
 			@NotEmpty
 			String text,			
+			
 			//@DateTimeFormat(timezone=)
 			OffsetDateTime start,			
 			OffsetDateTime end,			
