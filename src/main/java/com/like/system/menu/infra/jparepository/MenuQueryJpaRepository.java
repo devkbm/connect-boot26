@@ -91,22 +91,26 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 		List<ResponseMenuHierarchy> children = null;
 		
 		for ( ResponseMenuHierarchy dto : list ) {			
-			if (dto.isLeaf()) { // leaf 노드이면 다음 리스트 검색
+			
+			children = getMenuChildrenList(dto.getMenuGroupId(), dto.getKey());
+			
+			if (children.isEmpty()) {
+				dto.setIsLeaf(true);
 				continue;
-			} else {				
-				children = getMenuChildrenList(dto.getMenuGroupId(), dto.getKey());
+			} else {
 				dto.setChildren(children);
+				dto.setIsLeaf(false);
 				
+				// 재귀호출
 				getMenuHierarchyDTO(children);
 			}
+						
 		}
 		
 		return list;
 	}
 	
-	private QResponseMenuHierarchy projections(QMenu qMenu) {
-		Expression<Boolean> isLeaf = new CaseBuilder().when(qMenu.parent.id.isNotNull()).then(true)
-													  .otherwise(false).as("isLeaf");
+	private QResponseMenuHierarchy projections(QMenu qMenu) {		
 		
 		return new QResponseMenuHierarchy(qMenu.menuGroup.id
 										 ,qMenu.id
@@ -115,8 +119,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 										 ,qMenu.type
 										 ,qMenu.sequence
 										 ,qMenu.level
-										 ,qMenu.appUrl
-										 ,isLeaf);
+										 ,qMenu.appUrl);
 	}
 
 }

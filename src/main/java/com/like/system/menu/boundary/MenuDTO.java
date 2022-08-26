@@ -87,7 +87,7 @@ public class MenuDTO {
 		public void modifyMenu(Menu menu, Menu parentMenu, MenuGroup menuGroup) {
 			menu.modifyEntity(this.menuName
 					         ,MenuType.valueOf(this.menuType)
-					         ,this.clientAppUrl
+					         ,this.appUrl
 					         ,this.sequence
 					         ,this.level
 					         ,parentMenu

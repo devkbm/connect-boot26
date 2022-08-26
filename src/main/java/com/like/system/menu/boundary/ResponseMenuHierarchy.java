@@ -39,7 +39,7 @@ public class ResponseMenuHierarchy {
 
 	@QueryProjection
 	public ResponseMenuHierarchy(String menuGroupId, String key, String title, String parentMenuId,
-			MenuType menuType, Long sequence, Long level, String url, boolean isLeaf) {		
+			MenuType menuType, Long sequence, Long level, String url) {		
 		this.menuGroupId = menuGroupId;
 		this.key = key;
 		this.title = title;
@@ -47,14 +47,17 @@ public class ResponseMenuHierarchy {
 		this.menuType = menuType.toString();
 		this.sequence = sequence;
 		this.level = level;
-		this.url = url;
-		this.isLeaf = isLeaf;		
+		this.url = url;		
 		this.expanded = false;
 		this.selected = false;
 	}
 
 	public void setChildren(List<ResponseMenuHierarchy> children) {
 		this.children = children;
+	}
+	
+	public void setIsLeaf(boolean isLeaf) {
+		this.isLeaf = isLeaf;
 	}
 	
 	
