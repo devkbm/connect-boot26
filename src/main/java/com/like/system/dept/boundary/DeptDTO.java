@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.lang.Nullable;
 
 import com.like.system.core.jpa.vo.LocalDatePeriod;
@@ -72,7 +74,10 @@ public class DeptDTO {
 			String deptAbbreviationKorean,
 			String deptNameEnglish,
 			String deptAbbreviationEnglish,
+			@DateTimeFormat(iso = ISO.DATE  )
 			LocalDate fromDate,
+			@DateTimeFormat(iso = ISO.DATE  )
+			//@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
 			LocalDate toDate,
 			Integer seq,
 			String comment

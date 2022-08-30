@@ -67,7 +67,7 @@ create table COMDEPT (
 	FROM_DT				DATE			NULL		,--COMMENT '시작일',
 	TO_DT				DATE			NULL		,--COMMENT '종료일',	
 	PRT_SEQ				INT				NULL		,--COMMENT '출력순서',		
-	CMT					VARCHAR(2000) 	NOT NULL 	,--COMMENT '비고',
+	CMT					VARCHAR(2000) 	NULL 		,--COMMENT '비고',
 	constraint pk_comdept 		primary key(DEPT_ID),
 	constraint fk_comdept1	 	foreign key(P_DEPT_ID) references COMDEPT(DEPT_ID)
 ); -- COMMENT = '부서관리';

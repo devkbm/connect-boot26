@@ -64,7 +64,7 @@ public class Dept extends AbstractAuditEntity implements Serializable {
 	
 	@Builder.Default
 	@Column(name="PRT_SEQ")
-	int seq = 0;
+	Integer seq = 0;
 	
 	@Column(name = "CMT")
 	String comment;
