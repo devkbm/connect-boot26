@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.service.FileService;
@@ -48,8 +49,8 @@ public class SystemUserImageController {
 	}
 	
 	@PostMapping("/api/common/user/image")
-	public ResponseEntity<?> changeUserImage(@RequestParam MultipartFile file,
-											 @RequestParam String userId) throws Exception {				
+	public ResponseEntity<?> changeUserImage(@RequestPart MultipartFile file,
+											 String userId) throws Exception {				
 												
 		String fileName = userService.changeUserImage(userId, file);			
 							

@@ -76,6 +76,7 @@ public class CodeDTO {
 			String modifiedBy,
 			String clientAppUrl,
 			String id,
+			String organizationCode,
 			String systemTypeCode,
 			String parentId,
 			String code,
