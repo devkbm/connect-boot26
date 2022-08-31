@@ -42,11 +42,11 @@ public class ScheduleDTO {
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 																									
-			OffsetDateTime fromDateTime = getFromDate(this.fromDate);			
-			OffsetDateTime toDateTime = getToDate(this.toDate);			
+			LocalDateTime fromDateTime = getFromDate(this.fromDate);			
+			LocalDateTime toDateTime = getToDate(this.toDate);			
 			
-			DateTimeExpression<OffsetDateTime> fromExpression = Expressions.asDateTime(fromDateTime);
-			DateTimeExpression<OffsetDateTime> toExpression = Expressions.asDateTime(toDateTime);
+			DateTimeExpression<LocalDateTime> fromExpression = Expressions.asDateTime(fromDateTime);
+			DateTimeExpression<LocalDateTime> toExpression = Expressions.asDateTime(toDateTime);
 			
 			//DateTimeExpression<LocalDateTime> monthEndDay = Expressions.asDateTime(param.with(TemporalAdjusters.lastDayOfMonth()));					
 			// LocalDateTime firstDay = param.with(TemporalAdjusters.firstDayOfMonth());																					
@@ -92,28 +92,26 @@ public class ScheduleDTO {
 			return ids;
 		}
 		
-		private OffsetDateTime getFromDate(String fromDate) {
-			return OffsetDateTime.of(
+		private LocalDateTime getFromDate(String fromDate) {
+			return LocalDateTime.of(
 					Integer.parseInt(fromDate.substring(0, 4)), 
 					Integer.parseInt(fromDate.substring(4, 6)), 
 					Integer.parseInt(fromDate.substring(6, 8)), 
 					0, 
 					0, 
 					0,
-					0, 
-					ZoneOffset.ofHours(9));
+					0);
 		}
 		
-		private OffsetDateTime getToDate(String toDate) {
-			return OffsetDateTime.of(
+		private LocalDateTime getToDate(String toDate) {
+			return LocalDateTime.of(
 					Integer.parseInt(toDate.substring(0, 4)), 
 					Integer.parseInt(toDate.substring(4, 6)), 
 					Integer.parseInt(toDate.substring(6, 8)), 
 					23, 
 					59, 
 					59,
-					59, 
-					ZoneOffset.ofHours(9));		
+					59);		
 		}
 	}
 	
@@ -128,9 +126,12 @@ public class ScheduleDTO {
 			Long id,					
 			@NotEmpty
 			String text,						
-			//@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ssZ")
-			OffsetDateTime start,			
-			OffsetDateTime end,			
+			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+			@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")			
+			LocalDateTime start,			
+			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+			@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+			LocalDateTime end,			
 			Boolean allDay,			
 			@NotNull
 			Long workGroupId
@@ -180,10 +181,12 @@ public class ScheduleDTO {
 			String text,
 			String color,
 			//@DateTimeFormat(pattern="E MMM dd yyyy HH:mm:ss 'GMT'Z")
-			@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-			OffsetDateTime start,
-			@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-			OffsetDateTime end,
+			//@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+			@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+			LocalDateTime start,
+			//@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+			@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+			LocalDateTime end,
 			Boolean allDay
 			) {
 		
@@ -196,8 +199,8 @@ public class ScheduleDTO {
 								   .id(entity.getId())
 								   .text(entity.getTitle())
 								   .color(workGroup.getColor())
-								   .start(entity.getStart().minusHours(9))
-								   .end(entity.getEnd().minusHours(9))
+								   .start(entity.getStart())
+								   .end(entity.getEnd())
 								   .allDay(entity.getAllDay())																							
 								   .build();
 																	

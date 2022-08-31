@@ -1,5 +1,6 @@
 package com.like.cooperation.workschedule.domain;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 import javax.persistence.Column;
@@ -42,10 +43,10 @@ public class Schedule extends AbstractAuditEntity {
 	String title;
 	
 	@Column(name="START_DT")
-	OffsetDateTime start;
+	LocalDateTime start;
 	
 	@Column(name="END_DT")
-	OffsetDateTime end;
+	LocalDateTime end;
 	
 	@Column(name="ALLDAY")
 	Boolean allDay;	
@@ -56,11 +57,11 @@ public class Schedule extends AbstractAuditEntity {
 	WorkGroup workGroup;
 
 	@Builder
-	public Schedule(String title, 
-					OffsetDateTime start, 
-					OffsetDateTime end, 
-			        Boolean allDay, 
-			        WorkGroup workGroup) {
+	public Schedule(String title 
+				   ,LocalDateTime start 
+				   ,LocalDateTime end 
+			       ,Boolean allDay 
+			       ,WorkGroup workGroup) {
 		this.title = title;
 		this.start = start;
 		this.end = end;
@@ -69,8 +70,8 @@ public class Schedule extends AbstractAuditEntity {
 	}
 
 	public void modifyEntity(String title
-							,OffsetDateTime start
-							,OffsetDateTime end
+							,LocalDateTime start
+							,LocalDateTime end
 							,Boolean allDay) {
 		this.title = title;
 		this.start = start;
