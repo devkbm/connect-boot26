@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.like.cooperation.board.boundary.ArticleDTO;
+import com.like.cooperation.board.boundary.ResponseArticle;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.service.ArticleCommandService;
 import com.like.system.core.message.MessageUtil;
@@ -37,7 +38,7 @@ public class ArticleController {
 		
 		Article article = service.getArticle(id);		
 	
-		ArticleDTO.ResponseArticle response = ArticleDTO.ResponseArticle.converDTO(article);				
+		ResponseArticle response = ResponseArticle.converDTO(article);				
 		
 		return toOne(response, MessageUtil.getQueryMessage(response == null ? 0 : 1));
 	}

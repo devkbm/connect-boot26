@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.board.boundary.ArticleDTO;
-import com.like.cooperation.board.boundary.ResponseArticleClass;
+import com.like.cooperation.board.boundary.ResponseArticle;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleQueryRepository;
 import com.like.cooperation.board.domain.ArticleRepository;
@@ -40,7 +40,7 @@ public class ArticleQueryService {
 		return articleRepository.getArticleList(condition.getBooleanBuilder());
 	}
 	
-	public List<ResponseArticleClass> getArticleList2(ArticleDTO.Search condition) {
+	public List<ResponseArticle> getArticleList2(ArticleDTO.Search condition) {
 		Map<String, Object> params = new HashMap<>();
 		
 		params.put("data", condition);
@@ -48,16 +48,16 @@ public class ArticleQueryService {
 		return boardMapper.getArticleList(params);
 	}
 	
-	public Slice<ResponseArticleClass> getAritlceSlice(ArticleDTO.Search condition, Pageable pageable) {
+	public Slice<ResponseArticle> getAritlceSlice(ArticleDTO.Search condition, Pageable pageable) {
 										
 		Map<String, Object> params = new HashMap<>();	
 		params.put("data", condition);
 		params.put("pageable", pageable);
 
-		List<ResponseArticleClass> content = boardMapper.getArticleList(params);
+		List<ResponseArticle> content = boardMapper.getArticleList(params);
 		
 		// 첨부파일 추가
-		for (ResponseArticleClass dto : content) {
+		for (ResponseArticle dto : content) {
 			dto.addFileResponseDTO(repository);
 		}			
 		

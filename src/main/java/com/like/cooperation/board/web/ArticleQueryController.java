@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.like.cooperation.board.boundary.ArticleDTO;
-import com.like.cooperation.board.boundary.ResponseArticleClass;
+import com.like.cooperation.board.boundary.ResponseArticle;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.service.ArticleQueryService;
 import com.like.system.core.message.MessageUtil;
@@ -30,9 +30,9 @@ public class ArticleQueryController {
 	@GetMapping("/api/grw/board/article")
 	public ResponseEntity<?> getArticleList(ArticleDTO.Search condition) {
 																			  						
-		List<ArticleDTO.ResponseArticle> list = service.getAritlceList(condition)
+		List<ResponseArticle> list = service.getAritlceList(condition)
 													   .stream()
-													   .map(e -> ArticleDTO.ResponseArticle.converDTO((e)))
+													   .map(e -> ResponseArticle.converDTO((e)))
 													   .toList();		
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
@@ -42,9 +42,9 @@ public class ArticleQueryController {
 	@GetMapping("/api/grw/board/article_slice")
 	public ResponseEntity<?> getArticleSlice(ArticleDTO.Search condition, Pageable pageable) {
 																			  											
-		Slice<ResponseArticleClass> list = service.getAritlceSlice(condition, pageable);		//
+		Slice<ResponseArticle> list = service.getAritlceSlice(condition, pageable);		//
 		
-		return new ResponseEntity<Slice<ResponseArticleClass>>(list, HttpStatus.OK);		
+		return new ResponseEntity<Slice<ResponseArticle>>(list, HttpStatus.OK);		
 	}
 	
 	

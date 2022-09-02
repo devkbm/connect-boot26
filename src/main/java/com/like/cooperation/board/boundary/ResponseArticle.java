@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleRepository;
+import com.like.system.core.util.SessionUtil;
 import com.like.system.file.boundary.FileResponseDTO;
 import com.like.system.file.domain.FileInfo;
 
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResponseArticleClass {
+public class ResponseArticle {
 
 	LocalDateTime createdDt;
 	String createdBy;
@@ -36,6 +37,31 @@ public class ResponseArticleClass {
 	Integer depth;
 	List<FileResponseDTO> fileList;
 	Boolean editable;
+	
+	
+	public static ResponseArticle converDTO(Article entity) {
+		
+    	if (entity == null) return null;
+    	
+		List<FileInfo> fileInfoList = entity.getAttachedFileInfoList();
+		List<FileResponseDTO> responseList = convertFileResponseDTO(fileInfoList);
+							
+		return ResponseArticle
+				 .builder()
+				 .createdDt(entity.getCreatedDt())
+				 .createdBy(entity.getCreatedBy().getLoggedUser())
+				 .modifiedDt(entity.getModifiedDt())
+				 .modifiedBy(entity.getModifiedBy().getLoggedUser())
+				 .pkArticle(entity.getPkArticle())
+				 .ppkArticle(entity.getPpkArticle())							 
+				 .userName(entity.getUserName())
+				 .fkBoard(entity.getBoard().getPkBoard())				
+				 .title(entity.getContent().getTitle())
+				 .contents(entity.getContent().getContents())
+				 .fileList(responseList)			
+				 .editable(entity.getEditable(SessionUtil.getUserId()))
+				 .build();
+	}
 	
 	public void addFileResponseDTO(ArticleRepository repository) {
 		

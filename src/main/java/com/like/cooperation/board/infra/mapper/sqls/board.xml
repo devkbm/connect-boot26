@@ -46,27 +46,34 @@
    order by b.PK_ARTICLE desc 	
 	</select>
 	
-	<select id="getArticleList" parameterType="map" resultType="com.like.cooperation.board.boundary.ResponseArticleClass"><![CDATA[
-		SELECT A.created_dt			created_dt
-		     , A.created_user_id	createdBy
-		     , A.modified_dt 		modified_dt
-		     , A.modified_user_id	modifiedBy
+	<select id="getArticleList" parameterType="map" resultType="com.like.cooperation.board.boundary.ResponseArticle"><![CDATA[
+		SELECT A.CREATED_DT			created_dt
+		     , A.CREATED_USER_ID	createdBy
+		     , A.MODIFIED_DT 		modified_dt
+		     , A.MODIFIED_USER_ID	modifiedBy
 		     , (SELECT X.USER_NAME 
 	              FROM COMUSER X 
 	             WHERE X.USER_ID = A.CREATED_USER_ID) userName
-	         , A.fk_board			fkBoard
+	         , A.FK_BOARD			fkBoard
 	         , A.PK_ARTICLE			pkArticle
 	         , A.PPK_ARTICLE		ppkArticle
 	         , A.TITLE				title
-	         , A.contents			contents
-	         , A.pwd				pwd
-	         , 0					hitCount			 
-	         , 0					seq
-	         , 0					depth
+	         , A.CONTENTS			contents
+	         , A.PWD				pwd
+	         , A.HIT_CNT			hitCount			 
+	         , A.SEQ				seq
+	         , A.HIER_DEPTH			depth
 	         , true					editable											           
 		  FROM GRWARTICLE A
-		 WHERE 1=1
+		 WHERE 1=1		
            AND A.FK_BOARD = #{data.fkBoard}
+    	]]>          	
+    	<if test="data.title != null"><![CDATA[
+    	   AND A.TITLE LIKE #{data.title}
+    	]]></if>
+    	<if test="data.contents != null"><![CDATA[
+    	   AND A.CONTENTS LIKE #{data.contents}
+    	]]></if><![CDATA[           
 		 ORDER
 		    BY A.PK_ARTICLE DESC		
         limit ${pageable.size} + 1 offset ${pageable.page} * ${pageable.size}		    

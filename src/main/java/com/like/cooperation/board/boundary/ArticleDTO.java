@@ -137,62 +137,6 @@ public class ArticleDTO {
 	    	entity.setAppUrl(clientAppUrl);
 		}
 	}	
-	
-	@Builder
-	public static record ResponseArticle(
-			LocalDateTime createdDt,
-			String createdBy,
-			LocalDateTime modifiedDt,
-			String modifiedBy,
-			String userName,
-			Long fkBoard,
-			Long pkArticle,
-			Long ppkArticle,
-			String title,
-			String contents,
-			String pwd,
-			int hitCount,			
-			Integer seq,
-			Integer depth,
-			List<FileResponseDTO> fileList,
-			Boolean editable
-			) {
 		
-		public static ArticleDTO.ResponseArticle converDTO(Article entity) {
-			
-	    	if (entity == null) return null;
-	    	
-			List<FileInfo> fileInfoList = entity.getAttachedFileInfoList();
-			List<FileResponseDTO> responseList = convertFileResponseDTO(fileInfoList);
-								
-			return ArticleDTO.ResponseArticle
-							 .builder()
-							 .createdDt(entity.getCreatedDt())
-							 .createdBy(entity.getCreatedBy().getLoggedUser())
-							 .modifiedDt(entity.getModifiedDt())
-							 .modifiedBy(entity.getModifiedBy().getLoggedUser())
-							 .pkArticle(entity.getPkArticle())
-							 .ppkArticle(entity.getPpkArticle())							 
-							 .userName(entity.getUserName())
-							 .fkBoard(entity.getBoard().getPkBoard())				
-							 .title(entity.getContent().getTitle())
-							 .contents(entity.getContent().getContents())
-							 .fileList(responseList)			
-							 .editable(entity.getEditable(SessionUtil.getUserId()))
-							 .build();
-		}
-	    
-	    private static List<FileResponseDTO> convertFileResponseDTO(List<FileInfo> fileInfoList) {
-	    	List<FileResponseDTO> responseList = new ArrayList<>();	
-	    	
-	    	for (FileInfo fileInfo : fileInfoList) {							
-				responseList.add(FileResponseDTO.convert(fileInfo));				
-			}
-	    	
-	    	return responseList;
-	    }
-	}
-	
-	
 	
 }
