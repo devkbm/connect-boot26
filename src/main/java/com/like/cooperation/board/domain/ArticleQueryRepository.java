@@ -21,5 +21,5 @@ public interface ArticleQueryRepository {
 	 * @return	게시글 엔티티 리스트
 	 */
 	List<Article> getArticleList(Predicate condition);
-		
+			
 }

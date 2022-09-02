@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

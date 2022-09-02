@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.like.cooperation.board.boundary.ArticleDTO;
+import com.like.cooperation.board.boundary.ResponseArticleClass;
 
 @Mapper
 public interface BoardMapper {
@@ -16,6 +16,6 @@ public interface BoardMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	List<Map<String,Object>> getArticleList(ArticleDTO.Search queryDTO);
+	List<ResponseArticleClass> getArticleList(Map<String, Object> params);
 			
 }

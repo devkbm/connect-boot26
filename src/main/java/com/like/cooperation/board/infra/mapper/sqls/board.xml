@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.like.board.infra.mapper.BoardMapper">
+<mapper namespace="com.like.cooperation.board.infra.mapper.BoardMapper">
 
     <select id="test" parameterType="map" resultType="map">
     <![CDATA[
@@ -8,7 +8,7 @@
 	]]>     	  
 	</select>	   
 		
-	<select id="getArticleList" parameterType="map" resultType="map"><![CDATA[
+	<select id="getArticleList33" parameterType="map" resultType="map"><![CDATA[
 		select b.SYS_DT		as sysDt
 		     , b.SYS_USER	as sysUser
 		     , u.name 		as sysUsernm
@@ -45,4 +45,42 @@
     	]]></if>
    order by b.PK_ARTICLE desc 	
 	</select>
+	
+	<select id="getArticleList" parameterType="map" resultType="com.like.cooperation.board.boundary.ResponseArticleClass"><![CDATA[
+		SELECT A.created_dt			created_dt
+		     , A.created_user_id	createdBy
+		     , A.modified_dt 		modified_dt
+		     , A.modified_user_id	modifiedBy
+		     , (SELECT X.USER_NAME 
+	              FROM COMUSER X 
+	             WHERE X.USER_ID = A.CREATED_USER_ID) userName
+	         , A.fk_board			fkBoard
+	         , A.PK_ARTICLE			pkArticle
+	         , A.PPK_ARTICLE		ppkArticle
+	         , A.TITLE				title
+	         , A.contents			contents
+	         , A.pwd				pwd
+	         , 0					hitCount			 
+	         , 0					seq
+	         , 0					depth
+	         , true					editable											           
+		  FROM GRWARTICLE A
+		 WHERE 1=1
+           AND A.FK_BOARD = #{data.fkBoard}
+		 ORDER
+		    BY A.PK_ARTICLE DESC		
+        limit ${pageable.size} + 1 offset ${pageable.page} * ${pageable.size}		    
+    ]]>
+	</select>
+	
+	<!-- 
+	<if test="pageable.sort.sorted">
+            <trim prefix="order by">
+                <foreach item="order" index="i" collection="pageable.sort" separator=", ">
+                    ${order.property} ${order.direction}
+                </foreach>
+            </trim>
+        </if>
+        limit ${pageable.size} offset ${pageable.page}*${pageable.size}
+	 -->
 </mapper>

@@ -2,8 +2,12 @@ package com.like.cooperation.board.infra.jparepository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 
+import com.like.cooperation.board.boundary.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleQueryRepository;
 import com.like.cooperation.board.domain.QArticle;
@@ -47,7 +51,6 @@ public class ArticleQueryJpaRepository implements ArticleQueryRepository {
 				   .where(condition)
 				   .orderBy(qArticle.pkArticle.desc())
 				   .fetch();
-	}
-
+	}	
 	
 }
