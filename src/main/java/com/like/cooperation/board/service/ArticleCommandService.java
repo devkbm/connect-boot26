@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.board.boundary.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
-import com.like.cooperation.board.domain.ArticleCheck;
-import com.like.cooperation.board.domain.ArticleCheckRepository;
+import com.like.cooperation.board.domain.ArticleRead;
+import com.like.cooperation.board.domain.ArticleReadRepository;
 import com.like.cooperation.board.domain.ArticleRepository;
 import com.like.cooperation.board.domain.ArticleAttachedFile;
 import com.like.cooperation.board.domain.AttachedFileConverter;
@@ -28,12 +28,12 @@ public class ArticleCommandService {
 	private BoardRepository boardRepository;	
 	private FileService fileService;	
 	private ArticleRepository repository;
-	private ArticleCheckRepository articleCheckRepository;
+	private ArticleReadRepository articleCheckRepository;
 		
 	public ArticleCommandService(BoardRepository boardRepository
 								,FileService fileService
 								,ArticleRepository repository
-								,ArticleCheckRepository articleCheckRepository) {
+								,ArticleReadRepository articleCheckRepository) {
 		this.boardRepository = boardRepository;
 		this.fileService = fileService;
 		this.repository = repository;
@@ -118,10 +118,10 @@ public class ArticleCommandService {
 		
 		repository.save(article);
 				
-		ArticleCheck check = this.articleCheckRepository.findByCreatedByAndArticle(userId, article);
+		ArticleRead check = this.articleCheckRepository.findByCreatedByAndArticle(userId, article);
 		
 		if (check == null) {
-			check = new ArticleCheck(article);				
+			check = new ArticleRead(article, userId);				
 		} else {
 			check.updateHitCnt();
 		}

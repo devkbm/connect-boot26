@@ -34,9 +34,11 @@ public class ResponseArticle {
 	String pwd;
 	int hitCount;			
 	Integer seq;
-	Integer depth;
-	List<FileResponseDTO> fileList;
+	Integer depth;	
 	Boolean editable;
+	Boolean isAttachedFile;
+    Integer fileCount;	
+	List<FileResponseDTO> fileList;
 	
 	
 	public static ResponseArticle converDTO(Article entity) {

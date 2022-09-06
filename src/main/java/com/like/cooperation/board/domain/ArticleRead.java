@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.like.hrm.anualleave.domain.model.AnualLeaveId;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 /**
@@ -26,21 +27,16 @@ import com.like.system.core.jpa.domain.AbstractAuditEntity;
 @Entity
 @Table(name = "GRWARTICLECHECK")
 @EntityListeners(AuditingEntityListener.class)
-public class ArticleCheck extends AbstractAuditEntity implements Serializable {
+public class ArticleRead extends AbstractAuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = 6322358555393677284L;
-
-	/**
-	 * 개인별 게시글 조회  키
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="pk_article_check")
-	Long pkArticleCheck;	
+	
+	@EmbeddedId
+	ArticleReadId id;	
 		
 	@Comment("조회수")
 	@Column(name="hit_cnt")
-	int hitCount;
+	Integer hitCount;
         
 	/**
 	 * 게시판 외래키
@@ -50,9 +46,9 @@ public class ArticleCheck extends AbstractAuditEntity implements Serializable {
 	@JoinColumn(name = "fk_article", nullable=false, updatable=false)
 	Article article;
 
-    protected ArticleCheck() {}
+    protected ArticleRead() {}
     
-	public ArticleCheck(Article article) {
+	public ArticleRead(Article article, String staffId) {		
 		this.article = article;
 		this.hitCount = 0;
 	}
@@ -61,10 +57,5 @@ public class ArticleCheck extends AbstractAuditEntity implements Serializable {
 		this.hitCount = this.hitCount + 1;
 	}
 		
-	@Override
-	public String toString() {
-		return "ArticleCheck [pkArticleCheck=" + pkArticleCheck + ", hitCount=" + hitCount + ", article=" + article + "]";
-	}
-	
-		
+			
 }

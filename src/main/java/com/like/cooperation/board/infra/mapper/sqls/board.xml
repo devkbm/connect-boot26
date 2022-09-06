@@ -63,8 +63,18 @@
 	         , A.HIT_CNT			hitCount			 
 	         , A.SEQ				seq
 	         , A.HIER_DEPTH			depth
-	         , true					editable											           
+	         , true					editable
+	         , (CASE WHEN B.CNT > 0 THEN true ELSE false END) isAttachedFile
+	         , B.CNT				fileCount											           
 		  FROM GRWARTICLE A
+		     LEFT OUTER JOIN (
+		     	SELECT X.PK_ARTICLE 
+		     	     , COUNT(*) CNT
+                  FROM GRWARTICLEFILE X                 
+                 GROUP 
+                    BY X.PK_ARTICLE
+		      ) B
+		     ON (A.PK_ARTICLE = B.PK_ARTICLE)  
 		 WHERE 1=1		
            AND A.FK_BOARD = #{data.fkBoard}
     	]]>          	
@@ -80,7 +90,7 @@
     ]]>
 	</select>
 	
-	<!-- 
+	<!-- SLICE 쿼리에 추가 
 	<if test="pageable.sort.sorted">
             <trim prefix="order by">
                 <foreach item="order" index="i" collection="pageable.sort" separator=", ">

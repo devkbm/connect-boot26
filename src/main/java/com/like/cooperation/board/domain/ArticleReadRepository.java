@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ArticleCheckRepository extends JpaRepository<ArticleCheck, Long> {
+public interface ArticleReadRepository extends JpaRepository<ArticleRead, Long> {
 
-	ArticleCheck findByCreatedByAndArticle(String userId, Article fkarticle);
+	ArticleRead findByCreatedByAndArticle(String userId, Article fkarticle);
 	
 }
 
