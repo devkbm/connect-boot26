@@ -1,12 +1,10 @@
 package com.like.cooperation.board.boundary;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,20 +13,15 @@ import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleContents;
 import com.like.cooperation.board.domain.ArticlePassword;
 import com.like.cooperation.board.domain.QArticle;
-import com.like.system.core.util.SessionUtil;
-import com.like.system.file.boundary.FileResponseDTO;
-import com.like.system.file.domain.FileInfo;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import static org.springframework.util.StringUtils.hasText;
 
-import lombok.Builder;
-
 public class ArticleDTO {
 	
 	public record Search(
-			Long fkBoard,
+			Long boardId,
 			String title,
 			String contents
 			) {
@@ -38,7 +31,7 @@ public class ArticleDTO {
 			BooleanBuilder builder = new BooleanBuilder();
 			
 			builder
-				.and(qArticle.board.pkBoard.eq(fkBoard))
+				.and(qArticle.board.boardId.eq(boardId))
 				.and(likeTitle(this.title))
 				.and(likeContents(this.contents));											
 			
@@ -61,9 +54,9 @@ public class ArticleDTO {
 			String modifiedBy,
 			String clientAppUrl,
 			String organizationCode,
-			Long fkBoard,
-			String pkArticle,
-			Long ppkArticle,
+			Long boardId,
+			String articleId,
+			Long articleParentId,
 			@NotEmpty(message="제목은 필수 입력 사항입니다.")
 			String title,
 			String contents,
@@ -95,7 +88,7 @@ public class ArticleDTO {
 		}
 	    
 	    public boolean isNew() {
-	    	return this.pkArticle() == null ? true : false;
+	    	return this.articleId() == null ? true : false;
 	    }
 	}	
 	
@@ -106,9 +99,9 @@ public class ArticleDTO {
 			String modifiedBy,
 			String clientAppUrl,
 			String organizationCode,
-			Long fkBoard,
-			Long pkArticle,
-			Long ppkArticle,
+			Long boardId,
+			Long articleId,
+			Long articleParentId,
 			@NotEmpty(message="제목은 필수 입력 사항입니다.")
 			String title,
 			String contents,

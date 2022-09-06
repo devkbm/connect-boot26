@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.like.cooperation.board.boundary.ArticleDTO;
 import com.like.cooperation.board.boundary.ResponseArticle;
-import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.service.ArticleQueryService;
 import com.like.system.core.message.MessageUtil;
 
@@ -31,9 +29,9 @@ public class ArticleQueryController {
 	public ResponseEntity<?> getArticleList(ArticleDTO.Search condition) {
 																			  						
 		List<ResponseArticle> list = service.getAritlceList(condition)
-													   .stream()
-													   .map(e -> ResponseArticle.converDTO((e)))
-													   .toList();		
+										    .stream()
+										    .map(e -> ResponseArticle.converDTO((e)))
+										    .toList();		
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}

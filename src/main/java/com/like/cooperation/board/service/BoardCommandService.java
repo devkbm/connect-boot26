@@ -31,12 +31,12 @@ public class BoardCommandService {
 	
 	public void saveBoard(BoardDTO.FormBoard dto) {			
 		Board board = null;			
-		Board parentBoard = dto.ppkBoard() != null ? boardRepository.findById(dto.ppkBoard()).orElse(null) : null;			
+		Board parentBoard = dto.boardParentId() != null ? boardRepository.findById(dto.boardParentId()).orElse(null) : null;			
 																
-		if (dto.pkBoard() == null) {
+		if (dto.boardId() == null) {
 			board = dto.newBoard(parentBoard);
 		} else {
-			board = boardRepository.findById(dto.pkBoard()).orElse(null);
+			board = boardRepository.findById(dto.boardId()).orElse(null);
 			dto.modifyBoard(board, parentBoard);			
 		}			
 		

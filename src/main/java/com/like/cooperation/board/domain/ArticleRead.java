@@ -10,8 +10,6 @@ import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.like.hrm.anualleave.domain.model.AnualLeaveId;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 /**
@@ -40,16 +38,18 @@ public class ArticleRead extends AbstractAuditEntity implements Serializable {
         
 	/**
 	 * 게시판 외래키
-	 */        
+	 */
+	/*
     @JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_article", nullable=false, updatable=false)
+	@JoinColumn(name = "article_id", nullable=false, updatable=false)
 	Article article;
-
+	*/
+	
     protected ArticleRead() {}
     
-	public ArticleRead(Article article, String staffId) {		
-		this.article = article;
+	public ArticleRead(Article article, String userId) {		
+		this.id = new ArticleReadId(article, userId);
 		this.hitCount = 0;
 	}
 			

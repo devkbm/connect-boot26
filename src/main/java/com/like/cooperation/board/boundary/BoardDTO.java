@@ -51,8 +51,8 @@ public class BoardDTO {
 			String modifiedBy,
 			String clientAppUrl,
 			String organizationCode,
-			Long pkBoard,
-			Long ppkBoard,
+			Long boardId,
+			Long boardParentId,
 			String boardType,
 			@NotEmpty(message="게시판명은 필수 입력사항입니다.")
 			String boardName,
@@ -91,8 +91,8 @@ public class BoardDTO {
 						    .createdBy(entity.getCreatedBy().getLoggedUser())
 						    .modifiedDt(entity.getModifiedDt())
 						    .modifiedBy(entity.getModifiedBy().getLoggedUser())
-						    .pkBoard(entity.getPkBoard())	
-						    .ppkBoard(parent.map(Board::getPkBoard).orElse(null))
+						    .boardId(entity.getBoardId())	
+						    .boardParentId(parent.map(Board::getBoardId).orElse(null))
 						    .boardType(entity.getBoardType().toString())
 						    .boardName(entity.getBoardName())
 						    .boardDescription(entity.getDescription())						   						    

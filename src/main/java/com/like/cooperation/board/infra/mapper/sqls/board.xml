@@ -55,8 +55,8 @@
 	              FROM COMUSER X 
 	             WHERE X.USER_ID = A.CREATED_USER_ID) userName
 	         , A.FK_BOARD			fkBoard
-	         , A.PK_ARTICLE			pkArticle
-	         , A.PPK_ARTICLE		ppkArticle
+	         , A.ARTICLE_ID			articleId
+	         , A.ARTICLE_P_ID		articleParentId
 	         , A.TITLE				title
 	         , A.CONTENTS			contents
 	         , A.PWD				pwd

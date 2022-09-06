@@ -69,7 +69,7 @@ public class BoardQueryJpaRepository implements BoardQueryRepository {
 										.otherwise(false).as("leaf");*/	
 		
 		JPAQuery<BoardHierarchy> query = queryFactory
-				.select(new QBoardHierarchy(qBoard.pkBoard, qBoard.parent.pkBoard, qBoard.boardType
+				.select(new QBoardHierarchy(qBoard.boardId, qBoard.parent.boardId, qBoard.boardType
 										   ,qBoard.boardName, qBoard.description))
 				.from(qBoard)
 				.where(qBoard.isRootNode());
@@ -78,13 +78,13 @@ public class BoardQueryJpaRepository implements BoardQueryRepository {
 		return query.fetch();	
 	}
 	
-	private List<BoardHierarchy> getBoardHierarchyChildrenList(Long parentPkBoard) {
+	private List<BoardHierarchy> getBoardHierarchyChildrenList(Long boardParentId) {
 		
 		JPAQuery<BoardHierarchy> query = queryFactory
-				.select(new QBoardHierarchy(qBoard.pkBoard, qBoard.parent.pkBoard, qBoard.boardType
+				.select(new QBoardHierarchy(qBoard.boardId, qBoard.parent.boardId, qBoard.boardType
 						   				   ,qBoard.boardName, qBoard.description))
 				.from(qBoard)
-				.where(qBoard.parent.pkBoard.eq(parentPkBoard));								
+				.where(qBoard.parent.boardId.eq(boardParentId));								
 		
 		return query.fetch();
 		

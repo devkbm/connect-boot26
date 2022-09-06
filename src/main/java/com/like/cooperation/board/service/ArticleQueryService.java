@@ -17,9 +17,6 @@ import com.like.cooperation.board.domain.ArticleQueryRepository;
 import com.like.cooperation.board.domain.ArticleRepository;
 import com.like.cooperation.board.infra.mapper.BoardMapper;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 @Transactional(readOnly=true)
 public class ArticleQueryService {
@@ -61,6 +58,7 @@ public class ArticleQueryService {
 			dto.addFileResponseDTO(repository);
 		}			
 		
+		// 마지막 데이터인지 여부를 확인하기 위해 +1개를 조회한후 데이터 제거
 		boolean hasNext = false;
 		if (content.size() > pageable.getPageSize()) {
 			content.remove(pageable.getPageSize());

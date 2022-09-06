@@ -45,7 +45,7 @@ public class ArticleController {
 		
 	@DeleteMapping("/api/grw/board/article/{id}")
 	public ResponseEntity<?> deleteArticle(@PathVariable Long id) {				
-		
+				
 		service.deleteArticle(id);							
 		
 		return toList(null, MessageUtil.getDeleteMessage(1));

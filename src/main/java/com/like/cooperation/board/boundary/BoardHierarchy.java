@@ -20,7 +20,7 @@ public class BoardHierarchy implements Serializable {
 
 	Long key;
 	
-	Long ppkBoard;
+	Long boardParentId;
 	
 	BoardType boardType;
 	
@@ -40,11 +40,11 @@ public class BoardHierarchy implements Serializable {
 	List<BoardHierarchy> children = new ArrayList<BoardHierarchy>();
 			
 	@QueryProjection
-	public BoardHierarchy(Long key, Long ppkBoard, BoardType boardType, 
+	public BoardHierarchy(Long key, Long boardParentId, BoardType boardType, 
 						  String title, String boardDescription) {
 		super();
 		this.key 				= key;
-		this.ppkBoard 			= ppkBoard;
+		this.boardParentId 		= boardParentId;
 		this.boardType 			= boardType;
 		this.title 				= title;
 		this.boardDescription 	= boardDescription;					

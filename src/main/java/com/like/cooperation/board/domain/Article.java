@@ -8,7 +8,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 import lombok.ToString;
 
 import org.hibernate.annotations.Comment;
@@ -39,12 +38,12 @@ public class Article extends AbstractAuditEntity {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="PK_ARTICLE")
-	Long pkArticle;	
+	@Column(name="ARTICLE_ID")
+	Long articleId;	
 		
-	@Comment("게시글 상위키")
-	@Column(name="PPK_ARTICLE")
-	Long ppkArticle;		
+	@Comment("게시글 부모ID")
+	@Column(name="ARTICLE_P_ID")
+	Long articleParentId;		
 				
 	@Embedded
 	ArticleContents content;
@@ -70,11 +69,7 @@ public class Article extends AbstractAuditEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FK_BOARD", nullable=false, updatable=false)
 	Board board;
-    
-	@Singular(value="articleChecks")
-    @OneToMany(mappedBy = "article")
-    List<ArticleRead> articleChecks;
-                          	
+    	                          
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     List<ArticleAttachedFile> files;
 			
@@ -104,7 +99,7 @@ public class Article extends AbstractAuditEntity {
 	}
 	
 	public Long getId() {
-		return this.pkArticle;
+		return this.articleId;
 	}
 				
 	public void setBoard(Board board) {
@@ -116,7 +111,7 @@ public class Article extends AbstractAuditEntity {
 	}
 	
 	public boolean hasParentArticle() {		
-		return this.ppkArticle != this.pkArticle ? true : false;
+		return this.articleParentId != this.articleId ? true : false;
 	}
 						
 	public void updateHitCnt() {

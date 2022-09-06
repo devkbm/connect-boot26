@@ -26,9 +26,9 @@ public class ResponseArticle {
 	LocalDateTime modifiedDt;
 	String modifiedBy;
 	String userName;
-	Long fkBoard;
-	Long pkArticle;
-	Long ppkArticle;
+	Long boardId;
+	Long articleId;
+	Long articleParentId;
 	String title;
 	String contents;
 	String pwd;
@@ -54,10 +54,10 @@ public class ResponseArticle {
 				 .createdBy(entity.getCreatedBy().getLoggedUser())
 				 .modifiedDt(entity.getModifiedDt())
 				 .modifiedBy(entity.getModifiedBy().getLoggedUser())
-				 .pkArticle(entity.getPkArticle())
-				 .ppkArticle(entity.getPpkArticle())							 
+				 .articleId(entity.getArticleId())
+				 .articleParentId(entity.getArticleParentId())							 
 				 .userName(entity.getUserName())
-				 .fkBoard(entity.getBoard().getPkBoard())				
+				 .boardId(entity.getBoard().getBoardId())				
 				 .title(entity.getContent().getTitle())
 				 .contents(entity.getContent().getContents())
 				 .fileList(responseList)			
@@ -67,7 +67,7 @@ public class ResponseArticle {
 	
 	public void addFileResponseDTO(ArticleRepository repository) {
 		
-		Article entity = repository.findById(this.pkArticle).orElse(null);
+		Article entity = repository.findById(this.articleId).orElse(null);
 		
 		if (entity == null) return;
 		

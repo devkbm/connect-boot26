@@ -34,12 +34,12 @@ public class Board extends AbstractAuditEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Comment("게시판 ID")
-	@Column(name="PK_BOARD")
-	Long pkBoard;
+	@Column(name="BOARD_ID")
+	Long boardId;
 	    	
 	@Comment("상위게시판 ID")
 	@ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE}, optional = true)
-	@JoinColumn(name="PPK_BOARD")
+	@JoinColumn(name="BOARD_P_ID")
 	Board parent;
 				
 	//@JsonFormat(shape = JsonFormat.Shape.OBJECT)
