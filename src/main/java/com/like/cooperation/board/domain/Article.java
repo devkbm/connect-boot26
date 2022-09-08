@@ -67,7 +67,7 @@ public class Article extends AbstractAuditEntity {
 	 * 게시판 외래키
 	 */           
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FK_BOARD", nullable=false, updatable=false)
+	@JoinColumn(name = "BOARD_ID", nullable=false, updatable=false)
 	Board board;
     	                          
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade=CascadeType.ALL)

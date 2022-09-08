@@ -54,7 +54,7 @@
 		     , (SELECT X.USER_NAME 
 	              FROM COMUSER X 
 	             WHERE X.USER_ID = A.CREATED_USER_ID) userName
-	         , A.FK_BOARD			fkBoard
+	         , A.BOARD_ID			boardId
 	         , A.ARTICLE_ID			articleId
 	         , A.ARTICLE_P_ID		articleParentId
 	         , A.TITLE				title
@@ -68,15 +68,15 @@
 	         , B.CNT				fileCount											           
 		  FROM GRWARTICLE A
 		     LEFT OUTER JOIN (
-		     	SELECT X.PK_ARTICLE 
+		     	SELECT X.ARTICLE_ID 
 		     	     , COUNT(*) CNT
                   FROM GRWARTICLEFILE X                 
                  GROUP 
-                    BY X.PK_ARTICLE
+                    BY X.ARTICLE_ID
 		      ) B
-		     ON (A.PK_ARTICLE = B.PK_ARTICLE)  
+		     ON (A.ARTICLE_ID = B.ARTICLE_ID)  
 		 WHERE 1=1		
-           AND A.FK_BOARD = #{data.fkBoard}
+           AND A.BOARD_ID = #{data.boardId}
     	]]>          	
     	<if test="data.title != null"><![CDATA[
     	   AND A.TITLE LIKE #{data.title}
@@ -85,7 +85,7 @@
     	   AND A.CONTENTS LIKE #{data.contents}
     	]]></if><![CDATA[           
 		 ORDER
-		    BY A.PK_ARTICLE DESC		
+		    BY A.ARTICLE_ID DESC		
         limit ${pageable.size} + 1 offset ${pageable.page} * ${pageable.size}		    
     ]]>
 	</select>

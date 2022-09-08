@@ -7,4 +7,5 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
 @Configuration
 @EnableRedisHttpSession
 public class RedisSessionConfig extends AbstractHttpSessionApplicationInitializer {
+	
 }

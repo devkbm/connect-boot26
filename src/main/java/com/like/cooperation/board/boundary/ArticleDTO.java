@@ -31,7 +31,7 @@ public class ArticleDTO {
 			BooleanBuilder builder = new BooleanBuilder();
 			
 			builder
-				.and(qArticle.board.boardId.eq(boardId))
+				.and(qArticle.board.boardId.eq(this.boardId))
 				.and(likeTitle(this.title))
 				.and(likeContents(this.contents));											
 			

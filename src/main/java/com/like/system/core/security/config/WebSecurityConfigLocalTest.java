@@ -20,6 +20,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.NimbusAuthorizationCodeTokenResponseClient;
@@ -32,6 +34,9 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.Session;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
@@ -49,13 +54,14 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 로컬 테스트용 Spring Secury 설정
  * CSRF 설정 제거
+ * @param <S>
  *
  */
 @Slf4j
 @Configuration
 @EnableWebSecurity
 @Profile("localtest")
-public class WebSecurityConfigLocalTest extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfigLocalTest<S extends Session> extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	SpringSecurityUserService userService;
@@ -83,6 +89,9 @@ public class WebSecurityConfigLocalTest extends WebSecurityConfigurerAdapter {
 	
 	private static final String[] CSRF_IGNORE = {"/common/user/login","/static/**","/h2-console/**"};
 	
+	@Autowired
+	private FindByIndexNameSessionRepository<S> sessionRepository;
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/static/**");
@@ -96,8 +105,8 @@ public class WebSecurityConfigLocalTest extends WebSecurityConfigurerAdapter {
 			.cors().configurationSource(corsConfigurationSource()).and()
 			.headers().frameOptions().disable().and()	// h2-console 테스트를 위한 설정
 			.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()			
-			.authorizeRequests()
+			.sessionManagement((s) -> s.maximumSessions(1).sessionRegistry(sessionRegistry()))/*.sessionCreationPolicy(SessionCreationPolicy.NEVER).and()*/			
+			.authorizeRequests()			
 			.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				.antMatchers("/h2-console/**").permitAll()
 				.antMatchers("/common/user/login").permitAll()								
@@ -212,7 +221,13 @@ public class WebSecurityConfigLocalTest extends WebSecurityConfigurerAdapter {
         HttpServletResponse response,
         Authentication authentication) throws IOException {
  
-        response.setStatus(HttpStatus.OK.value());
-    }   
+        response.setStatus(HttpStatus.OK.value());        
+    }      
+    
+    @Bean
+	public SpringSessionBackedSessionRegistry<S> sessionRegistry() {
+		return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
+	}    
+        
 
 }

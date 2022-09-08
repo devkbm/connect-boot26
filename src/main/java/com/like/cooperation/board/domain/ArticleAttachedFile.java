@@ -45,15 +45,15 @@ public class ArticleAttachedFile extends AbstractAuditEntity implements Serializ
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="PK_ARTICLE_FILE")
+	@Column(name="ARTICLE_FILE_ID")
 	Long pkArticleFile;	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PK_ARTICLE", nullable = false)
+	@JoinColumn(name = "ARTICLE_ID", nullable = false)
 	Article article; 	
 		
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="PK_FILE", nullable = false)
+	@JoinColumn(name="FILE_ID", nullable = false)
 	FileInfo fileInfo;
 
 	public ArticleAttachedFile(Article article, FileInfo fileInfo) {		
