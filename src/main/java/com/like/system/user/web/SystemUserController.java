@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
@@ -32,8 +33,8 @@ public class SystemUserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/api/common/user/myinfo")
-	public ResponseEntity<?> getUserInfo() throws FileNotFoundException, IOException {
+	@GetMapping("/api/common/user/my-profile")
+	public ResponseEntity<?> getUserProfile(@RequestParam String organizationCode) throws FileNotFoundException, IOException {
 														
 		SystemUser user = userService.getUser(SessionUtil.getUserId());				
 		
