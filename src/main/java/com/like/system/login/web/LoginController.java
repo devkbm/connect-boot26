@@ -36,12 +36,12 @@ public class LoginController {
 		String ipAddress = WebRequestUtil.getIpAddress(request);
 		System.out.println("접속 IP주소: " + ipAddress);
 		
-		return service.login(dto, session);
+		return service.login(dto, request);
 	}	
 	
 	@GetMapping("/api/user/auth")
-	public AuthenticationToken get(HttpSession session) {
-		return service.getAuthenticationToken(SessionUtil.getUserId(), session);
+	public AuthenticationToken get(HttpServletRequest request) {
+		return service.getAuthenticationToken(SessionUtil.getUserId(), request);
 	}			     
     
 	@Transactional

@@ -86,7 +86,7 @@ public class OauthLoginController {
         
         //userService.saveLogInOutHistory(new LogInOutHistory("1", "LOGIN", this.getClientIp(request), true));
 				
-		token = AuthenticationToken.of(user,session.getId());
+		token = AuthenticationToken.of(user, request);
 		
 		session.setAttribute("user", token);
 					

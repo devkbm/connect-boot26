@@ -1,15 +1,11 @@
 package com.like.system.menu.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -46,10 +42,7 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 	String name; 
 		
 	@Column(name="DESCRIPTION")
-	String description;
-		
-	@OneToMany(mappedBy = "menuGroup", cascade = CascadeType.ALL, orphanRemoval = true)          
-    List<Menu> menuList = new ArrayList<Menu>();
+	String description;		
 			
 	@Builder
 	public MenuGroup(String organizationCode, String code, String name, String description) {	
@@ -68,18 +61,6 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 							,String description) {
 		this.name = menuGroupName;
 		this.description = description;
-	}
-	
-	public void setMenuList(List<Menu> menuList) {
-		this.menuList = menuList;
-	}
-	
-	public void addMenu(Menu menu) {
-		this.menuList.add(menu);
-	}
-	
-	public void deleteMenu(Menu menu) {
-		this.menuList.remove(menu);
 	}
 	
 }

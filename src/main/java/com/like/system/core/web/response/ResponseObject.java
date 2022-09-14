@@ -1,7 +1,5 @@
 package com.like.system.core.web.response;
 
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 @Data
@@ -13,13 +11,13 @@ public class ResponseObject<T> {
 	
 	String message;
 	
-	Timestamp timestamp;
+	//Timestamp timestamp;
 	
-	String status;
+	//String status;
 	
-	String error;
+	//String error;
 	
-	String path;
+	//String path;
 	
 	public ResponseObject(T data, int total, String message) {
 		this.data = data;

@@ -3,9 +3,12 @@ package com.like.system.login.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.like.system.core.dto.HtmlSelectOptionRecord;
+import com.like.system.core.web.util.WebRequestUtil;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.Builder;
@@ -16,12 +19,13 @@ public class AuthenticationToken implements Serializable {
 		
 	private static final long serialVersionUID = 7987811233360490990L;
 	
-	private String userId;
-	private String userName;
 	private String organizationCode;
+	private String userId;
+	private String userName;	
 	private String staffNo;
 	private String email;
 	private String imageUrl;
+	private String ipAddress;
 	private String token;
 	private String oAuthAccessToken;
 	private List<String> authorityList;
@@ -29,38 +33,44 @@ public class AuthenticationToken implements Serializable {
     
        
     @Builder
-    public AuthenticationToken(String userId
-    						  ,String userName
-    						  ,String organizationCode
+    public AuthenticationToken(String organizationCode
+    						  ,String userId
+    						  ,String userName    						  
     						  ,String staffNo 
-    						  ,String imageUrl
     						  ,String email
+    						  ,String imageUrl
+    						  ,String ipAddress
     						  ,String token
     						  ,String oAuthAccessToken
     						  ,List<String> authorityList
     						  ,List<HtmlSelectOptionRecord> menuGroupList) {
+    	
+    	this.organizationCode = organizationCode;
     	this.userId = userId;
-    	this.organizationCode = organizationCode;    	
-    	this.staffNo = staffNo;
-        this.userName = userName;
-        this.imageUrl = imageUrl;
-        this.email = email;
+    	this.userName = userName;    	
+    	this.staffNo = staffNo;        
+    	this.email = email;
+    	this.imageUrl = imageUrl;
+    	this.ipAddress = ipAddress;
         this.token = token;
         this.oAuthAccessToken = oAuthAccessToken;
         this.authorityList = authorityList;
         this.menuGroupList = menuGroupList;        
     }     
     
-    public static AuthenticationToken of(SystemUser user, String sessionId) {
+    public static AuthenticationToken of(SystemUser user, HttpServletRequest request) {
+    	String ipAddress = request == null ? "TEST" : WebRequestUtil.getIpAddress(request);
+    	    	
     	return AuthenticationToken
 				.builder()
-				.userId(user.getUsername())
-				.userName(user.getName())
 				.organizationCode(user.getOrganizationCode())
+				.userId(user.getUsername())
+				.userName(user.getName())				
 				.staffNo(user.getStaffNo())
-				.imageUrl(user.getImage())
 				.email(user.getEmail())
-				.token(sessionId)
+				.imageUrl(user.getImage())
+				.ipAddress(ipAddress)
+				.token(request.getSession().getId())
 				.authorityList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
 				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getName(), e.getId())).toList())
 				.build();

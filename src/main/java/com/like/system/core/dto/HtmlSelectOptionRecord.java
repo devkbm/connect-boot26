@@ -1,5 +1,6 @@
 package com.like.system.core.dto;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Html Select Tag 내 Option Tag에 사용될 Record <br>
  * 
  */
-public record HtmlSelectOptionRecord(String label, String value) {
+public record HtmlSelectOptionRecord(String label, String value) implements Serializable {
 	
 	/**
 	 * 사용 예제 <br>
