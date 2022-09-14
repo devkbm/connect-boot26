@@ -38,37 +38,37 @@ public class TermDTO {
 	}
 	
 	public record FormTerm(
+			String organizationCode,
 			String clientAppUrl,
-			Long pkTerm,
-			@NotEmpty(message = "도메인은 필수 입력 값입니다.")
-			String domain,
+			Long termId,
+			String system,
 			@NotEmpty(message = "용어는 필수 입력 값입니다.")
 			String term,
-			String nameKor,
-			String abbreviationKor,
-			String nameEng,
-			String abbreviationEng,
+			String termEng,
+			String physicalName,
 			String description,
 			String comment
 			) {
 		
 		public TermDictionary newEntity() {
-			return null; /* TermDictionary.builder()
-								 .domain(domain)
-								 .term(term)								 
-								 .nameEng(nameEng)
-								 .abbreviationEng(abbreviationEng)
+			return TermDictionary.builder()
+								 .system(system)
+								 .term(term)
+								 .termEng(termEng)
+								 .physicalName(physicalName)
+								 //.dataDomain(dataDomain)
 								 .description(description)
 								 .comment(comment)
-								 .build();
-								 */
+								 .build();					
 		}
 		
 		public void modifyEntity(TermDictionary entity) {
+			/*
 			entity.modifyEntity(nameEng
 					           ,abbreviationEng
 					           ,description
 					           ,comment);
+					           */
 			
 		}
 		

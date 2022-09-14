@@ -63,9 +63,14 @@ public class TermDictionary extends AbstractAuditEntity {
 	DataDomainDictionary dataDomain;
 	
 	@Builder
-	public TermDictionary(String system, String term, String termEng,
-			String physicalName, DataDomainDictionary dataDomain, String description, String comment) {
-		this.id = system + "_" + term;
+	public TermDictionary(String system
+						 ,String term
+						 ,String termEng
+						 ,String physicalName
+						 ,DataDomainDictionary dataDomain
+						 ,String description
+						 ,String comment) {
+		this.id = system + "_" + term;		
 		this.system = system;
 		this.term = term;		
 		this.termEng = termEng;
@@ -106,10 +111,12 @@ public class TermDictionary extends AbstractAuditEntity {
 	
 	public void modifyEntity(String nameEng
 							,String physicalName
+							,DataDomainDictionary dataDomain
 							,String description
 							,String comment) {			
 		this.termEng = nameEng;
 		this.physicalName = physicalName;
+		this.dataDomain = dataDomain;
 		this.description = description;
 		this.comment = comment;
 	}
