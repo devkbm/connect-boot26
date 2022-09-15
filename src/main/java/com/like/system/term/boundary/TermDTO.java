@@ -40,12 +40,12 @@ public class TermDTO {
 	public record FormTerm(
 			String organizationCode,
 			String clientAppUrl,
-			Long termId,
+			String termId,
 			String system,
 			@NotEmpty(message = "용어는 필수 입력 값입니다.")
 			String term,
 			String termEng,
-			String physicalName,
+			String columnName,
 			String description,
 			String comment
 			) {
@@ -55,7 +55,7 @@ public class TermDTO {
 								 .system(system)
 								 .term(term)
 								 .termEng(termEng)
-								 .physicalName(physicalName)
+								 .columnName(columnName)
 								 //.dataDomain(dataDomain)
 								 .description(description)
 								 .comment(comment)

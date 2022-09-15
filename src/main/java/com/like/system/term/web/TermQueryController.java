@@ -22,7 +22,7 @@ public class TermQueryController {
 		this.service = service;
 	}
 	
-	@GetMapping("/api/common/terms")
+	@GetMapping("/api/system/terms")
 	public ResponseEntity<?> getTermList(TermDTO.Search contidion) {
 				
 		List<TermDictionary> list = service.getTermList(contidion); 							

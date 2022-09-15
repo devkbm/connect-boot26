@@ -19,8 +19,8 @@ public class TermService {
     	this.repository = repository;
     }
     
-	public TermDictionary getTerm(String pkTerm) {
-		return repository.findById(pkTerm).orElse(null);
+	public TermDictionary getTerm(String termId) {
+		return repository.findById(termId).orElse(null);
 	}
 	
 	public List<TermDictionary> getTermList() {
@@ -32,10 +32,8 @@ public class TermService {
 	}
 	
 	public void saveTerm(TermDTO.FormTerm dto) {
-		TermDictionary entity = null;
-		
-		if (dto.pkTerm() != null) entity = null; //repository.findById(dto.getPkTerm()).orElse(null); 
-									
+		TermDictionary entity = dto.termId() == null ? null : repository.findById(dto.termId()).orElse(null); 
+												
 		if (entity == null) {
 			entity = dto.newEntity();
 		} else {			
@@ -45,8 +43,8 @@ public class TermService {
 		repository.save(entity);
 	}	
 	
-	public void deleteTerm(String pkTerm) {
-		repository.deleteById(pkTerm);		
+	public void deleteTerm(String termId) {
+		repository.deleteById(termId);		
 	}	
 		
 }

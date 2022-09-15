@@ -27,7 +27,7 @@ public class TermController {
 		this.termService = termService;
 	}
 		
-	@GetMapping("/api/common/terms/{id}")
+	@GetMapping("/api/system/terms/{id}")
 	public ResponseEntity<?> getTerm(@PathVariable String id) {
 		
 		TermDictionary term = termService.getTerm(id);								
@@ -35,7 +35,7 @@ public class TermController {
 		return toOne(term, MessageUtil.getQueryMessage(term == null ? 0 : 1));
 	}			
 		
-	@PostMapping("/api/common/terms")
+	@PostMapping("/api/system/terms")
 	public ResponseEntity<?> saveTerm(@Valid @RequestBody TermDTO.FormTerm dto) {
 														
 		termService.saveTerm(dto);										
@@ -44,7 +44,7 @@ public class TermController {
 	
 	}
 					
-	@DeleteMapping("/api/common/terms/{id}")
+	@DeleteMapping("/api/system/terms/{id}")
 	public ResponseEntity<?> delTerm(@PathVariable String id) {
 								
 		termService.deleteTerm(id);										

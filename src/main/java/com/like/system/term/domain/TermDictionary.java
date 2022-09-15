@@ -49,8 +49,11 @@ public class TermDictionary extends AbstractAuditEntity {
 	@Column(name="TERM_ENG")
 	String termEng;
 		
-	@Column(name="PHYSICAL_NAME")
-	String physicalName;
+	@Column(name="COMBI_YN")
+	Boolean isCombiningWords;
+	
+	@Column(name="COLUMN_NAME")
+	String columnName;
 	
 	@Column(name="DESCRIPTION")
 	String description;	
@@ -66,7 +69,7 @@ public class TermDictionary extends AbstractAuditEntity {
 	public TermDictionary(String system
 						 ,String term
 						 ,String termEng
-						 ,String physicalName
+						 ,String columnName
 						 ,DataDomainDictionary dataDomain
 						 ,String description
 						 ,String comment) {
@@ -75,21 +78,24 @@ public class TermDictionary extends AbstractAuditEntity {
 		this.term = term;		
 		this.termEng = termEng;
 		this.dataDomain = dataDomain; 
-		this.physicalName = physicalName;
+		this.columnName = columnName;
 		this.description = description;
 		this.comment = comment;
 	}	
 	
-	public static TermDictionary of(String system, WordDictionary word, DataDomainDictionary dataDomain, String description, String comment) {	
-		return TermDictionary.builder()
-							 .system(system)
-							 .term(word.getLogicalName())
-							 .termEng(word.getLogicalNameEng())
-							 .dataDomain(dataDomain)
-							 .physicalName(word.getPhysicalName())
-							 .description(description)
-							 .comment(comment)
-							 .build();
+	public static TermDictionary of(String system, WordDictionary word, DataDomainDictionary dataDomain, String description, String comment) {
+		
+		TermDictionary term = TermDictionary.builder()
+											.system(system)
+											.term(word.getLogicalName())
+											.termEng(word.getLogicalNameEng())
+											.columnName(word.getPhysicalName())
+											.dataDomain(dataDomain)							 
+											.description(description)
+											.comment(comment)
+											.build(); 
+		
+		return term;
 	}
 	
 	public static TermDictionary of(String system, List<WordDictionary> wordList, DataDomainDictionary dataDomain, String description, String comment) {
@@ -97,15 +103,19 @@ public class TermDictionary extends AbstractAuditEntity {
 		String logicalNameEng = String.join("_", wordList.stream().map(e -> e.getLogicalNameEng()).toList());
 		String physicalName = String.join("_", wordList.stream().map(e -> e.getPhysicalName()).toList());					
 		
-		return TermDictionary.builder()
-							 .system(system)
-							 .term(logicalName)
-							 .termEng(logicalNameEng)
-							 .dataDomain(dataDomain)
-							 .physicalName(physicalName)
-							 .description(description)
-							 .comment(comment)
-							 .build();
+		TermDictionary term = TermDictionary.builder()
+											.system(system)
+											.term(logicalName)
+											.termEng(logicalNameEng)
+											.dataDomain(dataDomain)
+											.columnName(physicalName)
+											.description(description)
+											.comment(comment)
+											.build();;
+					
+		term.isCombiningWords = true;
+		
+		return term;
 	}
 	
 	
@@ -115,7 +125,7 @@ public class TermDictionary extends AbstractAuditEntity {
 							,String description
 							,String comment) {			
 		this.termEng = nameEng;
-		this.physicalName = physicalName;
+		this.columnName = physicalName;
 		this.dataDomain = dataDomain;
 		this.description = description;
 		this.comment = comment;
