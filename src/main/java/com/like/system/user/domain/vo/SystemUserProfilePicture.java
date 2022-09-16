@@ -31,22 +31,22 @@ public class SystemUserProfilePicture implements Serializable {
 		this.repository = repository;				
 	}	
 		
-	public String changeImage(ProfilePictureRepository localFileRepository, MultipartFile sourceFile) {
+	public String changeImage(ProfilePictureRepository repository, MultipartFile sourceFile) {
 					
 		if (this.image != null) {
-			deleteExistingImage(localFileRepository, this.image);
+			deleteExistingImage(repository, this.image);
 		}
 					
-		this.image = uploadIamge(localFileRepository, sourceFile);
+		this.image = uploadIamge(repository, sourceFile);
 		
 		return this.image;
 	}
 	
-	private void deleteExistingImage(ProfilePictureRepository localFileRepository, String fileName) {		
-		localFileRepository.delete(fileName);		
+	private void deleteExistingImage(ProfilePictureRepository repository, String fileName) {		
+		repository.delete(fileName);		
 	}
 	
-	private String uploadIamge(ProfilePictureRepository localFileRepository, MultipartFile sourceFile) {		
-		return localFileRepository.upload(sourceFile);
+	private String uploadIamge(ProfilePictureRepository repository, MultipartFile sourceFile) {		
+		return repository.upload(sourceFile);
 	}
 }

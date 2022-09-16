@@ -159,22 +159,26 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return accountSpec.getIsAccountNonExpired();
+		return true;
+		//return accountSpec.getIsAccountNonExpired();
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return accountSpec.getIsAccountNonLocked();
+		return true;
+		//return accountSpec.getIsAccountNonLocked();
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return accountSpec.getIsCredentialsNonExpired();
+		return true;
+		//return accountSpec.getIsCredentialsNonExpired();
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return accountSpec.getIsEnabled();
+		return true;
+		//return accountSpec.getIsEnabled();
 	}			
 	
 	public boolean isVaild(String password) {

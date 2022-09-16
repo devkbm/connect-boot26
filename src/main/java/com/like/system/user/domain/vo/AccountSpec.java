@@ -19,25 +19,25 @@ public class AccountSpec implements Serializable {
 	/**
 	 * 계정의 만료여부 : true (만료 안됨)
 	 */
-	@Column(name="non_expired_yn")
+	@Column(name="NON_EXPIRED_YN")
 	Boolean isAccountNonExpired = true;
 		
 	/**
 	 * 계정의 잠김 여부 : true (잠기지 않음)
 	 */
-	@Column(name="non_locked_yn")
+	@Column(name="NON_LOCKED_YN")
 	Boolean isAccountNonLocked = true;
 		
 	/**
 	 * 비밀번호 만료 여부 : true (만료 안됨)
 	 */
-	@Column(name="pass_non_expired_yn")
+	@Column(name="PASS_NON_EXPIRED_YN")
 	Boolean isCredentialsNonExpired = true;
 		
 	/**
 	 * 계정의 활성화 여부 : true (활성화)
 	 */
-	@Column(name="enabled_yn")
+	@Column(name="ENABLED_YN")
 	Boolean isEnabled = true;
 	
 	public AccountSpec(Boolean isAccountNonExpired
