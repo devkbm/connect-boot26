@@ -22,7 +22,7 @@ public class AuthorityQueryController {
 		this.service = service;				
 	}
 	
-	@GetMapping("/api/common/authority")
+	@GetMapping("/api/system/authority")
 	public ResponseEntity<?> getAuthorityList(AuthorityDTO.SearchAuthority dto) {				
 		
 		List<Authority> authorityList = service.getAuthorityList(dto);								 							

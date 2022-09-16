@@ -32,7 +32,7 @@ public class MenuQueryController {
 		this.menuQueryService = menuQueryService;		
 	}
 	
-	@GetMapping("/api/common/menutest/{menuGroupId}")
+	@GetMapping("/api/system/menutest/{menuGroupId}")
 	public ResponseEntity<?> getMenuGroupHierachyTest(@PathVariable String menuGroupId) {				
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 							
@@ -40,7 +40,7 @@ public class MenuQueryController {
 		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}
 	
-	@GetMapping("/api/common/menuhierarchy/{menuGroupId}")
+	@GetMapping("/api/system/menuhierarchy/{menuGroupId}")
 	public ResponseEntity<?> getMenuGroupHierachy(@PathVariable String menuGroupId) {				
 		
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 										
@@ -48,7 +48,7 @@ public class MenuQueryController {
 		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}
 	
-	@GetMapping("/api/common/menugroup")
+	@GetMapping("/api/system/menugroup")
 	public ResponseEntity<?> getMenuGroupList(MenuGroupDTO.Search dto) {				
 		
 		List<MenuGroup> list = menuQueryService.getMenuGroupList(dto); 							
@@ -60,7 +60,7 @@ public class MenuQueryController {
 		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
-	@GetMapping("/api/common/menu")
+	@GetMapping("/api/system/menu")
 	public ResponseEntity<?> getMenuList(@Valid MenuDTO.Search dto) {				
 		
 		List<Menu> list = menuQueryService.getMenuList(dto);			
@@ -72,7 +72,7 @@ public class MenuQueryController {
 		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
-	@GetMapping("/api/common/menu/menutype")
+	@GetMapping("/api/system/menu/menutype")
 	public ResponseEntity<?> getMenuTypeList() {				
 		
 		List<HtmlSelectOptionRecord> list = new ArrayList<HtmlSelectOptionRecord>();

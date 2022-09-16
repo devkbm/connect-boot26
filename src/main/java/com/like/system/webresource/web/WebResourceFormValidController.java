@@ -19,7 +19,7 @@ public class WebResourceFormValidController {
 		this.service = service;
 	}
 	
-	@GetMapping("/api/common/webresource/{code}/check")
+	@GetMapping("/api/system/webresource/{code}/check")
 	public ResponseEntity<?> getResource(@PathVariable(value="code") String code) {						
 		WebResource resource = service.getResource(code); 							
 		Boolean isValid = resource == null ? true : false;

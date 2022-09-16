@@ -25,7 +25,7 @@ public class AuthorityController {
 		this.service = service;
 	}		
 	
-	@GetMapping("/api/common/authority/{authorityId}")
+	@GetMapping("/api/system/authority/{authorityId}")
 	public ResponseEntity<?> getAuthority(@PathVariable String authorityId) {			
 		
 		Authority authority = service.getAuthority(authorityId);										
@@ -33,7 +33,7 @@ public class AuthorityController {
 		return toOne(authority, MessageUtil.getQueryMessage(authority == null ? 0 : 1));
 	}
 		
-	@PostMapping("/api/common/authority")
+	@PostMapping("/api/system/authority")
 	public ResponseEntity<?> saveAuthority(@RequestBody AuthorityDTO.FormAuthority dto) {			
 		
 		service.createAuthority(dto);					
@@ -41,7 +41,7 @@ public class AuthorityController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}	
 	
-	@DeleteMapping("/api/common/authority/{authorityId}")
+	@DeleteMapping("/api/system/authority/{authorityId}")
 	public ResponseEntity<?> deleteAuthority(@PathVariable String authorityId) {
 		
 		service.deleteAuthority(authorityId);					

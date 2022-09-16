@@ -63,7 +63,7 @@ public class P6spyPrettySqlFormatter implements MessageFormattingStrategy {
         StringBuffer sb = new StringBuffer();
         int order = 1;
         while (callStack.size() != 0) {
-            sb.append("\n\t\t" + (order++) + "." + callStack.pop());
+            sb.append("\n\t\t" + (order++) + " " + callStack.pop());
         }
 
         return new StringBuffer().append("\n\n\tConnection ID:").append(connectionId)

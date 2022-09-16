@@ -62,7 +62,7 @@ public class TermDictionaryRepositoryTest {
 				assertThat(entity.getId()).isEqualTo("HRM_직원_번호").as("용어사전ID는 시스템_복합단어(단어_단어)로 구성된다.");
 				assertThat(entity.getTerm()).isEqualTo("직원_번호");
 				assertThat(entity.getTermEng()).isEqualTo("STAFF_NUMBER");
-				assertThat(entity.getPhysicalName()).isEqualTo("STF_NO");
+				assertThat(entity.getColumnName()).isEqualTo("STF_NO");
 			}
 			
 			List<WordDictionary> createWordDictionaryList() {
@@ -85,7 +85,7 @@ public class TermDictionaryRepositoryTest {
 				assertThat(entity.getId()).isEqualTo("HRM_직원");
 				assertThat(entity.getTerm()).isEqualTo("직원");
 				assertThat(entity.getTermEng()).isEqualTo("STAFF");
-				assertThat(entity.getPhysicalName()).isEqualTo("STF");
+				assertThat(entity.getColumnName()).isEqualTo("STF");
 			}
 		}
 	}

@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private RestLoginFailureHandler authFailureHandler;
 	
-	private static final String[] CSRF_IGNORE = {"/common/user/login","/static/**"};
+	private static final String[] CSRF_IGNORE = {"/api/system/user/login","/static/**"};
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -94,7 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()			
 			.authorizeRequests()
 			.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()				
-				.antMatchers("/common/user/login").permitAll()								
+				.antMatchers("/api/system/user/login").permitAll()			// 로그인 API								
 				.antMatchers("/oauth/user").permitAll()
 				.antMatchers("/oauth2/authorization/**").permitAll()				
 				.antMatchers("/ex").permitAll()

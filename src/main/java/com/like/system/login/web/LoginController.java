@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.util.SessionUtil;
-import com.like.system.core.web.util.WebRequestUtil;
 import com.like.system.login.boundary.LoginRequestDTO;
 import com.like.system.login.domain.AuthenticationToken;
 import com.like.system.login.service.LoginService;
@@ -30,22 +29,22 @@ public class LoginController {
 		this.service = service;
 	}
 		 
-	@PostMapping("/common/user/login")
-	public AuthenticationToken login(@RequestBody @Valid LoginRequestDTO dto, HttpSession session, HttpServletRequest request) {			
+	@PostMapping("/api/system/user/login")
+	public AuthenticationToken login(@RequestBody @Valid LoginRequestDTO dto, HttpServletRequest request) {			
 						         		 							                   
-		String ipAddress = WebRequestUtil.getIpAddress(request);
-		System.out.println("접속 IP주소: " + ipAddress);
+		//String ipAddress = WebRequestUtil.getIpAddress(request);
+		//System.out.println("접속 IP주소: " + ipAddress);
 		
 		return service.login(dto, request);
 	}	
 	
-	@GetMapping("/api/user/auth")
+	@GetMapping("/api/system/user/auth")
 	public AuthenticationToken get(HttpServletRequest request) {
 		return service.getAuthenticationToken(SessionUtil.getUserId(), request);
 	}			     
     
 	@Transactional
-	@GetMapping("/api/user/session")
+	@GetMapping("/api/system/user/session")
 	public String getSession(HttpSession session) {
 		/*
 		session.getAttributeNames().asIterator()

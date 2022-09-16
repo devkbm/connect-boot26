@@ -87,7 +87,7 @@ public class WebSecurityConfigLocalTest<S extends Session> extends WebSecurityCo
 	@Autowired
 	private RestLoginFailureHandler authFailureHandler;
 	
-	private static final String[] CSRF_IGNORE = {"/common/user/login","/static/**","/h2-console/**"};
+	private static final String[] CSRF_IGNORE = {"/api/system/user/login","/static/**","/h2-console/**"};
 	
 	@Autowired
 	private FindByIndexNameSessionRepository<S> sessionRepository;
@@ -108,8 +108,8 @@ public class WebSecurityConfigLocalTest<S extends Session> extends WebSecurityCo
 			.sessionManagement((s) -> s.maximumSessions(1).sessionRegistry(sessionRegistry()))/*.sessionCreationPolicy(SessionCreationPolicy.NEVER).and()*/			
 			.authorizeRequests()			
 			.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-				.antMatchers("/h2-console/**").permitAll()
-				.antMatchers("/common/user/login").permitAll()								
+				.antMatchers("/api/system/user/login").permitAll()			// 로그인 api
+				.antMatchers("/h2-console/**").permitAll()											
 				.antMatchers("/oauth/user").permitAll()
 				.antMatchers("/oauth2/authorization/**").permitAll()				
 				.antMatchers("/ex").permitAll()

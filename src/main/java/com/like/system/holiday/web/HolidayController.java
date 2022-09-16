@@ -27,7 +27,7 @@ public class HolidayController {
 		this.holidayService = holidayService;			
 	}		
 	
-	@GetMapping("/api/common/holiday/{orgcd}/{id}")
+	@GetMapping("/api/system/holiday/{orgcd}/{id}")
 	public ResponseEntity<?> getHoliday(@PathVariable String orgcd,
 			                            @PathVariable @DateTimeFormat(pattern="yyyyMMdd") LocalDate id) {
 		
@@ -36,7 +36,7 @@ public class HolidayController {
 		return toOne(entity, MessageUtil.getQueryMessage(entity == null ? 0 : 1));
 	}
 		
-	@PostMapping("/api/common/holiday")
+	@PostMapping("/api/system/holiday")
 	public ResponseEntity<?> saveHoliday(@RequestBody Holiday dto) {							
 																	
 		holidayService.saveHoliday(dto);						
@@ -44,7 +44,7 @@ public class HolidayController {
 		return toList(null,MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/api/common/holiday/{orgcd}/{id}")
+	@DeleteMapping("/api/system/holiday/{orgcd}/{id}")
 	public ResponseEntity<?> delHoliday(@PathVariable String orgcd,
 			                            @PathVariable @DateTimeFormat(pattern="yyyyMMdd") LocalDate id) {						
 												

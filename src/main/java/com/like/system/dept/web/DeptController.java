@@ -29,7 +29,7 @@ public class DeptController {
 		this.deptService = deptService;		
 	}
 		
-	@GetMapping("/api/common/dept/{deptCode}")
+	@GetMapping("/api/system/dept/{deptCode}")
 	public ResponseEntity<?> getDept(@PathVariable String deptCode, @RequestParam String organizationCode) {
 							
 		Dept dept = deptService.getDept(organizationCode + deptCode);  	
@@ -39,7 +39,7 @@ public class DeptController {
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
-	@PostMapping("/api/common/dept")
+	@PostMapping("/api/system/dept")
 	public ResponseEntity<?> saveDept(@Valid @RequestBody DeptDTO.FormDept dto) {			
 																
 		deptService.saveDept(dto);		
@@ -47,7 +47,7 @@ public class DeptController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}		
 	
-	@DeleteMapping("/api/common/dept/{deptCode}")
+	@DeleteMapping("/api/system/dept/{deptCode}")
 	public ResponseEntity<?> deleteDept(@PathVariable String deptCode) {				
 												
 		deptService.deleteDept(deptCode);							

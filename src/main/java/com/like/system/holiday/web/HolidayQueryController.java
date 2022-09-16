@@ -24,7 +24,7 @@ public class HolidayQueryController {
 		this.holidayUtilService = holidayUtilService;
 	}
 		
-	@GetMapping("/api/common/holiday")
+	@GetMapping("/api/system/holiday")
 	public ResponseEntity<?> getHolidayList(@RequestParam String orgcd
 			                               ,@RequestParam @DateTimeFormat(pattern="yyyyMMdd") LocalDate fromDate
 										   ,@RequestParam @DateTimeFormat(pattern="yyyyMMdd") LocalDate toDate) {

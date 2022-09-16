@@ -27,7 +27,7 @@ public class WebResourceController {
 		this.service = menuCommandService;		
 	}
 	
-	@GetMapping("/api/common/webresource/{code}")
+	@GetMapping("/api/system/webresource/{code}")
 	public ResponseEntity<?> getResource(@PathVariable String code) {				
 		
 		WebResource resource = service.getResource(code); 							
@@ -37,7 +37,7 @@ public class WebResourceController {
 		return toOne(dto, String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
 	}
 		
-	@PostMapping("/api/common/webresource")
+	@PostMapping("/api/system/webresource")
 	public ResponseEntity<?> saveResource(@RequestBody @Valid WebResourceDTO.FormWebResource dto) throws Exception {
 																												
 		service.saveWebResource(dto);																						
@@ -45,7 +45,7 @@ public class WebResourceController {
 		return toList(null, String.format("%d 건 저장되었습니다.", 1));
 	}
 	
-	@DeleteMapping("/api/common/webresource/{code}")
+	@DeleteMapping("/api/system/webresource/{code}")
 	public ResponseEntity<?> delResource(@PathVariable String code) {				
 												
 		service.deleteWebResource(code);							

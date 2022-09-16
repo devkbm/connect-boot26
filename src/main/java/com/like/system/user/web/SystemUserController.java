@@ -33,7 +33,7 @@ public class SystemUserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/api/common/user/my-profile")
+	@GetMapping("/api/system/user/my-profile")
 	public ResponseEntity<?> getUserProfile(@RequestParam String organizationCode) throws FileNotFoundException, IOException {
 														
 		SystemUser user = userService.getUser(SessionUtil.getUserId());				
@@ -43,7 +43,7 @@ public class SystemUserController {
 		return toOne(dto, MessageUtil.getQueryMessage(1));
 	}
 	
-	@GetMapping("/api/common/user/{userId}")
+	@GetMapping("/api/system/user/{userId}")
 	public ResponseEntity<?> getUser(@PathVariable String userId) throws FileNotFoundException, IOException {
 						
 		SystemUser user = userService.getUser(userId);				
@@ -53,7 +53,7 @@ public class SystemUserController {
 		return toOne(dto, MessageUtil.getQueryMessage(1));
 	}		
 	
-	@PostMapping("/api/common/user")	
+	@PostMapping("/api/system/user")	
 	public ResponseEntity<?> saveUser(@Valid @RequestBody SystemUserDTO.FormSystemUser dto) {			
 											
 		userService.saveUser(dto);					
@@ -61,7 +61,7 @@ public class SystemUserController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}	
 	
-	@DeleteMapping("/api/common/user/{userId}")
+	@DeleteMapping("/api/system/user/{userId}")
 	public ResponseEntity<?> deleteUser(@PathVariable String userId) {
 										
 		userService.deleteUser(userId);															
@@ -69,7 +69,7 @@ public class SystemUserController {
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 		
-	@PostMapping("/api/common/user/{id}/changepassword")
+	@PostMapping("/api/system/user/{id}/changepassword")
 	public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDTO dto) {				
 						
 		userService.changePassword(dto.userId(), dto.beforePassword(), dto.afterPassword());													
@@ -77,7 +77,7 @@ public class SystemUserController {
 		return toList(null, "비밀번호가 변경되었습니다.");
 	}
 			
-	@PostMapping("/api/common/user/{userId}/initpassword")
+	@PostMapping("/api/system/user/{userId}/initpassword")
 	public ResponseEntity<?> initializePassword(@PathVariable String userId) {			
 				
 		userService.initPassword(userId);														

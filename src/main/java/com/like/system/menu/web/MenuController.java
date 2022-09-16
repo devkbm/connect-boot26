@@ -30,7 +30,7 @@ public class MenuController {
 		this.menuCommandService = menuCommandService;		
 	}
 			
-	@GetMapping("/api/common/menugroup/{menuGroupId}")
+	@GetMapping("/api/system/menugroup/{menuGroupId}")
 	public ResponseEntity<?> getMenuGroup(@PathVariable String menuGroupId) {				
 		
 		MenuGroup menuGroup = menuCommandService.getMenuGroup(menuGroupId);
@@ -40,7 +40,7 @@ public class MenuController {
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}		
 		
-	@PostMapping("/api/common/menugroup/{id}")
+	@PostMapping("/api/system/menugroup/{id}")
 	public ResponseEntity<?> saveMenuGroup(@Valid @RequestBody MenuGroupDTO.FormMenuGroup dto) {							
 																			
 		menuCommandService.saveMenuGroup(dto);			
@@ -48,7 +48,7 @@ public class MenuController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 		
-	@DeleteMapping("/api/common/menugroup/{menuGroupId}")
+	@DeleteMapping("/api/system/menugroup/{menuGroupId}")
 	public ResponseEntity<?> delCodeGroup(@PathVariable String menuGroupId) {				
 												
 		menuCommandService.deleteMenuGroup(menuGroupId);							

@@ -35,7 +35,7 @@ public class FileController {
 		this.fileService = fileService;
 	}
 		
-	@GetMapping("/common/file/{id}")
+	@GetMapping("/api/system/file/{id}")
 	public HttpServletResponse fileDownLoad(HttpServletResponse response
 										   ,@PathVariable String id) throws Exception {
 								
@@ -48,7 +48,7 @@ public class FileController {
 		return response;
 	}
 		
-	@GetMapping("/common/fileimage/{id}")
+	@GetMapping("/api/system/fileimage/{id}")
 	public HttpServletResponse fileImageDownLoad(HttpServletResponse response
 												,@PathVariable String id) throws Exception {
 								
@@ -64,7 +64,7 @@ public class FileController {
 		return response;
 	}
 		
-	@PostMapping("/common/file")
+	@PostMapping("/api/system/file")
 	public ResponseEntity<?> fileUpload(final MultipartHttpServletRequest request
 									   ,@RequestParam(value="appUrl", required=false) String appUrl ) throws Exception {
 						
@@ -99,7 +99,7 @@ public class FileController {
 	}
 	
 	
-	@PostMapping("/common/file2")
+	@PostMapping("/api/system/file2")
 	public void handleFileUpload(@RequestParam("file") MultipartFile file) throws Exception {
 
 		fileService.uploadFile(file, "kbm", "test");

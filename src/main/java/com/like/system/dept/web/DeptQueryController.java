@@ -25,7 +25,7 @@ public class DeptQueryController {
 		this.service = service;
 	}
 	
-	@GetMapping("/api/common/depttree")
+	@GetMapping("/api/system/depttree")
 	public ResponseEntity<?> getDeptHierarchyList(@ModelAttribute @Valid DeptDTO.Search searchCondition) {
 							
 		List<ResponseDeptHierarchy> list = service.getDeptHierarchyList(searchCondition.organizationCode());  						 						
@@ -33,7 +33,7 @@ public class DeptQueryController {
 		return toList(list, String.format("%d 건 조회되었습니다.", list.size()));
 	}
 	
-	@GetMapping("/api/common/dept")
+	@GetMapping("/api/system/dept")
 	public ResponseEntity<?> getDeptList(@ModelAttribute DeptDTO.Search searchCondition) {
 							
 		List<Dept> list = service.getDeptList(searchCondition);  						 						

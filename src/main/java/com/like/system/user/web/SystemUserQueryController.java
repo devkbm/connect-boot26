@@ -24,7 +24,7 @@ public class SystemUserQueryController {
 		this.service = service;
 	}
 		
-	@GetMapping("/api/common/user")
+	@GetMapping("/api/system/user")
 	public ResponseEntity<?> getUserList(SystemUserDTO.Search condition) throws FileNotFoundException, IOException {
 				
 		List<SystemUser> userList = service.getUserList(condition);						

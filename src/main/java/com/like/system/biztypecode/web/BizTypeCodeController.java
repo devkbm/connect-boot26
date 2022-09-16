@@ -26,7 +26,7 @@ public class BizTypeCodeController {
 		this.service = service;
 	}
 	
-	@GetMapping("/api/common/biztype/{id}")
+	@GetMapping("/api/system/biztype/{id}")
 	public ResponseEntity<?> getBizTypeCode(@PathVariable String id) {
 		
 		BizTypeCodeDTO.FormBizTypeCode dto = BizTypeCodeDTO.FormBizTypeCode.convert(service.getBizTypeCode(id));
@@ -34,7 +34,7 @@ public class BizTypeCodeController {
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
-	@PostMapping("/api/common/biztype")	
+	@PostMapping("/api/system/biztype")	
 	public ResponseEntity<?> saveHrmType(@RequestBody BizTypeCodeDTO.FormBizTypeCode dto) {				
 																			
 		service.saveBizTypeCode(dto);						
@@ -43,7 +43,7 @@ public class BizTypeCodeController {
 	}
 	
 		
-	@DeleteMapping("/api/common/biztype/{id}")
+	@DeleteMapping("/api/system/biztype/{id}")
 	public ResponseEntity<?> deleteHrmType(@PathVariable String id) {				
 																		
 		service.deleteBizTypeCode(id);						
@@ -60,7 +60,7 @@ public class BizTypeCodeController {
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
-	@PostMapping("/api/common/biztype/bizdetail")	
+	@PostMapping("/api/system/biztype/bizdetail")	
 	public ResponseEntity<?> saveBizDetailCode(@RequestBody BizDetailCodeDTO.FormBizDetailCode dto) {				
 																		
 		service.saveBizDetailCode(dto);						
@@ -68,7 +68,7 @@ public class BizTypeCodeController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}	
 		
-	@DeleteMapping("/api/common/biztype/{typeCode}/bizdetail/{detailCode}")
+	@DeleteMapping("/api/system/biztype/{typeCode}/bizdetail/{detailCode}")
 	public ResponseEntity<?> deleteBizDetailCode(@PathVariable String typeCode
 			 									,@PathVariable String detailCode) {				
 																		

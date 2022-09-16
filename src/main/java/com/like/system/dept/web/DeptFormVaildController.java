@@ -18,7 +18,7 @@ public class DeptFormVaildController {
 		this.deptService = deptService;		
 	}
 	
-	@GetMapping("/api/common/dept/{id}/valid")
+	@GetMapping("/api/system/dept/{id}/valid")
 	public ResponseEntity<?> getValidateDeptDuplication(@PathVariable String id) {
 							
 		Boolean exist = deptService.isDept(id);  	

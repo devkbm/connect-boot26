@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.mockito.BDDMockito.given;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.http.client.MockClientHttpRequest;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.test.web.servlet.ResultActions;
@@ -36,13 +40,14 @@ class SystemLoginTest extends SpringMockMvcTestSupport {
 	@Test
 	void login() throws Exception {					
 		MockHttpSession session = new MockHttpSession();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		
 		AuthenticationToken testToken = AuthenticationToken.builder()
 														   .userId("1")
 														   .userName("test")
 														   .build();
 		
-		given(this.service.login(new LoginRequestDTO("001", "1", "1234"), session)).willReturn(testToken);
+		given(this.service.login(new LoginRequestDTO("001", "1", "1234"), request)).willReturn(testToken);
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>(); 
 		params.add("username", "1"); 
@@ -59,7 +64,7 @@ class SystemLoginTest extends SpringMockMvcTestSupport {
 		
 		
 		ResultActions result = this.mockMvc.perform(
-				post("/common/user/login")					
+				post("/api/system/user/login")					
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(param))
 				

@@ -27,7 +27,7 @@ public class CommonCodeQueryController {
 		this.service = service;
 	}
 	
-	@GetMapping("/api/common/code/systemtype")
+	@GetMapping("/api/system/code/systemtype")
 	public ResponseEntity<?> getWebResourceTypeList() {				
 		
 		List<HtmlSelectOptionRecord> list = new ArrayList<HtmlSelectOptionRecord>();
@@ -39,7 +39,7 @@ public class CommonCodeQueryController {
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
-	@GetMapping("/api/common/codetree") 
+	@GetMapping("/api/system/codetree") 
 	public ResponseEntity<?> getCodeHierarchyList(@ModelAttribute CodeDTO.Search searchCondition) {
 							
 		List<CodeHierarchy> list = service.getCodeHierarchyList(searchCondition);  						 						
@@ -47,7 +47,7 @@ public class CommonCodeQueryController {
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
-	@GetMapping("/api/common/code") 
+	@GetMapping("/api/system/code") 
 	public ResponseEntity<?> getCodeList(@ModelAttribute CodeDTO.Search searchCondition) {
 							
 		List<Code> list = service.getCodeList(searchCondition);  						 						

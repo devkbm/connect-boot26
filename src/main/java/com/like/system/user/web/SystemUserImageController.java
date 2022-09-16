@@ -33,7 +33,7 @@ public class SystemUserImageController {
 		this.userService = userService;
 	}
 	
-	@GetMapping("/api/common/user/image")
+	@GetMapping("/api/system/user/image")
 	public HttpServletResponse downloadUserImage(HttpServletResponse response,
 											     @RequestParam String userId) throws Exception {
 				
@@ -48,7 +48,7 @@ public class SystemUserImageController {
 		return response;
 	}
 	
-	@PostMapping("/api/common/user/image")
+	@PostMapping("/api/system/user/image")
 	public ResponseEntity<?> changeUserImage(@RequestPart MultipartFile file,
 											 String userId) throws Exception {				
 												

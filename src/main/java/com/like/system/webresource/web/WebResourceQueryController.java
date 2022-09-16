@@ -26,7 +26,7 @@ public class WebResourceQueryController {
 		this.service = service; 
 	}
 	
-	@GetMapping("/api/common/webresource")
+	@GetMapping("/api/system/webresource")
 	public ResponseEntity<?> getWebResourceList(WebResourceDTO.SearchWebResource condition) {							 			
 		
 		List<WebResource> list = service.getResourceList(condition);
@@ -38,7 +38,7 @@ public class WebResourceQueryController {
 		return toList(dtoList, String.format("%d 건 조회되었습니다.", dtoList.size())); 
 	}
 	
-	@GetMapping("/api/common/webresource/resourcetype")
+	@GetMapping("/api/system/webresource/resourcetype")
 	public ResponseEntity<?> getWebResourceTypeList() {				
 		
 		List<HtmlSelectOptionRecord> list = new ArrayList<HtmlSelectOptionRecord>();
