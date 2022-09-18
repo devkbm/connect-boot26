@@ -3,7 +3,7 @@ package com.like.system.core.jpa.converter;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-@Converter(autoApply = true)
+@Converter
 public class BooleanYnConverter  implements AttributeConverter <Boolean, String> {
 
 	@Override

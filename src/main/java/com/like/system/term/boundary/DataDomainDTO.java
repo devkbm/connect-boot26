@@ -18,13 +18,18 @@ public class DataDomainDTO {
 			String dataType,
 			String columnSize
 			) {
-		public DataDomainDictionary newEntity() {			
-			return DataDomainDictionary.builder()
-									   .database(Database.valueOf(database))
-									   .domainName(domainName)
-									   .dataType(dataType)
-									   .columnSize(columnSize)
-									   .build();
+		public DataDomainDictionary newEntity() {	
+			
+			DataDomainDictionary entity = DataDomainDictionary.builder()
+															  .database(Database.valueOf(database))
+															  .domainName(domainName)
+															  .dataType(dataType)
+															  .columnSize(columnSize)
+															  .build();
+			
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;
 		}
 		
 		public static FormDataDomain convert(DataDomainDictionary entity) {

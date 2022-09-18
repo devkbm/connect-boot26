@@ -14,29 +14,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.term.boundary.TermDTO;
-import com.like.system.term.domain.TermDictionary;
-import com.like.system.term.service.TermService;
+import com.like.system.term.boundary.DataDomainDTO;
+import com.like.system.term.service.DataDomainService;
 
 @RestController
-public class TermController {
-	
-	private TermService service;
+public class DataDomainController {
 
-	public TermController(TermService service) {
+	private DataDomainService service;
+	
+	public DataDomainController(DataDomainService service) {
 		this.service = service;
 	}
+	
+	@GetMapping("/api/system/datadomin/{id}")
+	public ResponseEntity<?> get(@PathVariable String id) {
 		
-	@GetMapping("/api/system/terms/{id}")
-	public ResponseEntity<?> getTerm(@PathVariable String id) {
+		DataDomainDTO.FormDataDomain dto = DataDomainDTO.FormDataDomain.convert(service.get(id));								
 		
-		TermDictionary term = service.get(id);								
-		
-		return toOne(term, MessageUtil.getQueryMessage(term == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}			
 		
-	@PostMapping("/api/system/terms")
-	public ResponseEntity<?> saveTerm(@Valid @RequestBody TermDTO.FormTerm dto) {
+	@PostMapping("/api/system/datadomin")
+	public ResponseEntity<?> save(@Valid @RequestBody DataDomainDTO.FormDataDomain dto) {
 														
 		service.save(dto);										
 		
@@ -44,12 +43,11 @@ public class TermController {
 	
 	}
 					
-	@DeleteMapping("/api/system/terms/{id}")
-	public ResponseEntity<?> delTerm(@PathVariable String id) {
+	@DeleteMapping("/api/system/datadomin/{id}")
+	public ResponseEntity<?> delete(@PathVariable String id) {
 								
 		service.delete(id);										
 		
 		return toList(null, MessageUtil.getDeleteMessage(1));
-	}		
-	
+	}	
 }

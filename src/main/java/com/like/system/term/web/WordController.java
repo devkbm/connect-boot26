@@ -14,29 +14,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.term.boundary.TermDTO;
-import com.like.system.term.domain.TermDictionary;
-import com.like.system.term.service.TermService;
+import com.like.system.term.boundary.WordDTO;
+import com.like.system.term.service.WordService;
 
 @RestController
-public class TermController {
-	
-	private TermService service;
+public class WordController {
 
-	public TermController(TermService service) {
+	private WordService service;
+	
+	public WordController(WordService service) {
 		this.service = service;
 	}
+	
+	@GetMapping("/api/system/word/{id}")
+	public ResponseEntity<?> getWord(@PathVariable String id) {
 		
-	@GetMapping("/api/system/terms/{id}")
-	public ResponseEntity<?> getTerm(@PathVariable String id) {
+		WordDTO.FormWord dto = WordDTO.FormWord.convert(service.get(id));								
 		
-		TermDictionary term = service.get(id);								
-		
-		return toOne(term, MessageUtil.getQueryMessage(term == null ? 0 : 1));
+		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}			
 		
-	@PostMapping("/api/system/terms")
-	public ResponseEntity<?> saveTerm(@Valid @RequestBody TermDTO.FormTerm dto) {
+	@PostMapping("/api/system/word")
+	public ResponseEntity<?> saveWord(@Valid @RequestBody WordDTO.FormWord dto) {
 														
 		service.save(dto);										
 		
@@ -44,12 +43,12 @@ public class TermController {
 	
 	}
 					
-	@DeleteMapping("/api/system/terms/{id}")
-	public ResponseEntity<?> delTerm(@PathVariable String id) {
+	@DeleteMapping("/api/system/word/{id}")
+	public ResponseEntity<?> delWord(@PathVariable String id) {
 								
 		service.delete(id);										
 		
 		return toList(null, MessageUtil.getDeleteMessage(1));
-	}		
+	}	
 	
 }
