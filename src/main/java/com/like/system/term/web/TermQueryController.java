@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
 import com.like.system.term.boundary.TermDTO;
-import com.like.system.term.domain.TermDictionary;
 import com.like.system.term.service.TermQueryService;
 
 @RestController
@@ -25,7 +24,10 @@ public class TermQueryController {
 	@GetMapping("/api/system/terms")
 	public ResponseEntity<?> getTermList(TermDTO.Search contidion) {
 				
-		List<TermDictionary> list = service.getTermList(contidion); 							
+		List<TermDTO.FormTerm> list = service.getTermList(contidion)
+											 .stream()
+											 .map(e -> TermDTO.FormTerm.convert(e))
+											 .toList(); 							
 							
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}

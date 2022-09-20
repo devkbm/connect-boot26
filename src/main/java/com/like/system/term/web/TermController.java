@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
 import com.like.system.term.boundary.TermDTO;
-import com.like.system.term.domain.TermDictionary;
 import com.like.system.term.service.TermService;
 
 @RestController
@@ -30,7 +29,7 @@ public class TermController {
 	@GetMapping("/api/system/terms/{id}")
 	public ResponseEntity<?> getTerm(@PathVariable String id) {
 		
-		TermDictionary term = service.get(id);								
+		TermDTO.FormTerm term = TermDTO.FormTerm.convert(service.get(id));								
 		
 		return toOne(term, MessageUtil.getQueryMessage(term == null ? 0 : 1));
 	}			

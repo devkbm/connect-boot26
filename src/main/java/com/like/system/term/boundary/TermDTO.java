@@ -9,6 +9,8 @@ import com.like.system.term.domain.TermDictionary;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
+import lombok.Builder;
+
 public class TermDTO {
 
 	public record Search(
@@ -37,7 +39,8 @@ public class TermDTO {
 		}
 	}
 	
-	public record FormTerm(
+	@Builder
+	public static record FormTerm(
 			String organizationCode,
 			String clientAppUrl,
 			String termId,
@@ -73,16 +76,15 @@ public class TermDTO {
 		}
 		
 		public static FormTerm convert(TermDictionary entity) {
-			return null; /*
-					SaveTerm.builder()						   
-						   .domain(entity.getDomain())
-						   .term(entity.getTerm())						   
-						   .nameEng(entity.getNameEng())
-						   .abbreviationEng(entity.getAbbreviationEng())
+			return FormTerm.builder()						   
+						   .termId(entity.getId())
+						   .system(entity.getSystem())						   
+						   .term(entity.getTerm())
+						   .termEng(entity.getTermEng())
+						   .columnName(entity.getColumnName())
 						   .description(entity.getDescription())
 						   .comment(entity.getComment())
-						   .build();
-						   */
+						   .build();						   
 		}
 	}
 		
