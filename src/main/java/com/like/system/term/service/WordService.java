@@ -1,5 +1,7 @@
 package com.like.system.term.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,10 @@ public class WordService {
 	
     public WordService(WordDictionaryRepository repository) {
     	this.repository = repository;
+    }
+    
+    public List<WordDictionary> getAllList() {
+    	return this.repository.findAll();
     }
     
     public WordDictionary get(String id) {

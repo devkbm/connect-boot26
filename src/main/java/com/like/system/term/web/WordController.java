@@ -3,6 +3,8 @@ package com.like.system.term.web;
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,17 @@ public class WordController {
 	
 	public WordController(WordService service) {
 		this.service = service;
+	}
+	
+	@GetMapping("/api/system/word")
+	public ResponseEntity<?> getWordList() {
+		
+		List<WordDTO.FormWord> dto = service.getAllList()
+											.stream()
+											.map(e -> WordDTO.FormWord.convert(e))
+											.toList();
+		
+		return toList(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 	
 	@GetMapping("/api/system/word/{id}")

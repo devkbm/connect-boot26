@@ -18,12 +18,11 @@ public enum SystemType implements HtmlSelectOptionable {
 	
 	@Override
 	public String getLabel() {
-		// TODO Auto-generated method stub
-		return this.toString();
+		return name;
 	}
 
 	@Override
 	public String getValue() {
-		return name;
+		return this.toString();
 	}
 }

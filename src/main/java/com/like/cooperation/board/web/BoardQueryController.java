@@ -14,6 +14,7 @@ import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardType;
 import com.like.cooperation.board.service.BoardQueryService;
 import com.like.system.core.dto.HtmlSelectOptionRecord;
+import com.like.system.core.dto.HtmlSelectOptionable;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
@@ -28,7 +29,7 @@ public class BoardQueryController {
 	@GetMapping("/api/grw/board/boardType")
 	public ResponseEntity<?> getMenuTypeList() {				
 		
-		List<HtmlSelectOptionRecord> list = HtmlSelectOptionRecord.fromEnum(BoardType.class);			
+		List<HtmlSelectOptionRecord> list = HtmlSelectOptionable.fromEnum(BoardType.class);			
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
