@@ -23,7 +23,7 @@ public class SystemUserFormValidController {
 		this.authorityService = authorityService;
 	}
 
-	@GetMapping("/api/common/user/{userId}/check")
+	@GetMapping("/api/system/user/{userId}/check")
 	public ResponseEntity<?> checkId(@PathVariable String userId) {
 						
 		boolean isDuplicated = userService.CheckDuplicationUser(userId);					
