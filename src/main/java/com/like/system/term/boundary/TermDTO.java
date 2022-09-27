@@ -2,6 +2,9 @@ package com.like.system.term.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 
 import com.like.system.term.domain.QTermDictionary;
@@ -46,17 +49,33 @@ public class TermDTO {
 			String termId,
 			String system,
 			@NotEmpty(message = "용어는 필수 입력 값입니다.")
-			String term,
+			//String term,
+			List<String> term,
 			String termEng,
 			String columnName,
 			String description,
 			String comment
 			) {
 		
+		private static List<String> toList(String term) {
+			String[] terms = term.split("_");
+			List<String> list = new ArrayList<String>(terms.length);
+			
+			for (int i=0; i<terms.length; i++) {				
+				list.add(terms[i]);
+			}
+			
+			return list;
+		}
+		
+		private static String toString(List<String> term) {
+			return String.join("_", term);
+		}
+		
 		public TermDictionary newEntity() {
 			return TermDictionary.builder()
 								 .system(system)
-								 .term(term)
+								 .term(toString(term))
 								 .termEng(termEng)
 								 .columnName(columnName)
 								 //.dataDomain(dataDomain)
@@ -79,13 +98,14 @@ public class TermDTO {
 			return FormTerm.builder()						   
 						   .termId(entity.getId())
 						   .system(entity.getSystem())						   
-						   .term(entity.getTerm())
+						   .term(toList(entity.getTerm()))
 						   .termEng(entity.getTermEng())
 						   .columnName(entity.getColumnName())
 						   .description(entity.getDescription())
 						   .comment(entity.getComment())
 						   .build();						   
 		}
+			
 	}
 		
 	
