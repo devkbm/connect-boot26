@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.term.boundary.TermDTO;
+import com.like.system.term.domain.DataDomainDictionary;
+import com.like.system.term.domain.DataDomainDictionaryRepository;
 import com.like.system.term.domain.TermDictionary;
 import com.like.system.term.domain.TermDictionaryRepository;
 
@@ -13,10 +15,13 @@ import com.like.system.term.domain.TermDictionaryRepository;
 @Transactional
 public class TermService {
 	    
-	private TermDictionaryRepository repository;      
+	private TermDictionaryRepository repository; 
+	private DataDomainDictionaryRepository dataDomainRepository;  
 	
-    public TermService(TermDictionaryRepository repository) {
+    public TermService(TermDictionaryRepository repository,
+    				   DataDomainDictionaryRepository dataDomainRepository) {
     	this.repository = repository;
+    	this.dataDomainRepository = dataDomainRepository;
     }
     
 	public TermDictionary get(String termId) {
@@ -32,10 +37,15 @@ public class TermService {
 	}
 	
 	public void save(TermDTO.FormTerm dto) {
-		TermDictionary entity = dto.termId() == null ? null : repository.findById(dto.termId()).orElse(null); 
-												
+		TermDictionary entity = dto.termId() == null ? null : repository.findById(dto.termId()).orElse(null);
+		DataDomainDictionary dataDomain = null;
+		
+		if (dto.dataDomain() != null) {
+			dataDomain = dataDomainRepository.findById(dto.dataDomain()).orElse(null); 
+		}		
+		
 		if (entity == null) {
-			entity = dto.newEntity();
+			entity = dto.newEntity(dataDomain);
 		} else {			
 			dto.modifyEntity(entity);
 		}

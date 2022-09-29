@@ -83,13 +83,13 @@ public class TermDictionary extends AbstractAuditEntity {
 		this.comment = comment;
 	}	
 	
-	public static TermDictionary of(String system, WordDictionary word, DataDomainDictionary dataDomain, String description, String comment) {
+	public static TermDictionary of(String system, WordDictionary word, String termEng, DataDomainDictionary dataDomain, String description, String comment) {
 		
 		TermDictionary term = TermDictionary.builder()
 											.system(system)
-											.term(word.getLogicalName())
-											.termEng(word.getLogicalNameEng())
+											.term(word.getLogicalName())											
 											.columnName(word.getPhysicalName())
+											.termEng(termEng)
 											.dataDomain(dataDomain)							 
 											.description(description)
 											.comment(comment)
@@ -98,17 +98,16 @@ public class TermDictionary extends AbstractAuditEntity {
 		return term;
 	}
 	
-	public static TermDictionary of(String system, List<WordDictionary> wordList, DataDomainDictionary dataDomain, String description, String comment) {
-		String logicalName = String.join("_", wordList.stream().map(e -> e.getLogicalName()).toList());
-		String logicalNameEng = String.join("_", wordList.stream().map(e -> e.getLogicalNameEng()).toList());
+	public static TermDictionary of(String system, List<WordDictionary> wordList, String termEng, DataDomainDictionary dataDomain, String description, String comment) {
+		String logicalName = String.join("_", wordList.stream().map(e -> e.getLogicalName()).toList());		
 		String physicalName = String.join("_", wordList.stream().map(e -> e.getPhysicalName()).toList());					
 		
 		TermDictionary term = TermDictionary.builder()
 											.system(system)
 											.term(logicalName)
-											.termEng(logicalNameEng)
-											.dataDomain(dataDomain)
 											.columnName(physicalName)
+											.termEng(termEng)																						
+											.dataDomain(dataDomain)
 											.description(description)
 											.comment(comment)
 											.build();;

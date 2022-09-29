@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.like.system.term.domain.DataDomainDictionary;
 import com.like.system.term.domain.QTermDictionary;
 import com.like.system.term.domain.TermDictionary;
 import com.querydsl.core.BooleanBuilder;
@@ -53,6 +54,7 @@ public class TermDTO {
 			List<String> term,
 			String termEng,
 			String columnName,
+			String dataDomain,
 			String description,
 			String comment
 			) {
@@ -72,13 +74,13 @@ public class TermDTO {
 			return String.join("_", term);
 		}
 		
-		public TermDictionary newEntity() {
+		public TermDictionary newEntity(DataDomainDictionary dataDomain) {
 			return TermDictionary.builder()
 								 .system(system)
 								 .term(toString(term))
 								 .termEng(termEng)
 								 .columnName(columnName)
-								 //.dataDomain(dataDomain)
+								 .dataDomain(dataDomain)
 								 .description(description)
 								 .comment(comment)
 								 .build();					
