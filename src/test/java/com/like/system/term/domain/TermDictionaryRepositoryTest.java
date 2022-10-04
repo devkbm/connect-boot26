@@ -54,7 +54,7 @@ public class TermDictionaryRepositoryTest {
 			@Test
 			@DisplayName("단어를 _(언더바)로 합쳐서 용어를 생성한다.")	
 			void 단어를_언더바로_합쳐서_생성한다() {
-				TermDictionary entity = TermDictionary.of("HRM", wordList, dataDomain, "용어설명", "비고");
+				TermDictionary entity = TermDictionary.of("HRM", wordList, "english" , dataDomain, "용어설명", "비고");
 				System.out.println(entity.toString());
 				
 				getRepository().saveAndFlush(entity);
@@ -78,7 +78,7 @@ public class TermDictionaryRepositoryTest {
 			@DisplayName("단어와 동일하게 용어를 생성한다.")	
 			void 단어로_생성한다() {
 				WordDictionary word = new WordDictionary("직원", "STAFF", "STF");
-				TermDictionary entity = TermDictionary.of("HRM", word, dataDomain, "용어설명", "비고");
+				TermDictionary entity = TermDictionary.of("HRM", word, "english" , dataDomain, "용어설명", "비고");
 				
 				getRepository().saveAndFlush(entity);
 				
