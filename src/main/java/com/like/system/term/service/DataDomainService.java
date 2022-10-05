@@ -1,5 +1,7 @@
 package com.like.system.term.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,10 @@ public class DataDomainService {
 	
     public DataDomainService(DataDomainDictionaryRepository repository) {
     	this.repository = repository;
+    }
+    
+    public List<DataDomainDictionary> getAllList() {
+    	return this.repository.findAll();
     }
     
     public DataDomainDictionary get(String id) {

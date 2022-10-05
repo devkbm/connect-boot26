@@ -3,6 +3,8 @@ package com.like.system.term.web;
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,18 @@ public class DataDomainController {
 	public DataDomainController(DataDomainService service) {
 		this.service = service;
 	}
+	
+	@GetMapping("/api/system/datadomin")
+	public ResponseEntity<?> getList() {
+		
+		List<DataDomainDTO.FormDataDomain> list = this.service.getAllList()
+															  .stream()
+															  .map(e -> DataDomainDTO.FormDataDomain.convert(e))
+															  .toList();
+			
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
+	}
+	
 	
 	@GetMapping("/api/system/datadomin/{id}")
 	public ResponseEntity<?> get(@PathVariable String id) {
