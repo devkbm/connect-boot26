@@ -17,7 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.like.CustomDataJpaTest;
 import com.like.system.core.jpa.JpaRepositoryAuditConfigTest;
 import com.like.system.core.test.WithMockCustomUser;
-import com.like.system.term.domain.DataDomainDictionary.Database;
 
 import lombok.Getter;
 

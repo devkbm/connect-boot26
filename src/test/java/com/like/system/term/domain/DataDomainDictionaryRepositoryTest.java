@@ -14,8 +14,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.like.system.term.domain.DataDomainDictionary.Database;
-
 import lombok.Getter;
 
 @DisplayName("DataDomainDictionaryRepository 클래스")
