@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.core.dto.HtmlSelectOptionRecord;
+import com.like.system.core.dto.HtmlSelectOptionable;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.term.boundary.DataDomainDTO;
+import com.like.system.term.domain.Database;
 import com.like.system.term.service.DataDomainService;
 
 @RestController
@@ -26,6 +29,14 @@ public class DataDomainController {
 	
 	public DataDomainController(DataDomainService service) {
 		this.service = service;
+	}
+	
+	@GetMapping("/api/system/datadomin/database")
+	public ResponseEntity<?> getMenuTypeList() {				
+		
+		List<HtmlSelectOptionRecord> list = HtmlSelectOptionable.fromEnum(Database.class);			
+		
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/system/datadomin")

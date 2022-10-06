@@ -1,7 +1,7 @@
 package com.like.system.term.boundary;
 
 import com.like.system.term.domain.DataDomainDictionary;
-import com.like.system.term.domain.DataDomainDictionary.Database;
+import com.like.system.term.domain.Database;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,7 +36,7 @@ public class DataDomainDTO {
 			return FormDataDomain.builder()
 								 .domainId(entity.getId())
 								 .database(entity.getDatabase().name())
-								 .domainId(entity.getDomainName())
+								 .domainName(entity.getDomainName())
 								 .dataType(entity.getDataType())
 								 .columnSize(entity.getColumnSize())
 								 .build(); 
