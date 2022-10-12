@@ -36,7 +36,7 @@ public class WordController {
 											.map(e -> WordDTO.FormWord.convert(e))
 											.toList();
 		
-		return toList(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
+		return toList(dto, MessageUtil.getQueryMessage(dto.size()));
 	}
 	
 	@GetMapping("/api/system/word/{id}")

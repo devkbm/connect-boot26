@@ -45,8 +45,7 @@ public class DataDomainDictionaryRepositoryTest {
 				DataDomainDictionary entity = DataDomainDictionary.builder()
 																  .database(Database.MYSQL)
 																  .domainName("직원번호")
-																  .dataType("VARCHAR")
-																  .columnSize("8")
+																  .dataType("VARCHAR(8)")																  
 																  .build();			
 
 				//When
@@ -58,8 +57,7 @@ public class DataDomainDictionaryRepositoryTest {
 				assertThat(result.getId()).isEqualTo("MYSQL_직원번호");
 				assertThat(result.getDatabase()).isEqualTo(Database.MYSQL);
 				assertThat(result.getDomainName()).isEqualTo("직원번호");		
-				assertThat(result.getDataType()).isEqualTo("VARCHAR");
-				assertThat(result.getColumnSize()).isEqualTo("8");
+				assertThat(result.getDataType()).isEqualTo("VARCHAR(8)");				
 			}
 			
 		}

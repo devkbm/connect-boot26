@@ -40,8 +40,7 @@ public class TermDictionaryRepositoryTest {
 		DataDomainDictionary dataDomain = DataDomainDictionary.builder()
 															  .database(Database.MYSQL)
 															  .domainName("직원번호")
-															  .dataType("VARCHAR")
-															  .columnSize("8")
+															  .dataType("VARCHAR(8)")															  
 															  .build();			
 		
 		@Nested

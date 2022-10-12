@@ -15,16 +15,14 @@ public class DataDomainDTO {
 			String domainId,
 			String database,
 			String domainName,
-			String dataType,
-			String columnSize
+			String dataType
 			) {
 		public DataDomainDictionary newEntity() {	
 			
 			DataDomainDictionary entity = DataDomainDictionary.builder()
 															  .database(Database.valueOf(database))
 															  .domainName(domainName)
-															  .dataType(dataType)
-															  .columnSize(columnSize)
+															  .dataType(dataType)															  
 															  .build();
 			
 			entity.setAppUrl(clientAppUrl);
@@ -37,8 +35,7 @@ public class DataDomainDTO {
 								 .domainId(entity.getId())
 								 .database(entity.getDatabase().name())
 								 .domainName(entity.getDomainName())
-								 .dataType(entity.getDataType())
-								 .columnSize(entity.getColumnSize())
+								 .dataType(entity.getDataType())								 
 								 .build(); 
 		}
 	}

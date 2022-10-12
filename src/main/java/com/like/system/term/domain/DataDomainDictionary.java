@@ -39,17 +39,13 @@ public class DataDomainDictionary extends AbstractAuditEntity {
 	String domainName;
 		
 	@Column(name="DATA_TYPE")
-	String dataType;
-	
-	@Column(name="COLUMN_SIZE")
-	String columnSize;
+	String dataType;	
 	
 	@Builder
-	public DataDomainDictionary(Database database, String domainName, String dataType, String columnSize) {
+	public DataDomainDictionary(Database database, String domainName, String dataType) {
 		this.id = database + "_" + domainName;
 		this.database = database;
 		this.domainName = domainName;
-		this.dataType = dataType;
-		this.columnSize = columnSize;
+		this.dataType = dataType;		
 	}
 }
