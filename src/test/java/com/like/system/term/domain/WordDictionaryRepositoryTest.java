@@ -31,7 +31,7 @@ public class WordDictionaryRepositoryTest {
 	void saveWordDictionary_ERROR() {			
 			
 		assertThatExceptionOfType(NullPointerException .class).isThrownBy(() -> { 
-			new WordDictionary(null, "NULL", "TEST2");
+			new WordDictionary(null, "NULL", "TEST2", "비고");
 		});	
 	}
 	
@@ -40,7 +40,7 @@ public class WordDictionaryRepositoryTest {
 	@Test
 	void saveWordDictionary() {
 		//Given
-		WordDictionary entity = new WordDictionary("코드", "CODE", "CD");			
+		WordDictionary entity = new WordDictionary("코드", "CODE", "CD", "비고");			
 		
 		//When
 		repository.saveAndFlush(entity);		
@@ -52,6 +52,7 @@ public class WordDictionaryRepositoryTest {
 		assertThat(result.getLogicalName()).isEqualTo("코드");
 		assertThat(result.getLogicalNameEng()).isEqualTo("CODE");
 		assertThat(result.getPhysicalName()).isEqualTo("CD");		
+		assertThat(result.getComment()).isEqualTo("비고");
 	}
 	
 	

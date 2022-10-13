@@ -30,7 +30,7 @@ import lombok.ToString;
 public class WordDictionary extends AbstractAuditEntity {
 
 	@Id
-	@Column(name="LOGICAL_NAME")
+	@Column(name="LOGICAL_NAME", unique = true)
 	String logicalName;
 		
 	@Column(name="LOGICAL_NAME_ENG")
@@ -39,11 +39,15 @@ public class WordDictionary extends AbstractAuditEntity {
 	@Column(name="PHYSICAL_NAME")
 	String physicalName;
 	
-	public WordDictionary(String logicalName, String logicalNameEng, String physicalName) {
+	@Column(name="CMT")
+	String comment;
+	
+	public WordDictionary(String logicalName, String logicalNameEng, String physicalName, String comment) {
 		Objects.requireNonNull(logicalName, "필수 입력 값입니다.");
 		
 		this.logicalName = logicalName;
 		this.logicalNameEng = logicalNameEng;
 		this.physicalName= physicalName;
+		this.comment = comment;
 	}
 }

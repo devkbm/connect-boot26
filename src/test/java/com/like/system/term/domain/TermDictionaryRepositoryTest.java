@@ -64,8 +64,8 @@ public class TermDictionaryRepositoryTest {
 			}
 			
 			List<WordDictionary> createWordDictionaryList() {
-				return List.of(new WordDictionary("직원", "STAFF", "STF")
-							  ,new WordDictionary("번호", "NUMBER", "NO"));
+				return List.of(new WordDictionary("직원", "STAFF", "STF","비고")
+							  ,new WordDictionary("번호", "NUMBER", "NO","비고"));
 			}
 		}
 		
@@ -75,7 +75,7 @@ public class TermDictionaryRepositoryTest {
 			@Test
 			@DisplayName("단어와 동일하게 용어를 생성한다.")	
 			void 단어로_생성한다() {
-				WordDictionary word = new WordDictionary("직원", "STAFF", "STF");
+				WordDictionary word = new WordDictionary("직원", "STAFF", "STF", "비고");
 				TermDictionary entity = TermDictionary.of("HRM", word, "english" , dataDomain, "용어설명", "비고");
 				
 				getRepository().saveAndFlush(entity);

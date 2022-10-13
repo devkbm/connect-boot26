@@ -55,7 +55,7 @@ public class TermDictionary extends AbstractAuditEntity {
 	@Column(name="COLUMN_NAME")
 	String columnName;
 	
-	@Column(name="DESCRIPTION")
+	@Column(name="TERM_DESCRIPTION")
 	String description;	
 	
 	@Column(name="CMT")
@@ -90,10 +90,12 @@ public class TermDictionary extends AbstractAuditEntity {
 											.term(word.getLogicalName())											
 											.columnName(word.getPhysicalName())
 											.termEng(termEng)
-											.dataDomain(dataDomain)							 
+											.dataDomain(dataDomain)												
 											.description(description)
 											.comment(comment)
 											.build(); 
+		
+		term.isCombiningWords = false;
 		
 		return term;
 	}
@@ -118,13 +120,11 @@ public class TermDictionary extends AbstractAuditEntity {
 	}
 	
 	
-	public void modifyEntity(String nameEng
-							,String physicalName
+	public void modifyEntity(String termEng							
 							,DataDomainDictionary dataDomain
 							,String description
 							,String comment) {			
-		this.termEng = nameEng;
-		this.columnName = physicalName;
+		this.termEng = termEng;		
 		this.dataDomain = dataDomain;
 		this.description = description;
 		this.comment = comment;

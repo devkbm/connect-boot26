@@ -13,12 +13,14 @@ public class WordDTO {
 			String clientAppUrl,
 			String logicalName,
 			String logicalNameEng,
-			String physicalName
+			String physicalName,
+			String comment
 			) {
 		public WordDictionary newEntity() {
 			WordDictionary entity = new WordDictionary(logicalName
 													  ,logicalNameEng
-													  ,physicalName);
+													  ,physicalName
+													  ,comment);
 			entity.setAppUrl(clientAppUrl);
 			
 			return entity;
@@ -29,6 +31,7 @@ public class WordDTO {
 						   .logicalName(entity.getLogicalName())
 						   .logicalNameEng(entity.getLogicalNameEng())
 						   .physicalName(entity.getPhysicalName())
+						   .comment(entity.getComment())
 						   .build(); 
 		}
 	}

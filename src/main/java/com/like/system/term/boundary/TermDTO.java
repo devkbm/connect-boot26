@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import com.like.system.term.domain.DataDomainDictionary;
 import com.like.system.term.domain.QTermDictionary;
 import com.like.system.term.domain.TermDictionary;
+import com.like.system.term.domain.WordDictionary;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -17,9 +18,9 @@ import lombok.Builder;
 
 public class TermDTO {
 
-	public record Search(
-			String domain,
-			String term
+	public record Search(			
+			String term,
+			String dataDomainName
 			) {
 				
 		private static final QTermDictionary qType = QTermDictionary.termDictionary;
@@ -27,20 +28,20 @@ public class TermDTO {
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
 									
-			builder.and(likeMenuId(this.domain))
-				   .and(likeTerm(this.term));
+			builder.and(likeTerm(this.term))
+				   .and(likeDataDomain(this.dataDomainName));
 									
 			return builder;
-		}
-		
-		private BooleanExpression likeMenuId(String domain) {
-			return null;
-			//return hasText(domain) ? qType.domain.like("%"+this.domain+"%") : null;					
 		}
 		
 		private BooleanExpression likeTerm(String term) {
 			return hasText(term) ? qType.term.like("%"+this.term+"%") : null;					
 		}
+		
+		private BooleanExpression likeDataDomain(String dataDomain) {			
+			return hasText(dataDomain) ? qType.dataDomain.domainName.like("%"+this.dataDomainName+"%") : null;					
+		}		
+		
 	}
 	
 	@Builder
@@ -50,11 +51,11 @@ public class TermDTO {
 			String termId,
 			String system,
 			@NotEmpty(message = "용어는 필수 입력 값입니다.")
-			//String term,
 			List<String> term,
 			String termEng,
 			String columnName,
-			String dataDomain,
+			String dataDomainId,
+			String dataDomainName,
 			String description,
 			String comment
 			) {
@@ -68,31 +69,23 @@ public class TermDTO {
 			}
 			
 			return list;
+		}		
+		
+		public TermDictionary newEntity(WordDictionary word, DataDomainDictionary dataDomain) {												
+			return TermDictionary.of(system, word, termEng, dataDomain, description, comment);
 		}
 		
-		private static String toString(List<String> term) {
-			return String.join("_", term);
+		public TermDictionary newEntity(List<WordDictionary> word, DataDomainDictionary dataDomain) {
+			return TermDictionary.of(system, word, termEng, dataDomain, description, comment);
 		}
 		
-		public TermDictionary newEntity(DataDomainDictionary dataDomain) {
-			return TermDictionary.builder()
-								 .system(system)
-								 .term(toString(term))
-								 .termEng(termEng)
-								 .columnName(columnName)
-								 .dataDomain(dataDomain)
-								 .description(description)
-								 .comment(comment)
-								 .build();					
-		}
 		
-		public void modifyEntity(TermDictionary entity) {
-			/*
-			entity.modifyEntity(nameEng
-					           ,abbreviationEng
+		public void modifyEntity(TermDictionary entity, DataDomainDictionary dataDomain) {
+			
+			entity.modifyEntity(termEng					           
+					           ,dataDomain
 					           ,description
-					           ,comment);
-					           */
+					           ,comment);			
 			
 		}
 		
@@ -103,6 +96,8 @@ public class TermDTO {
 						   .term(toList(entity.getTerm()))
 						   .termEng(entity.getTermEng())
 						   .columnName(entity.getColumnName())
+						   .dataDomainId(entity.getDataDomain().getId())
+						   .dataDomainName(entity.getDataDomain().getDomainName())
 						   .description(entity.getDescription())
 						   .comment(entity.getComment())
 						   .build();						   
