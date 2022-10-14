@@ -26,6 +26,10 @@ public class WordDTO {
 			return entity;
 		}
 		
+		public void modifyEntity(WordDictionary entity) {
+			entity.modify(logicalNameEng, comment);
+		}
+		
 		public static FormWord convert(WordDictionary entity) {
 			return FormWord.builder()
 						   .logicalName(entity.getLogicalName())

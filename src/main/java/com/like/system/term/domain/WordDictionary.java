@@ -50,4 +50,9 @@ public class WordDictionary extends AbstractAuditEntity {
 		this.physicalName= physicalName;
 		this.comment = comment;
 	}
+	
+	public void modify(String logicalNameEng, String comment) {
+		this.logicalNameEng = logicalNameEng;
+		this.comment = comment;
+	}
 }

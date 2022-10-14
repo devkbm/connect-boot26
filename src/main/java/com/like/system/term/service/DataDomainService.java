@@ -28,12 +28,12 @@ public class DataDomainService {
     }
     
     public void save(DataDomainDTO.FormDataDomain dto) {
-    	DataDomainDictionary entity = dto.domainId() == null ? null : repository.findById(dto.domainId()).orElse(null); 
+    	DataDomainDictionary entity = this.getDataDomainDictionary(dto); 
 		
 		if (entity == null) {
 			entity = dto.newEntity();
 		} else {			
-			//dto.modifyEntity(entity);
+			dto.modifyEntity(entity);
 		}
 		
 		repository.save(entity);
@@ -41,5 +41,9 @@ public class DataDomainService {
     
     public void delete(String id) {
     	this.repository.deleteById(id);
+    }
+    
+    private DataDomainDictionary getDataDomainDictionary(DataDomainDTO.FormDataDomain dto) {
+    	return dto.domainId() == null ? null : repository.findById(dto.domainId()).orElse(null);
     }
 }

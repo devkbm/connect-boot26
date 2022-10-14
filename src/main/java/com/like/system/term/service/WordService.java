@@ -28,12 +28,12 @@ public class WordService {
     }
     
     public void save(WordDTO.FormWord dto) {
-    	WordDictionary entity = dto.logicalName() == null ? null : repository.findById(dto.logicalName()).orElse(null); 
+    	WordDictionary entity = this.getWordDictionary(dto); 
 		
 		if (entity == null) {
 			entity = dto.newEntity();
 		} else {			
-			//dto.modifyEntity(entity);
+			dto.modifyEntity(entity);
 		}
 		
 		repository.save(entity);
@@ -41,5 +41,9 @@ public class WordService {
     
     public void delete(String id) {
     	this.repository.deleteById(id);
+    }
+    
+    private WordDictionary getWordDictionary(WordDTO.FormWord dto) {
+    	return dto.logicalName() == null ? null : repository.findById(dto.logicalName()).orElse(null);
     }
 }

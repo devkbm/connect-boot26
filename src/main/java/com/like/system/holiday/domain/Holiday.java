@@ -32,4 +32,8 @@ public class Holiday extends AbstractAuditEntity implements Serializable {
 	@Column(name="CMT")
 	private String comment;		
 	
+	public void modify(String holidayName, String comment) {
+		this.holidayName = holidayName;
+		this.comment = comment;
+	}
 }

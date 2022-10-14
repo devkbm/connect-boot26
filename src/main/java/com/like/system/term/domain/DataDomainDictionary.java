@@ -52,4 +52,9 @@ public class DataDomainDictionary extends AbstractAuditEntity {
 		this.dataType = dataType;
 		this.comment = comment;
 	}
+	
+	public void modify(String dataType, String comment) {		
+		this.dataType = dataType;
+		this.comment = comment;
+	}
 }

@@ -57,7 +57,7 @@ public class MenuController {
 	}
 	
 	
-	@GetMapping("/api/common/menu/{menuId}")
+	@GetMapping("/api/system/menu/{menuId}")
 	public ResponseEntity<?> getMenu(@PathVariable String menuId) {				
 		
 		Menu menu = menuCommandService.getMenu(menuId); 		
@@ -69,7 +69,7 @@ public class MenuController {
 	
 	
 		
-	@PostMapping("/api/common/menu/{menuId}")
+	@PostMapping("/api/system/menu/{menuId}")
 	public ResponseEntity<?> saveMenu(@RequestBody @Valid MenuDTO.FormMenu dto) throws Exception {												
 									
 		menuCommandService.saveMenu(dto);																			
@@ -77,7 +77,7 @@ public class MenuController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/api/common/menu/{menuId}")
+	@DeleteMapping("/api/system/menu/{menuId}")
 	public ResponseEntity<?> delMenu(@PathVariable String menuId) {				
 												
 		menuCommandService.deleteMenu(menuId);							

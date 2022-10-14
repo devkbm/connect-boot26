@@ -43,7 +43,7 @@ public class TermService {
 	}
 	
 	public void save(TermDTO.FormTerm dto) {
-		TermDictionary entity = dto.termId() == null ? null : repository.findById(dto.termId()).orElse(null);
+		TermDictionary entity = this.getTermDictionary(dto);
 						
 		if (entity == null) {
 			entity = this.createEntity(dto);									
@@ -56,6 +56,10 @@ public class TermService {
 	
 	public void delete(String termId) {
 		repository.deleteById(termId);		
+	}
+	
+	private TermDictionary getTermDictionary(TermDTO.FormTerm dto) {
+		return dto.termId() == null ? null : repository.findById(dto.termId()).orElse(null);
 	}
 	
 	private TermDictionary createEntity(TermDTO.FormTerm dto) {

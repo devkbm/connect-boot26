@@ -32,6 +32,10 @@ public class DataDomainDTO {
 			return entity;
 		}
 		
+		public void modifyEntity(DataDomainDictionary entity) {
+			entity.modify(dataType, comment);
+		}
+		
 		public static FormDataDomain convert(DataDomainDictionary entity) {
 			return FormDataDomain.builder()
 								 .domainId(entity.getId())
