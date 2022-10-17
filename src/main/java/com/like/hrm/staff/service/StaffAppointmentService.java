@@ -32,19 +32,19 @@ public class StaffAppointmentService {
 	}
 	
 	public void saveAppointmentRecord(AppointmentRecordDTO.FormStaffAppointmentRecord dto) {
-		Staff emp = getStaffInfo(dto.staffId());
+		Staff staff = getStaffInfo(dto.staffId());
 		
-		AppointmentRecord entity = emp.getAppointmentRecordList().get(dto.id());
+		AppointmentRecord entity = staff.getAppointmentRecordList().get(dto.id());
 		
 		if (entity == null) {
-			entity = dto.newEntity(emp);
+			entity = dto.newEntity(staff);
 		} else {
 			dto.modifyEntity(entity);
 		}
 		
-		emp.getAppointmentRecordList().add(entity);
+		staff.getAppointmentRecordList().add(entity);
 		
-		repository.save(emp);
+		repository.save(staff);
 	}	
 	
 	public void applyAppointmentRecord(String staffId, Long appointmentRecordId) {

@@ -27,8 +27,7 @@ public class StaffQuery implements StaffQueryRepository {
 	
 	@Override
 	public List<Staff> getStaffList(SearchStaff dto) {
-		// TODO Auto-generated method stub
-		return null;
+		return queryFactory.selectFrom(qStaff).fetch();
 	}
 	
 	@Override
