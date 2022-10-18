@@ -2,8 +2,6 @@ package com.like.hrm.hrmtypecode.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,14 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "HRMTYPECODE")
+@Table(name = "HRMCODETYPE")
 public class HrmType extends AbstractAuditEntity {
 		
 	@Id
-	@Column(name="TYPE_CODE")
+	@Column(name="TYPE_ID")
 	private String id;
 	
-	@Column(name="TYPE_CODE_NAME")
+	@Column(name="TYPE_NAME")
 	private String name;
 	
 	@Column(name="USE_YN")
@@ -31,38 +29,29 @@ public class HrmType extends AbstractAuditEntity {
 	
 	@Column(name="PRT_SEQ")
 	private Integer sequence;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name="APPOINT_TYPE_CODE")
-	private AppointmentTypeEnum appointmentType;
-				
+					
 	@Column(name="CMT")
 	private String comment;		
 	
 	public HrmType(String id
 				  ,String name
 				  ,boolean useYn
-				  ,Integer sequence
-				  ,AppointmentTypeEnum hrmType				  
-				  ,String comment) {		
-		this.appointmentType = hrmType;
+				  ,Integer sequence				  				 
+				  ,String comment) {				
 		this.id = id;
 		this.name = name;
 		this.useYn = useYn;
-		this.sequence = sequence;
-		this.appointmentType = hrmType;
+		this.sequence = sequence;		
 		this.comment = comment;
 	}
 	
 	public void modify(String name
 					  ,boolean useYn
-					  ,Integer sequence
-					  ,AppointmentTypeEnum hrmType
+					  ,Integer sequence					  
 					  ,String comment ) {		
 		this.name = name;
 		this.useYn = useYn;
-		this.sequence = sequence;
-		this.appointmentType = hrmType;
+		this.sequence = sequence;		
 		this.comment = comment;
 	}	
 	

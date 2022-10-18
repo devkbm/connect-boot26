@@ -17,14 +17,14 @@ public class HrmTypeDetailCodeId implements Serializable {
 	
 	private static final long serialVersionUID = 7109505610396778407L;
 
-	@Column(name="TYPE_CODE")
-	String codeType;
+	@Column(name="TYPE_ID")
+	String typeId;
 		
-	@Column(name="DETAIL_CODE")
+	@Column(name="CODE")
 	String code;	
 	
-	public HrmTypeDetailCodeId(String codeType, String code) {
-		this.codeType = codeType;
+	public HrmTypeDetailCodeId(String typeId, String code) {
+		this.typeId = typeId;
 		this.code = code;
 	}
 }

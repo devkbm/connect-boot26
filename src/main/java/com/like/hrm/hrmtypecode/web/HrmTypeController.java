@@ -29,13 +29,13 @@ public class HrmTypeController {
 	@GetMapping("/api/hrm/hrmtype/{id}")
 	public ResponseEntity<?> getHrmType(@PathVariable String id) {
 		
-		HrmTypeDTO.FormHrmType hrmType = service.getHrmTypeDTO(id);
+		HrmTypeDTO.Form hrmType = service.getHrmTypeDTO(id);
 					
 		return toOne(hrmType, MessageUtil.getQueryMessage(hrmType == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/hrmtype")
-	public ResponseEntity<?> saveHrmType(@RequestBody HrmTypeDTO.FormHrmType dto) {						
+	public ResponseEntity<?> saveHrmType(@RequestBody HrmTypeDTO.Form dto) {						
 																	
 		service.saveHrmType(dto);						
 								 					
@@ -55,13 +55,13 @@ public class HrmTypeController {
 	@GetMapping("/api/hrm/hrmtype/{type}/code/{code}")
 	public ResponseEntity<?> getTypeDetailCode(@PathVariable String type, @PathVariable String code) {
 		
-		HrmTypeDetailCodeDTO.FormHrmTypeDetailCode dto = service.getTypeDetailCodeDTO(new HrmTypeDetailCodeId(type, code));
+		HrmTypeDetailCodeDTO.Form dto = service.getTypeDetailCodeDTO(new HrmTypeDetailCodeId(type, code));
 					
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/hrmtype/{type}/code")
-	public ResponseEntity<?> saveTypeDetailCode(@RequestBody HrmTypeDetailCodeDTO.FormHrmTypeDetailCode dto) {				
+	public ResponseEntity<?> saveTypeDetailCode(@RequestBody HrmTypeDetailCodeDTO.Form dto) {				
 																			
 		service.saveTypeDetailCode(dto);						
 								 					

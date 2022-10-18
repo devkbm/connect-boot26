@@ -1,5 +1,7 @@
 package com.like.hrm.hrmtypecode.service;
 
+import static org.springframework.util.StringUtils.hasText;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,14 +30,14 @@ public class HrmTypeService {
 		return hrmTypeRepository.findById(id).orElse(null);
 	}
 	
-	public HrmTypeDTO.FormHrmType getHrmTypeDTO(String code) {
+	public HrmTypeDTO.Form getHrmTypeDTO(String code) {
 		HrmType entity = this.getHrmType(code);
 		
-		return HrmTypeDTO.FormHrmType.convert(entity);
+		return HrmTypeDTO.Form.convert(entity);
 	}
 	
-	public void saveHrmType(HrmTypeDTO.FormHrmType dto) {
-		HrmType hrmType = null; //= dto.getId() == null ? null : hrmTypeRepository.findById(dto.getId()).orElse(null);			
+	public void saveHrmType(HrmTypeDTO.Form dto) {
+		HrmType hrmType = dto.typeId() == null ? null : hrmTypeRepository.findById(dto.typeId()).orElse(null);			
 		
 		if (hrmType == null) {
 			hrmType = dto.newHrmType();
@@ -54,25 +56,24 @@ public class HrmTypeService {
 		return hrmTypeDetailCodeRepository.findById(id).orElse(null);
 	}
 	
-	public HrmTypeDetailCodeDTO.FormHrmTypeDetailCode getTypeDetailCodeDTO(HrmTypeDetailCodeId id) {
+	public HrmTypeDetailCodeDTO.Form getTypeDetailCodeDTO(HrmTypeDetailCodeId id) {
 		
 		HrmTypeDetailCode entity = hrmTypeDetailCodeRepository.findById(id).orElse(null);				
 		
-		return HrmTypeDetailCodeDTO.FormHrmTypeDetailCode.convert(entity);
+		return HrmTypeDetailCodeDTO.Form.convert(entity);
 	}
 	
-	public void saveTypeDetailCode(HrmTypeDetailCodeDTO.FormHrmTypeDetailCode dto) {		
+	public void saveTypeDetailCode(HrmTypeDetailCodeDTO.Form dto) {		
 		HrmTypeDetailCode typeDetailCode = null;
-		/*
-		if (dto.getId() != null) {
-			typeDetailCode = this.getTypeDetailCode(dto.getId());
+			
+		if (hasText(dto.typeId()) && hasText(dto.code())) {
+			typeDetailCode = this.getTypeDetailCode(new HrmTypeDetailCodeId(dto.typeId(), dto.code()));
 		}
-		*/
-		
+			
 		if (typeDetailCode == null) {
-			typeDetailCode = dto.newTypeDetailCode();
+			typeDetailCode = dto.newEntity();
 		} else {
-			typeDetailCode = dto.changeInfo(typeDetailCode);
+			typeDetailCode = dto.modify(typeDetailCode);
 		}
 		
 		hrmTypeDetailCodeRepository.save(typeDetailCode);

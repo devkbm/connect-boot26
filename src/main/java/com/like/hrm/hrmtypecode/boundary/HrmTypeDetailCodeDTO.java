@@ -13,9 +13,8 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public class HrmTypeDetailCodeDTO {
 
@@ -44,7 +43,7 @@ public class HrmTypeDetailCodeDTO {
 		}
 		
 		private BooleanExpression eqTypeId(String typeId) {						
-			return qType.id.codeType.eq(typeId);
+			return qType.id.typeId.eq(typeId);
 		}
 		
 		private BooleanExpression likeCodeName(String codeName) {
@@ -53,34 +52,27 @@ public class HrmTypeDetailCodeDTO {
 				
 	}
 	
-	@Data
-	@AllArgsConstructor
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	public static class FormHrmTypeDetailCode implements Serializable {					
-				
-		private static final long serialVersionUID = -4493967354550706137L;
-			
-		private String codeType;
+	@Builder(access = AccessLevel.PRIVATE)
+	public static record Form(
+			String organizationCode,
+			String clientAppUrl,
+			String typeId,
+			String code,
+			String codeName,
+			boolean useYn,
+			Integer sequence,
+			String comment
+			) {
 		
-		private String code;
-		
-		private String codeName;					
-			
-		private boolean useYn;
-		
-		private Integer sequence;
-		
-		private String comment;
-		
-		public HrmTypeDetailCode newTypeDetailCode() {
-			return new HrmTypeDetailCode(new HrmTypeDetailCodeId(codeType, code)										
+		public HrmTypeDetailCode newEntity() {
+			return new HrmTypeDetailCode(new HrmTypeDetailCodeId(typeId, code)										
 								  		,this.codeName
 								  		,this.useYn
 								   		,this.sequence
 								   		,this.comment);
 		}
 			
-		public HrmTypeDetailCode changeInfo(HrmTypeDetailCode entity) {
+		public HrmTypeDetailCode modify(HrmTypeDetailCode entity) {
 			entity.modify(this.codeName
 						 ,this.useYn
 						 ,this.sequence
@@ -88,15 +80,19 @@ public class HrmTypeDetailCodeDTO {
 			return entity;
 		}
 
-		public static FormHrmTypeDetailCode convert(HrmTypeDetailCode entity) {
+		public static Form convert(HrmTypeDetailCode entity) {
 			if (entity == null) return null;
 			
-			return new FormHrmTypeDetailCode(entity.getId().getCodeType()
-							   ,entity.getId().getCode()
-					           ,entity.getCodeName()
-					           ,entity.isUseYn()
-					           ,entity.getSequence()
-					           ,entity.getComment());			
+			return Form.builder()
+					   .typeId(entity.getId().getTypeId())
+					   .code(entity.getId().getCode())
+					   .codeName(entity.getCodeName())
+					   .useYn(entity.isUseYn())
+					   .sequence(entity.getSequence())
+					   .comment(entity.getComment())
+					   .build();			
 		}
 	}
+	
+	
 }
