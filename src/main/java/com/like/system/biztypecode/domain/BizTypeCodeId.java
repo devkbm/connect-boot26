@@ -14,18 +14,18 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Embeddable
-public class BizDetailCodeId implements Serializable {
+public class BizTypeCodeId implements Serializable {
 	
 	private static final long serialVersionUID = 3428517048766851878L;
 
-	@Column(name="TYPE_CODE")
-	String typeCode;
+	@Column(name="TYPE_ID")
+	String typeId;
 		
-	@Column(name="DETAIL_CODE")
-	String detailCode;	
+	@Column(name="CODE")
+	String code;	
 	
-	public BizDetailCodeId(String typeCode, String detailCode) {
-		this.typeCode = typeCode;
-		this.detailCode = detailCode;
+	public BizTypeCodeId(String typeId, String code) {
+		this.typeId = typeId;
+		this.code = code;
 	}
 }

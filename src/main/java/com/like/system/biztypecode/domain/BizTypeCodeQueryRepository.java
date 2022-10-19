@@ -6,5 +6,5 @@ import com.like.system.biztypecode.boundary.BizTypeCodeDTO;
 
 public interface BizTypeCodeQueryRepository {
 
-	List<BizTypeCode> getBizTypeCode(BizTypeCodeDTO.Search searchCondition);
+	List<BizType> getBizTypeCode(BizTypeCodeDTO.Search searchCondition);
 }

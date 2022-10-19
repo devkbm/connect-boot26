@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.biztypecode.boundary.BizDetailCodeDTO;
 import com.like.system.biztypecode.boundary.BizTypeCodeDTO;
-import com.like.system.biztypecode.domain.BizDetailCodeId;
+import com.like.system.biztypecode.domain.BizTypeCodeId;
 import com.like.system.biztypecode.service.BizTypeCodeService;
 import com.like.system.core.message.MessageUtil;
 
@@ -55,7 +55,7 @@ public class BizTypeCodeController {
 	public ResponseEntity<?> getBizDetailCode(@PathVariable String typeCode
 											 ,@PathVariable String detailCode) {
 		
-		BizDetailCodeDTO.FormBizDetailCode dto = BizDetailCodeDTO.FormBizDetailCode.convert(service.getBizDetailCode(new BizDetailCodeId(typeCode, detailCode)));
+		BizDetailCodeDTO.FormBizDetailCode dto = BizDetailCodeDTO.FormBizDetailCode.convert(service.getBizDetailCode(new BizTypeCodeId(typeCode, detailCode)));
 					
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
@@ -72,7 +72,7 @@ public class BizTypeCodeController {
 	public ResponseEntity<?> deleteBizDetailCode(@PathVariable String typeCode
 			 									,@PathVariable String detailCode) {				
 																		
-		service.deleteBizDetailCode(new BizDetailCodeId(typeCode, detailCode));						
+		service.deleteBizDetailCode(new BizTypeCodeId(typeCode, detailCode));						
 								 					
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}

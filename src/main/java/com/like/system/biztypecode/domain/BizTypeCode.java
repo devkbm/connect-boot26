@@ -1,16 +1,12 @@
 package com.like.system.biztypecode.domain;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import org.springframework.util.StringUtils;
@@ -27,77 +23,65 @@ import lombok.NoArgsConstructor;
 @Table(name = "BIZTYPECODE")
 public class BizTypeCode extends AbstractAuditEntity {
 
-	@Id
-	@Column(name="TYPE_ID")
-	String id;
+	@EmbeddedId
+	BizTypeCodeId id;
 	
-	@Column(name="ORG_CD")
-	String organizationCode;
-	
-	@Column(name="TYPE_CODE")
-	String code;
-	
-	@Column(name="TYPE_CODE_NAME")
-	String name;
-	
+	@Column(name="CODE_NM")
+	String codeName;
+		
 	@Column(name="USE_YN")
 	Boolean useYn = true;
 	
 	@Column(name="PRT_SEQ")
 	Integer sequence;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="BIZ_TYPE")
-	BizTypeEnum bizType;
-		
-	@Embedded
-	BizRuleComments ruleComments;
-		
 	@Column(name="CMT")
 	String comment;
 	
-	@OneToMany(mappedBy="bizTypeCode", cascade = CascadeType.ALL, orphanRemoval = true)
-	Set<BizDetailCode> codes = new HashSet<>();
-	
-	
-	public BizTypeCode(String organizationCode, String code, String name, BizTypeEnum bizType, String comment) {
-		if (!StringUtils.hasText(code)) throw new IllegalArgumentException("ID는 필수 입력 값입니다."); 
+	@ManyToOne
+	@MapsId("typeId")	//기본키를 외래키로 쓰는경우 @MapsId 사용, 아니면 @JOinColumn 사용 
+	BizType bizType;
+
+	public BizTypeCode(BizType bizType
+			          ,String code
+			          ,String name            
+					  ,String comment) {
+		Objects.requireNonNull(bizType, "업무 구분은 필수 입력 값입니다.");
+		if (!StringUtils.hasText(code)) throw new IllegalArgumentException("CODE는 필수 입력 값입니다.");
 		
-		this.id = organizationCode + code;
-		this.organizationCode = organizationCode;
-		this.code = code;
-		this.name = name;
+		this.bizType = bizType;
+		this.id = new BizTypeCodeId(bizType.getId().getTypeId(), code);
+		this.codeName = name;
 		this.useYn = true;
 		this.sequence = 0;
-		this.bizType = bizType;
 		this.comment = comment;
-	}	
+	}
 	
-	public void modify(String name, Boolean useYn, Integer sequence, BizRuleComments ruleComments, String comment) {
-		this.name = name;
+	public BizTypeCode(BizType bizType
+			          ,String code
+			          ,String name
+			          ,Boolean useYn
+			          ,Integer sequence 
+					  ,String comment) {
+		Objects.requireNonNull(bizType, "업무 구분은 필수 입력 값입니다.");
+		if (!StringUtils.hasText(code)) throw new IllegalArgumentException("CODE는 필수 입력 값입니다.");
+		
+		this.bizType = bizType;
+		this.id = new BizTypeCodeId(bizType.getId().getTypeId(), code);
+		this.codeName = name;
 		this.useYn = useYn;
 		this.sequence = sequence;
-		this.ruleComments = ruleComments;
 		this.comment = comment;
 	}
 	
-	public BizDetailCode getBizDetailCode(BizDetailCodeId id) {
-		return this.codes.stream()
-						 .filter(e -> e.getId().equals(id))
-						 .findFirst()
-						 .orElse(null);
+	public void modify(String codeName
+					  ,Boolean useYn
+					  ,Integer sequence
+					  ,String comment) {
+		this.codeName = codeName;
+		this.useYn = useYn;
+		this.sequence = sequence;
+		this.comment = comment;
 	}
 	
-	public void addDetailCode(String code
-				             ,String name
-				             ,Boolean useYn
-				             ,Integer sequence 
-						     ,String comment) {
-		this.codes.add(new BizDetailCode(this, code, name, useYn, sequence, comment));
-	}
-	
-	public void remove(BizDetailCode code) {
-		this.codes.remove(code);
-	}
-		
 }

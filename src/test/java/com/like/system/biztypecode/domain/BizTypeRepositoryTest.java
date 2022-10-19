@@ -15,10 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.ANY)
-public class BizTypeCodeRepositoryTest {
+public class BizTypeRepositoryTest {
 
 	@Autowired
-	private BizTypeCodeRepository repository;
+	private BizTypeRepository repository;
 
 	@DisplayName("업무구분 저장시 ID가 NULL이면 오류")
 	@Test
@@ -33,7 +33,7 @@ public class BizTypeCodeRepositoryTest {
 	@Test
 	void saveBizTypeCode() {
 		//Given
-		BizTypeCode bizType = null;// new BizTypeCode("TEST", "테스트", BizTypeEnum.HRM, "비고");
+		BizType bizType = null;// new BizTypeCode("TEST", "테스트", BizTypeEnum.HRM, "비고");
 		
 		//When
 		repository.saveAndFlush(bizType);
@@ -54,7 +54,7 @@ public class BizTypeCodeRepositoryTest {
 	void saveBizDetailCode_ERROR() {			
 			
 		assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> { 
-			new BizDetailCode(null, "CODE", "이름", "비고");
+			new BizTypeCode(null, "CODE", "이름", "비고");
 		});
 		
 	}

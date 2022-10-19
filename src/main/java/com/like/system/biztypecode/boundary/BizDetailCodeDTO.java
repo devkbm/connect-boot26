@@ -1,7 +1,7 @@
 package com.like.system.biztypecode.boundary;
 
-import com.like.system.biztypecode.domain.BizDetailCode;
 import com.like.system.biztypecode.domain.BizTypeCode;
+import com.like.system.biztypecode.domain.BizType;
 
 public class BizDetailCodeDTO {
 
@@ -14,7 +14,7 @@ public class BizDetailCodeDTO {
 			String comment
 			) {
 		
-		public static FormBizDetailCode convert(BizDetailCode entity) {
+		public static FormBizDetailCode convert(BizTypeCode entity) {
 			
 			if (entity == null) return null;
 			
@@ -26,11 +26,11 @@ public class BizDetailCodeDTO {
 										,entity.getComment());
 		}
 		
-		public BizDetailCode newEntity(BizTypeCode bizType) {			
-			return new BizDetailCode(bizType, detailCode, codeName, useYn, sequence, comment);		
+		public BizTypeCode newEntity(BizType bizType) {			
+			return new BizTypeCode(bizType, detailCode, codeName, useYn, sequence, comment);		
 		}
 		
-		public BizDetailCode modify(BizDetailCode entity) {
+		public BizTypeCode modify(BizTypeCode entity) {
 			
 			entity.modify(codeName
 						 ,useYn

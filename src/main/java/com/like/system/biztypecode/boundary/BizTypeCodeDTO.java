@@ -4,7 +4,7 @@ import static org.springframework.util.StringUtils.hasText;
 
 import javax.validation.constraints.NotBlank;
 
-import com.like.system.biztypecode.domain.BizTypeCode;
+import com.like.system.biztypecode.domain.BizType;
 import com.like.system.biztypecode.domain.BizTypeEnum;
 import com.like.system.biztypecode.domain.QBizTypeCode;
 import com.querydsl.core.BooleanBuilder;
@@ -70,7 +70,7 @@ public class BizTypeCodeDTO {
 			String comment
 			) {
 				
-		public static FormBizTypeCode convert(BizTypeCode entity) {			
+		public static FormBizTypeCode convert(BizType entity) {			
 			if (entity == null) return null;
 			
 			return new FormBizTypeCode(entity.getModifiedAppUrl()
@@ -84,14 +84,14 @@ public class BizTypeCodeDTO {
 									  ,entity.getComment());
 		}
 
-		public BizTypeCode newEntity() {						
-			BizTypeCode entity = new BizTypeCode(organizationCode, code, name, BizTypeEnum.valueOf(bizType), comment);
+		public BizType newEntity() {						
+			BizType entity = new BizType(organizationCode, code, name, BizTypeEnum.valueOf(bizType), comment);
 			entity.setAppUrl(appUrl);
 			
 			return entity;
 		}
 		
-		public BizTypeCode modify(BizTypeCode entity) {			
+		public BizType modify(BizType entity) {			
 			entity.modify(name
 						 ,useYn
 						 ,sequence
