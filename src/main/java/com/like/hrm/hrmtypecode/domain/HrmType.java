@@ -21,7 +21,7 @@ public class HrmType extends AbstractAuditEntity {
 	@Column(name="TYPE_ID")
 	private String id;
 	
-	@Column(name="TYPE_NAME")
+	@Column(name="TYPE_NM")
 	private String name;
 	
 	@Column(name="USE_YN")

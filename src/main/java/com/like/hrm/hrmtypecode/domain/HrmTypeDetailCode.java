@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "HRMTYPEDETAILCODE")
+@Table(name = "HRMCODE")
 public class HrmTypeDetailCode implements Serializable {		
 	
 	private static final long serialVersionUID = 5468996305272335478L;
@@ -28,7 +28,7 @@ public class HrmTypeDetailCode implements Serializable {
 	@EmbeddedId		
 	private HrmTypeDetailCodeId id;		
 	
-	@Column(name="DETAIL_CODE_NAME")
+	@Column(name="CODE_NM")
 	private String codeName;
 		
 	@Column(name="USE_YN")

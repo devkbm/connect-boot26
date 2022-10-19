@@ -9,11 +9,19 @@ import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.appointment.AppointmentInformation;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+
 public class AppointmentRecordDTO {
 	
-	public record FormStaffAppointmentRecord(
+	@Builder(access = AccessLevel.PRIVATE)
+	public static record FormStaffAppointmentRecord(
+			String clientAppUrl,
+			String organizationCode,
 			@NotEmpty
 			String staffId,
+			String staffNo,
+			String staffName,			
 			Long id,
 			LocalDate appointmentDate,
 			LocalDate appointmentEndDate,			
@@ -53,22 +61,26 @@ public class AppointmentRecordDTO {
 
 			Optional<AppointmentInformation> info = Optional.ofNullable(entity.getInfo());
 			
-			return new FormStaffAppointmentRecord(entity.getStaff().getId()
-												 ,entity.getId()
-												 ,entity.getAppointmentDate()
-												 ,entity.getAppointmentEndDate()
-												 ,entity.getRecordName()
-												 ,entity.getComment()
-												 ,entity.getProcessWatingYn()
-												 ,info.map(AppointmentInformation::getBlngDeptCode).orElse(null)
-												 ,info.map(AppointmentInformation::getWorkDeptCode).orElse(null)
-												 ,info.map(AppointmentInformation::getJobGroupCode).orElse(null)
-												 ,info.map(AppointmentInformation::getJobPositionCode).orElse(null)
-												 ,info.map(AppointmentInformation::getOccupationCode).orElse(null)
-												 ,info.map(AppointmentInformation::getJobGradeCode).orElse(null)
-												 ,info.map(AppointmentInformation::getPayStepCode).orElse(null)
-												 ,info.map(AppointmentInformation::getJobCode).orElse(null)
-												 ,info.map(AppointmentInformation::getDutyResponsibilityCode).orElse(null));					
+			return FormStaffAppointmentRecord.builder()
+											 .staffId(entity.getStaff().getId())
+											 .staffNo(entity.getStaff().getStaffNo())
+											 .staffName(entity.getStaff().getName().getName())
+											 .id(entity.getId())
+											 .appointmentDate(entity.getAppointmentDate())
+											 .appointmentEndDate(entity.getAppointmentEndDate())
+											 .recordName(entity.getRecordName())
+											 .comment(entity.getComment())
+											 .processWatingYn(entity.getProcessWatingYn())
+											 .blngDeptCode(info.map(AppointmentInformation::getBlngDeptCode).orElse(null))
+											 .workDeptCode(info.map(AppointmentInformation::getWorkDeptCode).orElse(null))
+											 .jobGroupCode(info.map(AppointmentInformation::getJobGroupCode).orElse(null))
+											 .jobPositionCode(info.map(AppointmentInformation::getJobPositionCode).orElse(null))
+											 .occupationCode(info.map(AppointmentInformation::getOccupationCode).orElse(null))
+											 .jobGradeCode(info.map(AppointmentInformation::getJobGradeCode).orElse(null))
+											 .payStepCode(info.map(AppointmentInformation::getPayStepCode).orElse(null))
+											 .jobCode(info.map(AppointmentInformation::getJobCode).orElse(null))
+											 .dutyResponsibilityCode(info.map(AppointmentInformation::getDutyResponsibilityCode).orElse(null))
+											 .build();									
 		}
 		
 		private AppointmentInformation newAppointmentInformation() {
