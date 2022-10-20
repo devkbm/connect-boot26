@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @AutoConfigureRestDocs
 @AutoConfigureMockMvc
-public abstract class SpringMockMvcTestSupport extends SpringTestSupport {
+public abstract class SpringMockMvcTestSupport { //extends SpringTestSupport {
 
 	@Autowired
 	protected MockMvc mockMvc;
@@ -25,6 +25,7 @@ public abstract class SpringMockMvcTestSupport extends SpringTestSupport {
 	protected ObjectMapper objectMapper;
 	
 	// AsciiDoc 생성을 위해 설정
+	/*
 	@BeforeEach
 	void setUp(WebApplicationContext webApplicationContext
 			  ,RestDocumentationContextProvider restDocumentation) {
@@ -33,4 +34,5 @@ public abstract class SpringMockMvcTestSupport extends SpringTestSupport {
 				.addFilters(new CharacterEncodingFilter("UTF-8", true))			
 				.build();
 	}
+	*/
 }
