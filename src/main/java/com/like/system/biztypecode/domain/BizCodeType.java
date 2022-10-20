@@ -73,6 +73,10 @@ public class BizCodeType extends AbstractAuditEntity {
 						 .findFirst()
 						 .orElse(null);
 	}
+
+	public void addBizCode(BizCode code) {
+		this.codes.add(code);
+	}
 	
 	public void addBizCode(String code
 				          ,String name

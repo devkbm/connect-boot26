@@ -24,7 +24,7 @@ public class BizCodeDTO {
 			if (entity == null) return null;
 			
 			return Form.builder()
-					   .typeId(entity.getId().getTypeId())
+					   .typeId(entity.getId().getBizCodeTypeId().getTypeId())
 					   .code(entity.getId().getCode())
 					   .codeName(entity.getCodeName())
 					   .useYn(entity.getUseYn())

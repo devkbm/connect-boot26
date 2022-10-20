@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.biztypecode.boundary.BizCodeDTO;
-import com.like.system.biztypecode.boundary.BizCodeTypeDTO;
 import com.like.system.biztypecode.domain.BizCode;
 import com.like.system.biztypecode.domain.BizCodeId;
+import com.like.system.biztypecode.domain.BizCodeRepository;
 import com.like.system.biztypecode.domain.BizCodeType;
 import com.like.system.biztypecode.domain.BizCodeTypeId;
 import com.like.system.biztypecode.domain.BizCodeTypeRepository;
@@ -15,21 +15,26 @@ import com.like.system.biztypecode.domain.BizCodeTypeRepository;
 @Transactional
 public class BizCodeService {
 
-	private BizCodeTypeRepository repository;
+	private BizCodeRepository repository;
+	private BizCodeTypeRepository bizTypeRepository;
 	
-	public BizCodeService(BizCodeTypeRepository repository) {
+	public BizCodeService(BizCodeRepository repository
+						 ,BizCodeTypeRepository bizTypeRepository) {
 		this.repository = repository;
+		this.bizTypeRepository = bizTypeRepository;
+	}		
+	
+	public BizCode getBizCode(String organizationCode, String typeId, String code) {				
+		return repository.findById(new BizCodeId(organizationCode, typeId, code)).orElse(null);
 	}
 	
-	public BizCodeType getBizCodeType(String organizationCode, String typeId) {
-		return repository.findById(new BizCodeTypeId(organizationCode, typeId)).orElse(null);
-	}
-	
-	public void saveBizCodeType(BizCodeTypeDTO.Form dto) {
-		BizCodeType entity = this.getBizCodeType(dto.organizationCode(), dto.typeId());
-		
-		if (entity == null) {
-			entity = dto.newEntity();			
+	public void saveBizCode(BizCodeDTO.Form dto) {	
+		BizCodeType bizType = this.bizTypeRepository.findById(new BizCodeTypeId(dto.organizationCode(), dto.typeId()))
+													.orElseThrow(() -> new IllegalArgumentException("업무코드분류는 필수 값입니다."));
+		BizCode entity = this.getBizCode(dto.organizationCode(), dto.typeId(), dto.code());
+					
+		if (entity == null) {			
+			entity = dto.newEntity(bizType);			
 		} else {
 			dto.modify(entity);
 		}
@@ -37,33 +42,8 @@ public class BizCodeService {
 		repository.save(entity);
 	}
 	
-	public void deleteBizCodeType(String organizationCode, String typeId) {
-		repository.deleteById(new BizCodeTypeId(organizationCode, typeId));
-	}	
-	
-	public BizCode getBizCode(String organizationCode, String typeId, String code) {				
-		return repository.findById(new BizCodeTypeId(organizationCode, typeId)).orElse(null)
-						 .getBizeCode(new BizCodeId(organizationCode, typeId, code));
-	}
-	
-	public void saveBizCode(BizCodeDTO.Form dto) {		
-		BizCodeType bizType = this.getBizCodeType(dto.organizationCode(), dto.typeId());
-		BizCode entity = this.getBizCode(dto.organizationCode(), dto.typeId(), dto.code());
-		
-		if (bizType == null) throw new IllegalArgumentException("bizType은 필수 값입니다.");
-		
-		if (entity == null) {			
-			entity = dto.newEntity(bizType);
-		} else {
-			dto.modify(entity);
-		}
-		
-		repository.save(bizType);
-	}
-	
 	public void deleteBizCode(String organizationCode, String typeId, String code) {
-		BizCodeType entity = this.getBizCodeType(organizationCode, typeId);
-		entity.remove(this.getBizCode(organizationCode, typeId, code));			
+		repository.deleteById(new BizCodeId(organizationCode, typeId, code));		
 	}
 	
 }

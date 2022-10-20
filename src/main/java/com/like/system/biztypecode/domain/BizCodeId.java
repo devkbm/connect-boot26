@@ -18,17 +18,13 @@ public class BizCodeId implements Serializable {
 	
 	private static final long serialVersionUID = 3428517048766851878L;
 
-	@Column(name="ORG_CD")
-	String organizationCode;
-	
-	@Column(name="TYPE_ID")
-	String typeId;
+	BizCodeTypeId bizCodeTypeId;	
 		
 	@Column(name="CODE")
 	String code;	
 	
 	public BizCodeId(String organizationCode, String typeId, String code) {
-		this.typeId = typeId;
+		this.bizCodeTypeId = new BizCodeTypeId(organizationCode, typeId);		
 		this.code = code;
 	}
 }

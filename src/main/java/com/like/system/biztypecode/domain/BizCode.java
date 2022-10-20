@@ -5,6 +5,8 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -39,7 +41,11 @@ public class BizCode extends AbstractAuditEntity {
 	String comment;
 	
 	@ManyToOne
-	//@MapsId("typeId")	//기본키를 외래키로 쓰는경우 @MapsId 사용, 아니면 @JOinColumn 사용 
+	@MapsId("bizCodeTypeId")	//기본키를 외래키로 쓰는경우 @MapsId 사용, 아니면 @JOinColumn 사용
+	@JoinColumns({
+        @JoinColumn(name="organizationCode", referencedColumnName="org_cd"),
+        @JoinColumn(name="typeId", referencedColumnName="type_id")
+    })
 	BizCodeType bizCodeType;
 
 	public BizCode(BizCodeType bizType

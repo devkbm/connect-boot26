@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.biztypecode.boundary.BizCodeDTO;
-import com.like.system.biztypecode.boundary.BizCodeTypeDTO;
 import com.like.system.biztypecode.service.BizCodeService;
 import com.like.system.core.message.MessageUtil;
 
@@ -25,35 +24,8 @@ public class BizCodeController {
 	public BizCodeController(BizCodeService service) {
 		this.service = service;
 	}
-	
-	@GetMapping("/api/system/bizcodetype/{typeId}")
-	public ResponseEntity<?> getBizCodeType(@RequestParam String organizationCode
-										   ,@PathVariable String typeId) {
 		
-		BizCodeTypeDTO.Form dto = BizCodeTypeDTO.Form.convert(service.getBizCodeType(organizationCode, typeId));
-					
-		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
-	}
-			
-	@PostMapping("/api/system/bizcodetype")	
-	public ResponseEntity<?> saveBizCodeType(@RequestBody BizCodeTypeDTO.Form dto) {				
-																			
-		service.saveBizCodeType(dto);						
-								 					
-		return toList(null, MessageUtil.getSaveMessage(1));
-	}
-	
-		
-	@DeleteMapping("/api/system/bizcodetype/{typeId}")
-	public ResponseEntity<?> deleteBizCodeType(@RequestParam String organizationCode
-											  ,@PathVariable String typeId) {				
-																		
-		service.deleteBizCodeType(organizationCode, typeId);						
-								 					
-		return toList(null, MessageUtil.getDeleteMessage(1));
-	}
-	
-	@GetMapping("/api/common/bizcodetype/{typeId}/bizcode/{code}")
+	@GetMapping("/api/system/bizcodetype/{typeId}/bizcode/{code}")
 	public ResponseEntity<?> getBizCode(@RequestParam String organizationCode
 									   ,@PathVariable String typeId
 									   ,@PathVariable String code) {
@@ -63,7 +35,7 @@ public class BizCodeController {
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 			
-	@PostMapping("/api/system/bizcodetype/bizdetail")	
+	@PostMapping("/api/system/bizcodetype/bizcode")	
 	public ResponseEntity<?> saveBizCode(@RequestBody BizCodeDTO.Form dto) {				
 																		
 		service.saveBizCode(dto);						
