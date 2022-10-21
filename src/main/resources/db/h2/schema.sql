@@ -324,8 +324,7 @@ CREATE TABLE IF NOT EXISTS HRMCODETYPE (
 	MODIFIED_HOST_IP	VARCHAR(50)		NULL		,--COMMENT '최종수정IP',
 	MODIFIED_APP_URL	VARCHAR(500)	NULL		,--COMMENT '최종수정APPURL',
 	TYPE_ID				    VARCHAR(10)	  NOT NULL	,--COMMENT '구분ID'
-	TYPE_NM				    VARCHAR(600)	NOT NULL	,--COMMENT '구분명'
-	USE_YN			      BOOLEAN			  NOT NULL	,--COMMENT '사용여부'	
+	TYPE_NM				    VARCHAR(600)	NOT NULL	,--COMMENT '구분명'	
 	PRT_SEQ			      INT(11)       NULL		,--COMMENT '출력순번'	
 	CMT					      TEXT		 	    NULL 		,--COMMENT '비고',
 	constraint pk_hrmcodetype primary key(TYPE_ID)

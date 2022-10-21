@@ -48,8 +48,7 @@ public class HrmCodeTypeDTO {
 			String organizationCode,
 			String clientAppUrl,
 			String typeId,
-			String typeName,
-			boolean useYn,
+			String typeName,			
 			Integer sequence,
 			String comment
 			) {
@@ -57,14 +56,12 @@ public class HrmCodeTypeDTO {
 		public HrmCodeType newEntity() {
 			return new HrmCodeType(this.typeId 
 					   		  ,this.typeName
-					   		  ,this.useYn
 					   		  ,this.sequence					   		  
 					   		  ,this.comment);
 		}
 		
 		public HrmCodeType modify(HrmCodeType entity) {
-			entity.modify(this.typeName
-						 ,this.useYn
+			entity.modify(this.typeName						 
 						 ,this.sequence						 
 						 ,this.comment);
 			return entity;
@@ -74,8 +71,7 @@ public class HrmCodeTypeDTO {
 					
 			return Form.builder()
 					   .typeId(entity.getId())
-					   .typeName(entity.getName())
-					   .useYn(entity.isUseYn())
+					   .typeName(entity.getName())					   
 					   .sequence(entity.getSequence())
 					   .comment(entity.getComment())
 					   .build();						

@@ -24,10 +24,7 @@ public class HrmCodeType extends AbstractAuditEntity {
 	String id;
 	
 	@Column(name="TYPE_NM")
-	String name;
-	
-	@Column(name="USE_YN")
-	boolean useYn = true;
+	String name;	
 	
 	@Column(name="PRT_SEQ")
 	Integer sequence;
@@ -36,23 +33,19 @@ public class HrmCodeType extends AbstractAuditEntity {
 	String comment;		
 	
 	public HrmCodeType(String id
-					  ,String name
-					  ,boolean useYn
+					  ,String name				
 					  ,Integer sequence				  				 
 					  ,String comment) {				
 		this.id = id;
-		this.name = name;
-		this.useYn = useYn;
+		this.name = name;		
 		this.sequence = sequence;		
 		this.comment = comment;
 	}
 	
-	public void modify(String name
-					  ,boolean useYn
+	public void modify(String name					  
 					  ,Integer sequence					  
 					  ,String comment ) {		
-		this.name = name;
-		this.useYn = useYn;
+		this.name = name;		
 		this.sequence = sequence;		
 		this.comment = comment;
 	}	
