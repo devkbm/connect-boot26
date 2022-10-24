@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.hrm.staff.domain.model.Staff;
@@ -25,18 +26,18 @@ import com.like.system.file.service.FileService;
 @Controller
 public class StaffImageController {
 	
-	private StaffService employeeService;	
+	private StaffService service;	
 	private FileService fileService;
 				
-	public StaffImageController(StaffService employeeService,
-								   FileService fileService) {
-		this.fileService 		= fileService;
-		this.employeeService 	= employeeService;
+	public StaffImageController(StaffService service
+							   ,FileService fileService) {
+		this.service = service;
+		this.fileService = fileService;		
 	}
 
 	@PostMapping("/api/hrm/staff/changeimage")
-	public ResponseEntity<?> changeEmployeeImage(@RequestParam("file") MultipartFile file,
-												 @RequestParam("staffId") String staffId) throws Exception {				
+	public ResponseEntity<?> changeEmployeeImage(@RequestPart MultipartFile file,
+												 String staffId) throws Exception {				
 		
 		Map<String, Object> response = new HashMap<>();
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -45,11 +46,11 @@ public class StaffImageController {
 		String uuid = UUID.randomUUID().toString();
 		String path = fileService.fileTransefer(file, uuid, FileUploadLocation.STATIC_PATH);
 		
-		Staff emp = employeeService.getStaff(staffId);
+		Staff staff = service.getStaff(staffId);
 				
-		emp.changeImagePath(uuid);
+		staff.changeImagePath(uuid);
 		
-		employeeService.saveStaff(emp);
+		service.saveStaff(staff);
 		
 		response.put("data", path);
 		response.put("status", "done");
@@ -58,12 +59,12 @@ public class StaffImageController {
 	}
 		
 	@GetMapping("/api/hrm/staff/downloadimage")
-	public HttpServletResponse downloadEmployeeImage(HttpServletResponse response,
-													 @RequestParam("staffId") String staffId) throws Exception {
+	public HttpServletResponse downloadStaffImage(HttpServletResponse response,
+												  @RequestParam String staffId) throws Exception {
 				
-		Staff emp = employeeService.getStaff(staffId);			
+		Staff staff = service.getStaff(staffId);			
 		
-		File file = fileService.getStaticPathFile(emp.getImagePath());
+		File file = fileService.getStaticPathFile(staff.getImagePath());
 				
 		response = this.setResponse(response, file.length(), staffId);
 		
