@@ -9,7 +9,7 @@ import lombok.Builder;
 public class BizCodeDTO {
 
 	@Builder(access = AccessLevel.PRIVATE)
-	public record Form(
+	public static record Form(
 			String clientAppUrl,
 			String organizationCode,
 			String typeId,
