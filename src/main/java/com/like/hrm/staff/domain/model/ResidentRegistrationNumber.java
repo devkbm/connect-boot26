@@ -39,7 +39,7 @@ public class ResidentRegistrationNumber {
 	}
 	
 	/**
-	 * 주민번호의 7번째 숫자로 성별을 구분한다.
+	 * 주민등록번호 13자리 중 7번째 숫자로 성별을 구분한다.
 	 * @param residentRegistrationNumber
 	 * @return M[남자], F[여자], X[오류]
 	 */
@@ -61,8 +61,19 @@ public class ResidentRegistrationNumber {
 	}
 	
 	/**
-	 * 주민등록번호 7번째 숫자를 추출한다.
+	 * 주민등록번호 13자리중 7번째 숫자를 추출한다.
 	 * ex) 1234567890123 -> 7
+	 * 의미) 
+	 * 1 - 1900년대 출생한 남자
+	 * 2 - 1900년대 출생한 여자
+	 * 3 - 2000년대 출생한 남자
+	 * 4 - 2000년대 출생한 여자
+	 * 5 - 1900년대 출생한 외국인 남자
+	 * 6 - 1900년대 출생한 외국인 여자
+	 * 7 - 2000년대 출생한 외국인 남자
+	 * 8 - 2000년대 출생한 외국인 여자
+	 * 9 - 1800년대 출생한 남자
+	 * 0 - 1800년대 출생한 여자
 	 * @return
 	 */
 	private String getSexCode() {
@@ -74,7 +85,7 @@ public class ResidentRegistrationNumber {
 		String year = switch (this.getSexCode()) {
 			case "9","0" -> "18" + yearYY;
 			case "1","2","5","6" -> "19" + yearYY;
-			case "3","4","7","8" -> "18" + yearYY;
+			case "3","4","7","8" -> "20" + yearYY;
 			default -> "d";
 		};
 		

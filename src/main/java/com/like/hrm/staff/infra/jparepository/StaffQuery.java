@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.like.hrm.hrmcode.domain.QHrmCode;
 import com.like.hrm.staff.boundary.QResponseStaffAppointmentRecord;
+import com.like.hrm.staff.boundary.QResponseStaffCurrentAppointment;
 import com.like.hrm.staff.boundary.StaffDTO.SearchStaff;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
+import com.like.hrm.staff.boundary.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffQueryRepository;
@@ -71,6 +73,40 @@ public class StaffQuery implements StaffQueryRepository {
 						   .fetch();
 	}
 	
+	@Override
+	public List<ResponseStaffCurrentAppointment> getStaffCurrentAppointment(String staffId) {
+
+		QHrmCode jobGroupCode = QHrmCode.hrmCode;
+		QHrmCode jobPositionCode = new QHrmCode("jobPositionCode");
+		QHrmCode occupationCode = new QHrmCode("occupationCode");
+		QHrmCode jobGradeCode = new QHrmCode("jobGradeCode");
+		QHrmCode payStepCode = new QHrmCode("payStepCode");
+		QHrmCode jobCode = new QHrmCode("jobCode");						
+		
+		return queryFactory.select(projection(qStaff, jobGroupCode, jobPositionCode, occupationCode, jobGradeCode, payStepCode, jobCode))
+				   .from(qStaff)				   
+				   .leftJoin(jobGroupCode)
+				   		.on(jobGroupCode.id.typeId.eq("HR0001")
+				   		.and(qStaff.currentAppointment.jobGroupCode.eq(jobGroupCode.id.code)))
+				   .leftJoin(jobPositionCode)
+				   		.on(jobPositionCode.id.typeId.eq("HR0002")
+				   		.and(qStaff.currentAppointment.jobPositionCode.eq(jobPositionCode.id.code)))
+				   .leftJoin(occupationCode)
+				   		.on(occupationCode.id.typeId.eq("HR0003")
+				   		.and(qStaff.currentAppointment.occupationCode.eq(occupationCode.id.code)))
+				   .leftJoin(jobGradeCode)
+				   		.on(jobGradeCode.id.typeId.eq("HR0004")
+				   		.and(qStaff.currentAppointment.jobGradeCode.eq(jobGradeCode.id.code)))
+				   .leftJoin(payStepCode)
+				   		.on(payStepCode.id.typeId.eq("HR0005")
+				   		.and(qStaff.currentAppointment.payStepCode.eq(payStepCode.id.code)))
+				   .leftJoin(jobCode)
+				   		.on(jobCode.id.typeId.eq("HR0006")
+				   		.and(qStaff.currentAppointment.jobCode.eq(jobCode.id.code)))				   
+				   .where(qStaff.id.eq(staffId))
+				   .fetch();
+	}
+	
 	private QResponseStaffAppointmentRecord projections(QStaff qStaff
 											, QAppointmentRecord qRecord
 											, QHrmCode jobGroupCode
@@ -107,5 +143,35 @@ public class StaffQuery implements StaffQueryRepository {
 											   ,qRecord.info.dutyResponsibilityCode
 											   ,dutyResponsibilityCode.codeName);
 	}
+
+	
+	private QResponseStaffCurrentAppointment projection(QStaff qStaff														
+													   ,QHrmCode jobGroupCode
+													   ,QHrmCode jobPositionCode
+													   ,QHrmCode occupationCode
+													   ,QHrmCode jobGradeCode
+													   ,QHrmCode payStepCode
+													   ,QHrmCode jobCode) {
+		return new QResponseStaffCurrentAppointment(qStaff.id
+												   ,qStaff.organizationCode
+												   ,qStaff.staffNo
+												   ,qStaff.currentAppointment.blngDeptCode
+												   ,qStaff.currentAppointment.blngDeptCode
+												   ,qStaff.currentAppointment.workDeptCode
+												   ,qStaff.currentAppointment.workDeptCode
+												   ,qStaff.currentAppointment.jobGroupCode
+												   ,jobGroupCode.codeName
+												   ,qStaff.currentAppointment.jobPositionCode
+												   ,jobPositionCode.codeName
+												   ,qStaff.currentAppointment.occupationCode
+												   ,occupationCode.codeName
+												   ,qStaff.currentAppointment.jobGradeCode
+												   ,jobGradeCode.codeName
+												   ,qStaff.currentAppointment.payStepCode
+												   ,payStepCode.codeName
+												   ,qStaff.currentAppointment.jobCode
+												   ,jobCode.codeName);
+	}
+	
 
 }

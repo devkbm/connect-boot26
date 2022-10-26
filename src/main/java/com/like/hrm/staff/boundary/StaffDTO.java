@@ -106,7 +106,7 @@ public class StaffDTO {
 								   
 		}
 	}
-	
+			
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	public record FormStaff(
 			@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
