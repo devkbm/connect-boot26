@@ -3,14 +3,16 @@ package com.like.system.hierarchycode.domain;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.ForeignKey;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -30,16 +32,12 @@ import lombok.ToString;
 @EntityListeners(AuditingEntityListener.class)
 public class Code extends AbstractAuditEntity  {
 					
-	@Id
-	@Column(name="CODE_ID")
-	String id;		
-	
-	@Column(name="SYSTEM_TYPE_CODE")
-	String systemTypeCode;
+	@EmbeddedId
+	CodeId id;			
 	
 	@Column(name="CODE")
 	String code;
-		
+	
 	@Column(name="CODE_NAME")
 	String codeName;
 	
@@ -55,30 +53,27 @@ public class Code extends AbstractAuditEntity  {
 	@Column(name="HIERARCHY_LEVEL")
 	int hierarchyLevel = 1;
 	
+	@Column(name="LOW_LEVEL_CODE_LENGTH")
+	Integer lowLevelCodeLength;
+	
 	@Column(name="PRT_SEQ")
-	int seq = 0;
-			
-	@Column(name="FIXED_LENGTH_YN")
-	boolean fixedLengthYn = true;
-	
-	@Column(name="CODE_LENGTH")
-	Integer codeLength;
-	
-	@Transient
-	String subGroup1;
-	
-	@Transient
-	String subGroup2;
-	
-	@Transient
-	String subGroup3;
+	int seq = 0;				
 	
 	@Column(name="cmt")
 	String cmt;
 			
+	/**
+	 * 상위 코드 참조용 컬럼
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "p_code_id")
+	@JoinColumns(value = {
+        @JoinColumn(name="system_type_code", referencedColumnName="system_type_code", insertable = false, updatable = false),
+        @JoinColumn(name="p_code_id", referencedColumnName="code_id", insertable = false, updatable = false)
+    }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))          
 	Code parentCode;
+	
+	@Column(name="P_CODE_ID")
+	String _parentCode;
 
 	@Builder
 	public Code(String systemTypeCode
@@ -87,81 +82,52 @@ public class Code extends AbstractAuditEntity  {
 			   ,String codeNameAbbreviation
 			   ,LocalDateTime fromDate
 			   ,LocalDateTime toDate
-			   ,int seq
-			   ,boolean fixedLengthYn
-			   ,Integer codeLength
+			   ,int seq			   
+			   ,Integer lowLevelCodeLength
 			   ,String cmt
-			   ,Code parentCode) {		
-		this.systemTypeCode = systemTypeCode;
+			   ,Code parentCode) {
+		
+		this.id = new CodeId(systemTypeCode, parentCode, code);
 		this.code = code;
 		this.codeName = codeName;
 		this.codeNameAbbreviation = codeNameAbbreviation;		
 		this.fromDate = fromDate;
 		this.toDate = toDate;		
-		this.seq = seq;
-		this.fixedLengthYn = fixedLengthYn;
-		this.codeLength = codeLength;
+		this.seq = seq;		
+		this.lowLevelCodeLength = lowLevelCodeLength;
 		this.cmt = cmt;
 		this.parentCode = parentCode;
-		
-		this.createId();
+		this._parentCode = parentCode == null ? null : parentCode.getId().getCodeId();
+				
 		this.hierarchyLevel();
 	}
-	
-	/**
-	 * @param codeName
-	 * @param codeNameAbbreviation
-	 * @param fromDate
-	 * @param toDate
-	 * @param seq
-	 * @param fixedLengthYn
-	 * @param codeLength
-	 * @param cmt
-	 */
+		
 	public void modifyEntity(String codeName
 							,String codeNameAbbreviation
 							,LocalDateTime fromDate
 							,LocalDateTime toDate
-							,int seq
-							,boolean fixedLengthYn
-							,Integer codeLength
+							,int seq							
+							,Integer lowLevelCodeLength
 							,String cmt) {
 		this.codeName = codeName;
 		this.codeNameAbbreviation = codeNameAbbreviation;
 		this.fromDate = fromDate;
 		this.toDate = toDate;
-		this.seq = seq;
-		this.fixedLengthYn = fixedLengthYn;
-		this.codeLength = codeLength;
+		this.seq = seq;		
+		this.lowLevelCodeLength = lowLevelCodeLength;
 		this.cmt = cmt;
 	}
-	
 
-	private String createId() {
-		
-		if ( this.parentCode == null ) {
-			this.id = this.systemTypeCode + this.code;			
-		} else {
-			this.id = this.parentCode.id + this.code;
-		}
-		
-		return this.id;
+	public Code getParentCode() {
+		return this.parentCode;
 	}
-	
+		
 	private void hierarchyLevel() {
 		if ( this.parentCode == null ) {
 			this.hierarchyLevel = 1; 
 		} else {
 			this.hierarchyLevel = this.parentCode.hierarchyLevel + 1;
 		}
-	}
-	
-	public Code getParentCode() {
-		return this.parentCode;
-	}
-	
-	public String getId() {
-		return this.id;
 	}
 					
 }

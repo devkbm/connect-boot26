@@ -30,7 +30,7 @@ public class CommonCodeJpaQueryRepository implements CommonCodeQueryRepository {
 	public List<Code> getCodeList(String parentCodeId) {
 		return queryFactory
 				.selectFrom(qCode)
-				.where(qCode.parentCode.id.eq(parentCodeId))
+				.where(qCode.parentCode.id.codeId.eq(parentCodeId))
 				.fetch();
 	}
 	
@@ -66,7 +66,7 @@ public class CommonCodeJpaQueryRepository implements CommonCodeQueryRepository {
 		
 		builder.and(qCode.isRootNode())
 		       .and(qCode.enabled())
-		       .and(qCode.systemTypeCode.eq(systemTypeCode));				
+		       .and(qCode.id.systemTypeCode.eq(systemTypeCode));				
 				
 		return queryFactory
 				.select(this.getCodehierarchyConstructor())
@@ -76,11 +76,11 @@ public class CommonCodeJpaQueryRepository implements CommonCodeQueryRepository {
 				.fetch();
 	}
 		
-	private List<CodeHierarchy> getCodeChildNodeList(String parentId) {
+	private List<CodeHierarchy> getCodeChildNodeList(String parentCodeId) {
 		BooleanBuilder builder = new BooleanBuilder();
 		
 		builder
-			.and(qCode.parentCode.id.eq(parentId))
+			.and(qCode.parentCode.id.codeId.eq(parentCodeId))
 			.and(qCode.enabled());
 			
 		return queryFactory
@@ -118,16 +118,20 @@ public class CommonCodeJpaQueryRepository implements CommonCodeQueryRepository {
 		return list;
 	}
 	
+	/*
+	 * 	public CodeHierarchy(String codeId, String systemTypeCode, String code, String codeName, String codeNameAbbreviation, String parentId, 
+						 LocalDateTime fromDate, LocalDateTime toDate, int seq, String cmt)
+	 */
 	
 	private ConstructorExpression<CodeHierarchy> getCodehierarchyConstructor() {		
 		return Projections.constructor(
-				CodeHierarchy.class,				
-				qCode.id, 
-				qCode.systemTypeCode,
-				qCode.parentCode.id, 
+				CodeHierarchy.class,	
+				qCode.id.codeId,
+				qCode.id.systemTypeCode,				
 				qCode.code, 
 				qCode.codeName, 
 				qCode.codeNameAbbreviation,
+				qCode.parentCode.id.codeId,
 				qCode.fromDate, 
 				qCode.toDate, 
 				qCode.seq, 

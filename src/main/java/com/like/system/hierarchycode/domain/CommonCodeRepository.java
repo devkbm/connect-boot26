@@ -5,6 +5,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CommonCodeRepository extends JpaRepository<Code, String>, QuerydslPredicateExecutor<Code> {		
+public interface CommonCodeRepository extends JpaRepository<Code, CodeId>, QuerydslPredicateExecutor<Code> {		
 		
 }

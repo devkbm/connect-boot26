@@ -13,8 +13,7 @@ import lombok.Builder;
 
 public class CodeDTO {	
 	
-	public record Search(
-			String id,
+	public record Search(			
 			String systemTypeCode,
 			String parentId,
 			String code,
@@ -28,32 +27,29 @@ public class CodeDTO {
 		public BooleanBuilder getCondition() {
 			BooleanBuilder builder = new BooleanBuilder();
 					
-			builder
-				.and(eqId(this.id))					// 특정 아이디만 검색	
+			builder				
 				.and(eqSystemTypeCode(this.systemTypeCode))
-				.and(eqParentId(this.parentId))	 	// 특정 아이디의 하위 코드 검색
+				.and(eqParentCode(this.parentId))	 	// 특정 아이디의 하위 코드 검색
 				.and(likeCode(this.code))
 				.and(likeCodeName(this.codeName))
 				.and(likeCodeNameAbbreviation(this.codeNameAbbreviation));
-																					
+													
+			/*
 			if (this.isUse) {																						
 				builder.and(qType.enabled());											
 			} 
+			*/
 			
 			return builder;
 		}
-		
-		private BooleanExpression eqId(String id) {
-			return hasText(id) ? qType.id.eq(id) : null;					
-		}
-		
+					
 		private BooleanExpression eqSystemTypeCode(String systemTypeCode) {
-			return hasText(systemTypeCode) ? qType.systemTypeCode.eq(systemTypeCode) : null;					
+			return hasText(systemTypeCode) ? qType.id.systemTypeCode.eq(systemTypeCode) : null;					
 		}
-		
-		private BooleanExpression eqParentId(String parentId) {
-			return hasText(parentId) ? qType.parentCode.id.eq(parentId) : null;					
-		}
+				
+		private BooleanExpression eqParentCode(String parentId) {
+			return hasText(parentId) ? qType.parentCode.id.codeId.eq(parentId) : null;					
+		}		
 		
 		private BooleanExpression likeCode(String code) {
 			return hasText(code) ? qType.code.like("%"+code+"%") : null;					
@@ -74,20 +70,19 @@ public class CodeDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String clientAppUrl,
-			String id,
+			String clientAppUrl,			
 			String organizationCode,
 			String systemTypeCode,
-			String parentId,
+			String codeId,
+			String parentId,			
 			String code,
 			String codeName,
 			String codeNameAbbreviation,
 			LocalDateTime fromDate,
 			LocalDateTime toDate,
 			Integer hierarchyLevel,
-			Integer seq,
-			boolean fixedLengthYn,
-			Integer codeLength,
+			Integer seq,			
+			Integer lowLevelCodeLength,
 			String cmt
 			) {
 		
@@ -101,9 +96,8 @@ public class CodeDTO {
 							  .codeNameAbbreviation(this.codeNameAbbreviation)				
 							  .fromDate(this.fromDate)
 							  .toDate(this.toDate)
-							  .seq(this.seq)
-							  .fixedLengthYn(this.fixedLengthYn)
-							  .codeLength(this.codeLength)
+							  .seq(this.seq)							  
+							  .lowLevelCodeLength(this.lowLevelCodeLength)
 							  .cmt(this.cmt)
 							  .build();
 			
@@ -117,9 +111,8 @@ public class CodeDTO {
 							 ,this.codeNameAbbreviation
 							 ,this.fromDate
 							 ,this.toDate
-							 ,this.seq
-							 ,this.fixedLengthYn
-							 ,this.codeLength
+							 ,this.seq							 
+							 ,this.lowLevelCodeLength
 							 ,this.cmt);
 			
 			code.setAppUrl(clientAppUrl);
@@ -133,18 +126,18 @@ public class CodeDTO {
 					   .createdDt(entity.getCreatedDt())
 					   .createdBy(entity.getCreatedBy().getLoggedUser())
 					   .modifiedDt(entity.getModifiedDt())
-					   .modifiedBy(entity.getModifiedBy().getLoggedUser())
-					   .id(entity.getId())
-					   .systemTypeCode(entity.getSystemTypeCode())
-					   .parentId(parent == null ? null : parent.getId())
+					   .modifiedBy(entity.getModifiedBy().getLoggedUser())					   
+					   .systemTypeCode(entity.getId().getSystemTypeCode())
+					   .codeId(entity.getId().getCodeId())
+					   .parentId(parent == null ? null : parent.getId().getCodeId())
 					   .code(entity.getCode())
 					   .codeName(entity.getCodeName())
 					   .codeNameAbbreviation(entity.getCodeNameAbbreviation())								
 					   .fromDate(entity.getFromDate())
 					   .toDate(entity.getToDate())
-					   .seq(entity.getSeq())
-					   .fixedLengthYn(entity.isFixedLengthYn())
-					   .codeLength(entity.getCodeLength())
+					   .hierarchyLevel(entity.getHierarchyLevel())
+					   .seq(entity.getSeq())					   
+					   .lowLevelCodeLength(entity.getLowLevelCodeLength())
 					   .cmt(entity.getCmt())
 					   .build();	
 		}

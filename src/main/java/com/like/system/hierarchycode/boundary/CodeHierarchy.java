@@ -52,10 +52,10 @@ public class CodeHierarchy implements Serializable {
 	boolean isLeaf;
 	
 	@QueryProjection
-	public CodeHierarchy(String id, String systemTypeCode, String parentId, String code, String codeName, String codeNameAbbreviation, 
-		LocalDateTime fromDate, LocalDateTime toDate, int seq, String cmt) {
+	public CodeHierarchy(String codeId, String systemTypeCode, String code, String codeName, String codeNameAbbreviation, String parentId, 
+						 LocalDateTime fromDate, LocalDateTime toDate, int seq, String cmt) {
 	super();	
-	this.id = id;
+	this.id = codeId;
 	this.systemTypeCode = systemTypeCode;
 	this.parentId = parentId;
 	this.code = code;

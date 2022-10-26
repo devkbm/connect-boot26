@@ -25,10 +25,11 @@ public class CommonCodeController {
 		this.service = service;		
 	}	
 	
-	@GetMapping("/api/system/code/{id}") 
-	public ResponseEntity<?> getCode(@PathVariable String id) {
+	@GetMapping("/api/system/code/{systemtype}/{codeId}") 
+	public ResponseEntity<?> getCode(@PathVariable String systemtype
+									,@PathVariable String codeId) {
 								  						 					
-		Code entity = service.getCode(id);
+		Code entity = service.getCode(systemtype, codeId);
 		
 		CodeDTO.Form dto = CodeDTO.Form.convertDTO(entity);
 		
@@ -43,10 +44,11 @@ public class CommonCodeController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}	
 		
-	@DeleteMapping("/api/system/code/{id}")
-	public ResponseEntity<?> delCode(@PathVariable String id) {						
+	@DeleteMapping("/api/system/code/{systemtype}/{codeId}")
+	public ResponseEntity<?> delCode(@PathVariable String systemtype
+									,@PathVariable String codeId) {						
 												
-		service.deleteCode(id);
+		service.deleteCode(systemtype, codeId);
 								 						
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}

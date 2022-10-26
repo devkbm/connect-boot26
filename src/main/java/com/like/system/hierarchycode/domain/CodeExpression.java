@@ -22,11 +22,11 @@ public class CodeExpression {
 	
 	@QueryDelegate(Code.class)
 	public static BooleanExpression isRootNode(QCode code) {							
-		return code.parentCode.isNull();
+		return code.parentCode.id.codeId.isNull();
 	}
 	
 	@QueryDelegate(Code.class)
 	public static BooleanExpression isLeafNode(QCode code) {							
-		return code.parentCode.isNotNull();
+		return code.parentCode.id.codeId.isNotNull();
 	}
 }
