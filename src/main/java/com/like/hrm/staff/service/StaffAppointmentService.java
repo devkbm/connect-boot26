@@ -1,5 +1,7 @@
 package com.like.hrm.staff.service;
 
+import java.time.LocalDate;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -44,13 +46,19 @@ public class StaffAppointmentService {
 		
 		staff.getAppointmentRecordList().add(entity);
 		
+		LocalDate today = LocalDate.now();
+		
+		if (today.isAfter(dto.appointmentDate())) {			
+			staff.applyAppointmentRecord(entity);			
+		} 
+		
 		repository.save(staff);
 	}	
 	
 	public void applyAppointmentRecord(String staffId, Long appointmentRecordId) {
 		Staff staff = getStaffInfo(staffId);
-		
-		staff.applyAppointmentRecord(appointmentRecordId);			
+		AppointmentRecord entity = staff.getAppointmentRecordList().get(appointmentRecordId);
+		staff.applyAppointmentRecord(entity);					
 	}
 	
 	private Staff getStaffInfo(String staffId) {

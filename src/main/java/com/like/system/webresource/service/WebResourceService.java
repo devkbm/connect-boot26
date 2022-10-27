@@ -17,8 +17,8 @@ public class WebResourceService {
 		this.repository = repository;		
 	}
 	
-	public WebResource getResource(String resourceCode) {
-		return repository.findById(resourceCode).orElse(null);
+	public WebResource getResource(String resourceId) {
+		return repository.findById(resourceId).orElse(null);
 	}
 	
 	public void saveWebResource(WebResource resource) {				
@@ -26,18 +26,18 @@ public class WebResourceService {
 	}
 	
 	public void saveWebResource(WebResourceDTO.FormWebResource dto) {	
-		WebResource resource = repository.findById(dto.resourceCode()).orElse(null);
+		WebResource resource = repository.findById(dto.resourceId()).orElse(null);
 		
 		if (resource == null) {
-			resource = dto.newWebResource();
+			resource = dto.newEntity();
 		} else {
-			dto.modifyWebResource(resource);
+			dto.modifyEntity(resource);
 		}
 		
 		repository.save(resource);
 	}
 	
-	public void deleteWebResource(String resourceCode) {
-		repository.deleteById(resourceCode);
+	public void deleteWebResource(String resourceId) {
+		repository.deleteById(resourceId);
 	}
 }

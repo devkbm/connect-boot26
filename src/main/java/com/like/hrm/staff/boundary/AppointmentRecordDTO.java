@@ -27,7 +27,7 @@ public class AppointmentRecordDTO {
 			LocalDate appointmentEndDate,			
 			String recordName,
 			String comment,				
-			String processWatingYn,
+			Boolean processWatingYn,
 			String blngDeptCode,			
 			String workDeptCode,			
 			String jobGroupCode,			

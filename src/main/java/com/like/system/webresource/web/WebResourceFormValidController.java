@@ -19,9 +19,9 @@ public class WebResourceFormValidController {
 		this.service = service;
 	}
 	
-	@GetMapping("/api/system/webresource/{code}/check")
-	public ResponseEntity<?> getResource(@PathVariable(value="code") String code) {						
-		WebResource resource = service.getResource(code); 							
+	@GetMapping("/api/system/webresource/{id}/check")
+	public ResponseEntity<?> getResource(@PathVariable String id) {						
+		WebResource resource = service.getResource(id); 							
 		Boolean isValid = resource == null ? true : false;
 						
 		return toOne(isValid, isValid == true ? "사용가능한 리소스 코드입니다." : "중복된 리소스 코드가 있습니다.");

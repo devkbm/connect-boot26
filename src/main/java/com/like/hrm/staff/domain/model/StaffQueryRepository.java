@@ -12,5 +12,5 @@ public interface StaffQueryRepository {
 		
 	List<ResponseStaffAppointmentRecord> getStaffAppointmentRecordList(String staffId);
 	
-	List<ResponseStaffCurrentAppointment> getStaffCurrentAppointment(String staffId);
+	ResponseStaffCurrentAppointment getStaffCurrentAppointment(String staffId);
 }

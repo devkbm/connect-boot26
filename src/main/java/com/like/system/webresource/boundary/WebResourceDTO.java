@@ -39,15 +39,15 @@ public class WebResourceDTO {
 		}
 		
 		private BooleanExpression likeResourceCode(String resourceCode) {
-			return hasText(resourceCode) ? qType.resourceCode.like("%"+resourceCode+"%") : null;					
+			return hasText(resourceCode) ? qType.id.like("%"+resourceCode+"%") : null;					
 		}
 		
 		private BooleanExpression likeResourceName(String resourceName) {
-			return hasText(resourceName) ? qType.resourceName.like("%"+resourceName+"%") : null;					
+			return hasText(resourceName) ? qType.name.like("%"+resourceName+"%") : null;					
 		}
 		
 		private BooleanExpression likeResourceType(String resourceType) {
-			return hasText(resourceName) ? qType.resourceType.like("%"+resourceType+"%") : null;			
+			return hasText(resourceName) ? qType.type.like("%"+resourceType+"%") : null;			
 		}
 		
 		private BooleanExpression likeUrl(String url) {
@@ -69,7 +69,7 @@ public class WebResourceDTO {
 			String clientAppUrl,
 			String organizationCode,
 			@NotEmpty
-			String resourceCode,
+			String resourceId,
 			@NotEmpty
 			String resourceName,
 			String resourceType,
@@ -84,17 +84,17 @@ public class WebResourceDTO {
 								  .createdBy(entity.getCreatedBy().getLoggedUser())
 								  .modifiedDt(entity.getCreatedDt())
 								  .modifiedBy(entity.getModifiedBy().getLoggedUser())
-								  .resourceCode(entity.getResourceCode())
-								  .resourceName(entity.getResourceName())
-								  .resourceType(entity.getResourceType())
+								  .resourceId(entity.getId())
+								  .resourceName(entity.getName())
+								  .resourceType(entity.getType())
 								  .url(entity.getUrl())
 								  .description(entity.getDescription())
 								  .build();
 		}
 		
-		public WebResource newWebResource() {
+		public WebResource newEntity() {
 			WebResource entity = WebResource.builder()
-											.resourceCode(this.resourceCode)
+											.resourceId(this.resourceId)
 											.resourceName(this.resourceName)
 											.resourceType(this.resourceType)
 											.url(this.url)
@@ -105,7 +105,7 @@ public class WebResourceDTO {
 			return entity;	
 		}
 		
-		public void modifyWebResource(WebResource entity) {
+		public void modifyEntity(WebResource entity) {
 			entity.modifyEntity(resourceName
 							   ,resourceType
 							   ,url

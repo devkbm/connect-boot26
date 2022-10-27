@@ -24,7 +24,7 @@ public class ResponseStaffAppointmentRecord {
 			
 	private String comment;
 			
-	private String processWatingYn;
+	private Boolean processWatingYn;
 	
 	private String blngDeptCode;
 	
@@ -64,7 +64,7 @@ public class ResponseStaffAppointmentRecord {
 	
 	@QueryProjection
 	public ResponseStaffAppointmentRecord(String staffId, Long id, LocalDate appointmentDate, LocalDate appointmentEndDate,
-			String recordName, String comment, String processWatingYn, String blngDeptCode, String blngDeptName,
+			String recordName, String comment, Boolean processWatingYn, String blngDeptCode, String blngDeptName,
 			String workDeptCode, String workDeptName, String jobGroupCode, String jobGroupName, String jobPositionCode,
 			String jobPositionName, String occupationCode, String occupationName, String jobGradeCode,
 			String jobGradeName, String payStepCode, String payStepName, String jobCode, String jobName,

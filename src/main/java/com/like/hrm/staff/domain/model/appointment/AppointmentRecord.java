@@ -48,30 +48,30 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Comment("발령기록ID")
 	@Column(name="ID", nullable = false)
-	private Long id;
+	Long id;
 		
 	@Comment("발령일자")
 	@Column(name="APPOINTMENT_DT")
-	private LocalDate appointmentDate;
+	LocalDate appointmentDate;
 	
 	@Comment("발령종료일자")
 	@Column(name="APPOINTMENT_END_DT")
-	private LocalDate appointmentEndDate;
+	LocalDate appointmentEndDate;
 	
 	@Comment("발령명")
 	@Column(name="RECORD_NAME")
-	private String recordName;
+	String recordName;
 
 	@Comment("비고")
 	@Column(name="CMT")
-	private String comment;
+	String comment;
 	
 	@Comment("처리대기여부")
 	@Column(name="PROC_WAIT_YN")
-	private String processWatingYn;		
+	Boolean processWatingYn;		
 	
 	@Embedded
-	private AppointmentInformation info;
+	AppointmentInformation info;
 	
 	public AppointmentRecord(Staff staff
 							,LocalDate appointmentDate
@@ -86,7 +86,7 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 		this.comment = comment;
 		this.info = info;
 		
-		this.processWatingYn = "Y";
+		this.processWatingYn = true;
 	}
 			
 	public void modify(LocalDate appointmentDate
@@ -94,9 +94,18 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 					  ,String recordName
 					  ,String comment
 					  ,AppointmentInformation info) {
+		
+		if (processWatingYn == false) {
+			throw new IllegalStateException("처리 완료된 발령은 수정할수 없습니다.");
+		}
+		
 		this.appointmentDate = appointmentDate;
 		this.appointmentEndDate = appointmentEndDate;
 		this.recordName = recordName;
 		this.info = info;
+	}
+	
+	public void complete( ) {
+		this.processWatingYn = false;
 	}
 }

@@ -1,16 +1,11 @@
 package com.like.system.biztypecode.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.util.StringUtils;
@@ -44,10 +39,7 @@ public class BizCodeType extends AbstractAuditEntity {
 	BizRuleComments ruleComments;
 		
 	@Column(name="CMT")
-	String comment;
-	
-	@OneToMany(mappedBy="bizCodeType", cascade = CascadeType.ALL, orphanRemoval = true)
-	Set<BizCode> codes = new HashSet<>();
+	String comment;	
 		
 	public BizCodeType(String organizationCode, String typeId, String name, BizTypeEnum bizType, String comment) {
 		if (!StringUtils.hasText(organizationCode)) throw new IllegalArgumentException("ID는 필수 입력 값입니다.");
@@ -65,29 +57,6 @@ public class BizCodeType extends AbstractAuditEntity {
 		this.sequence = sequence;
 		this.ruleComments = ruleComments;
 		this.comment = comment;
-	}
-	
-	public BizCode getBizeCode(BizCodeId id) {
-		return this.codes.stream()
-						 .filter(e -> e.getId().equals(id))
-						 .findFirst()
-						 .orElse(null);
-	}
-
-	public void addBizCode(BizCode code) {
-		this.codes.add(code);
-	}
-	
-	public void addBizCode(String code
-				          ,String name
-				          ,Boolean useYn
-				          ,Integer sequence 
-						  ,String comment) {
-		this.codes.add(new BizCode(this, code, name, useYn, sequence, comment));
-	}
-	
-	public void remove(BizCode code) {
-		this.codes.remove(code);
-	}
+	}	
 		
 }

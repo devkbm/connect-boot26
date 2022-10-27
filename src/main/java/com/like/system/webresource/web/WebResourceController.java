@@ -27,10 +27,10 @@ public class WebResourceController {
 		this.service = menuCommandService;		
 	}
 	
-	@GetMapping("/api/system/webresource/{code}")
-	public ResponseEntity<?> getResource(@PathVariable String code) {				
+	@GetMapping("/api/system/webresource/{id}")
+	public ResponseEntity<?> getResource(@PathVariable String id) {				
 		
-		WebResource resource = service.getResource(code); 							
+		WebResource resource = service.getResource(id); 							
 		
 		WebResourceDTO.FormWebResource dto = FormWebResource.convertDTO(resource);
 		
@@ -45,10 +45,10 @@ public class WebResourceController {
 		return toList(null, String.format("%d 건 저장되었습니다.", 1));
 	}
 	
-	@DeleteMapping("/api/system/webresource/{code}")
-	public ResponseEntity<?> delResource(@PathVariable String code) {				
+	@DeleteMapping("/api/system/webresource/{id}")
+	public ResponseEntity<?> delResource(@PathVariable String id) {				
 												
-		service.deleteWebResource(code);							
+		service.deleteWebResource(id);							
 		
 		return toList(null, String.format("%d 건 삭제되었습니다.", 1));
 	}

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
+import com.like.hrm.staff.boundary.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffQueryRepository;
 
@@ -26,6 +27,10 @@ public class StaffQueryService {
 	
 	public List<ResponseStaffAppointmentRecord> getStaffAppointmentRecordList(String staffId) {
 		return repository.getStaffAppointmentRecordList(staffId);
+	}
+	
+	public ResponseStaffCurrentAppointment getStaffCurrentAppointment(String staffId) {
+		return repository.getStaffCurrentAppointment(staffId);
 	}
 	
 }

@@ -29,27 +29,27 @@ public class WebResource extends AbstractAuditEntity implements Serializable{
 	private static final long serialVersionUID = 4402275274864737663L;
 
 	@Id
-	@Column(name="resource_code")
-	private String resourceCode;
+	@Column(name="RESOURCE_ID")
+	private String id;
 	
-	@Column(name="resource_name")
-	private String resourceName; 
+	@Column(name="RESOURCE_NAME")
+	private String name; 
 		
-	@Column(name="resource_type")
-	private String resourceType; 
+	@Column(name="RESOURCE_TYPE")
+	private String type; 
 	
-	@Column(name="url")
+	@Column(name="URL")
 	private String url;
 	
-	@Column(name="description")
+	@Column(name="DESCRIPTION")
 	private String description;	
 		
 	@Builder
-	public WebResource(String resourceCode, String resourceName, String resourceType, String url, String description) {
+	public WebResource(String resourceId, String resourceName, String resourceType, String url, String description) {
 		super();
-		this.resourceCode = resourceCode;
-		this.resourceName = resourceName;
-		this.resourceType = resourceType;
+		this.id = resourceId;
+		this.name = resourceName;
+		this.type = resourceType;
 		this.url = url;
 		this.description = description;
 	}	
@@ -58,8 +58,8 @@ public class WebResource extends AbstractAuditEntity implements Serializable{
 							,String resourceType
 							,String url
 							,String description) {
-		this.resourceName = resourceName;
-		this.resourceType = resourceType;
+		this.name = resourceName;
+		this.type = resourceType;
 		this.url = url;
 		this.description = description;
 	}
