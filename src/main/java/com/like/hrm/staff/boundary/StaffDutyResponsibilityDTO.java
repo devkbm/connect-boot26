@@ -31,6 +31,10 @@ public class StaffDutyResponsibilityDTO {
 			return entity;
 		}
 		
+		public void modifyEntity(StaffDuty entity) {
+			entity.modifyEntity(dutyResponsibilityCode, fromDate, toDate, isPayApply);
+		}
+		
 		
 		public static Form convert(StaffDuty entity) {			
 			if (entity == null) return null;

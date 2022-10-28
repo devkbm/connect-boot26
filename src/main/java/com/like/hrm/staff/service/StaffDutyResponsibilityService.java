@@ -33,6 +33,8 @@ public class StaffDutyResponsibilityService {
 		
 		if (entity == null) {
 			entity = dto.newEntity(staff);
+		} else {
+			dto.modifyEntity(entity);
 		}
 		
 		this.repository.save(staff);
