@@ -1,12 +1,13 @@
 package com.like.hrm.staff.domain.model.dutyresponsibility;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import org.hibernate.annotations.Comment;
+
+import com.like.hrm.staff.domain.model.Staff;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -23,17 +24,13 @@ public class StaffDutyId implements Serializable {
 	
 	@Comment("직원ID")
 	@Column(name="STAFF_ID")
-	String staffId;
+	String staff;
 		
-	@Comment("직책코드")
-	@Column(name="DUTY_RESPONSIBILITY_CODE")
-	String dutyResponsibilityCode;
-		
-	@Comment("시작일자")
-	@Column(name="FROM_DT")
-	LocalDate fromDate;
+	@Column(name="SEQ")
+	Integer seq;
 	
-	public StaffDutyId(String staffId, String dutyResponsibilityCode, LocalDate fromDate) {
-		this.staffId = staffId;
+	public StaffDutyId(Staff staff, Integer seq) {
+		this.staff = staff.getId();
+		this.seq = seq;
 	}
 }

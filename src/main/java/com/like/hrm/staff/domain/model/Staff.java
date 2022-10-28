@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
+import com.like.hrm.staff.domain.model.dutyresponsibility.StaffDutyList;
 import com.like.hrm.staff.domain.model.family.FamilyList;
 import com.like.hrm.staff.domain.model.license.LicenseList;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareerList;
@@ -78,6 +79,9 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	AppointmentRecordList appointmentRecordList;
 		
 	@Embedded
+	StaffDutyList staffDutyResponsibilityList;
+	
+	@Embedded
 	FamilyList familyList;
 		
 	@Embedded
@@ -115,6 +119,10 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 		this.currentAppointment.apply(record.getInfo());
 				
 		record.complete();
-	}	
+	}
+	
+	public void addDutyResponsibility() {
+		
+	}
 		
 }

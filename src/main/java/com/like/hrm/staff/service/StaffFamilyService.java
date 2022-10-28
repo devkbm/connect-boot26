@@ -20,30 +20,30 @@ public class StaffFamilyService {
 		this.repository = repository;
 	}
 	
-	public Family getFamily(String empId, Long id) {
-		Staff emp = getEmployeeInfo(empId);
+	public Family getFamily(String staffId, Long id) {
+		Staff emp = findStaff(staffId);
 						
 		return emp.getFamilyList().get(id);
 	}
 	
 	public void saveFamily(StaffDTO.FormFamily dto) {
-		Staff emp = getEmployeeInfo(dto.staffId());
+		Staff staff = findStaff(dto.staffId());
 		
-		Family entity = emp.getFamilyList().get(dto.id());
+		Family entity = staff.getFamilyList().get(dto.id());
 		
 		if (entity == null) {
-			entity = dto.newEntity(emp);
+			entity = dto.newEntity(staff);
 		} else {
 			dto.modifyEntity(entity);
 		}
 		
-		emp.getFamilyList().add(entity);
+		staff.getFamilyList().add(entity);
 		
-		repository.save(emp);
+		repository.save(staff);
 	}	
 	
-	private Staff getEmployeeInfo(String empId) {
-		return repository.findById(empId)
-						 .orElseThrow(() -> new EntityNotFoundException(empId + " 사번이 존재하지 않습니다."));
+	private Staff findStaff(String staffId) {
+		return repository.findById(staffId)
+						 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
 	}
 }

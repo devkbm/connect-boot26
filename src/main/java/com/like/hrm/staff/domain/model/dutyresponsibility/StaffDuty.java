@@ -34,33 +34,43 @@ public class StaffDuty extends AbstractAuditEntity implements Serializable {
 	@EmbeddedId	
 	StaffDutyId id;
 				
+	@Comment("직책코드")
+	@Column(name="DUTY_RESPONSIBILITY_CODE")
+	String dutyResponsibilityCode;
+		
+	@Comment("시작일자")
+	@Column(name="FROM_DT")
+	LocalDate fromDate;
+	
 	@Comment("종료일자")
 	@Column(name="TO_DT")
 	LocalDate toDate;
-		
-	@Comment("대리여부")
-	@Column(name="DEPUTY_YN")
-	String deputyYn;
-		
-	@Comment("급여여부")
-	@Column(name="PAY_YN")
-	String payYn;
+					
+	@Comment("급여적용여부")
+	@Column(name="PAY_APPLY_YN")
+	Boolean isPayApply;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
 	private Staff staff;
 	
-	public StaffDuty(Staff staff, StaffDutyId id, LocalDate toDate) {
-		this.staff = staff;
-		this.id = id;
+	public StaffDuty(Staff staff, String dutyResponsibilityCode, LocalDate fromDate, LocalDate toDate) {
+		this.staff = staff;		
+		this.id = new StaffDutyId(staff, staff.getStaffDutyResponsibilityList().getNextSeq());
+		this.dutyResponsibilityCode = dutyResponsibilityCode;	
+		this.fromDate = toDate;
 		this.toDate = toDate;
+		
+		staff.getStaffDutyResponsibilityList().add(this);
 	}
 	
-	public void modifyEntity(LocalDate toDate
-							,String deputyYn
-							,String payYn) {
+	public void modifyEntity(String dutyResponsibilityCode
+							,LocalDate fromDate
+							,LocalDate toDate			
+							,Boolean isPayApply) {
+		this.dutyResponsibilityCode = dutyResponsibilityCode;
+		this.fromDate = fromDate;
 		this.toDate = toDate;
-		this.deputyYn = deputyYn;
-		this.payYn = payYn;
+		this.isPayApply = isPayApply;
 	}
 }
