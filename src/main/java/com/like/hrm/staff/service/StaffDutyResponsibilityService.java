@@ -1,5 +1,7 @@
 package com.like.hrm.staff.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,12 @@ public class StaffDutyResponsibilityService {
 	
 	public StaffDutyResponsibilityService(StaffRepository repository) {
 		this.repository = repository;
+	}
+	
+	public List<StaffDuty> getList(String staffId) {
+		Staff staff = this.repository.findById(staffId).orElse(null);
+		
+		return staff.getStaffDutyResponsibilityList().stream().toList();
 	}
 	
 	public StaffDuty get(String staffId, Integer seq) {

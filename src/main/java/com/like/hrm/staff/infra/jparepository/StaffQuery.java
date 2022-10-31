@@ -7,13 +7,16 @@ import org.springframework.stereotype.Repository;
 import com.like.hrm.hrmcode.domain.QHrmCode;
 import com.like.hrm.staff.boundary.QResponseStaffAppointmentRecord;
 import com.like.hrm.staff.boundary.QResponseStaffCurrentAppointment;
+import com.like.hrm.staff.boundary.QResponseStaffDutyResponsibility;
 import com.like.hrm.staff.boundary.StaffDTO.SearchStaff;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
 import com.like.hrm.staff.boundary.ResponseStaffCurrentAppointment;
+import com.like.hrm.staff.boundary.ResponseStaffDutyResponsibility;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffQueryRepository;
 import com.like.hrm.staff.domain.model.appointment.QAppointmentRecord;
+import com.like.hrm.staff.domain.model.dutyresponsibility.QStaffDuty;
 import com.like.system.dept.domain.QDept;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -23,7 +26,8 @@ public class StaffQuery implements StaffQueryRepository {
 
 	private JPAQueryFactory queryFactory;	
 	private final QStaff qStaff = QStaff.staff;
-	private final QAppointmentRecord qAppointmentRecord = QAppointmentRecord.appointmentRecord;	
+	private final QAppointmentRecord qAppointmentRecord = QAppointmentRecord.appointmentRecord;
+	private final QStaffDuty qStaffDuty = QStaffDuty.staffDuty;
 	
 	public StaffQuery(JPAQueryFactory queryFactory) {
 		this.queryFactory = queryFactory;
@@ -48,7 +52,7 @@ public class StaffQuery implements StaffQueryRepository {
 		QHrmCode jobCode = new QHrmCode("jobCode");				
 		QHrmCode dutyResponsibilityCode = new QHrmCode("dutyResponsibilityCode");
 		
-		return queryFactory.select(projections(qStaff
+		return queryFactory.select(projectionAppointmentRecord(qStaff
 											  ,qAppointmentRecord
 											  ,blngDeptCode
 											  ,workDeptCode
@@ -106,7 +110,7 @@ public class StaffQuery implements StaffQueryRepository {
 		QHrmCode payStepCode = new QHrmCode("payStepCode");
 		QHrmCode jobCode = new QHrmCode("jobCode");						
 		
-		return queryFactory.select(projection(qStaff
+		return queryFactory.select(projectionCurrentAppointment(qStaff
 											 ,blngDeptCode
 											 ,workDeptCode
 											 ,jobGroupCode
@@ -144,7 +148,21 @@ public class StaffQuery implements StaffQueryRepository {
 				   	.fetchFirst();
 	}
 	
-	private QResponseStaffAppointmentRecord projections(QStaff qStaff								
+	@Override
+	public List<ResponseStaffDutyResponsibility> getStaffDutyResponsibility(String staffId) {
+		QHrmCode dutyResponsibilityCode = new QHrmCode("dutyResponsibilityCode");
+		
+		return queryFactory.select(pro(qStaff, qStaffDuty, dutyResponsibilityCode))
+						   .from(qStaff)
+						   .join(qStaffDuty)
+					   			.on(qStaff.id.eq(qStaffDuty.staff.id))
+						   .leftJoin(dutyResponsibilityCode)
+					   	   		.on(dutyResponsibilityCode.id.typeId.eq("HR0007")
+					   	   		.and(qStaffDuty.dutyResponsibilityCode.eq(dutyResponsibilityCode.id.code)))
+						   .fetch();
+	}
+	
+	private QResponseStaffAppointmentRecord projectionAppointmentRecord(QStaff qStaff								
 											, QAppointmentRecord qRecord
 											, QDept blngDeptCode
 											, QDept workDeptCode
@@ -184,7 +202,7 @@ public class StaffQuery implements StaffQueryRepository {
 	}
 
 	
-	private QResponseStaffCurrentAppointment projection(QStaff qStaff			
+	private QResponseStaffCurrentAppointment projectionCurrentAppointment(QStaff qStaff			
 													   ,QDept blngDeptCode
 													   ,QDept workDeptCode
 													   ,QHrmCode jobGroupCode
@@ -212,6 +230,30 @@ public class StaffQuery implements StaffQueryRepository {
 												   ,payStepCode.codeName
 												   ,qStaff.currentAppointment.jobCode
 												   ,jobCode.codeName);
+	}
+
+	/*
+	 * 	public ResponseStaffDutyResponsibility(String staffId
+										  ,String staffNo
+										  ,String staffName
+										  ,Integer seq
+										  ,String dutyResponsibilityCode
+										  ,String dutyResponsibilityName
+										  ,LocalDate fromDate
+										  ,LocalDate toDate
+										  ,Boolean isPayApply) {	
+	 */
+	
+	private QResponseStaffDutyResponsibility pro(QStaff qStaff, QStaffDuty qStaffDuty, QHrmCode dutyResponsibilityCode) {
+		return new QResponseStaffDutyResponsibility(qStaff.id
+												   ,qStaff.staffNo
+												   ,qStaff.name.name
+												   ,qStaffDuty.id.seq
+												   ,dutyResponsibilityCode.id.code
+												   ,dutyResponsibilityCode.codeName
+												   ,qStaffDuty.fromDate
+												   ,qStaffDuty.toDate
+												   ,qStaffDuty.isPayApply);
 	}
 	
 

@@ -15,6 +15,8 @@ public class StaffDutyResponsibilityDTO {
 			String clientAppUrl,
 			String organizationCode,
 			String staffId,
+			String staffNo,
+			String staffName,
 			Integer seq,
 			String dutyResponsibilityCode,
 			String dutyResponsibilityName,
@@ -24,7 +26,7 @@ public class StaffDutyResponsibilityDTO {
 			) {
 		
 		public StaffDuty newEntity(Staff staff) {		
-			StaffDuty entity = new StaffDuty(staff, dutyResponsibilityCode, fromDate, toDate);
+			StaffDuty entity = new StaffDuty(staff, dutyResponsibilityCode, fromDate, toDate, isPayApply);
 								
 			entity.setAppUrl(clientAppUrl);
 			
@@ -41,8 +43,11 @@ public class StaffDutyResponsibilityDTO {
 			
 			return Form.builder()
 					   .staffId(entity.getStaff().getId())
+					   .staffNo(entity.getStaff().getStaffNo())
+					   .staffName(entity.getStaff().getName().getName())
 					   .seq(entity.getId().getSeq())
 					   .dutyResponsibilityCode(entity.getDutyResponsibilityCode())
+					   .dutyResponsibilityName(entity.getDutyResponsibilityCode())
 					   .fromDate(entity.getFromDate())
 					   .toDate(entity.getToDate())
 					   .isPayApply(entity.getIsPayApply())

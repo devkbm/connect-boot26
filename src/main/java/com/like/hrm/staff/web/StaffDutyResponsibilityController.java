@@ -3,6 +3,8 @@ package com.like.hrm.staff.web;
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -12,23 +14,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.hrm.staff.boundary.ResponseStaffDutyResponsibility;
 import com.like.hrm.staff.boundary.StaffDutyResponsibilityDTO;
 import com.like.hrm.staff.domain.model.dutyresponsibility.StaffDuty;
 import com.like.hrm.staff.service.StaffDutyResponsibilityService;
+import com.like.hrm.staff.service.StaffQueryService;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
 public class StaffDutyResponsibilityController {
 
 	private StaffDutyResponsibilityService service;
+	private StaffQueryService queryService;
 	
-	public StaffDutyResponsibilityController(StaffDutyResponsibilityService service) {
-		this.service = service;		
+	public StaffDutyResponsibilityController(StaffDutyResponsibilityService service
+											,StaffQueryService queryService) {
+		this.service = service;
+		this.queryService = queryService;
+	}
+	
+	@GetMapping("/api/hrm/staff/{staffId}/dutyresponsibility")
+	public ResponseEntity<?> getList(@PathVariable String staffId) {
+				
+		List<ResponseStaffDutyResponsibility> list = this.queryService.getStaffDutyResponsibility(staffId);
+		
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/dutyresponsibility/{seq}")
-	public ResponseEntity<?> getAppointmentRecord(@PathVariable String staffId
-									  			 ,@PathVariable Integer seq) {
+	public ResponseEntity<?> get(@PathVariable String staffId
+								,@PathVariable Integer seq) {
 				
 		StaffDuty entity = service.get(staffId, seq);  									
 				
@@ -38,7 +53,7 @@ public class StaffDutyResponsibilityController {
 	}
 	
 	@PostMapping("/api/hrm/staff/{staffId}/dutyresponsibility")
-	public ResponseEntity<?> saveAppointmentRecord(@Valid @RequestBody StaffDutyResponsibilityDTO.Form dto) {			
+	public ResponseEntity<?> save(@Valid @RequestBody StaffDutyResponsibilityDTO.Form dto) {			
 									
 		service.save(dto);
 		

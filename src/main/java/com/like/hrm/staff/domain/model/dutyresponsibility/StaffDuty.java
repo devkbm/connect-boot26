@@ -54,12 +54,13 @@ public class StaffDuty extends AbstractAuditEntity implements Serializable {
 	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
 	private Staff staff;
 	
-	public StaffDuty(Staff staff, String dutyResponsibilityCode, LocalDate fromDate, LocalDate toDate) {
+	public StaffDuty(Staff staff, String dutyResponsibilityCode, LocalDate fromDate, LocalDate toDate, Boolean isPayApply) {
 		this.staff = staff;		
 		this.id = new StaffDutyId(staff, staff.getStaffDutyResponsibilityList().getNextSeq());
 		this.dutyResponsibilityCode = dutyResponsibilityCode;	
-		this.fromDate = toDate;
+		this.fromDate = fromDate;
 		this.toDate = toDate;
+		this.isPayApply = isPayApply;
 		
 		staff.getStaffDutyResponsibilityList().add(this);
 	}

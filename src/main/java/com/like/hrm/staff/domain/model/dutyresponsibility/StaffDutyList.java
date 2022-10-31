@@ -2,6 +2,7 @@ package com.like.hrm.staff.domain.model.dutyresponsibility;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -59,5 +60,9 @@ public class StaffDutyList {
 		}
 					
 		return maxSeq + 1;
+	}
+	
+	public Stream<StaffDuty> stream() {
+		return this.staffDutyList.stream();
 	}
 }
