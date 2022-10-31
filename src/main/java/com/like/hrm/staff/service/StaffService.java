@@ -25,8 +25,8 @@ public class StaffService {
 		return repository.findById(id).orElse(null);
 	}
 	
-	public void saveStaff(Staff employee) {				
-		repository.save(employee);
+	public void saveStaff(Staff staff) {				
+		repository.save(staff);
 	}
 	
 	public void saveStaff(StaffDTO.FormStaff dto) {

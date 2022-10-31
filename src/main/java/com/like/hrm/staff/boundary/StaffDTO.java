@@ -12,12 +12,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffContact;
 import com.like.hrm.staff.domain.model.StaffName;
 import com.like.hrm.staff.domain.model.family.Family;
 import com.like.hrm.staff.domain.model.license.License;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
+
+import lombok.AccessLevel;
+import lombok.Builder;
 
 public class StaffDTO {
 		
@@ -121,6 +125,29 @@ public class StaffDTO {
 		public void modifyEntity(Staff entity) {
 			entity.modifyEntity(new StaffName(name, nameEng, nameChi)
 					 		   ,this.birthday);
+		}
+	}
+	
+	@Builder(access = AccessLevel.PRIVATE)
+	public static record FormContact(
+			String clientAppUrl,
+			String organizationCode,
+			@NotEmpty
+			String staffId,
+			String extensionNumber,
+			String mobileNumber
+			) {
+		
+		public StaffContact newEntity() {
+			return new StaffContact(extensionNumber, mobileNumber);
+		}
+		
+		public static FormContact convert(Staff entity) {
+			return FormContact.builder()
+					 		  .staffId(entity.getId())
+					 		  .extensionNumber(entity.getContact().getExtensionNumber())
+					 		  .mobileNumber(entity.getContact().getMobileNumber())
+							  .build();
 		}
 	}
 		

@@ -55,7 +55,10 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 				
 	@Embedded
 	ResidentRegistrationNumber residentRegistrationNumber;
-		
+	
+	@Embedded
+	StaffContact contact;
+	
 	@Comment("성별")
 	@Column(name="GENDER")
 	String gender;
@@ -111,6 +114,10 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 					
 	public void changeImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	
+	public void changeContact(StaffContact contact) {
+		this.contact = contact;
 	}
 	
 	public void applyAppointmentRecord(AppointmentRecord record) {		
