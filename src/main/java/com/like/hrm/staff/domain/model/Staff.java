@@ -126,10 +126,6 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 		this.currentAppointment.apply(record.getInfo());
 				
 		record.complete();
-	}
-	
-	public void addDutyResponsibility() {
-		
-	}
+	}	
 		
 }

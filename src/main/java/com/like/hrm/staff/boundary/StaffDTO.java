@@ -4,6 +4,7 @@ import static org.springframework.util.StringUtils.hasText;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -17,6 +18,8 @@ import com.like.hrm.staff.domain.model.StaffName;
 import com.like.hrm.staff.domain.model.family.Family;
 import com.like.hrm.staff.domain.model.license.License;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
+import com.like.system.core.jpa.vo.Address;
+import com.like.system.core.jpa.vo.PhoneNumber;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -134,20 +137,32 @@ public class StaffDTO {
 			String organizationCode,
 			@NotEmpty
 			String staffId,
+			String homeAddressType,
+			String homePostNumber,
+			String homeMainAddress,
+			String homeSubAddress,
 			String extensionNumber,
 			String mobileNumber
 			) {
 		
-		public StaffContact newEntity() {
-			return new StaffContact(extensionNumber, mobileNumber);
+		public StaffContact newEntity() {		
+			return new StaffContact(new Address(homeAddressType, homePostNumber, homeMainAddress, extensionNumber), new PhoneNumber(extensionNumber), new PhoneNumber(mobileNumber));
 		}
-		
-		public static FormContact convert(Staff entity) {
+					
+		public static FormContact convert(Staff entity) {			
+			
+			Optional<StaffContact> contact = Optional.ofNullable(entity.getContact());
+								
 			return FormContact.builder()
 					 		  .staffId(entity.getId())
-					 		  .extensionNumber(entity.getContact().getExtensionNumber())
-					 		  .mobileNumber(entity.getContact().getMobileNumber())
+					 		  .homeAddressType(contact.map(StaffContact::getHome).map(Address::getAddress_type).orElse(null))
+					 		  .homePostNumber(contact.map(StaffContact::getHome).map(Address::getPost_number).orElse(null))
+					 		  .homeMainAddress(contact.map(StaffContact::getHome).map(Address::getMain_address).orElse(null))
+					 		  .homeSubAddress(contact.map(StaffContact::getHome).map(Address::getSub_address).orElse(null))					 		  
+					 		  .extensionNumber(contact.map(StaffContact::getExtensionNumber).map(PhoneNumber::getNumber).orElse(null))
+					 		  .mobileNumber(contact.map(StaffContact::getMobileNumber).map(PhoneNumber::getNumber).orElse(null))					 		  					 		  					 		  					 		
 							  .build();
+							  
 		}
 	}
 		

@@ -159,8 +159,9 @@ public class WebSecurityConfigLocalTest<S extends Session> extends WebSecurityCo
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
-       CorsConfiguration configuration = new CorsConfiguration();              
-       configuration.setAllowedOrigins(Arrays.asList("http://localhost:8090","http://localhost:4200","http://kbm0417.gonetis.com:4200","http://kbm0417.gonetis.com"));
+       CorsConfiguration configuration = new CorsConfiguration();       
+       //configuration.setAllowedOrigins(Arrays.asList("http://localhost:8090","http://localhost:4200","https://www.juso.go.kr/addrlink/addrLinkApi.do"));
+       configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200","https://www.juso.go.kr"));
        //configuration.setAllowedOrigins(Arrays.asList("*"));
        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
        //configuration.setAllowedMethods(Arrays.asList("*"));

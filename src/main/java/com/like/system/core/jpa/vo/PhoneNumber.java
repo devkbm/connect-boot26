@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class PhoneNumber {
 
-	@Column(name="TEL_NO")
+	@Column(name="PHONE_NO")
 	private String number;
 	
 	public PhoneNumber(String number) {
