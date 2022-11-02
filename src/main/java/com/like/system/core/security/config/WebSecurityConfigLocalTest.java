@@ -87,7 +87,7 @@ public class WebSecurityConfigLocalTest<S extends Session> extends WebSecurityCo
 	@Autowired
 	private RestLoginFailureHandler authFailureHandler;
 	
-	private static final String[] CSRF_IGNORE = {"/api/system/user/login","/static/**","/h2-console/**"};
+	private static final String[] CSRF_IGNORE = {"/api/system/user/login","/static/**","/h2-console/**","/api/address"};
 	
 	@Autowired
 	private FindByIndexNameSessionRepository<S> sessionRepository;
@@ -109,8 +109,8 @@ public class WebSecurityConfigLocalTest<S extends Session> extends WebSecurityCo
 			.authorizeRequests()			
 			.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				.antMatchers("/api/system/user/login").permitAll()			// 로그인 api
-				.antMatchers("/h2-console/**").permitAll()											
-				.antMatchers("/oauth/user").permitAll()
+				.antMatchers("/h2-console/**").permitAll()
+				.antMatchers("/oauth/user").permitAll()								
 				.antMatchers("/oauth2/authorization/**").permitAll()				
 				.antMatchers("/ex").permitAll()
 				
@@ -160,18 +160,21 @@ public class WebSecurityConfigLocalTest<S extends Session> extends WebSecurityCo
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
        CorsConfiguration configuration = new CorsConfiguration();       
-       //configuration.setAllowedOrigins(Arrays.asList("http://localhost:8090","http://localhost:4200","https://www.juso.go.kr/addrlink/addrLinkApi.do"));
-       configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200","https://www.juso.go.kr"));
-       //configuration.setAllowedOrigins(Arrays.asList("*"));
-       configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
-       //configuration.setAllowedMethods(Arrays.asList("*"));
-       
+
+       configuration.addAllowedOrigin("http://localhost:4200");
+       //configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));       
+              
+       configuration.addAllowedMethod("*");
+       //configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));       
+                    
        // Request Header에 Http default 이외에 정해진 것만 허용한다.
-       configuration.setAllowedHeaders(Arrays.asList("Origin", "Accept", "X-Requested-With", "Content-Type", "remember-me", "x-auth-token", "Authorization", "x-xsrf-token", "XSRF-TOKEN", "X-Access-Token","Access-Control-Request-Method","Access-Control-Request-Headers"));
-       //configuration.setAllowedHeaders(Arrays.asList("*"));
-       
-       //configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin","Access-Control-Allow-Credentials"));       
-       
+       /*
+       configuration.setAllowedHeaders(Arrays.asList("Origin", "Accept", "X-Requested-With", "Content-Type", 
+    		   										 "remember-me", "x-auth-token", "Authorization", "x-xsrf-token", "XSRF-TOKEN","X-Access-Token", 
+    		   										 "Access-Control-Allow-Origin","Access-Control-Request-Method","Access-Control-Request-Headers"));
+       */
+       configuration.setAllowedHeaders(Arrays.asList("*"));
+                           
        // browser에서 Access-Control-Allow-Credentials: true가 없으면 거절한다. 즉, xmlhttprequest header에 쿠키가 있어야 한다.
        configuration.setAllowCredentials(true);
        

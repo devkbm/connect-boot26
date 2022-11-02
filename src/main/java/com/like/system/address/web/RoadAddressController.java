@@ -35,6 +35,11 @@ public class RoadAddressController {
 		client = createWebClient();
 	}	
 			
+	/**
+	 * ** 확인 필요 **
+	 * Spring Security에서 설정한 부분외에 
+	 * Access-Control-Allow-Origin : '*' 헤더가 자동으로 붙음 	
+	 */
 	@GetMapping("/api/address")
 	private Mono<ResponseEntity<RoadAddressApiResult>> getRoadArddressJson(@Valid RoadAddressApiRequest dto) throws Exception {
 							 							
@@ -87,8 +92,9 @@ public class RoadAddressController {
 
 	private WebClient createWebClient() {
 		return WebClient.builder()
-						.baseUrl(property.getApiUrl())						
+						.baseUrl(property.getApiUrl())								
 						.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+						.defaultHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://localhost:4200")
 						.build();
 	}
 	
