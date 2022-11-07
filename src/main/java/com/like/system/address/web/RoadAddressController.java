@@ -57,17 +57,17 @@ public class RoadAddressController {
 	
 	// confmKey - devU01TX0FVVEgyMDIyMDYwNzIyMjI1MzExMjY1ODY=
 	//@RequestMapping(value="/sample/getAddrApi.do")
-	@GetMapping("/sample/getAddrApi.do")
+	@GetMapping("/api/address/sync")
 	public void  getAddrApi(RoadAddressApiRequest searchVO
 			 			   ,HttpServletRequest req
 			 			   ,ModelMap model
 			 			   ,HttpServletResponse response) throws Exception {
 
-		String currentPage = "1"; 	// req.getParameter("currentPage");
+		String currentPage = searchVO.currentPage().toString(); 	// req.getParameter("currentPage");
 		String countPerPage = "10"; // req.getParameter("countPerPage");
 		String resultType = "json";	// req.getParameter("resultType");
 		String confmKey = property.getConfmKey(); // "devU01TX0FVVEgyMDIyMDYwNzIyMjI1MzExMjY1ODY=";		// req.getParameter("confmKey");
-		String keyword = "은계중앙로";		// req.getParameter("keyword");
+		String keyword = searchVO.keyword();		// req.getParameter("keyword");
 		
 		String apiUrl = property.getApiUrl()+"?currentPage="+currentPage
 		  			  + "&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")
