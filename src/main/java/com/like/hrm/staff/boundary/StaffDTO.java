@@ -137,6 +137,8 @@ public class StaffDTO {
 			String organizationCode,
 			@NotEmpty
 			String staffId,
+			String staffNo,
+			String staffName,
 			String homeAddressType,
 			String homePostNumber,
 			String homeMainAddress,
