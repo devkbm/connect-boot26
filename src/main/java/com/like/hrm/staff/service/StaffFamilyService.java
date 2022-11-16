@@ -1,5 +1,7 @@
 package com.like.hrm.staff.service;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -8,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffRepository;
-import com.like.hrm.staff.domain.model.family.Family;
+import com.like.hrm.staff.domain.model.family.StaffFamily;
+import com.like.hrm.staff.domain.model.family.StaffFamilyId;
 
 @Transactional
 @Service
@@ -20,16 +23,22 @@ public class StaffFamilyService {
 		this.repository = repository;
 	}
 	
-	public Family getFamily(String staffId, Long id) {
-		Staff emp = findStaff(staffId);
+	public List<StaffFamily> getFamilyList(String staffId) {
+		Staff staff = findStaff(staffId);
+		
+		return staff.getFamilyList().getStream().toList();
+	}
+	
+	public StaffFamily getFamily(String staffId, Long seq) {
+		Staff staff = findStaff(staffId);
 						
-		return emp.getFamilyList().get(id);
+		return staff.getFamilyList().get(new StaffFamilyId(staff, seq));
 	}
 	
 	public void saveFamily(StaffDTO.FormFamily dto) {
 		Staff staff = findStaff(dto.staffId());
 		
-		Family entity = staff.getFamilyList().get(dto.id());
+		StaffFamily entity = staff.getFamilyList().get(new StaffFamilyId(staff, dto.seq()));
 		
 		if (entity == null) {
 			entity = dto.newEntity(staff);

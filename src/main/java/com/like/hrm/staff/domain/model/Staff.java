@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.domain.model.dutyresponsibility.StaffDutyList;
-import com.like.hrm.staff.domain.model.family.FamilyList;
+import com.like.hrm.staff.domain.model.family.StaffFamilyList;
 import com.like.hrm.staff.domain.model.license.LicenseList;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareerList;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
@@ -76,19 +76,19 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	String imagePath;
 		
 	@Embedded
-	CurrentAppointmentInformation currentAppointment;
+	CurrentAppointmentInformation currentAppointment = new CurrentAppointmentInformation();
 		
 	@Embedded
-	AppointmentRecordList appointmentRecordList;
+	AppointmentRecordList appointmentRecordList = new AppointmentRecordList();
 		
 	@Embedded
-	StaffDutyList staffDutyResponsibilityList;
+	StaffDutyList staffDutyResponsibilityList = new StaffDutyList();
 	
 	@Embedded
-	FamilyList familyList;
+	StaffFamilyList familyList = new StaffFamilyList();
 		
 	@Embedded
-	SchoolCareerList schoolCareerList;
+	SchoolCareerList schoolCareerList = new SchoolCareerList();
 	
 	/**
 	 * 자격면허 명단

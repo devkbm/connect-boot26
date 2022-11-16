@@ -1,3 +1,4 @@
+/*
 package com.like.system.core.session;
 
 import org.springframework.context.annotation.Configuration;
@@ -9,3 +10,4 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
 public class RedisSessionConfig extends AbstractHttpSessionApplicationInitializer {
 	
 }
+*/

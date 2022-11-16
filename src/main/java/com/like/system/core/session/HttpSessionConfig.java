@@ -1,5 +1,3 @@
-/*
-REDIS 변경으로 주석처리
 package com.like.system.core.session;
 
 
@@ -11,5 +9,3 @@ import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHtt
 public class HttpSessionConfig {
 
 }
-
-*/

@@ -3,12 +3,10 @@ package com.like.hrm.staff.domain.model.family;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -32,17 +30,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "HRMSTAFFFAMILY")
 @EntityListeners(AuditingEntityListener.class)
-public class Family extends AbstractAuditEntity implements Serializable {
+public class StaffFamily extends AbstractAuditEntity implements Serializable {
 			
 	private static final long serialVersionUID = -3377701513438383323L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="ID", nullable = false)
-	private Long id;
+	@EmbeddedId
+	private StaffFamilyId id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false)
+	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
 	private Staff staff;
 		
 	@Comment("가족성명")
@@ -70,14 +66,15 @@ public class Family extends AbstractAuditEntity implements Serializable {
 	private String comment;
 	
 	
-	public Family(Staff staff
-				 ,String name
-				 ,String residentRegistrationNumber
-				 ,String relation
-				 ,String occupation
-				 ,String schoolCareerType
-				 ,String comment) {
+	public StaffFamily(Staff staff
+					  ,String name
+					  ,String residentRegistrationNumber
+					  ,String relation
+					  ,String occupation
+					  ,String schoolCareerType
+					  ,String comment) {		
 		this.staff = staff;
+		this.id = new StaffFamilyId(staff);
 		this.name = name;
 		this.residentRegistrationNumber = residentRegistrationNumber;
 		this.relation = relation;

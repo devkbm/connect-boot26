@@ -37,7 +37,7 @@ import lombok.NoArgsConstructor;
  * @author 김병민
  * 
  */
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"employee"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"staff"})
 @EqualsAndHashCode(callSuper = false, of = {"id"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

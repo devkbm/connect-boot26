@@ -15,7 +15,7 @@ import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffContact;
 import com.like.hrm.staff.domain.model.StaffName;
-import com.like.hrm.staff.domain.model.family.Family;
+import com.like.hrm.staff.domain.model.family.StaffFamily;
 import com.like.hrm.staff.domain.model.license.License;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
 import com.like.system.core.jpa.vo.Address;
@@ -242,7 +242,7 @@ public class StaffDTO {
 	public record FormFamily(
 			@NotEmpty
 			String staffId,
-			Long id,
+			Long seq,
 			String name,
 			String residentRegistrationNumber,
 			String relation,
@@ -251,17 +251,17 @@ public class StaffDTO {
 			String comment
 			) {
 		
-		public Family newEntity(Staff employee) {
-			return new Family(employee
-							 ,name
-							 ,residentRegistrationNumber
-							 ,relation
-							 ,occupation
-							 ,schoolCareerType
-							 ,comment);					
+		public StaffFamily newEntity(Staff staff) {
+			return new StaffFamily(staff
+								  ,name
+								  ,residentRegistrationNumber
+								  ,relation
+								  ,occupation
+								  ,schoolCareerType
+								  ,comment);					
 		}
 		
-		public void modifyEntity(Family entity) {
+		public void modifyEntity(StaffFamily entity) {
 			entity.modifyEntity(name
 							   ,residentRegistrationNumber
 							   ,relation
@@ -270,11 +270,11 @@ public class StaffDTO {
 							   ,comment);
 		}
 		
-		public static FormFamily convert(Family entity) {
+		public static FormFamily convert(StaffFamily entity) {
 			if (entity == null) return null;
 			
 			return new FormFamily(entity.getStaff().getId()
-								 ,entity.getId()
+								 ,entity.getId().getSeq()
 								 ,entity.getName()
 								 ,entity.getResidentRegistrationNumber()
 								 ,entity.getRelation()
