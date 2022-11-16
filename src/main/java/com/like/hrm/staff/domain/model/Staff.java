@@ -17,7 +17,7 @@ import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.domain.model.dutyresponsibility.StaffDutyList;
 import com.like.hrm.staff.domain.model.family.StaffFamilyList;
-import com.like.hrm.staff.domain.model.license.LicenseList;
+import com.like.hrm.staff.domain.model.license.StaffLicenseList;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareerList;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
@@ -94,7 +94,7 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	 * 자격면허 명단
 	 */
 	@Embedded
-	LicenseList licenseList;			
+	StaffLicenseList licenseList;			
 			
 	public Staff(String organizationCode, StaffNoCreateStrategy strategy, StaffName name, String residentRegistrationNumber) {
 		this.id 						= organizationCode + "_" + strategy.create();

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffRepository;
-import com.like.hrm.staff.domain.model.license.License;
+import com.like.hrm.staff.domain.model.license.StaffLicense;
 
 @Transactional
 @Service
@@ -20,7 +20,7 @@ public class StaffLicenseService {
 		this.repository = repository;	
 	}
 	
-	public License getLicense(String empId, Long id) {
+	public StaffLicense getLicense(String empId, Long id) {
 		Staff emp = getEmployeeInfo(empId);
 						
 		return emp.getLicenseList().get(id);
@@ -29,7 +29,7 @@ public class StaffLicenseService {
 	public void saveLicense(StaffDTO.FormLicense dto) {
 		Staff emp = getEmployeeInfo(dto.staffId());
 		
-		License license = emp.getLicenseList().get(dto.licenseId());
+		StaffLicense license = emp.getLicenseList().get(dto.licenseId());
 		
 		if (license == null) {
 			license = dto.newEntity(emp);

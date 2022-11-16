@@ -43,46 +43,46 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "HRMSTAFFLICENSE")
 @EntityListeners(AuditingEntityListener.class)
-public class License extends AbstractAuditEntity implements Serializable {
+public class StaffLicense extends AbstractAuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = 5879415854289672377L;
-
+	
+	// 취득일자, 자격면허, 자격면허인가번호, 발행기관, 필수면허번호여부, 이미지		
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
+	Staff staff;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID", nullable = false)
-	private Long licenseId;
+	Long licenseId;
 			
 	@Comment("자격면허유형")
 	@Column(name="LICENSE_TYPE", nullable = false)
-	private String licenseType;
+	String licenseType;
 		
 	@Comment("자격면허코드")
 	@Column(name="LICENSE_CODE", nullable = false)
-	private String licenseCode;
+	String licenseCode;
 		
 	// acquisition date
 	@Comment("취득일자")
 	@Column(name="DATE_OF_ACQUISITION", nullable = true)
-	private LocalDate dateOfAcquisition;
+	LocalDate dateOfAcquisition;
 		
 	@Comment("인증기관")
 	@Column(name="CERTIFICATION_AUTHORITY", nullable = true)
-	private String certificationAuthority;
+	String certificationAuthority;
 		
 	@Comment("필수여부")
 	@Column(name="MANDATORY_YN", nullable = false)
-	private Boolean isMandatory;
+	Boolean isMandatory;
 		
 	@Comment("비고")
 	@Column(name="CMT", nullable = true)
-	private String comment;
+	String comment;	
 	
-	// 취득일자, 자격면허, 자격면허인가번호, 발행기관, 필수면허번호여부, 이미지		
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false)
-	private Staff staff;
-	
-	public License(Staff staff
+	public StaffLicense(Staff staff
 				  ,String licenseType
 				  ,String licenseCode
 				  ,String comment) {

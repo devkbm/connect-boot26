@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.StaffDTO;
-import com.like.hrm.staff.domain.model.license.License;
+import com.like.hrm.staff.domain.model.license.StaffLicense;
 import com.like.hrm.staff.service.StaffLicenseService;
 import com.like.system.core.message.MessageUtil;
 
@@ -30,7 +30,7 @@ public class StaffLicenseController {
 	public ResponseEntity<?> getLicense(@PathVariable String staffId,
 										@PathVariable Long id) {
 				
-		License license = service.getLicense(staffId, id);  									
+		StaffLicense license = service.getLicense(staffId, id);  									
 		
 		return toOne(license, MessageUtil.getQueryMessage(license == null ? 0 : 1));
 	}

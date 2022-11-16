@@ -17,12 +17,12 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 @Embeddable
-public class LicenseList {
+public class StaffLicenseList {
 	
 	@OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	Set<License> licenseList = new LinkedHashSet<>();
+	Set<StaffLicense> licenseList = new LinkedHashSet<>();
 	
-	public License get(Long id) {
+	public StaffLicense get(Long id) {
 		
 		return this.licenseList.stream()
 							   .filter(e -> e.getLicenseId().equals(id))
@@ -30,7 +30,7 @@ public class LicenseList {
 							   .orElse(null);
 	}
 	
-	public void add(License license) {
+	public void add(StaffLicense license) {
 		if (this.licenseList == null) {
 			this.licenseList = new LinkedHashSet<>();
 		}
@@ -42,4 +42,20 @@ public class LicenseList {
 		this.licenseList.removeIf(e -> e.getLicenseId().equals(id));			
 	}
 		
+	long getNextSequence() {
+		long maxSeq = 0;
+		
+		if (this.licenseList == null || this.licenseList.isEmpty()) {
+			maxSeq = 0;
+		} else {
+			/*
+			maxSeq = this.licenseList.stream()
+							  		 .mapToLong(e -> e.getId().getSeq())
+							  		 .max()
+							  		 .getAsLong();*/
+							  
+		}
+					
+		return maxSeq + 1;
+	}
 }

@@ -16,7 +16,7 @@ import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffContact;
 import com.like.hrm.staff.domain.model.StaffName;
 import com.like.hrm.staff.domain.model.family.StaffFamily;
-import com.like.hrm.staff.domain.model.license.License;
+import com.like.hrm.staff.domain.model.license.StaffLicense;
 import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
 import com.like.system.core.jpa.vo.Address;
 import com.like.system.core.jpa.vo.PhoneNumber;
@@ -213,20 +213,20 @@ public class StaffDTO {
 			String comment
 			) {
 		
-		public License newEntity(Staff staff) {
-			return new License(staff
+		public StaffLicense newEntity(Staff staff) {
+			return new StaffLicense(staff
 							  ,this.licenseType
 							  ,this.licenseCode
 							  ,this.comment);
 		}
 		
-		public void modifyEntity(License entity) {
+		public void modifyEntity(StaffLicense entity) {
 			entity.modifyEntity(licenseType
 							   ,licenseCode
 							   ,comment);	
 		}	
 		
-		public static FormLicense convert(License entity)  {
+		public static FormLicense convert(StaffLicense entity)  {
 			if (entity == null) return null; 
 			
 			return new FormLicense(entity.getStaff().getId()

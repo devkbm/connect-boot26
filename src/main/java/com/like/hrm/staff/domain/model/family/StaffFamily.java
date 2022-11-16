@@ -35,35 +35,35 @@ public class StaffFamily extends AbstractAuditEntity implements Serializable {
 	private static final long serialVersionUID = -3377701513438383323L;
 
 	@EmbeddedId
-	private StaffFamilyId id;
+	StaffFamilyId id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
-	private Staff staff;
+	Staff staff;
 		
 	@Comment("가족성명")
 	@Column(name="FAMILY_NAME", nullable = false)
-	private String name;
+	String name;
 	
 	@Comment("주민등록번호")
 	@Column(name="RREGNO", nullable = false)
-	private String residentRegistrationNumber;
+	String residentRegistrationNumber;
 		
 	@Comment("가족관계")
 	@Column(name="FAMILY_REL_CODE", nullable = false)
-	private String relation;
+	String relation;
 		
 	@Comment("직업명")
 	@Column(name="OCCUPATION_NAME", nullable = true)
-	private String occupation;
+	String occupation;
 		
 	@Comment("학력구분")
 	@Column(name="SCHOOL_CAREER_CODE", nullable = true)
-	private String schoolCareerType;
+	String schoolCareerType;
 		
 	@Comment("비고")
 	@Column(name="CMT", nullable = true)
-	private String comment;
+	String comment;
 	
 	
 	public StaffFamily(Staff staff
