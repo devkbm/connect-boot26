@@ -8,6 +8,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,14 +31,14 @@ public class StaffFamilyController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/family")
-	public ResponseEntity<?> getFamily(@PathVariable String staffId) {
+	public ResponseEntity<?> getFamilyList(@PathVariable String staffId) {
 													
 		List<StaffDTO.FormFamily> list = service.getFamilyList(staffId)
 												.stream()
 												.map(e -> StaffDTO.FormFamily.convert(e))
 												.toList();
 		
-		return toOne(list, MessageUtil.getQueryMessage(list.size()));						
+		return toList(list, MessageUtil.getQueryMessage(list.size()));						
 	}
 	
 	
@@ -52,11 +53,20 @@ public class StaffFamilyController {
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));							
 	}
 		
-	@PostMapping("/api/hrm/staff/family")
+	@PostMapping("/api/hrm/staff/{staffId}/family")
 	public ResponseEntity<?> saveFamily(@Valid @RequestBody StaffDTO.FormFamily dto) {			
 							
 		service.saveFamily(dto);
 											 				
 		return toList(null, MessageUtil.getSaveMessage(1));
+	}
+	
+	@DeleteMapping("/api/hrm/staff/{staffId}/family/{seq}")
+	public ResponseEntity<?> deleteFamily(@PathVariable String staffId
+									     ,@PathVariable Long seq) {
+						
+		service.deleteFamily(staffId, seq);  									
+		
+		return toOne(null, MessageUtil.getDeleteMessage(1));									
 	}
 }

@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -37,7 +35,7 @@ import lombok.NoArgsConstructor;
  * 
  */
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"staff"})
-@EqualsAndHashCode(callSuper = false, of = {"licenseId"})
+@EqualsAndHashCode(callSuper = false, of = {"id"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -52,18 +50,16 @@ public class StaffLicense extends AbstractAuditEntity implements Serializable {
 	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
 	Staff staff;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="ID", nullable = false)
-	Long licenseId;
+	@EmbeddedId
+	StaffLicenseId id;
 			
 	@Comment("자격면허유형")
 	@Column(name="LICENSE_TYPE", nullable = false)
 	String licenseType;
 		
-	@Comment("자격면허코드")
-	@Column(name="LICENSE_CODE", nullable = false)
-	String licenseCode;
+	@Comment("자격면허번호")
+	@Column(name="LICENSE_NO", nullable = false)
+	String licenseNumber;
 		
 	// acquisition date
 	@Comment("취득일자")
@@ -72,31 +68,36 @@ public class StaffLicense extends AbstractAuditEntity implements Serializable {
 		
 	@Comment("인증기관")
 	@Column(name="CERTIFICATION_AUTHORITY", nullable = true)
-	String certificationAuthority;
-		
-	@Comment("필수여부")
-	@Column(name="MANDATORY_YN", nullable = false)
-	Boolean isMandatory;
+	String certificationAuthority;		
 		
 	@Comment("비고")
 	@Column(name="CMT", nullable = true)
 	String comment;	
 	
 	public StaffLicense(Staff staff
-				  ,String licenseType
-				  ,String licenseCode
-				  ,String comment) {
+					   ,String licenseType
+					   ,String licenseNumber
+					   ,LocalDate dateOfAcquisition
+					   ,String certificationAuthority
+					   ,String comment) {
 		this.staff = staff;
+		this.id = new StaffLicenseId(staff);
 		this.licenseType = licenseType;
-		this.licenseCode = licenseCode;
+		this.licenseNumber = licenseNumber;
+		this.dateOfAcquisition = dateOfAcquisition;
+		this.certificationAuthority = certificationAuthority;
 		this.comment = comment;
 	}
 	
 	public void modifyEntity(String licenseType
-							,String licenseCode
+							,String licenseNumber
+							,LocalDate dateOfAcquisition
+							,String certificationAuthority
 							,String comment) {
 		this.licenseType = licenseType;
-		this.licenseCode = licenseCode;
+		this.licenseNumber = licenseNumber;
+		this.dateOfAcquisition = dateOfAcquisition;
+		this.certificationAuthority = certificationAuthority;
 		this.comment = comment;		
 	}
 				

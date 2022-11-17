@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"employee"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"staff"})
 @EqualsAndHashCode(callSuper = false, of = {"id"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,12 +34,12 @@ public class StaffFamily extends AbstractAuditEntity implements Serializable {
 			
 	private static final long serialVersionUID = -3377701513438383323L;
 
-	@EmbeddedId
-	StaffFamilyId id;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
 	Staff staff;
+	
+	@EmbeddedId
+	StaffFamilyId id;	
 		
 	@Comment("가족성명")
 	@Column(name="FAMILY_NAME", nullable = false)

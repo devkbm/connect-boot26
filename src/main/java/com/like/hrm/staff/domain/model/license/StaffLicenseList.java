@@ -2,6 +2,7 @@ package com.like.hrm.staff.domain.model.license;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -22,24 +23,24 @@ public class StaffLicenseList {
 	@OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	Set<StaffLicense> licenseList = new LinkedHashSet<>();
 	
-	public StaffLicense get(Long id) {
+	public Stream<StaffLicense> getStream() {
+		return this.licenseList.stream();
+	}
+	
+	public StaffLicense get(StaffLicenseId id) {
 		
 		return this.licenseList.stream()
-							   .filter(e -> e.getLicenseId().equals(id))
+							   .filter(e -> e.getId().equals(id))
 							   .findFirst()
 							   .orElse(null);
 	}
 	
-	public void add(StaffLicense license) {
-		if (this.licenseList == null) {
-			this.licenseList = new LinkedHashSet<>();
-		}
-		
+	public void add(StaffLicense license) {		
 		this.licenseList.add(license);
 	}	
 	
-	public void remove(Long id) {		
-		this.licenseList.removeIf(e -> e.getLicenseId().equals(id));			
+	public void remove(StaffLicenseId id) {		
+		this.licenseList.removeIf(e -> e.getId().equals(id));			
 	}
 		
 	long getNextSequence() {
@@ -48,11 +49,11 @@ public class StaffLicenseList {
 		if (this.licenseList == null || this.licenseList.isEmpty()) {
 			maxSeq = 0;
 		} else {
-			/*
+			
 			maxSeq = this.licenseList.stream()
 							  		 .mapToLong(e -> e.getId().getSeq())
 							  		 .max()
-							  		 .getAsLong();*/
+							  		 .getAsLong();
 							  
 		}
 					

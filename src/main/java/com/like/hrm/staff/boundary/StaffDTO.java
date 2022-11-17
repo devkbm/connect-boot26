@@ -205,24 +205,30 @@ public class StaffDTO {
 	public record FormLicense(
 			@NotEmpty
 			String staffId,
-			Long licenseId,
+			Long seq,
 			@NotEmpty
 			String licenseType,
 			@NotEmpty
-			String licenseCode,
+			String licenseNumber,
+			LocalDate dateOfAcquisition,
+			String certificationAuthority,
 			String comment
 			) {
 		
 		public StaffLicense newEntity(Staff staff) {
 			return new StaffLicense(staff
 							  ,this.licenseType
-							  ,this.licenseCode
+							  ,this.licenseNumber
+							  ,this.dateOfAcquisition
+							  ,this.certificationAuthority
 							  ,this.comment);
 		}
 		
 		public void modifyEntity(StaffLicense entity) {
 			entity.modifyEntity(licenseType
-							   ,licenseCode
+							   ,licenseNumber
+							   ,dateOfAcquisition
+							   ,certificationAuthority
 							   ,comment);	
 		}	
 		
@@ -230,9 +236,11 @@ public class StaffDTO {
 			if (entity == null) return null; 
 			
 			return new FormLicense(entity.getStaff().getId()
-								  ,entity.getLicenseId()
+								  ,entity.getId().getSeq()
 								  ,entity.getLicenseType()
-								  ,entity.getLicenseCode()
+								  ,entity.getLicenseNumber()
+								  ,entity.getDateOfAcquisition()
+								  ,entity.getCertificationAuthority()
 								  ,entity.getComment());
 							  
 		}

@@ -1,5 +1,7 @@
 package com.like.hrm.staff.service;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.license.StaffLicense;
+import com.like.hrm.staff.domain.model.license.StaffLicenseId;
 
 @Transactional
 @Service
@@ -20,30 +23,43 @@ public class StaffLicenseService {
 		this.repository = repository;	
 	}
 	
-	public StaffLicense getLicense(String empId, Long id) {
-		Staff emp = getEmployeeInfo(empId);
+	public List<StaffLicense> getLicenseList(String staffId) {
+		Staff staff = findStaff(staffId);
+		
+		return staff.getLicenseList().getStream().toList();
+	}
+	
+	
+	public StaffLicense getLicense(String staffId, Long seq) {
+		Staff staff = findStaff(staffId);
 						
-		return emp.getLicenseList().get(id);
+		return staff.getLicenseList().get(new StaffLicenseId(staff, seq));
 	}
 	
 	public void saveLicense(StaffDTO.FormLicense dto) {
-		Staff emp = getEmployeeInfo(dto.staffId());
+		Staff staff = findStaff(dto.staffId());
 		
-		StaffLicense license = emp.getLicenseList().get(dto.licenseId());
+		StaffLicense license = staff.getLicenseList().get(new StaffLicenseId(staff, dto.seq()));
 		
 		if (license == null) {
-			license = dto.newEntity(emp);
+			license = dto.newEntity(staff);
 		} else {
 			dto.modifyEntity(license);
 		}
 		
-		emp.getLicenseList().add(license);
+		staff.getLicenseList().add(license);
 		
-		repository.save(emp);
-	}	
+		repository.save(staff);
+	}
 	
-	private Staff getEmployeeInfo(String empId) {
-		return repository.findById(empId)
-				 .orElseThrow(() -> new EntityNotFoundException(empId + " 사번이 존재하지 않습니다."));
+	public void deleteLicense(String staffId, Long seq) {
+		Staff staff = findStaff(staffId);
+		
+		staff.getLicenseList().remove(new StaffLicenseId(staff, seq));
+	}
+	
+	private Staff findStaff(String staffId) {
+		return repository.findById(staffId)
+				 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
 	}
 }

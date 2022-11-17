@@ -49,7 +49,13 @@ public class StaffFamilyService {
 		staff.getFamilyList().add(entity);
 		
 		repository.save(staff);
-	}	
+	}
+	
+	public void deleteFamily(String staffId, Long seq) {
+		Staff staff = findStaff(staffId);
+		
+		staff.getFamilyList().remove(new StaffFamilyId(staff, seq));
+	}
 	
 	private Staff findStaff(String staffId) {
 		return repository.findById(staffId)
