@@ -15,7 +15,7 @@ public class ResponseStaffDutyResponsibility {
 	String staffId;
 	String staffNo;
 	String staffName;
-	Integer seq;
+	Long seq;
 	String dutyResponsibilityCode;
 	String dutyResponsibilityName;
 	LocalDate fromDate;
@@ -26,7 +26,7 @@ public class ResponseStaffDutyResponsibility {
 	public ResponseStaffDutyResponsibility(String staffId
 										  ,String staffNo
 										  ,String staffName
-										  ,Integer seq
+										  ,Long seq
 										  ,String dutyResponsibilityCode
 										  ,String dutyResponsibilityName
 										  ,LocalDate fromDate

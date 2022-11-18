@@ -7,11 +7,10 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.hrm.staff.boundary.StaffDTO;
+import com.like.hrm.staff.boundary.LicenseDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.license.StaffLicense;
-import com.like.hrm.staff.domain.model.license.StaffLicenseId;
 
 @Transactional
 @Service
@@ -33,13 +32,12 @@ public class StaffLicenseService {
 	public StaffLicense getLicense(String staffId, Long seq) {
 		Staff staff = findStaff(staffId);
 						
-		return staff.getLicenseList().get(new StaffLicenseId(staff, seq));
+		return staff.getLicenseList().get(staff, seq);
 	}
 	
-	public void saveLicense(StaffDTO.FormLicense dto) {
-		Staff staff = findStaff(dto.staffId());
-		
-		StaffLicense license = staff.getLicenseList().get(new StaffLicenseId(staff, dto.seq()));
+	public void saveLicense(LicenseDTO.Form dto) {
+		Staff staff = findStaff(dto.staffId());		
+		StaffLicense license = staff.getLicenseList().get(staff, dto.seq());
 		
 		if (license == null) {
 			license = dto.newEntity(staff);
@@ -55,7 +53,7 @@ public class StaffLicenseService {
 	public void deleteLicense(String staffId, Long seq) {
 		Staff staff = findStaff(staffId);
 		
-		staff.getLicenseList().remove(new StaffLicenseId(staff, seq));
+		staff.getLicenseList().remove(staff, seq);
 	}
 	
 	private Staff findStaff(String staffId) {

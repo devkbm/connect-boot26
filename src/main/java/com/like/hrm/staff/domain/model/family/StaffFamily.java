@@ -19,6 +19,7 @@ import com.like.hrm.staff.domain.model.Staff;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -65,7 +66,7 @@ public class StaffFamily extends AbstractAuditEntity implements Serializable {
 	@Column(name="CMT", nullable = true)
 	String comment;
 	
-	
+	@Builder
 	public StaffFamily(Staff staff
 					  ,String name
 					  ,String residentRegistrationNumber
@@ -74,7 +75,7 @@ public class StaffFamily extends AbstractAuditEntity implements Serializable {
 					  ,String schoolCareerType
 					  ,String comment) {		
 		this.staff = staff;
-		this.id = new StaffFamilyId(staff);
+		this.id = new StaffFamilyId(staff, staff.getFamilyList().getNextSequence());
 		this.name = name;
 		this.residentRegistrationNumber = residentRegistrationNumber;
 		this.relation = relation;
@@ -83,6 +84,7 @@ public class StaffFamily extends AbstractAuditEntity implements Serializable {
 		this.comment = comment;
 	}
 	
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String name
 							,String residentRegistrationNumber
 							,String relation

@@ -1,7 +1,5 @@
 package com.like.hrm.staff.service;
 
-import java.time.LocalDate;
-
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -27,16 +25,15 @@ public class StaffAppointmentService {
 		return getStaffInfo(staffId).getAppointmentRecordList();
 	}
 	
-	public AppointmentRecord getAppointmentRecord(String staffId, Long id) {
+	public AppointmentRecord getAppointmentRecord(String staffId, Long seq) {
 		Staff staff = getStaffInfo(staffId);
 		
-		return staff.getAppointmentRecordList().get(id);	
+		return staff.getAppointmentRecordList().get(staff, seq);	
 	}
 	
 	public void saveAppointmentRecord(AppointmentRecordDTO.FormStaffAppointmentRecord dto) {
-		Staff staff = getStaffInfo(dto.staffId());
-		
-		AppointmentRecord entity = staff.getAppointmentRecordList().get(dto.id());
+		Staff staff = getStaffInfo(dto.staffId());		
+		AppointmentRecord entity = staff.getAppointmentRecordList().get(staff, dto.seq());
 		
 		if (entity == null) {
 			entity = dto.newEntity(staff);
@@ -44,25 +41,22 @@ public class StaffAppointmentService {
 			dto.modifyEntity(entity);
 		}
 		
-		staff.getAppointmentRecordList().add(entity);
-		
-		LocalDate today = LocalDate.now();
-		
-		if (today.isAfter(dto.appointmentDate())) {			
-			staff.applyAppointmentRecord(entity);			
-		} 
+		staff.getAppointmentRecordList().add(entity);		
+		staff.applyAppointmentRecord(entity);		 
 		
 		repository.save(staff);
 	}	
 	
-	public void applyAppointmentRecord(String staffId, Long appointmentRecordId) {
+	public void applyAppointmentRecord(String staffId, Long seq) {
 		Staff staff = getStaffInfo(staffId);
-		AppointmentRecord entity = staff.getAppointmentRecordList().get(appointmentRecordId);
+		AppointmentRecord entity = staff.getAppointmentRecordList().get(staff, seq);
+		
 		staff.applyAppointmentRecord(entity);					
 	}
 	
 	private Staff getStaffInfo(String staffId) {
 		return repository.findById(staffId)
-						 .orElseThrow(() -> new EntityNotFoundException(staffId + " 사번이 존재하지 않습니다."));
+						 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
 	}
+		
 }

@@ -6,6 +6,8 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.hibernate.annotations.Comment;
+
 import com.like.hrm.staff.domain.model.Staff;
 
 import lombok.AccessLevel;
@@ -21,16 +23,13 @@ public class StaffFamilyId implements Serializable {
 	
 	private static final long serialVersionUID = -8748836639137047169L;
 	
+	@Comment("직원ID")
 	@Column(name="STAFF_ID")
 	String staffId;
 		
+	@Comment("등록순번")
 	@Column(name="SEQ")
 	Long seq;		
-	
-	public StaffFamilyId(Staff staff) {
-		this.staffId = staff.getId();
-		this.seq = staff.getFamilyList().getNextSequence();
-	}
 	
 	public StaffFamilyId(Staff staff, Long seq) {
 		this.staffId = staff.getId();

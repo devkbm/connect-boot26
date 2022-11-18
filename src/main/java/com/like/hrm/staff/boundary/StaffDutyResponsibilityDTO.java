@@ -17,7 +17,7 @@ public class StaffDutyResponsibilityDTO {
 			String staffId,
 			String staffNo,
 			String staffName,
-			Integer seq,
+			Long seq,
 			String dutyResponsibilityCode,
 			String dutyResponsibilityName,
 			LocalDate fromDate,
@@ -26,7 +26,13 @@ public class StaffDutyResponsibilityDTO {
 			) {
 		
 		public StaffDuty newEntity(Staff staff) {		
-			StaffDuty entity = new StaffDuty(staff, dutyResponsibilityCode, fromDate, toDate, isPayApply);
+			StaffDuty entity = StaffDuty.builder()
+										.staff(staff)
+										.dutyResponsibilityCode(dutyResponsibilityCode)
+										.fromDate(fromDate)
+										.toDate(toDate)
+										.isPayApply(isPayApply)
+										.build(); 									
 								
 			entity.setAppUrl(clientAppUrl);
 			
@@ -34,7 +40,16 @@ public class StaffDutyResponsibilityDTO {
 		}
 		
 		public void modifyEntity(StaffDuty entity) {
-			entity.modifyEntity(dutyResponsibilityCode, fromDate, toDate, isPayApply);
+			entity.modifyBuilder()
+				  .dutyResponsibilityCode(dutyResponsibilityCode)
+				  .fromDate(fromDate)
+				  .toDate(toDate)
+				  .isPayApply(isPayApply)
+				  .modify();
+			
+			//entity.modifyEntity(dutyResponsibilityCode, fromDate, toDate, isPayApply);
+			
+			entity.setAppUrl(clientAppUrl);
 		}
 		
 		

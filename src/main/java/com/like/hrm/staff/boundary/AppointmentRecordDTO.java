@@ -22,12 +22,12 @@ public class AppointmentRecordDTO {
 			String staffId,
 			String staffNo,
 			String staffName,			
-			Long id,
+			Long seq,
 			LocalDate appointmentDate,
 			LocalDate appointmentEndDate,			
 			String recordName,
 			String comment,				
-			Boolean processWatingYn,
+			Boolean isCompleted,
 			String blngDeptCode,			
 			String workDeptCode,			
 			String jobGroupCode,			
@@ -65,12 +65,12 @@ public class AppointmentRecordDTO {
 											 .staffId(entity.getStaff().getId())
 											 .staffNo(entity.getStaff().getStaffNo())
 											 .staffName(entity.getStaff().getName().getName())
-											 .id(entity.getId())
+											 .seq(entity.getId().getSeq())
 											 .appointmentDate(entity.getAppointmentDate())
 											 .appointmentEndDate(entity.getAppointmentEndDate())
 											 .recordName(entity.getRecordName())
 											 .comment(entity.getComment())
-											 .processWatingYn(entity.getProcessWatingYn())
+											 .isCompleted(entity.getIsCompleted())
 											 .blngDeptCode(info.map(AppointmentInformation::getBlngDeptCode).orElse(null))
 											 .workDeptCode(info.map(AppointmentInformation::getWorkDeptCode).orElse(null))
 											 .jobGroupCode(info.map(AppointmentInformation::getJobGroupCode).orElse(null))

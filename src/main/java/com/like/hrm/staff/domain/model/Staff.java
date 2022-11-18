@@ -18,7 +18,7 @@ import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 import com.like.hrm.staff.domain.model.dutyresponsibility.StaffDutyList;
 import com.like.hrm.staff.domain.model.family.StaffFamilyList;
 import com.like.hrm.staff.domain.model.license.StaffLicenseList;
-import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareerList;
+import com.like.hrm.staff.domain.model.schoolcareer.StaffSchoolCareerList;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
@@ -88,7 +88,7 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	StaffFamilyList familyList = new StaffFamilyList();
 		
 	@Embedded
-	SchoolCareerList schoolCareerList = new SchoolCareerList();
+	StaffSchoolCareerList schoolCareerList = new StaffSchoolCareerList();
 	
 	/**
 	 * 자격면허 명단
@@ -122,10 +122,13 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	
 	public void applyAppointmentRecord(AppointmentRecord record) {		
 		if (this.currentAppointment == null) this.currentAppointment = new CurrentAppointmentInformation(record.getInfo()); 		
-						
-		this.currentAppointment.apply(record.getInfo());
-				
-		record.complete();
+								
+		LocalDate today = LocalDate.now();		
+		if (today.isAfter(record.getAppointmentDate())) {		
+			this.currentAppointment.apply(record.getInfo());
+					
+			record.complete();
+		}
 	}	
 		
 }

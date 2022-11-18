@@ -26,17 +26,15 @@ public class StaffDutyResponsibilityService {
 		return staff.getStaffDutyResponsibilityList().stream().toList();
 	}
 	
-	public StaffDuty get(String staffId, Integer seq) {
-		Staff staff = this.repository.findById(staffId).orElse(null);
-		
+	public StaffDuty get(String staffId, Long seq) {
+		Staff staff = this.repository.findById(staffId).orElse(null);		
 		StaffDuty entity = staff.getStaffDutyResponsibilityList().get(staff, seq);
 		
 		return entity;
 	}
 	
 	public void save(StaffDutyResponsibilityDTO.Form dto) {
-		Staff staff = this.repository.findById(dto.staffId()).orElse(null);
-		
+		Staff staff = this.repository.findById(dto.staffId()).orElse(null);		
 		StaffDuty entity = staff.getStaffDutyResponsibilityList().get(staff, dto.seq());
 		
 		if (entity == null) {

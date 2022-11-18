@@ -43,7 +43,7 @@ public class StaffDutyResponsibilityController {
 	
 	@GetMapping("/api/hrm/staff/{staffId}/dutyresponsibility/{seq}")
 	public ResponseEntity<?> get(@PathVariable String staffId
-								,@PathVariable Integer seq) {
+								,@PathVariable Long seq) {
 				
 		StaffDuty entity = service.get(staffId, seq);  									
 				

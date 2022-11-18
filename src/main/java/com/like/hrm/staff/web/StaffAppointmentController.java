@@ -32,7 +32,7 @@ public class StaffAppointmentController {
 	public ResponseEntity<?> getAppointmentRecordList(@PathVariable String staffId) {
 										
 		List<AppointmentRecordDTO.FormStaffAppointmentRecord> list = service.getAppointmentRecord(staffId)
-																			.stream()
+																			.getStream()
 																			.map(e -> AppointmentRecordDTO.FormStaffAppointmentRecord.convert(e))
 																			.toList(); 		
 		

@@ -9,6 +9,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.like.hrm.staff.domain.model.Staff;
+
 import lombok.NoArgsConstructor;
 
 /**
@@ -27,10 +29,9 @@ public class StaffLicenseList {
 		return this.licenseList.stream();
 	}
 	
-	public StaffLicense get(StaffLicenseId id) {
-		
+	public StaffLicense get(Staff staff, Long seq) {		
 		return this.licenseList.stream()
-							   .filter(e -> e.getId().equals(id))
+							   .filter(e -> e.getId().equals(new StaffLicenseId(staff, seq)))
 							   .findFirst()
 							   .orElse(null);
 	}
@@ -39,8 +40,8 @@ public class StaffLicenseList {
 		this.licenseList.add(license);
 	}	
 	
-	public void remove(StaffLicenseId id) {		
-		this.licenseList.removeIf(e -> e.getId().equals(id));			
+	public void remove(Staff staff, Long seq) {		
+		this.licenseList.removeIf(e -> e.getId().equals(new StaffLicenseId(staff, seq)));			
 	}
 		
 	long getNextSequence() {
@@ -48,13 +49,11 @@ public class StaffLicenseList {
 		
 		if (this.licenseList == null || this.licenseList.isEmpty()) {
 			maxSeq = 0;
-		} else {
-			
+		} else {			
 			maxSeq = this.licenseList.stream()
 							  		 .mapToLong(e -> e.getId().getSeq())
 							  		 .max()
-							  		 .getAsLong();
-							  
+							  		 .getAsLong();							 
 		}
 					
 		return maxSeq + 1;

@@ -9,6 +9,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.like.hrm.staff.domain.model.Staff;
+
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -25,10 +27,9 @@ public class StaffFamilyList {
 		return this.familyList.stream();
 	}
 	
-	public StaffFamily get(StaffFamilyId id) {
-					
+	public StaffFamily get(Staff staff, Long seq) {					
 		return this.familyList.stream()
-							  .filter(e -> e.getId().equals(id))
+							  .filter(e -> e.getId().equals(new StaffFamilyId(staff, seq)))
 							  .findFirst()
 							  .orElse(null);
 	}
@@ -37,8 +38,8 @@ public class StaffFamilyList {
 		this.familyList.add(family);
 	}	
 	
-	public void remove(StaffFamilyId id) {		
-		this.familyList.removeIf(e -> e.getId().equals(id));			
+	public void remove(Staff staff, Long seq) {		
+		this.familyList.removeIf(e -> e.getId().equals(new StaffFamilyId(staff, seq)));			
 	}
 	
 	long getNextSequence() {
@@ -50,8 +51,7 @@ public class StaffFamilyList {
 			maxSeq = this.familyList.stream()
 							  		.mapToLong(e -> e.getId().getSeq())
 							  		.max()
-							  		.getAsLong();
-							  
+							  		.getAsLong();							 
 		}
 					
 		return maxSeq + 1;

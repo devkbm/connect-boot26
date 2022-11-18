@@ -1,14 +1,16 @@
 package com.like.hrm.staff.service;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.hrm.staff.boundary.StaffDTO;
+import com.like.hrm.staff.boundary.SchoolCareerDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffRepository;
-import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
+import com.like.hrm.staff.domain.model.schoolcareer.StaffSchoolCareer;
 
 
 @Transactional
@@ -21,30 +23,38 @@ public class StaffSchoolCareerService {
 		this.repository = repository;	
 	}
 	
-	public SchoolCareer getSchoolCareer(String empId, Long id) {
-		Staff emp = getEmployeeInfo(empId);
-		
-		return emp.getSchoolCareerList().get(id);
+	public List<StaffSchoolCareer> getSchoolCareerList(String staffId) {		
+		return findStaff(staffId).getSchoolCareerList().getStream().toList(); 
 	}
 	
-	public void saveSchoolCareer(StaffDTO.FormEducation dto) {
-		Staff emp = getEmployeeInfo(dto.staffId());
+	public StaffSchoolCareer getSchoolCareer(String staffId, Long seq) {
+		Staff staff = findStaff(staffId);
 		
-		SchoolCareer education = emp.getSchoolCareerList().get(dto.educationId());
+		return staff.getSchoolCareerList().get(staff, seq);
+	}
+	
+	public void saveSchoolCareer(SchoolCareerDTO.Form dto) {
+		Staff staff = findStaff(dto.staffId());	
+		StaffSchoolCareer education = staff.getSchoolCareerList().get(staff, dto.seq());
 		
 		if (education == null) {
-			education = dto.newEntity(emp);
+			education = dto.newEntity(staff);
 		} else {
 			dto.modifyEnity(education);
 		}
 		
-		emp.getSchoolCareerList().add(education);
+		staff.getSchoolCareerList().add(education);
 		
-		repository.save(emp);
+		repository.save(staff);
 	}
 	
-	private Staff getEmployeeInfo(String empId) {
-		return repository.findById(empId)
-				 .orElseThrow(() -> new EntityNotFoundException(empId + " 사번이 존재하지 않습니다."));
+	public void deleteSchoolCareer(String staffId, Long seq) {
+		Staff staff = findStaff(staffId);
+		staff.getSchoolCareerList().remove(staff, seq);
+	}
+	
+	private Staff findStaff(String staffId) {
+		return repository.findById(staffId)
+				 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
 	}
 }

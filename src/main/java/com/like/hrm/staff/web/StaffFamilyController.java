@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.staff.boundary.StaffDTO;
+import com.like.hrm.staff.boundary.FamilyDTO;
 import com.like.hrm.staff.domain.model.family.StaffFamily;
 import com.like.hrm.staff.service.StaffFamilyService;
 import com.like.system.core.message.MessageUtil;
@@ -33,9 +33,9 @@ public class StaffFamilyController {
 	@GetMapping("/api/hrm/staff/{staffId}/family")
 	public ResponseEntity<?> getFamilyList(@PathVariable String staffId) {
 													
-		List<StaffDTO.FormFamily> list = service.getFamilyList(staffId)
+		List<FamilyDTO.Form> list = service.getFamilyList(staffId)
 												.stream()
-												.map(e -> StaffDTO.FormFamily.convert(e))
+												.map(e -> FamilyDTO.Form.convert(e))
 												.toList();
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));						
@@ -48,13 +48,13 @@ public class StaffFamilyController {
 						
 		StaffFamily entity = service.getFamily(staffId, seq);  									
 				
-		StaffDTO.FormFamily dto = StaffDTO.FormFamily.convert(entity) ;
+		FamilyDTO.Form dto = FamilyDTO.Form.convert(entity) ;
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));							
 	}
 		
 	@PostMapping("/api/hrm/staff/{staffId}/family")
-	public ResponseEntity<?> saveFamily(@Valid @RequestBody StaffDTO.FormFamily dto) {			
+	public ResponseEntity<?> saveFamily(@Valid @RequestBody FamilyDTO.Form dto) {			
 							
 		service.saveFamily(dto);
 											 				

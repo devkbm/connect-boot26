@@ -15,9 +15,6 @@ import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffContact;
 import com.like.hrm.staff.domain.model.StaffName;
-import com.like.hrm.staff.domain.model.family.StaffFamily;
-import com.like.hrm.staff.domain.model.license.StaffLicense;
-import com.like.hrm.staff.domain.model.schoolcareer.SchoolCareer;
 import com.like.system.core.jpa.vo.Address;
 import com.like.system.core.jpa.vo.PhoneNumber;
 import com.querydsl.core.BooleanBuilder;
@@ -134,9 +131,8 @@ public class StaffDTO {
 	@Builder(access = AccessLevel.PRIVATE)
 	public static record FormContact(
 			String clientAppUrl,
-			String organizationCode,
-			@NotEmpty
-			String staffId,
+			String organizationCode,			
+			@NotEmpty String staffId,
 			String staffNo,
 			String staffName,
 			String homeAddressType,
@@ -166,131 +162,6 @@ public class StaffDTO {
 							  .build();
 							  
 		}
-	}
-		
-	public record FormEducation(
-			@NotEmpty
-			String staffId,
-			Long educationId,
-			@NotEmpty
-			String schoolCareerType,
-			@NotEmpty
-			String schoolCode,
-			String comment) {
-		
-		public SchoolCareer newEntity(Staff employee) {
-			return new SchoolCareer(employee
-								,this.schoolCareerType
-								,this.schoolCode
-								,this.comment);
-		}
-		
-		public void modifyEnity(SchoolCareer entity) {
-			entity.modifyEntity(schoolCareerType
-							   ,schoolCode
-							   ,comment);	
-		}	
-		
-		public static FormEducation convert(SchoolCareer entity) {
-			if (entity == null) return null;			
-			
-			return new FormEducation(entity.getStaff().getId()
-									,entity.getId()
-									,entity.getSchoolCareerType()
-									,entity.getSchoolCode()
-									,entity.getComment()); 								
-		}
-	}
-	
-	public record FormLicense(
-			@NotEmpty
-			String staffId,
-			Long seq,
-			@NotEmpty
-			String licenseType,
-			@NotEmpty
-			String licenseNumber,
-			LocalDate dateOfAcquisition,
-			String certificationAuthority,
-			String comment
-			) {
-		
-		public StaffLicense newEntity(Staff staff) {
-			return new StaffLicense(staff
-							  ,this.licenseType
-							  ,this.licenseNumber
-							  ,this.dateOfAcquisition
-							  ,this.certificationAuthority
-							  ,this.comment);
-		}
-		
-		public void modifyEntity(StaffLicense entity) {
-			entity.modifyEntity(licenseType
-							   ,licenseNumber
-							   ,dateOfAcquisition
-							   ,certificationAuthority
-							   ,comment);	
-		}	
-		
-		public static FormLicense convert(StaffLicense entity)  {
-			if (entity == null) return null; 
-			
-			return new FormLicense(entity.getStaff().getId()
-								  ,entity.getId().getSeq()
-								  ,entity.getLicenseType()
-								  ,entity.getLicenseNumber()
-								  ,entity.getDateOfAcquisition()
-								  ,entity.getCertificationAuthority()
-								  ,entity.getComment());
-							  
-		}
-	}
-		
-	
-	public record FormFamily(
-			@NotEmpty
-			String staffId,
-			Long seq,
-			String name,
-			String residentRegistrationNumber,
-			String relation,
-			String occupation,
-			String schoolCareerType,
-			String comment
-			) {
-		
-		public StaffFamily newEntity(Staff staff) {
-			return new StaffFamily(staff
-								  ,name
-								  ,residentRegistrationNumber
-								  ,relation
-								  ,occupation
-								  ,schoolCareerType
-								  ,comment);					
-		}
-		
-		public void modifyEntity(StaffFamily entity) {
-			entity.modifyEntity(name
-							   ,residentRegistrationNumber
-							   ,relation
-							   ,occupation
-							   ,schoolCareerType
-							   ,comment);
-		}
-		
-		public static FormFamily convert(StaffFamily entity) {
-			if (entity == null) return null;
-			
-			return new FormFamily(entity.getStaff().getId()
-								 ,entity.getId().getSeq()
-								 ,entity.getName()
-								 ,entity.getResidentRegistrationNumber()
-								 ,entity.getRelation()
-								 ,entity.getOccupation()
-								 ,entity.getSchoolCareerType()
-								 ,entity.getComment());							 							 							 							 						
-		}
-	}	
-	
+	}		
 
 }

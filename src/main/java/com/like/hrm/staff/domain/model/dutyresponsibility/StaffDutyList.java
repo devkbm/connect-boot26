@@ -23,7 +23,7 @@ public class StaffDutyList {
 	@OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	Set<StaffDuty> staffDutyList = new LinkedHashSet<>();
 		
-	public StaffDuty get(Staff staff, Integer seq) {
+	public StaffDuty get(Staff staff, Long seq) {
 		
 		return this.staffDutyList.stream()
 								 .filter(e -> e.getId().equals(new StaffDutyId(staff, seq)))
@@ -32,8 +32,8 @@ public class StaffDutyList {
 				
 	}
 		
-	public void remove(StaffDutyId id) {
-		this.staffDutyList.removeIf(e -> e.getId().equals(id));
+	public void remove(Staff staff, Long seq) {
+		this.staffDutyList.removeIf(e -> e.getId().equals(new StaffDutyId(staff, seq)));
 	}
 	
 	void add(StaffDuty entity) {
@@ -46,17 +46,17 @@ public class StaffDutyList {
 		}			
 	}
 	
-	int getNextSeq() {
-		int maxSeq = 0;
+	long getNextSeq() {
+		long maxSeq = 0;
 		
 		if (this.staffDutyList == null || this.staffDutyList.isEmpty()) {
 			maxSeq = 0;
-		} else {
-			maxSeq = this.staffDutyList.stream()
-							  		   .mapToInt(e -> e.getId().getSeq())
-							  		   .max()
-							  		   .getAsInt();
-							  
+		} else {			
+			maxSeq = staffDutyList.stream()
+								  .mapToLong(e -> e.getId().getSeq())
+							  	  .max()
+							  	  .getAsLong();
+			
 		}
 					
 		return maxSeq + 1;

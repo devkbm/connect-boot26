@@ -175,12 +175,12 @@ public class StaffQuery implements StaffQueryRepository {
 											, QHrmCode dutyResponsibilityCode) {
 		
 		return new QResponseStaffAppointmentRecord(QStaff.staff.id
-											   ,qRecord.id
+											   ,qRecord.id.seq
 											   ,qRecord.appointmentDate
 											   ,qRecord.appointmentEndDate
 											   ,qRecord.recordName
 											   ,qRecord.comment
-											   ,qRecord.processWatingYn
+											   ,qRecord.isCompleted
 											   ,qRecord.info.blngDeptCode
 											   ,blngDeptCode.deptNameKorean
 											   ,qRecord.info.workDeptCode

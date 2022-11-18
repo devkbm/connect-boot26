@@ -19,6 +19,7 @@ import com.like.hrm.staff.domain.model.Staff;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,6 +31,10 @@ import lombok.NoArgsConstructor;
 public class StaffDuty extends AbstractAuditEntity implements Serializable {
 
 	private static final long serialVersionUID = -5607018550367077054L;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
+	private Staff staff;
 	
 	@EmbeddedId	
 	StaffDutyId id;
@@ -48,12 +53,9 @@ public class StaffDuty extends AbstractAuditEntity implements Serializable {
 					
 	@Comment("급여적용여부")
 	@Column(name="PAY_APPLY_YN")
-	Boolean isPayApply;
+	Boolean isPayApply;	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
-	private Staff staff;
-	
+	@Builder
 	public StaffDuty(Staff staff, String dutyResponsibilityCode, LocalDate fromDate, LocalDate toDate, Boolean isPayApply) {
 		this.staff = staff;		
 		this.id = new StaffDutyId(staff, staff.getStaffDutyResponsibilityList().getNextSeq());
@@ -65,6 +67,7 @@ public class StaffDuty extends AbstractAuditEntity implements Serializable {
 		staff.getStaffDutyResponsibilityList().add(this);
 	}
 	
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String dutyResponsibilityCode
 							,LocalDate fromDate
 							,LocalDate toDate			

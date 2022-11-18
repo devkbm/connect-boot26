@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.staff.boundary.StaffDTO;
+import com.like.hrm.staff.boundary.LicenseDTO;
 import com.like.hrm.staff.domain.model.license.StaffLicense;
 import com.like.hrm.staff.service.StaffLicenseService;
 import com.like.system.core.message.MessageUtil;
@@ -32,10 +32,10 @@ public class StaffLicenseController {
 	@GetMapping("/api/hrm/staff/{staffId}/license")
 	public ResponseEntity<?> getLicense(@PathVariable String staffId) {
 						
-		List<StaffDTO.FormLicense> list = service.getLicenseList(staffId)
-												.stream()
-												.map(e -> StaffDTO.FormLicense.convert(e))
-												.toList();
+		List<LicenseDTO.Form> list = service.getLicenseList(staffId)
+										    .stream()
+										    .map(e -> LicenseDTO.Form.convert(e))
+										    .toList();
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
@@ -46,13 +46,13 @@ public class StaffLicenseController {
 				
 		StaffLicense license = service.getLicense(staffId, id);
 		
-		StaffDTO.FormLicense dto = StaffDTO.FormLicense.convert(license); 
+		LicenseDTO.Form dto = LicenseDTO.Form.convert(license); 
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/staff/{staffId}/license")
-	public ResponseEntity<?> saveLicense(@Valid @RequestBody StaffDTO.FormLicense dto) {						
+	public ResponseEntity<?> saveLicense(@Valid @RequestBody LicenseDTO.Form dto) {						
 				
 		service.saveLicense(dto);
 											 				

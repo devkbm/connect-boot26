@@ -20,6 +20,7 @@ import com.like.hrm.staff.domain.model.Staff;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -74,6 +75,7 @@ public class StaffLicense extends AbstractAuditEntity implements Serializable {
 	@Column(name="CMT", nullable = true)
 	String comment;	
 	
+	@Builder
 	public StaffLicense(Staff staff
 					   ,String licenseType
 					   ,String licenseNumber
@@ -81,7 +83,7 @@ public class StaffLicense extends AbstractAuditEntity implements Serializable {
 					   ,String certificationAuthority
 					   ,String comment) {
 		this.staff = staff;
-		this.id = new StaffLicenseId(staff);
+		this.id = new StaffLicenseId(staff, staff.getLicenseList().getNextSequence());
 		this.licenseType = licenseType;
 		this.licenseNumber = licenseNumber;
 		this.dateOfAcquisition = dateOfAcquisition;
@@ -89,6 +91,7 @@ public class StaffLicense extends AbstractAuditEntity implements Serializable {
 		this.comment = comment;
 	}
 	
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String licenseType
 							,String licenseNumber
 							,LocalDate dateOfAcquisition

@@ -7,11 +7,10 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.hrm.staff.boundary.StaffDTO;
+import com.like.hrm.staff.boundary.FamilyDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.family.StaffFamily;
-import com.like.hrm.staff.domain.model.family.StaffFamilyId;
 
 @Transactional
 @Service
@@ -32,13 +31,12 @@ public class StaffFamilyService {
 	public StaffFamily getFamily(String staffId, Long seq) {
 		Staff staff = findStaff(staffId);
 						
-		return staff.getFamilyList().get(new StaffFamilyId(staff, seq));
+		return staff.getFamilyList().get(staff, seq);
 	}
 	
-	public void saveFamily(StaffDTO.FormFamily dto) {
-		Staff staff = findStaff(dto.staffId());
-		
-		StaffFamily entity = staff.getFamilyList().get(new StaffFamilyId(staff, dto.seq()));
+	public void saveFamily(FamilyDTO.Form dto) {
+		Staff staff = findStaff(dto.staffId());		
+		StaffFamily entity = staff.getFamilyList().get(staff, dto.seq());
 		
 		if (entity == null) {
 			entity = dto.newEntity(staff);
@@ -54,7 +52,7 @@ public class StaffFamilyService {
 	public void deleteFamily(String staffId, Long seq) {
 		Staff staff = findStaff(staffId);
 		
-		staff.getFamilyList().remove(new StaffFamilyId(staff, seq));
+		staff.getFamilyList().remove(staff, seq);
 	}
 	
 	private Staff findStaff(String staffId) {
