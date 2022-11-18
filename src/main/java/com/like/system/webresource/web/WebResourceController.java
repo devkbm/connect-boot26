@@ -1,6 +1,5 @@
 package com.like.system.webresource.web;
 
-import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
 import javax.validation.Valid;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.webresource.boundary.WebResourceDTO;
-import com.like.system.webresource.boundary.WebResourceDTO.FormWebResource;
+import com.like.system.webresource.boundary.WebResourceDTO.Form;
 import com.like.system.webresource.domain.WebResource;
 import com.like.system.webresource.service.WebResourceService;
 
@@ -32,17 +31,17 @@ public class WebResourceController {
 		
 		WebResource resource = service.getResource(id); 							
 		
-		WebResourceDTO.FormWebResource dto = FormWebResource.convertDTO(resource);
+		WebResourceDTO.Form dto = Form.convertDTO(resource);
 		
 		return toOne(dto, String.format("%d 건 조회되었습니다.", dto != null ? 1 : 0));
 	}
 		
 	@PostMapping("/api/system/webresource")
-	public ResponseEntity<?> saveResource(@RequestBody @Valid WebResourceDTO.FormWebResource dto) throws Exception {
+	public ResponseEntity<?> saveResource(@RequestBody @Valid WebResourceDTO.Form dto) throws Exception {
 																												
 		service.saveWebResource(dto);																						
 										 					
-		return toList(null, String.format("%d 건 저장되었습니다.", 1));
+		return toOne(null, String.format("%d 건 저장되었습니다.", 1));
 	}
 	
 	@DeleteMapping("/api/system/webresource/{id}")
@@ -50,6 +49,6 @@ public class WebResourceController {
 												
 		service.deleteWebResource(id);							
 		
-		return toList(null, String.format("%d 건 삭제되었습니다.", 1));
+		return toOne(null, String.format("%d 건 삭제되었습니다.", 1));
 	}
 }

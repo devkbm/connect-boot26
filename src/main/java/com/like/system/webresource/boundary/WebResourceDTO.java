@@ -61,7 +61,7 @@ public class WebResourceDTO {
 	}	
 	
 	@Builder
-	public static record FormWebResource(
+	public static record Form(
 			LocalDateTime createdDt,
 			String createdBy,
 			LocalDateTime modifiedDt,
@@ -78,18 +78,18 @@ public class WebResourceDTO {
 			String description
 			) {
 		
-		public static FormWebResource convertDTO(WebResource entity) {					
-			return FormWebResource.builder()
-								  .createdDt(entity.getCreatedDt())	
-								  .createdBy(entity.getCreatedBy().getLoggedUser())
-								  .modifiedDt(entity.getCreatedDt())
-								  .modifiedBy(entity.getModifiedBy().getLoggedUser())
-								  .resourceId(entity.getId())
-								  .resourceName(entity.getName())
-								  .resourceType(entity.getType())
-								  .url(entity.getUrl())
-								  .description(entity.getDescription())
-								  .build();
+		public static Form convertDTO(WebResource entity) {								
+			return Form.builder()
+					   .createdDt(entity.getCreatedDt())	
+					   .createdBy(entity.getCreatedBy().getLoggedUser())
+					   .modifiedDt(entity.getCreatedDt())
+					   .modifiedBy(entity.getModifiedBy().getLoggedUser())
+					   .resourceId(entity.getId())
+					   .resourceName(entity.getName())
+					   .resourceType(entity.getType())
+					   .url(entity.getUrl())
+					   .description(entity.getDescription())
+					   .build();
 		}
 		
 		public WebResource newEntity() {

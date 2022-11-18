@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -80,6 +81,7 @@ public class BizCode extends AbstractAuditEntity {
 		this.comment = comment;
 	}
 	
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modify(String codeName
 					  ,Boolean useYn
 					  ,Integer sequence

@@ -25,7 +25,7 @@ public class WebResourceService {
 		repository.save(resource);
 	}
 	
-	public void saveWebResource(WebResourceDTO.FormWebResource dto) {	
+	public void saveWebResource(WebResourceDTO.Form dto) {	
 		WebResource resource = repository.findById(dto.resourceId()).orElse(null);
 		
 		if (resource == null) {

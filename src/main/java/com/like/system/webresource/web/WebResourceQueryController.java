@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.webresource.boundary.WebResourceDTO;
-import com.like.system.webresource.boundary.WebResourceDTO.FormWebResource;
+import com.like.system.webresource.boundary.WebResourceDTO.Form;
 import com.like.system.webresource.domain.WebResource;
 import com.like.system.webresource.domain.WebResourceType;
 import com.like.system.webresource.service.WebResourceQueryService;
@@ -31,8 +31,8 @@ public class WebResourceQueryController {
 		
 		List<WebResource> list = service.getResourceList(condition);
 										
-		List<WebResourceDTO.FormWebResource> dtoList = list.stream()
-														   .map(e -> FormWebResource.convertDTO(e))
+		List<WebResourceDTO.Form> dtoList = list.stream()
+														   .map(e -> Form.convertDTO(e))
 														   .collect(Collectors.toList());
 		
 		return toList(dtoList, String.format("%d 건 조회되었습니다.", dtoList.size())); 

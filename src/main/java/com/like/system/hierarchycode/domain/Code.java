@@ -102,6 +102,7 @@ public class Code extends AbstractAuditEntity  {
 		this.hierarchyLevel();
 	}
 		
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String codeName
 							,String codeNameAbbreviation
 							,LocalDateTime fromDate

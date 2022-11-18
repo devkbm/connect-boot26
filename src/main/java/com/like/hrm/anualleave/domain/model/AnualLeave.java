@@ -165,7 +165,8 @@ public class AnualLeave extends AbstractAuditEntity {
 	}
 	
 	public static void main(String[] args) {
-		AnualLeave a = new AnualLeave(new AnualLeaveId(2021, "1111")
+		/*
+		AnualLeave a = new AnualLeave(new AnualLeaveId("1111", 2021)
 									 ,LocalDate.of(2020, 1, 1)
 									 ,LocalDate.of(2026, 1, 1)
 									 ,LocalDate.of(2026, 12, 31));
@@ -177,7 +178,7 @@ public class AnualLeave extends AbstractAuditEntity {
 		System.out.println(a.except_days);
 		System.out.println(a.cnt + ":" + a.add_cnt);		
 		System.out.println(a.getWorkRate());		
-		
+		*/		
 	}
 
 }

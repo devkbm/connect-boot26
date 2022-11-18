@@ -81,18 +81,8 @@ public class Dept extends AbstractAuditEntity implements Serializable {
 								.organizationCode(organizationCode)
 								.deptCode(deptCode);
 	}	
-
-	/**
-	 * @param deptNameKorean
-	 * @param deptAbbreviationKorean
-	 * @param deptNameEnglish
-	 * @param deptAbbreviationEnglish
-	 * @param fromDate
-	 * @param toDate
-	 * @param seq
-	 * @param comment
-	 * @param parentDept
-	 */
+	
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String deptNameKorean
 							,String deptAbbreviationKorean
 							,String deptNameEnglish

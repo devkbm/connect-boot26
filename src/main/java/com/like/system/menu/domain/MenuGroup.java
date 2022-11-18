@@ -53,10 +53,7 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 		this.description = description;
 	}	
 	
-	/**
-	 * @param menuGroupName
-	 * @param description
-	 */
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String menuGroupName
 							,String description) {
 		this.name = menuGroupName;

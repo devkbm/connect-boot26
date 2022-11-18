@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.like.hrm.anualleave.domain.model.AnualLeave;
 import com.like.hrm.anualleave.domain.model.AnualLeaveId;
+import com.like.hrm.staff.domain.model.Staff;
 
 public class AnualLeaveDTO {
 
@@ -44,8 +45,9 @@ public class AnualLeaveDTO {
 									 ,e.getComment());
 		}
 		
-		public AnualLeave newAnualLeave() {
-			return new AnualLeave(new AnualLeaveId(yyyy, staffId)
+		public AnualLeave newAnualLeave(Staff staff) {
+			
+			return new AnualLeave(new AnualLeaveId(staff, yyyy)
 								 ,base
 								 ,from
 								 ,to);

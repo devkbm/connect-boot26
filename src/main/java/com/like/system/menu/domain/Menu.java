@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -38,29 +39,37 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	private static final long serialVersionUID = -8469789281288988098L;
 
 	@Id
+	@Comment("메뉴ID")
 	@Column(name = "MENU_ID")
 	String id;
 	
+	@Comment("조직코드")
 	@Column(name="ORG_CD")
 	String organizationCode;
-		
+	
+	@Comment("메뉴코드")
 	@Column(name="MENU_CODE")
 	String code;
 	
+	@Comment("메뉴명")
 	@Column(name="MENU_NAME")
 	String name; 		
 				
 	@Enumerated(EnumType.STRING)
 	@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+	@Comment("메뉴분류")
 	@Column(name="MENU_TYPE")
 	MenuType type;
 	
+	@Comment("APP URL")
 	@Column(name="APP_URL")
 	String appUrl;
 	
+	@Comment("순번")
 	@Column(name="SEQ")
 	long sequence;
 	
+	@Comment("계층")
 	@Column(name="LVL")
 	long level;
 	
@@ -94,16 +103,7 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 		this.appUrl = appUrl;
 	}
 	
-	/**
-	 * 
-	 * @param menuName
-	 * @param menuType
-	 * @param appUrl
-	 * @param sequence
-	 * @param level
-	 * @param parent
-	 * @param menuGroup
-	 */
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String menuName
 							,MenuType menuType
 							,String appUrl

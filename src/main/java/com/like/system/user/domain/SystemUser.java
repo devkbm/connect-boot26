@@ -120,6 +120,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		this.initPassword();
 	}	
 	
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String organizationCode
 							,String staffNo
 			 				,String name					 				

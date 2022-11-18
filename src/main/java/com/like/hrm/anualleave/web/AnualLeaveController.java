@@ -3,6 +3,8 @@ package com.like.hrm.anualleave.web;
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +27,23 @@ public class AnualLeaveController {
 		this.anualLeaveService = anualLeaveService;		
 	}
 
-	@GetMapping("/api/hrm/anualleave/{yyyy}/{staffId}")
-	public ResponseEntity<?> getAnualLeave(@PathVariable Integer yyyy
-									  	  ,@PathVariable String staffId) {
+	@GetMapping("/api/hrm/staff/{staffId}/anualleave")
+	public ResponseEntity<?> getAnualLeave(@PathVariable String staffId) {
 				
-		AnualLeave entity = anualLeaveService.getAnualLeave(yyyy, staffId);					
+		//AnualLeave entity = anualLeaveService.getAnualLeave(staffId, yyyy);					
+		
+		//AnualLeaveDTO.SaveAnualLeave dto = AnualLeaveDTO.SaveAnualLeave.convertDTO(entity); 
+		
+		List<AnualLeaveDTO.SaveAnualLeave> list = null;
+		
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
+	}
+	
+	@GetMapping("/api/hrm/staff/{staffId}/anualleave/{yyyy}")
+	public ResponseEntity<?> getAnualLeave(@PathVariable String staffId
+									  	  ,@PathVariable Integer yyyy) {
+				
+		AnualLeave entity = anualLeaveService.getAnualLeave(staffId, yyyy);					
 		
 		AnualLeaveDTO.SaveAnualLeave dto = AnualLeaveDTO.SaveAnualLeave.convertDTO(entity); 
 		
@@ -41,15 +55,15 @@ public class AnualLeaveController {
 																	
 		anualLeaveService.saveAnualLeave(dto);						
 								 					
-		return toList(null, MessageUtil.getSaveMessage(1));
+		return toOne(null, MessageUtil.getSaveMessage(1));
 	}
 	
 	@DeleteMapping("/api/hrm/anualleave/{yyyy}/{staffId}")
-	public ResponseEntity<?> deleteLedger(@PathVariable Integer yyyy
-		  	  							 ,@PathVariable String staffId) {				
+	public ResponseEntity<?> deleteLedger(@PathVariable String staffId
+		  	  							 ,@PathVariable Integer yyyy) {				
 																		
-		anualLeaveService.deleteAnualLeave(yyyy, staffId);						
+		anualLeaveService.deleteAnualLeave(staffId, yyyy);						
 								 					
-		return toList(null, MessageUtil.getDeleteMessage(1));
+		return toOne(null, MessageUtil.getDeleteMessage(1));
 	}
 }

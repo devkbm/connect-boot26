@@ -22,17 +22,17 @@ public class StaffAppointmentService {
 	}
 	
 	public AppointmentRecordList getAppointmentRecord(String staffId) {
-		return getStaffInfo(staffId).getAppointmentRecordList();
+		return findStaff(staffId).getAppointmentRecordList();
 	}
 	
 	public AppointmentRecord getAppointmentRecord(String staffId, Long seq) {
-		Staff staff = getStaffInfo(staffId);
+		Staff staff = findStaff(staffId);
 		
 		return staff.getAppointmentRecordList().get(staff, seq);	
 	}
 	
 	public void saveAppointmentRecord(AppointmentRecordDTO.FormStaffAppointmentRecord dto) {
-		Staff staff = getStaffInfo(dto.staffId());		
+		Staff staff = findStaff(dto.staffId());		
 		AppointmentRecord entity = staff.getAppointmentRecordList().get(staff, dto.seq());
 		
 		if (entity == null) {
@@ -48,13 +48,13 @@ public class StaffAppointmentService {
 	}	
 	
 	public void applyAppointmentRecord(String staffId, Long seq) {
-		Staff staff = getStaffInfo(staffId);
+		Staff staff = findStaff(staffId);
 		AppointmentRecord entity = staff.getAppointmentRecordList().get(staff, seq);
 		
 		staff.applyAppointmentRecord(entity);					
 	}
 	
-	private Staff getStaffInfo(String staffId) {
+	private Staff findStaff(String staffId) {
 		return repository.findById(staffId)
 						 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
 	}

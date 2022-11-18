@@ -8,6 +8,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
@@ -29,24 +30,31 @@ public class WebResource extends AbstractAuditEntity implements Serializable{
 	private static final long serialVersionUID = 4402275274864737663L;
 
 	@Id
+	@Comment("리소스ID")
 	@Column(name="RESOURCE_ID")
-	private String id;
+	String id;
 	
+	@Comment("리소스명")
 	@Column(name="RESOURCE_NAME")
-	private String name; 
+	String name; 
 		
+	@Comment("리소스분류")
 	@Column(name="RESOURCE_TYPE")
-	private String type; 
-	
+	String type; 
+		
 	@Column(name="URL")
-	private String url;
+	String url;
 	
+	@Comment("설명")
 	@Column(name="DESCRIPTION")
-	private String description;	
+	String description;	
 		
 	@Builder
-	public WebResource(String resourceId, String resourceName, String resourceType, String url, String description) {
-		super();
+	public WebResource(String resourceId
+					  ,String resourceName
+					  ,String resourceType
+					  ,String url
+					  ,String description) {		
 		this.id = resourceId;
 		this.name = resourceName;
 		this.type = resourceType;
@@ -54,6 +62,7 @@ public class WebResource extends AbstractAuditEntity implements Serializable{
 		this.description = description;
 	}	
 		
+	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
 	public void modifyEntity(String resourceName
 							,String resourceType
 							,String url
