@@ -18,9 +18,9 @@ public class FamilyDTO {
 			String staffNo,
 			String staffName,
 			Long seq,
-			String name,
-			String residentRegistrationNumber,
-			String relation,
+			String familyName,
+			String familyRRN,
+			String familyRelation,
 			String occupation,
 			String schoolCareerType,
 			String comment
@@ -29,9 +29,9 @@ public class FamilyDTO {
 		public StaffFamily newEntity(Staff staff) {
 			StaffFamily entity = StaffFamily.builder()
 											.staff(staff)
-											.name(name)
-											.residentRegistrationNumber(residentRegistrationNumber)
-											.relation(relation)
+											.name(familyName)
+											.residentRegistrationNumber(familyRRN)
+											.relation(familyRelation)
 											.occupation(occupation)
 											.schoolCareerType(schoolCareerType)
 											.comment(comment)
@@ -42,9 +42,9 @@ public class FamilyDTO {
 		
 		public void modifyEntity(StaffFamily entity) {
 			entity.modifyBuilder()
-			      .name(name)
-			      .residentRegistrationNumber(residentRegistrationNumber)
-			      .relation(relation)
+			      .name(familyName)
+			      .residentRegistrationNumber(familyRRN)
+			      .relation(familyRelation)
 			      .occupation(occupation)
 			      .schoolCareerType(schoolCareerType)
 			      .comment(comment)
@@ -61,9 +61,9 @@ public class FamilyDTO {
 					   .staffNo(entity.getStaff().getStaffNo())
 					   .staffName(entity.getStaff().getName().getName())
 					   .seq(entity.getId().getSeq())
-					   .name(entity.getName())
-					   .residentRegistrationNumber(entity.getResidentRegistrationNumber())
-					   .relation(entity.getRelation())
+					   .familyName(entity.getName())
+					   .familyRRN(entity.getResidentRegistrationNumber())
+					   .familyRelation(entity.getRelation())
 					   .occupation(entity.getOccupation())
 					   .schoolCareerType(entity.getSchoolCareerType())
 					   .comment(entity.getComment())

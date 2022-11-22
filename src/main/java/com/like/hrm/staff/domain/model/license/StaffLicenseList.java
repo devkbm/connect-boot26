@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import com.like.hrm.staff.domain.model.Staff;
 
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class StaffLicenseList {
 	
+	@OrderBy("seq asc")
 	@OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	Set<StaffLicense> licenseList = new LinkedHashSet<>();
 	

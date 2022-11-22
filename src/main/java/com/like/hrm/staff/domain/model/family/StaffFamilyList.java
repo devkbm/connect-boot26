@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import com.like.hrm.staff.domain.model.Staff;
 
@@ -20,6 +21,7 @@ public class StaffFamilyList {
 	/**
 	 * 직원 가족이력
 	 */
+	@OrderBy("seq asc")
 	@OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	Set<StaffFamily> familyList = new LinkedHashSet<>();
 	
