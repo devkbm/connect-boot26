@@ -17,6 +17,8 @@ import com.like.system.holiday.service.DateInfoService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,7 +43,10 @@ public class DutyApplicationDTO {
 		}
 	}	
 		
-	public record SaveDutyApplication(
+	@Builder(access = AccessLevel.PRIVATE)
+	public static record Form(
+			String clientAppUrl,
+			String organizationCode,
 			Long dutyId,
 			String staffId,
 			String dutyCode,
@@ -51,29 +56,34 @@ public class DutyApplicationDTO {
 			List<DutyDate> selectedDate,
 			BigDecimal dutyTime) {
 		
-		public static SaveDutyApplication convert(DutyApplication e, DateInfoService service) {								
-			DateInfoList dateInfoList = null; //service.getDateInfoList(e.getPeriod().getFrom()
-											  //				   ,e.getPeriod().getTo());
-								
-			return new SaveDutyApplication(e.getId()
-										  ,e.getStaffId()
-										  ,e.getDutyCode()
-										  ,e.getDutyReason()
-										  ,e.getPeriod().getFrom()
-										  ,e.getPeriod().getTo()
-										  ,SaveDutyApplication.convertDutyDate(e, dateInfoList)
-										  ,e.getSumDutyTime()); 
-									  									  									  									 
+		public static Form convert(DutyApplication e, DateInfoService service) {								
+			DateInfoList dateInfoList = service.getDateInfoList("001", e.getPeriod().getFrom(), e.getPeriod().getTo());
+
+			
+			return Form.builder()
+					   .dutyId(e.getId())
+					   .staffId(e.getStaffId())
+					   .dutyCode(e.getDutyCode())
+					   .dutyReason(e.getDutyReason())
+					   .fromDate(e.getPeriod().getFrom())
+					   .toDate(e.getPeriod().getTo())
+					   .selectedDate(Form.convertDutyDate(e, dateInfoList))
+					   .dutyTime(e.getSumDutyTime())
+					   .build();								  									  									  									
 		}
 		
 		public DutyApplication newEntity() {		
 			
-			return new DutyApplication(staffId								  
-								      ,dutyCode
-								      ,dutyReason
-								      ,new LocalDatePeriod(fromDate, toDate)
-								      ,this.getSelectedDate()
-								      ,dutyTime);
+			DutyApplication entity = new DutyApplication(staffId								  
+												        ,dutyCode
+												        ,dutyReason
+												        ,new LocalDatePeriod(fromDate, toDate)
+												        ,this.getSelectedDate()
+												        ,dutyTime);
+			
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;
 			
 		}
 		
@@ -83,6 +93,8 @@ public class DutyApplicationDTO {
 							   ,new LocalDatePeriod(fromDate, toDate)
 							   ,this.getSelectedDate()
 							   ,dutyTime);		
+			
+			entity.setAppUrl(clientAppUrl);
 		}			
 		
 		private List<LocalDate> getSelectedDate() {
@@ -96,7 +108,9 @@ public class DutyApplicationDTO {
 			for (DateInfo date : dateInfoList.getDates()) {							
 				dutyDatelist.add(new DutyDate(date.getDate()										
 											 ,selectedDate.contains(date.getDate())											 
-											 ,date.isHoliday()));
+											 ,date.isHoliday()
+											 ,date.isHoliday()
+											 ,date.isSunday()));
 			}
 			
 			log.info(dutyDatelist.toString());
@@ -108,16 +122,20 @@ public class DutyApplicationDTO {
 	public record DutyDate(
 			LocalDate date,
 			@JsonProperty("isSelected")boolean isSelected,
-			@JsonProperty("isHoliday")boolean isHoliday
+			@JsonProperty("isHoliday")boolean isHoliday,
+			@JsonProperty("isSaturday")boolean isSaturday,
+			@JsonProperty("isSunday")boolean isSunday
 			) {
 		
-		public static List<DutyDate> convertDutyDate(DateInfoList dateInfoList) {
+		public static List<DutyDate> convertInitDutyDateList(DateInfoList dateInfoList) {
 			List<DutyDate> dutyDatelist = new ArrayList<>(dateInfoList.size());
 			
-			for (DateInfo date : dateInfoList.getDates()) {							
-				dutyDatelist.add(new DutyDate(date.getDate()										
-											 ,true
-											 ,date.isHoliday()));
+			for (DateInfo date : dateInfoList.getDates()) {								
+				if (date.isWeekend() || date.isHoliday() ) {
+					dutyDatelist.add(new DutyDate(date.getDate(), false, date.isHoliday(), date.isHoliday(), date.isSunday()));
+				} else {
+					dutyDatelist.add(new DutyDate(date.getDate(), true, date.isHoliday(), date.isHoliday(), date.isSunday()));
+				}				
 			}					
 			
 			return dutyDatelist;

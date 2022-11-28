@@ -46,6 +46,14 @@ public class DateInfo {
 		return this.date.getDayOfWeek() == DayOfWeek.SATURDAY || this.date.getDayOfWeek() == DayOfWeek.SUNDAY ? true : false; 
 	}
 	
+	public boolean isSaturDay() {		
+		return this.date.getDayOfWeek() == DayOfWeek.SATURDAY; 
+	}
+	
+	public boolean isSunday() {		
+		return this.date.getDayOfWeek() == DayOfWeek.SUNDAY; 
+	}
+	
 	public String getDayOfWeek() {
 		return this.date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault());
 	}

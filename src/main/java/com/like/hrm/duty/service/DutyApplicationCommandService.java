@@ -30,7 +30,7 @@ public class DutyApplicationCommandService {
 		return repository.findById(dutyId).orElse(null);
 	}
 	
-	public void saveDutyApplication(DutyApplicationDTO.SaveDutyApplication dto) {
+	public void saveDutyApplication(DutyApplicationDTO.Form dto) {
 		DutyApplication entity = null;
 		
 		if (dto.dutyId() == null) {

@@ -42,9 +42,9 @@ public class DutyApplicationController {
 	@GetMapping("/api/hrm/dutyapplication")
 	public ResponseEntity<?> getDutyApplicationList(DutyApplicationDTO.Search dto) {
 											
-		List<DutyApplicationDTO.SaveDutyApplication> list = dutyApplicationQueryService.getDutyApplicationList(dto)
+		List<DutyApplicationDTO.Form> list = dutyApplicationQueryService.getDutyApplicationList(dto)
 																					   .stream()
-																					   .map(e -> DutyApplicationDTO.SaveDutyApplication.convert(e, holidayUtilService))
+																					   .map(e -> DutyApplicationDTO.Form.convert(e, holidayUtilService))
 																					   .toList();
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
@@ -55,22 +55,23 @@ public class DutyApplicationController {
 		
 		DutyApplication entity = dutyApplicationCommandService.getDutyApplication(id);
 						
-		DutyApplicationDTO.SaveDutyApplication dto = DutyApplicationDTO.SaveDutyApplication.convert(entity, holidayUtilService);			
+		DutyApplicationDTO.Form dto = DutyApplicationDTO.Form.convert(entity, holidayUtilService);			
 				
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
 	
-	@GetMapping("/api/hrm/dutyapplication/period/{from}/{to}")
+	@GetMapping("/api/hrm/dutyapplication/period/{from}/{to}/{organizationCode}")
 	public ResponseEntity<?> getDutyApplicationPeriod(@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate from
-													 ,@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate to) {
+													 ,@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate to
+													 ,@PathVariable String organizationCode ) {
 						
-		List<DutyApplicationDTO.DutyDate> list = null; //DutyApplicationDTO.DutyDate.convertDutyDate(holidayUtilService.getDateInfoList(from, to));			
+		List<DutyApplicationDTO.DutyDate> list = DutyApplicationDTO.DutyDate.convertInitDutyDateList(holidayUtilService.getDateInfoList(organizationCode, from, to));			
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 		
 	@PostMapping("/api/hrm/dutyapplication")
-	public ResponseEntity<?> saveDutyApplication(@RequestBody DutyApplicationDTO.SaveDutyApplication dto) {				
+	public ResponseEntity<?> saveDutyApplication(@RequestBody DutyApplicationDTO.Form dto) {				
 																			
 		dutyApplicationCommandService.saveDutyApplication(dto);						
 								 					
