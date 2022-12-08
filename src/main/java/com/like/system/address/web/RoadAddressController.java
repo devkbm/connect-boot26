@@ -64,7 +64,7 @@ public class RoadAddressController {
 			 			   ,HttpServletResponse response) throws Exception {
 
 		String currentPage = searchVO.currentPage().toString(); 	// req.getParameter("currentPage");
-		String countPerPage = "10"; // req.getParameter("countPerPage");
+		String countPerPage = searchVO.countPerPage().toString(); //"10"; // req.getParameter("countPerPage");
 		String resultType = "json";	// req.getParameter("resultType");
 		String confmKey = property.getConfmKey(); // "devU01TX0FVVEgyMDIyMDYwNzIyMjI1MzExMjY1ODY=";		// req.getParameter("confmKey");
 		String keyword = searchVO.keyword();		// req.getParameter("keyword");

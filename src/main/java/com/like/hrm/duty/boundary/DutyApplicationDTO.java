@@ -56,9 +56,9 @@ public class DutyApplicationDTO {
 			List<DutyDate> selectedDate,
 			BigDecimal dutyTime) {
 		
-		public static Form convert(DutyApplication e, DateInfoService service) {								
+		public static Form convert(DutyApplication e, DateInfoService service) {
+			if (e == null) return null;
 			DateInfoList dateInfoList = service.getDateInfoList("001", e.getPeriod().getFrom(), e.getPeriod().getTo());
-
 			
 			return Form.builder()
 					   .dutyId(e.getId())
@@ -67,8 +67,7 @@ public class DutyApplicationDTO {
 					   .dutyReason(e.getDutyReason())
 					   .fromDate(e.getPeriod().getFrom())
 					   .toDate(e.getPeriod().getTo())
-					   .selectedDate(Form.convertDutyDate(e, dateInfoList))
-					   .dutyTime(e.getSumDutyTime())
+					   .selectedDate(Form.convertDutyDate(e, dateInfoList))					   
 					   .build();								  									  									  									
 		}
 		

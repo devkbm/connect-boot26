@@ -110,20 +110,21 @@ public class DutyApplication extends AbstractAuditEntity {
 		return this.selectedDateList.stream().map(e -> e.getId().getDate()).toList();
 	}
 	
+	/*
 	public BigDecimal getSumDutyTime() {
 		// for loop
 		BigDecimal sum = BigDecimal.ZERO;		
 		for (DutyApplicationDate dates : this.selectedDateList) sum = sum.add(dates.getDutyTime());
 		
-		// stream
-		/*
-		sum = this.selectedDateList.stream()
-								   .map(e -> e.getDutyTime())
-								   .reduce(BigDecimal.ZERO, BigDecimal::add);
-		*/
+		// stream		
+		//sum = this.selectedDateList.stream()
+		//						   .map(e -> e.getDutyTime())
+		//						   .reduce(BigDecimal.ZERO, BigDecimal::add);
+		
 		
 		return sum;
 	}
+	*/
 	
 	private List<DutyApplicationDate> addApplicationDateList(List<LocalDate> dateList, BigDecimal dutyTime) {
 		if (this.selectedDateList == null) this.selectedDateList = new ArrayList<>();

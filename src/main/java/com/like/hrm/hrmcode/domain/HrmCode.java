@@ -1,6 +1,7 @@
 package com.like.hrm.hrmcode.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -33,6 +34,9 @@ public class HrmCode extends AbstractAuditEntity {
 	@Column(name="CMT")
 	String comment;			
 	
+	@Embedded
+	HrmCodeAddInfo addInfo = new HrmCodeAddInfo();
+	
 	@Transient
 	String relCode;
 		
@@ -40,22 +44,26 @@ public class HrmCode extends AbstractAuditEntity {
 			 	  ,String codeName
 			 	  ,boolean useYn
 			 	  ,Integer sequence
-			 	  ,String comment) {		
+			 	  ,String comment
+			 	  ,HrmCodeAddInfo addInfo) {		
 		this.id = id;				
 		this.codeName = codeName;		
 		this.useYn = useYn;
 		this.sequence = sequence;
 		this.comment = comment;
+		this.addInfo = addInfo;
 	}
 		
 	public void modify(String codeName
 					  ,boolean useYn
 					  ,Integer sequence
-					  ,String comment ) {	
+					  ,String comment
+					  ,HrmCodeAddInfo addInfo) {	
 		this.codeName = codeName;
 		this.useYn = useYn;
 		this.sequence = sequence;
 		this.comment = comment;
+		this.addInfo = addInfo;
 	}	
 	
 }
