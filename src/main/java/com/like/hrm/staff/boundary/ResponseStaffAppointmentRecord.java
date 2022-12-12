@@ -14,7 +14,11 @@ public class ResponseStaffAppointmentRecord {
 
 	private String staffId;
 		
-	private Long seq;			
+	private Long seq;		
+	
+	private String appointmentTypeCode;
+	
+	private String appointmentTypeName;
 			
 	private LocalDate appointmentDate;
 			
@@ -63,7 +67,7 @@ public class ResponseStaffAppointmentRecord {
 	private String dutyResponsibilityName;	
 	
 	@QueryProjection
-	public ResponseStaffAppointmentRecord(String staffId, Long seq, LocalDate appointmentDate, LocalDate appointmentEndDate,
+	public ResponseStaffAppointmentRecord(String staffId, Long seq, String appointmentTypeCode, String appointmentTypeName, LocalDate appointmentDate, LocalDate appointmentEndDate,
 			String recordName, String comment, Boolean isCompleted, String blngDeptCode, String blngDeptName,
 			String workDeptCode, String workDeptName, String jobGroupCode, String jobGroupName, String jobPositionCode,
 			String jobPositionName, String occupationCode, String occupationName, String jobGradeCode,
@@ -71,6 +75,8 @@ public class ResponseStaffAppointmentRecord {
 			String dutyResponsibilityCode, String dutyResponsibilityName) {
 		this.staffId = staffId;
 		this.seq = seq;
+		this.appointmentTypeCode = appointmentTypeCode;
+		this.appointmentTypeName = appointmentTypeName;
 		this.appointmentDate = appointmentDate;
 		this.appointmentEndDate = appointmentEndDate;
 		this.recordName = recordName;

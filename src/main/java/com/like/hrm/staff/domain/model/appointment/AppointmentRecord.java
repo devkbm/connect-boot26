@@ -45,14 +45,18 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 	
 	@EmbeddedId
 	AppointmentRecordId id;
-		
+	
+	@Comment("발령분류코드")
+	@Column(name="APPOINTMENT_TYPE_CODE")
+	String appointmentTypeCode;
+	
 	@Comment("발령일자")
 	@Column(name="APPOINTMENT_DT")
 	LocalDate appointmentDate;
 	
 	@Comment("발령종료일자")
 	@Column(name="APPOINTMENT_END_DT")
-	LocalDate appointmentEndDate;
+	LocalDate appointmentEndDate;	
 	
 	@Comment("발령명")
 	@Column(name="RECORD_NAME")
@@ -71,6 +75,7 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 	
 	@Builder
 	public AppointmentRecord(Staff staff
+							,String appointmentTypeCode
 							,LocalDate appointmentDate
 							,LocalDate appointmentEndDate
 							,String recordName
@@ -78,6 +83,7 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 							,AppointmentInformation info) {
 		this.staff = staff;
 		this.id = new AppointmentRecordId(staff, staff.getAppointmentRecordList().getNextSequence());
+		this.appointmentTypeCode = appointmentTypeCode;
 		this.appointmentDate = appointmentDate;
 		this.appointmentEndDate = appointmentEndDate;
 		this.recordName = recordName;
@@ -88,7 +94,8 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 	}
 			
 	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
-	public void modify(LocalDate appointmentDate
+	public void modify(String appointmentTypeCode
+					  ,LocalDate appointmentDate
 					  ,LocalDate appointmentEndDate
 					  ,String recordName
 					  ,String comment
@@ -97,7 +104,7 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 		if (isCompleted == true) {
 			throw new IllegalStateException("처리 완료된 발령은 수정할수 없습니다.");
 		}
-		
+		this.appointmentTypeCode = appointmentTypeCode;
 		this.appointmentDate = appointmentDate;
 		this.appointmentEndDate = appointmentEndDate;
 		this.recordName = recordName;

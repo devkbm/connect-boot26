@@ -23,6 +23,7 @@ public class AppointmentRecordDTO {
 			String staffNo,
 			String staffName,			
 			Long seq,
+			String appointmentTypeCode,
 			LocalDate appointmentDate,
 			LocalDate appointmentEndDate,			
 			String recordName,
@@ -42,14 +43,15 @@ public class AppointmentRecordDTO {
 		public AppointmentRecord newEntity(Staff staff) {		
 			AppointmentInformation info = newAppointmentInformation();
 			
-			return new AppointmentRecord(staff,appointmentDate, appointmentEndDate, recordName, comment, info);				
+			return new AppointmentRecord(staff, appointmentTypeCode, appointmentDate, appointmentEndDate, recordName, comment, info);				
 		}
 		
 		public void modifyEntity(AppointmentRecord entity) {
 			
 			AppointmentInformation info = newAppointmentInformation();
 			
-			entity.modify(appointmentDate
+			entity.modify(appointmentTypeCode
+					     ,appointmentDate
 						 ,appointmentEndDate
 						 ,recordName
 						 ,comment
@@ -66,6 +68,7 @@ public class AppointmentRecordDTO {
 											 .staffNo(entity.getStaff().getStaffNo())
 											 .staffName(entity.getStaff().getName().getName())
 											 .seq(entity.getId().getSeq())
+											 .appointmentTypeCode(entity.getAppointmentTypeCode())
 											 .appointmentDate(entity.getAppointmentDate())
 											 .appointmentEndDate(entity.getAppointmentEndDate())
 											 .recordName(entity.getRecordName())

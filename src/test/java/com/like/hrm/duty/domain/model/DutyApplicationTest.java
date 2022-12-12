@@ -29,7 +29,7 @@ public class DutyApplicationTest {
 		assertThat(dutyApplication.getPeriod().getTo()).isEqualTo(LocalDate.of(2022, 1, 16));						
 		assertThat(dutyApplication.getSelectedDate().get(0)).isEqualTo(LocalDate.of(2022, 1, 15));
 		assertThat(dutyApplication.getSelectedDate().get(1)).isEqualTo(LocalDate.of(2022, 1, 16));
-		assertThat(dutyApplication.getSumDutyTime()).isEqualTo(new BigDecimal("16"));
+		//assertThat(dutyApplication.getSumDutyTime()).isEqualTo(new BigDecimal("16"));
 		//log.info(dutyApplication.toString());					
 	}
 	
@@ -52,7 +52,7 @@ public class DutyApplicationTest {
 		assertThat(dutyApplication.getPeriod().getTo()).isEqualTo(LocalDate.of(2022, 1, 26));						
 		assertThat(dutyApplication.getSelectedDate().get(0)).isEqualTo(LocalDate.of(2022, 1, 25));
 		assertThat(dutyApplication.getSelectedDate().get(1)).isEqualTo(LocalDate.of(2022, 1, 26));
-		assertThat(dutyApplication.getSumDutyTime()).isEqualTo(new BigDecimal("8"));
+		//assertThat(dutyApplication.getSumDutyTime()).isEqualTo(new BigDecimal("8"));
 		//log.info(dutyApplication.toString());		
 	}
 	

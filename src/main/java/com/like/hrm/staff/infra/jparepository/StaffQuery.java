@@ -44,6 +44,7 @@ public class StaffQuery implements StaffQueryRepository {
 		QDept blngDeptCode = QDept.dept;
 		QDept workDeptCode = new QDept("workDeptCode");
 		
+		QHrmCode appointmentTypeCode = new QHrmCode("appointmentTypeCode");
 		QHrmCode jobGroupCode = QHrmCode.hrmCode;
 		QHrmCode jobPositionCode = new QHrmCode("jobPositionCode");
 		QHrmCode occupationCode = new QHrmCode("occupationCode");
@@ -53,9 +54,10 @@ public class StaffQuery implements StaffQueryRepository {
 		QHrmCode dutyResponsibilityCode = new QHrmCode("dutyResponsibilityCode");
 		
 		return queryFactory.select(projectionAppointmentRecord(qStaff
-											  ,qAppointmentRecord
+											  ,qAppointmentRecord											  
 											  ,blngDeptCode
 											  ,workDeptCode
+											  ,appointmentTypeCode 
 											  ,jobGroupCode
 											  ,jobPositionCode
 											  ,occupationCode
@@ -72,6 +74,9 @@ public class StaffQuery implements StaffQueryRepository {
 					   	   .leftJoin(workDeptCode)
 					   			.on(workDeptCode.organizationCode.eq(qStaff.organizationCode)
 					   			.and(workDeptCode.deptCode.eq(qAppointmentRecord.info.workDeptCode)))
+					   	   .leftJoin(appointmentTypeCode)
+						   		.on(appointmentTypeCode.id.typeId.eq("HR0000")
+						   		.and(qAppointmentRecord.appointmentTypeCode.eq(appointmentTypeCode.id.code)))
 						   .leftJoin(jobGroupCode)
 						   		.on(jobGroupCode.id.typeId.eq("HR0001")
 						   		.and(qAppointmentRecord.info.jobGroupCode.eq(jobGroupCode.id.code)))
@@ -102,7 +107,7 @@ public class StaffQuery implements StaffQueryRepository {
 
 		QDept blngDeptCode = QDept.dept;
 		QDept workDeptCode = new QDept("workDeptCode");
-		
+				
 		QHrmCode jobGroupCode = QHrmCode.hrmCode;
 		QHrmCode jobPositionCode = new QHrmCode("jobPositionCode");
 		QHrmCode occupationCode = new QHrmCode("occupationCode");
@@ -125,7 +130,7 @@ public class StaffQuery implements StaffQueryRepository {
 			   			.and(blngDeptCode.deptCode.eq(qStaff.currentAppointment.blngDeptCode)))
 					.leftJoin(workDeptCode)
 			   			.on(workDeptCode.organizationCode.eq(qStaff.organizationCode)
-			   			.and(workDeptCode.deptCode.eq(qStaff.currentAppointment.workDeptCode)))
+			   			.and(workDeptCode.deptCode.eq(qStaff.currentAppointment.workDeptCode)))			   		
 			   		.leftJoin(jobGroupCode)
 				   		.on(jobGroupCode.id.typeId.eq("HR0001")
 				   		.and(qStaff.currentAppointment.jobGroupCode.eq(jobGroupCode.id.code)))
@@ -166,6 +171,7 @@ public class StaffQuery implements StaffQueryRepository {
 											, QAppointmentRecord qRecord
 											, QDept blngDeptCode
 											, QDept workDeptCode
+											, QHrmCode appointmentTypeCode
 											, QHrmCode jobGroupCode
 											, QHrmCode jobPositionCode
 											, QHrmCode occupationCode
@@ -176,6 +182,8 @@ public class StaffQuery implements StaffQueryRepository {
 		
 		return new QResponseStaffAppointmentRecord(QStaff.staff.id
 											   ,qRecord.id.seq
+											   ,qRecord.appointmentTypeCode
+											   ,appointmentTypeCode.codeName
 											   ,qRecord.appointmentDate
 											   ,qRecord.appointmentEndDate
 											   ,qRecord.recordName
