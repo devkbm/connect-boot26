@@ -47,6 +47,13 @@ public class StaffAppointmentService {
 		repository.save(staff);
 	}	
 	
+	public void delete(String staffId, Long seq) {
+		Staff staff = findStaff(staffId);
+		staff.getAppointmentRecordList().remove(staff, seq);
+		
+		repository.save(staff);
+	}
+	
 	public void applyAppointmentRecord(String staffId, Long seq) {
 		Staff staff = findStaff(staffId);
 		AppointmentRecord entity = staff.getAppointmentRecordList().get(staff, seq);

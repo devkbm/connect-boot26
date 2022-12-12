@@ -8,6 +8,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,15 @@ public class StaffAppointmentController {
 		service.saveAppointmentRecord(dto);
 		
 		return toList(null, MessageUtil.getSaveMessage(1));
+	}
+	
+	@DeleteMapping("/api/hrm/staff/{staffId}/appointmentrecord/{seq}")
+	public ResponseEntity<?> delete(@PathVariable String staffId
+								   ,@PathVariable Long seq) {
+						
+		//service.d(staffId, seq);  									
+		
+		return toOne(null, MessageUtil.getDeleteMessage(1));									
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
