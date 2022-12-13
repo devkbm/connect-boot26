@@ -54,7 +54,7 @@ public class StaffLicense extends AbstractAuditEntity implements Serializable {
 	@EmbeddedId
 	StaffLicenseId id;
 			
-	@Comment("자격면허유형")
+	@Comment("자격면허유형_HR0011")
 	@Column(name="LICENSE_TYPE", nullable = false)
 	String licenseType;
 		

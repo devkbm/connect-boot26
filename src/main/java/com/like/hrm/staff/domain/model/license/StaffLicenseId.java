@@ -1,7 +1,7 @@
 package com.like.hrm.staff.domain.model.license;
 
 import java.io.Serializable;
-import java.util.Objects;
+
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,9 +11,11 @@ import org.hibernate.annotations.Comment;
 import com.like.hrm.staff.domain.model.Staff;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
@@ -33,23 +35,5 @@ public class StaffLicenseId implements Serializable {
 		this.staffId = staff.getId();
 		this.seq = seq;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(seq, staffId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		StaffLicenseId other = (StaffLicenseId) obj;
-		return Objects.equals(seq, other.seq) && Objects.equals(staffId, other.staffId);
-	}
-	
 	
 }

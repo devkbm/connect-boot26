@@ -6,6 +6,9 @@ import com.like.hrm.staff.boundary.StaffDTO.SearchStaff;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
 import com.like.hrm.staff.boundary.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.boundary.ResponseStaffDutyResponsibility;
+import com.like.hrm.staff.boundary.ResponseStaffFamily;
+import com.like.hrm.staff.boundary.ResponseStaffLicense;
+import com.like.hrm.staff.boundary.ResponseStaffSchoolCareer;
 
 public interface StaffQueryRepository {
 
@@ -18,4 +21,9 @@ public interface StaffQueryRepository {
 	
 	List<ResponseStaffDutyResponsibility> getStaffDutyResponsibility(String staffId);
 	
+	List<ResponseStaffFamily> getStaffFamily(String staffId);
+
+	List<ResponseStaffSchoolCareer> getStaffSchoolCareer(String staffId);
+	
+	List<ResponseStaffLicense> getStaffLicense(String staffId);
 }

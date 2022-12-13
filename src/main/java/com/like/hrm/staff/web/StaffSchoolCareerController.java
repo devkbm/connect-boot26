@@ -29,6 +29,7 @@ public class StaffSchoolCareerController {
 		this.service = service;
 	}
 	
+	/*
 	@GetMapping("/api/hrm/staff/{staffId}/schoolcareer")
 	public ResponseEntity<?> getSchoolCareer(@PathVariable String staffId) {			
 		List<SchoolCareerDTO.Form> list = service.getSchoolCareerList(staffId)
@@ -38,6 +39,7 @@ public class StaffSchoolCareerController {
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
+	*/
 	
 	@GetMapping("/api/hrm/staff/{staffId}/schoolcareer/{seq}")
 	public ResponseEntity<?> getSchoolCareer(@PathVariable String staffId

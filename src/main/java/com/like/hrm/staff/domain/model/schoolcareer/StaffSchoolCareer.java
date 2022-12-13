@@ -27,16 +27,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * <p>부서 이력 관리 클래스</p>
- * 
- * Unique Index : EMP_ID, DEPT_TYPE, DEPT_CODE <br>
- * [상세] <br>
- * 1. <br>
- * 2. <br>
- * @author 김병민
- * 
- */
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"staff"})
 @EqualsAndHashCode(callSuper = false, of = {"id"})
 @Getter
@@ -55,11 +45,11 @@ public class StaffSchoolCareer extends AbstractAuditEntity implements Serializab
 	@EmbeddedId
 	StaffSchoolCareerId id;
 			
-	@Comment("학력유형")
+	@Comment("학력유형_HR0009")
 	@Column(name="SCHOOL_CAREER_CODE")
 	String schoolCareerType;
 		
-	@Comment("학교코드")
+	@Comment("학교코드_HR0010")
 	@Column(name="SCHOOL_CODE")
 	String schoolCode;
 		
@@ -85,20 +75,19 @@ public class StaffSchoolCareer extends AbstractAuditEntity implements Serializab
 	@Comment("비고")
 	@Column(name="CMT")
 	String comment;
-		
-	// 시작일, 종료일, 전공학과명, 복수전공학과명, 학교소재지, 수업연한, 입사학력여부, 수고권대학여부, 야간여부, 이공계여부, 이미지	
 	
 	@Builder
-	public StaffSchoolCareer(Staff staff
-						    ,String schoolCareerType
-						    ,String schoolCode
-						    ,LocalDate fromDate
-							,LocalDate toDate
-							,String majorName
-							,String pluralMajorName
-							,String location
-							,Integer lessonYear
-						    ,String comment) {
+	public StaffSchoolCareer(
+			Staff staff
+		    ,String schoolCareerType
+		    ,String schoolCode
+		    ,LocalDate fromDate
+			,LocalDate toDate
+			,String majorName
+			,String pluralMajorName
+			,String location
+			,Integer lessonYear
+		    ,String comment) {
 		this.staff = staff;
 		this.id = new StaffSchoolCareerId(staff, staff.getSchoolCareerList().getNextSequence());		
 		this.schoolCareerType = schoolCareerType;

@@ -2,6 +2,9 @@ package com.like.hrm.staff.boundary;
 
 import java.time.LocalDate;
 
+import com.like.hrm.hrmcode.domain.QHrmCode;
+import com.like.hrm.staff.domain.model.QStaff;
+import com.like.hrm.staff.domain.model.dutyresponsibility.QStaffDuty;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.AccessLevel;
@@ -43,5 +46,16 @@ public class ResponseStaffDutyResponsibility {
 		this.isPayApply = isPayApply;
 	}
 	
+	public static QResponseStaffDutyResponsibility of(QStaff qStaff, QStaffDuty qStaffDuty, QHrmCode dutyResponsibilityCode) {
+		return new QResponseStaffDutyResponsibility(qStaff.id
+												   ,qStaff.staffNo
+												   ,qStaff.name.name
+												   ,qStaffDuty.id.seq
+												   ,dutyResponsibilityCode.id.code
+												   ,dutyResponsibilityCode.codeName
+												   ,qStaffDuty.fromDate
+												   ,qStaffDuty.toDate
+												   ,qStaffDuty.isPayApply);
+	}
 	
 }

@@ -28,7 +28,7 @@ public class StaffLicenseController {
 	public StaffLicenseController(StaffLicenseService service) {
 		this.service = service;
 	}
-	
+	/*
 	@GetMapping("/api/hrm/staff/{staffId}/license")
 	public ResponseEntity<?> getLicense(@PathVariable String staffId) {
 						
@@ -39,7 +39,7 @@ public class StaffLicenseController {
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
-	
+	*/
 	@GetMapping("/api/hrm/staff/{staffId}/license/{id}")
 	public ResponseEntity<?> getLicense(@PathVariable String staffId,
 										@PathVariable Long id) {

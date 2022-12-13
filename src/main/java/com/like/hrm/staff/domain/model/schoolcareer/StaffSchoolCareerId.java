@@ -10,9 +10,11 @@ import org.hibernate.annotations.Comment;
 import com.like.hrm.staff.domain.model.Staff;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable

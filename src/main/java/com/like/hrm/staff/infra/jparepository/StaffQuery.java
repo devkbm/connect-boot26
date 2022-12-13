@@ -5,18 +5,21 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.like.hrm.hrmcode.domain.QHrmCode;
-import com.like.hrm.staff.boundary.QResponseStaffAppointmentRecord;
-import com.like.hrm.staff.boundary.QResponseStaffCurrentAppointment;
-import com.like.hrm.staff.boundary.QResponseStaffDutyResponsibility;
 import com.like.hrm.staff.boundary.StaffDTO.SearchStaff;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
 import com.like.hrm.staff.boundary.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.boundary.ResponseStaffDutyResponsibility;
+import com.like.hrm.staff.boundary.ResponseStaffFamily;
+import com.like.hrm.staff.boundary.ResponseStaffLicense;
+import com.like.hrm.staff.boundary.ResponseStaffSchoolCareer;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffQueryRepository;
 import com.like.hrm.staff.domain.model.appointment.QAppointmentRecord;
 import com.like.hrm.staff.domain.model.dutyresponsibility.QStaffDuty;
+import com.like.hrm.staff.domain.model.family.QStaffFamily;
+import com.like.hrm.staff.domain.model.license.QStaffLicense;
+import com.like.hrm.staff.domain.model.schoolcareer.QStaffSchoolCareer;
 import com.like.system.dept.domain.QDept;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -24,18 +27,21 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 @Repository
 public class StaffQuery implements StaffQueryRepository {
 
-	private JPAQueryFactory queryFactory;	
+	private JPAQueryFactory query;	
 	private final QStaff qStaff = QStaff.staff;
 	private final QAppointmentRecord qAppointmentRecord = QAppointmentRecord.appointmentRecord;
 	private final QStaffDuty qStaffDuty = QStaffDuty.staffDuty;
+	private final QStaffFamily qStaffFamily = QStaffFamily.staffFamily;
+	private final QStaffSchoolCareer qStaffSchoolCareer = QStaffSchoolCareer.staffSchoolCareer;
+	private final QStaffLicense qStaffLicense = QStaffLicense.staffLicense;
 	
 	public StaffQuery(JPAQueryFactory queryFactory) {
-		this.queryFactory = queryFactory;
+		this.query = queryFactory;
 	}
 	
 	@Override
 	public List<Staff> getStaffList(SearchStaff dto) {
-		return queryFactory.selectFrom(qStaff).fetch();
+		return query.selectFrom(qStaff).fetch();
 	}
 	
 	@Override
@@ -53,54 +59,54 @@ public class StaffQuery implements StaffQueryRepository {
 		QHrmCode jobCode = new QHrmCode("jobCode");				
 		QHrmCode dutyResponsibilityCode = new QHrmCode("dutyResponsibilityCode");
 		
-		return queryFactory.select(projectionAppointmentRecord(qStaff
-											  ,qAppointmentRecord											  
-											  ,blngDeptCode
-											  ,workDeptCode
-											  ,appointmentTypeCode 
-											  ,jobGroupCode
-											  ,jobPositionCode
-											  ,occupationCode
-											  ,jobGradeCode
-											  ,payStepCode
-											  ,jobCode
-											  ,dutyResponsibilityCode))
-						   .from(qStaff)
-						   .join(qAppointmentRecord)
-						   		.on(qStaff.id.eq(qAppointmentRecord.staff.id))
-						   .leftJoin(blngDeptCode)
-						   		.on(blngDeptCode.organizationCode.eq(qStaff.organizationCode)
-						   		.and(blngDeptCode.deptCode.eq(qAppointmentRecord.info.blngDeptCode)))
-					   	   .leftJoin(workDeptCode)
-					   			.on(workDeptCode.organizationCode.eq(qStaff.organizationCode)
-					   			.and(workDeptCode.deptCode.eq(qAppointmentRecord.info.workDeptCode)))
-					   	   .leftJoin(appointmentTypeCode)
-						   		.on(appointmentTypeCode.id.typeId.eq("HR0000")
-						   		.and(qAppointmentRecord.appointmentTypeCode.eq(appointmentTypeCode.id.code)))
-						   .leftJoin(jobGroupCode)
-						   		.on(jobGroupCode.id.typeId.eq("HR0001")
-						   		.and(qAppointmentRecord.info.jobGroupCode.eq(jobGroupCode.id.code)))
-						   .leftJoin(jobPositionCode)
-						   		.on(jobPositionCode.id.typeId.eq("HR0002")
-						   		.and(qAppointmentRecord.info.jobPositionCode.eq(jobPositionCode.id.code)))
-						   .leftJoin(occupationCode)
-						   		.on(occupationCode.id.typeId.eq("HR0003")
-						   		.and(qAppointmentRecord.info.occupationCode.eq(occupationCode.id.code)))
-						   .leftJoin(jobGradeCode)
-						   		.on(jobGradeCode.id.typeId.eq("HR0004")
-						   		.and(qAppointmentRecord.info.jobGradeCode.eq(jobGradeCode.id.code)))
-						   .leftJoin(payStepCode)
-						   		.on(payStepCode.id.typeId.eq("HR0005")
-						   		.and(qAppointmentRecord.info.payStepCode.eq(payStepCode.id.code)))
-						   .leftJoin(jobCode)
-						   		.on(jobCode.id.typeId.eq("HR0006")
-						   		.and(qAppointmentRecord.info.jobCode.eq(jobCode.id.code)))
-						   .leftJoin(dutyResponsibilityCode)
-						   		.on(dutyResponsibilityCode.id.typeId.eq("HR0007")
-						   		.and(qAppointmentRecord.info.dutyResponsibilityCode.eq(dutyResponsibilityCode.id.code)))
-						   .where(qStaff.id.eq(staffId))
-						   .fetch();
-	}
+		return query.select(ResponseStaffAppointmentRecord.of(qStaff
+															 ,qAppointmentRecord											  
+															 ,blngDeptCode
+															 ,workDeptCode
+															 ,appointmentTypeCode 
+															 ,jobGroupCode
+															 ,jobPositionCode
+															 ,occupationCode
+															 ,jobGradeCode
+															 ,payStepCode
+															 ,jobCode
+															 ,dutyResponsibilityCode))
+				   .from(qStaff)
+				   .join(qAppointmentRecord)
+				   		.on(qStaff.id.eq(qAppointmentRecord.staff.id))
+				   .leftJoin(blngDeptCode)
+				   		.on(blngDeptCode.organizationCode.eq(qStaff.organizationCode)
+				   		.and(blngDeptCode.deptCode.eq(qAppointmentRecord.info.blngDeptCode)))
+			   	   .leftJoin(workDeptCode)
+			   			.on(workDeptCode.organizationCode.eq(qStaff.organizationCode)
+			   			.and(workDeptCode.deptCode.eq(qAppointmentRecord.info.workDeptCode)))
+			   	   .leftJoin(appointmentTypeCode)
+				   		.on(appointmentTypeCode.id.typeId.eq("HR0000")
+				   		.and(qAppointmentRecord.appointmentTypeCode.eq(appointmentTypeCode.id.code)))
+				   .leftJoin(jobGroupCode)
+				   		.on(jobGroupCode.id.typeId.eq("HR0001")
+				   		.and(qAppointmentRecord.info.jobGroupCode.eq(jobGroupCode.id.code)))
+				   .leftJoin(jobPositionCode)
+				   		.on(jobPositionCode.id.typeId.eq("HR0002")
+				   		.and(qAppointmentRecord.info.jobPositionCode.eq(jobPositionCode.id.code)))
+				   .leftJoin(occupationCode)
+				   		.on(occupationCode.id.typeId.eq("HR0003")
+				   		.and(qAppointmentRecord.info.occupationCode.eq(occupationCode.id.code)))
+				   .leftJoin(jobGradeCode)
+				   		.on(jobGradeCode.id.typeId.eq("HR0004")
+				   		.and(qAppointmentRecord.info.jobGradeCode.eq(jobGradeCode.id.code)))
+				   .leftJoin(payStepCode)
+				   		.on(payStepCode.id.typeId.eq("HR0005")
+				   		.and(qAppointmentRecord.info.payStepCode.eq(payStepCode.id.code)))
+				   .leftJoin(jobCode)
+				   		.on(jobCode.id.typeId.eq("HR0006")
+				   		.and(qAppointmentRecord.info.jobCode.eq(jobCode.id.code)))
+				   .leftJoin(dutyResponsibilityCode)
+				   		.on(dutyResponsibilityCode.id.typeId.eq("HR0007")
+				   		.and(qAppointmentRecord.info.dutyResponsibilityCode.eq(dutyResponsibilityCode.id.code)))
+				   .where(qStaff.id.eq(staffId))
+				   .fetch();
+	}	
 	
 	@Override
 	public ResponseStaffCurrentAppointment getStaffCurrentAppointment(String staffId) {
@@ -115,15 +121,15 @@ public class StaffQuery implements StaffQueryRepository {
 		QHrmCode payStepCode = new QHrmCode("payStepCode");
 		QHrmCode jobCode = new QHrmCode("jobCode");						
 		
-		return queryFactory.select(projectionCurrentAppointment(qStaff
-											 ,blngDeptCode
-											 ,workDeptCode
-											 ,jobGroupCode
-											 ,jobPositionCode
-											 ,occupationCode
-											 ,jobGradeCode
-											 ,payStepCode
-											 ,jobCode))
+		return query.select(ResponseStaffCurrentAppointment.of(qStaff
+														 ,blngDeptCode
+														 ,workDeptCode
+														 ,jobGroupCode
+														 ,jobPositionCode
+														 ,occupationCode
+														 ,jobGradeCode
+														 ,payStepCode
+														 ,jobCode))
 					.from(qStaff)				
 					.leftJoin(blngDeptCode)
 						.on(blngDeptCode.organizationCode.eq(qStaff.organizationCode)
@@ -151,118 +157,68 @@ public class StaffQuery implements StaffQueryRepository {
 				   		.and(qStaff.currentAppointment.jobCode.eq(jobCode.id.code)))				   
 				   	.where(qStaff.id.eq(staffId))
 				   	.fetchFirst();
-	}
+	}	
 	
 	@Override
 	public List<ResponseStaffDutyResponsibility> getStaffDutyResponsibility(String staffId) {
 		QHrmCode dutyResponsibilityCode = new QHrmCode("dutyResponsibilityCode");
 		
-		return queryFactory.select(pro(qStaff, qStaffDuty, dutyResponsibilityCode))
-						   .from(qStaff)
-						   .join(qStaffDuty)
-					   			.on(qStaff.id.eq(qStaffDuty.staff.id))
-						   .leftJoin(dutyResponsibilityCode)
-					   	   		.on(dutyResponsibilityCode.id.typeId.eq("HR0007")
-					   	   		.and(qStaffDuty.dutyResponsibilityCode.eq(dutyResponsibilityCode.id.code)))
-						   .fetch();
+		return query.select(ResponseStaffDutyResponsibility.of(qStaff, qStaffDuty, dutyResponsibilityCode))
+				   	.from(qStaff)
+				   	.join(qStaffDuty)
+			   			.on(qStaff.id.eq(qStaffDuty.staff.id))
+			   		.leftJoin(dutyResponsibilityCode)
+			   	   		.on(dutyResponsibilityCode.id.typeId.eq("HR0007")
+			   	   		.and(qStaffDuty.dutyResponsibilityCode.eq(dutyResponsibilityCode.id.code)))
+			   	   	.fetch();
 	}
+			
+	@Override
+	public List<ResponseStaffFamily> getStaffFamily(String staffId) {
 	
-	private QResponseStaffAppointmentRecord projectionAppointmentRecord(QStaff qStaff								
-											, QAppointmentRecord qRecord
-											, QDept blngDeptCode
-											, QDept workDeptCode
-											, QHrmCode appointmentTypeCode
-											, QHrmCode jobGroupCode
-											, QHrmCode jobPositionCode
-											, QHrmCode occupationCode
-											, QHrmCode jobGradeCode
-											, QHrmCode payStepCode
-											, QHrmCode jobCode
-											, QHrmCode dutyResponsibilityCode) {
+		QHrmCode familyRelationCode = QHrmCode.hrmCode;
 		
-		return new QResponseStaffAppointmentRecord(QStaff.staff.id
-											   ,qRecord.id.seq
-											   ,qRecord.appointmentTypeCode
-											   ,appointmentTypeCode.codeName
-											   ,qRecord.appointmentDate
-											   ,qRecord.appointmentEndDate
-											   ,qRecord.recordName
-											   ,qRecord.comment
-											   ,qRecord.isCompleted
-											   ,qRecord.info.blngDeptCode
-											   ,blngDeptCode.deptNameKorean
-											   ,qRecord.info.workDeptCode
-											   ,workDeptCode.deptNameKorean
-											   ,qRecord.info.jobGroupCode
-											   ,jobGroupCode.codeName
-											   ,qRecord.info.jobPositionCode
-											   ,jobPositionCode.codeName
-											   ,qRecord.info.occupationCode
-											   ,occupationCode.codeName
-											   ,qRecord.info.jobGradeCode
-											   ,jobGradeCode.codeName
-											   ,qRecord.info.payStepCode
-											   ,payStepCode.codeName
-											   ,qRecord.info.jobCode
-											   ,jobCode.codeName
-											   ,qRecord.info.dutyResponsibilityCode
-											   ,dutyResponsibilityCode.codeName);
+		return query.select(ResponseStaffFamily.of(qStaffFamily, familyRelationCode))
+				    .from(qStaff)
+				    .join(qStaffFamily)
+				    	.on(qStaff.id.eq(qStaffFamily.staff.id))
+				   	.leftJoin(familyRelationCode)
+			   	   		.on(familyRelationCode.id.typeId.eq("HR0008")
+			   	   		.and(qStaffFamily.relation.eq(familyRelationCode.id.code)))
+			   	   	.fetch();
 	}
 
-	
-	private QResponseStaffCurrentAppointment projectionCurrentAppointment(QStaff qStaff			
-													   ,QDept blngDeptCode
-													   ,QDept workDeptCode
-													   ,QHrmCode jobGroupCode
-													   ,QHrmCode jobPositionCode
-													   ,QHrmCode occupationCode
-													   ,QHrmCode jobGradeCode
-													   ,QHrmCode payStepCode
-													   ,QHrmCode jobCode) {
-		return new QResponseStaffCurrentAppointment(qStaff.id
-												   ,qStaff.organizationCode
-												   ,qStaff.staffNo
-												   ,qStaff.currentAppointment.blngDeptCode
-												   ,blngDeptCode.deptNameKorean
-												   ,qStaff.currentAppointment.workDeptCode
-												   ,workDeptCode.deptNameKorean
-												   ,qStaff.currentAppointment.jobGroupCode
-												   ,jobGroupCode.codeName
-												   ,qStaff.currentAppointment.jobPositionCode
-												   ,jobPositionCode.codeName
-												   ,qStaff.currentAppointment.occupationCode
-												   ,occupationCode.codeName
-												   ,qStaff.currentAppointment.jobGradeCode
-												   ,jobGradeCode.codeName
-												   ,qStaff.currentAppointment.payStepCode
-												   ,payStepCode.codeName
-												   ,qStaff.currentAppointment.jobCode
-												   ,jobCode.codeName);
+	@Override
+	public List<ResponseStaffSchoolCareer> getStaffSchoolCareer(String staffId) {
+		
+		QHrmCode schoolCareerType = new QHrmCode("schoolCareerType");
+		QHrmCode schoolCode = new QHrmCode("schoolCode");
+		
+		return query.select(ResponseStaffSchoolCareer.of(qStaffSchoolCareer, schoolCareerType, schoolCode))
+			    	.from(qStaff)
+			    	.join(qStaffSchoolCareer)
+			    		.on(qStaff.id.eq(qStaffSchoolCareer.staff.id))
+			    	.leftJoin(schoolCareerType)
+		   	   			.on(schoolCareerType.id.typeId.eq("HR0009")
+		   	   			.and(qStaffSchoolCareer.schoolCareerType.eq(schoolCareerType.id.code)))
+		   	   		.leftJoin(schoolCode)
+	   	   				.on(schoolCode.id.typeId.eq("HR0010")
+	   	   				.and(qStaffSchoolCareer.schoolCode.eq(schoolCode.id.code)))
+	   	   			.fetch();
 	}
 
-	/*
-	 * 	public ResponseStaffDutyResponsibility(String staffId
-										  ,String staffNo
-										  ,String staffName
-										  ,Integer seq
-										  ,String dutyResponsibilityCode
-										  ,String dutyResponsibilityName
-										  ,LocalDate fromDate
-										  ,LocalDate toDate
-										  ,Boolean isPayApply) {	
-	 */
-	
-	private QResponseStaffDutyResponsibility pro(QStaff qStaff, QStaffDuty qStaffDuty, QHrmCode dutyResponsibilityCode) {
-		return new QResponseStaffDutyResponsibility(qStaff.id
-												   ,qStaff.staffNo
-												   ,qStaff.name.name
-												   ,qStaffDuty.id.seq
-												   ,dutyResponsibilityCode.id.code
-												   ,dutyResponsibilityCode.codeName
-												   ,qStaffDuty.fromDate
-												   ,qStaffDuty.toDate
-												   ,qStaffDuty.isPayApply);
+	@Override
+	public List<ResponseStaffLicense> getStaffLicense(String staffId) {
+		QHrmCode licenseType = new QHrmCode("licenseType");
+				
+		return query.select(ResponseStaffLicense.of(qStaffLicense, licenseType))
+		    	.from(qStaff)
+		    	.join(qStaffLicense)
+		    		.on(qStaff.id.eq(qStaffLicense.staff.id))
+		    	.leftJoin(licenseType)
+	   	   			.on(licenseType.id.typeId.eq("HR0011")
+	   	   			.and(qStaffLicense.licenseType.eq(licenseType.id.code)))	   	   		
+   	   			.fetch();
 	}
 	
-
 }

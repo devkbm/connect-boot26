@@ -50,4 +50,26 @@ public class StaffQueryController {
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
+	
+	@GetMapping("/api/hrm/staff/{id}/family")
+	public ResponseEntity<?> getFamilyList(@PathVariable String id) {
+		
+		List<?> list = service.getStaffFamilyList(id);								
+		
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
+	}
+	
+	@GetMapping("/api/hrm/staff/{id}/schoolcareer")
+	public ResponseEntity<?> getStaffSchoolCareer(@PathVariable String id) {
+		List<?> list = service.getStaffSchoolCareer(id);								
+		
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
+	}
+	
+	@GetMapping("/api/hrm/staff/{id}/license")
+	public ResponseEntity<?> getStaffLicense(@PathVariable String id) {
+		List<?> list = service.getStaffLicense(id);								
+		
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
+	}
 }
