@@ -76,10 +76,10 @@ public class StaffQuery implements StaffQueryRepository {
 				   		.on(qStaff.id.eq(qAppointmentRecord.staff.id))
 				   .leftJoin(blngDeptCode)
 				   		.on(blngDeptCode.organizationCode.eq(qStaff.organizationCode)
-				   		.and(blngDeptCode.deptCode.eq(qAppointmentRecord.info.blngDeptCode)))
+				   		.and(blngDeptCode.deptId.eq(qAppointmentRecord.info.blngDeptId)))
 			   	   .leftJoin(workDeptCode)
 			   			.on(workDeptCode.organizationCode.eq(qStaff.organizationCode)
-			   			.and(workDeptCode.deptCode.eq(qAppointmentRecord.info.workDeptCode)))
+			   			.and(workDeptCode.deptId.eq(qAppointmentRecord.info.workDeptId)))
 			   	   .leftJoin(appointmentTypeCode)
 				   		.on(appointmentTypeCode.id.typeId.eq("HR0000")
 				   		.and(qAppointmentRecord.appointmentTypeCode.eq(appointmentTypeCode.id.code)))
@@ -111,8 +111,8 @@ public class StaffQuery implements StaffQueryRepository {
 	@Override
 	public ResponseStaffCurrentAppointment getStaffCurrentAppointment(String staffId) {
 
-		QDept blngDeptCode = QDept.dept;
-		QDept workDeptCode = new QDept("workDeptCode");
+		QDept blngDept = QDept.dept;
+		QDept workDept = new QDept("workDeptCode");
 				
 		QHrmCode jobGroupCode = QHrmCode.hrmCode;
 		QHrmCode jobPositionCode = new QHrmCode("jobPositionCode");
@@ -122,21 +122,21 @@ public class StaffQuery implements StaffQueryRepository {
 		QHrmCode jobCode = new QHrmCode("jobCode");						
 		
 		return query.select(ResponseStaffCurrentAppointment.of(qStaff
-														 ,blngDeptCode
-														 ,workDeptCode
-														 ,jobGroupCode
-														 ,jobPositionCode
-														 ,occupationCode
-														 ,jobGradeCode
-														 ,payStepCode
-														 ,jobCode))
+															 ,blngDept
+															 ,workDept
+															 ,jobGroupCode
+															 ,jobPositionCode
+															 ,occupationCode
+															 ,jobGradeCode
+															 ,payStepCode
+															 ,jobCode))
 					.from(qStaff)				
-					.leftJoin(blngDeptCode)
-						.on(blngDeptCode.organizationCode.eq(qStaff.organizationCode)
-			   			.and(blngDeptCode.deptCode.eq(qStaff.currentAppointment.blngDeptCode)))
-					.leftJoin(workDeptCode)
-			   			.on(workDeptCode.organizationCode.eq(qStaff.organizationCode)
-			   			.and(workDeptCode.deptCode.eq(qStaff.currentAppointment.workDeptCode)))			   		
+					.leftJoin(blngDept)
+						.on(blngDept.organizationCode.eq(qStaff.organizationCode)
+			   			.and(blngDept.deptId.eq(qStaff.currentAppointment.blngDeptId)))
+					.leftJoin(workDept)
+			   			.on(workDept.organizationCode.eq(qStaff.organizationCode)
+			   			.and(workDept.deptId.eq(qStaff.currentAppointment.workDeptId)))			   		
 			   		.leftJoin(jobGroupCode)
 				   		.on(jobGroupCode.id.typeId.eq("HR0001")
 				   		.and(qStaff.currentAppointment.jobGroupCode.eq(jobGroupCode.id.code)))

@@ -29,8 +29,8 @@ public class AppointmentRecordDTO {
 			String recordName,
 			String comment,				
 			Boolean isCompleted,
-			String blngDeptCode,			
-			String workDeptCode,			
+			String blngDeptId,			
+			String workDeptId,			
 			String jobGroupCode,			
 			String jobPositionCode,			
 			String occupationCode,			
@@ -74,8 +74,8 @@ public class AppointmentRecordDTO {
 											 .recordName(entity.getRecordName())
 											 .comment(entity.getComment())
 											 .isCompleted(entity.getIsCompleted())
-											 .blngDeptCode(info.map(AppointmentInformation::getBlngDeptCode).orElse(null))
-											 .workDeptCode(info.map(AppointmentInformation::getWorkDeptCode).orElse(null))
+											 .blngDeptId(info.map(AppointmentInformation::getBlngDeptId).orElse(null))
+											 .workDeptId(info.map(AppointmentInformation::getWorkDeptId).orElse(null))
 											 .jobGroupCode(info.map(AppointmentInformation::getJobGroupCode).orElse(null))
 											 .jobPositionCode(info.map(AppointmentInformation::getJobPositionCode).orElse(null))
 											 .occupationCode(info.map(AppointmentInformation::getOccupationCode).orElse(null))
@@ -87,8 +87,8 @@ public class AppointmentRecordDTO {
 		}
 		
 		private AppointmentInformation newAppointmentInformation() {
-			return new AppointmentInformation(blngDeptCode
-											 ,workDeptCode
+			return new AppointmentInformation(blngDeptId
+											 ,workDeptId
 											 ,jobGroupCode
 											 ,jobPositionCode
 											 ,occupationCode

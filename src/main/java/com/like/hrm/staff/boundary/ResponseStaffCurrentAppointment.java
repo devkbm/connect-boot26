@@ -16,9 +16,9 @@ public class ResponseStaffCurrentAppointment {
 	String staffId;
 	String organizationCode;
 	String staffNo;
-	String blngDeptCode;
+	String blngDeptId;
 	String blngDeptName;
-	String workDeptCode;
+	String workDeptId;
 	String workDeptName;
 	String jobGroupCode;
 	String jobGroupName;
@@ -34,17 +34,17 @@ public class ResponseStaffCurrentAppointment {
 	String jobName;
 	
 	@QueryProjection
-	public ResponseStaffCurrentAppointment(String staffId, String organizationCode, String staffNo, String blngDeptCode,
-			String blngDeptName, String workDeptCode, String workDeptName, String jobGroupCode, String jobGroupName,
+	public ResponseStaffCurrentAppointment(String staffId, String organizationCode, String staffNo, String blngDeptId,
+			String blngDeptName, String workDeptId, String workDeptName, String jobGroupCode, String jobGroupName,
 			String jobPositionCode, String jobPositionName, String occupationCode, String occupationName,
 			String jobGradeCode, String jobGradeName, String payStepCode, String payStepName, String jobCode,
 			String jobName) {		
 		this.staffId = staffId;
 		this.organizationCode = organizationCode;
 		this.staffNo = staffNo;
-		this.blngDeptCode = blngDeptCode;
+		this.blngDeptId = blngDeptId;
 		this.blngDeptName = blngDeptName;
-		this.workDeptCode = workDeptCode;
+		this.workDeptId = workDeptId;
 		this.workDeptName = workDeptName;
 		this.jobGroupCode = jobGroupCode;
 		this.jobGroupName = jobGroupName;
@@ -62,8 +62,8 @@ public class ResponseStaffCurrentAppointment {
 	
 	public static QResponseStaffCurrentAppointment of(
 			QStaff qStaff			
-			,QDept blngDeptCode
-			,QDept workDeptCode
+			,QDept blngDept
+			,QDept workDept
 			,QHrmCode jobGroupCode
 			,QHrmCode jobPositionCode
 			,QHrmCode occupationCode
@@ -74,10 +74,10 @@ public class ResponseStaffCurrentAppointment {
 				qStaff.id
 				,qStaff.organizationCode
 				,qStaff.staffNo
-				,qStaff.currentAppointment.blngDeptCode
-				,blngDeptCode.deptNameKorean
-				,qStaff.currentAppointment.workDeptCode
-				,workDeptCode.deptNameKorean
+				,qStaff.currentAppointment.blngDeptId
+				,blngDept.deptNameKorean
+				,qStaff.currentAppointment.workDeptId
+				,workDept.deptNameKorean
 				,qStaff.currentAppointment.jobGroupCode
 				,jobGroupCode.codeName
 				,qStaff.currentAppointment.jobPositionCode

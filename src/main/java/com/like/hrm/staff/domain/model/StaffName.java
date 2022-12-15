@@ -6,7 +6,6 @@ import javax.persistence.Embeddable;
 import org.hibernate.annotations.Comment;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Embeddable
 public class StaffName {
 	
@@ -34,11 +32,17 @@ public class StaffName {
 		this.name = name;
 	}
 	
+	private StaffName(String name, String nameEng, String nameChi) {
+		this.name = name;
+		this.nameEng = nameEng;
+		this.nameChi = nameChi;
+	}
+	
 	public static StaffName of(String name) {
 		return new StaffName(name);	
 	}
 	
-	public static StaffName of(String name, String nameEng, String nameChi) {		 		
+	public static StaffName of(String name, String nameEng, String nameChi) {		
 		return new StaffName(name, nameEng, nameChi);
 	}	
 	

@@ -123,7 +123,7 @@ public class StaffDTO {
 			) {
 		
 		public void modifyEntity(Staff entity) {
-			entity.modifyEntity(new StaffName(name, nameEng, nameChi)
+			entity.modifyEntity(StaffName.of(name, nameEng, nameChi)
 					 		   ,this.birthday);
 		}
 	}

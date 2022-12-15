@@ -70,7 +70,7 @@ public class SystemUserService {
 			user = repository.findById(dto.userId()).orElse(null); 
 		}
 		
-		Dept dept = dto.deptCode() == null ? null : deptRepository.findById(dto.deptCode()).orElse(null); 
+		Dept dept = dto.deptId() == null ? null : deptRepository.findById(dto.deptId()).orElse(null); 
 		
 		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.authorityList()));		
 		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.menuGroupList()));		 

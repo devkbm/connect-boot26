@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.like.system.core.jpa.vo.LocalDatePeriod;
+import com.like.system.dept.domain.QDept;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.AllArgsConstructor;
@@ -57,9 +58,17 @@ public class ResponseDeptHierarchy {
 	boolean isLeaf;
 
 	@QueryProjection
-	public ResponseDeptHierarchy(String parentDeptId, String organizationCode, String deptId, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
-			String deptNameEnglish, String deptAbbreviationEnglish, LocalDatePeriod period,
-			Integer seq, String comment) {				
+	public ResponseDeptHierarchy(String parentDeptId
+								,String organizationCode
+								,String deptId
+								,String deptCode
+								,String deptNameKorean
+								,String deptAbbreviationKorean
+								,String deptNameEnglish
+								,String deptAbbreviationEnglish
+								,LocalDatePeriod period
+								,Integer seq
+								,String comment) {				
 		this.parentDeptId = parentDeptId;
 		this.organizationCode = organizationCode;
 		this.deptId = deptId;
@@ -74,7 +83,7 @@ public class ResponseDeptHierarchy {
 		this.comment = comment;
 		
 		this.title 	= this.deptNameKorean;
-		this.key 	= this.deptCode;			
+		this.key 	= this.deptId;			
 	}
 
 	public void setChildren(List<ResponseDeptHierarchy> children) {
@@ -85,5 +94,18 @@ public class ResponseDeptHierarchy {
 		this.isLeaf = isLeaf;
 	}
 	
+	public static QResponseDeptHierarchy projection(QDept qDept) {
+		return new QResponseDeptHierarchy(qDept.parentDept.deptId
+										 ,qDept.organizationCode
+										 ,qDept.deptId
+										 ,qDept.deptCode
+										 ,qDept.deptNameKorean
+										 ,qDept.deptAbbreviationKorean
+										 ,qDept.deptNameEnglish
+										 ,qDept.deptAbbreviationEnglish
+										 ,qDept.period
+										 ,qDept.seq
+										 ,qDept.comment);
+	}
 	
 }

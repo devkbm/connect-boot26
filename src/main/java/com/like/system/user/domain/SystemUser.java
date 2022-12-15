@@ -77,7 +77,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	SystemUserProfilePicture image;
 	
 	@OneToOne(optional = true)
-	@JoinColumn(name = "DEPT_CD", nullable = true)
+	@JoinColumn(name = "DEPT_ID", nullable = true)
 	Dept dept;
 		
 	@Setter
@@ -121,16 +121,12 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	}	
 	
 	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
-	public void modifyEntity(String organizationCode
-							,String staffNo
-			 				,String name					 				
+	public void modifyEntity(String name					 				
 							,String mobileNum
 							,String email							 
 							,Dept dept
 							,Set<Authority> authorities
-							,Set<MenuGroup> menuGroupList) {
-		this.organizationCode = organizationCode;
-		this.staffNo = staffNo;
+							,Set<MenuGroup> menuGroupList) {		
 		this.name = name;						
 		this.mobileNum = mobileNum;
 		this.email = email;		

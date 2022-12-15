@@ -25,12 +25,12 @@ import lombok.NoArgsConstructor;
 public class CurrentAppointmentInformation {
 		
 	@Comment("소속부서코드")
-	@Column(name="BLNG_DEPT_CODE")
-	String blngDeptCode;
+	@Column(name="BLNG_DEPT_ID")
+	String blngDeptId;
 		
 	@Comment("근무부서코드")
-	@Column(name="WORK_DEPT_CODE")
-	String workDeptCode;
+	@Column(name="WORK_DEPT_ID")
+	String workDeptId;
 		
 	@Comment("직군코드")
 	@Column(name="JOB_GROUP_CODE")
@@ -61,8 +61,8 @@ public class CurrentAppointmentInformation {
 	}
 	
 	void apply(AppointmentInformation info) {
-		this.blngDeptCode = info.getBlngDeptCode();
-		this.workDeptCode = info.getWorkDeptCode();
+		this.blngDeptId = info.getBlngDeptId();
+		this.workDeptId = info.getWorkDeptId();
 		this.jobGroupCode = info.getJobGroupCode();
 		this.jobPositionCode = info.getJobPositionCode();
 		this.occupationCode = info.getOccupationCode();

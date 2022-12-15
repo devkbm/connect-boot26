@@ -22,12 +22,12 @@ import lombok.ToString;
 public class AppointmentInformation {
 
 	@Comment("소속부서코드")
-	@Column(name="BLNG_DEPT_CODE")
-	private String blngDeptCode;
+	@Column(name="BLNG_DEPT_ID")
+	private String blngDeptId;
 		
 	@Comment("근무부서코드")
-	@Column(name="WORK_DEPT_CODE")
-	private String workDeptCode;
+	@Column(name="WORK_DEPT_ID")
+	private String workDeptId;
 		
 	@Column(name="JOB_GROUP_CODE")
 	private String jobGroupCode;

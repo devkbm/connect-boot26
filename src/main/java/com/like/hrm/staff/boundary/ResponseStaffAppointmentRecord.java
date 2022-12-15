@@ -25,9 +25,9 @@ public class ResponseStaffAppointmentRecord {
 	private String recordName;			
 	private String comment;			
 	private Boolean isCompleted;	
-	private String blngDeptCode;	
+	private String blngDeptId;	
 	private String blngDeptName;	
-	private String workDeptCode;	
+	private String workDeptId;	
 	private String workDeptName;	
 	private String jobGroupCode;	
 	private String jobGroupName;
@@ -46,8 +46,8 @@ public class ResponseStaffAppointmentRecord {
 	
 	@QueryProjection
 	public ResponseStaffAppointmentRecord(String staffId, Long seq, String appointmentTypeCode, String appointmentTypeName, LocalDate appointmentDate, LocalDate appointmentEndDate,
-			String recordName, String comment, Boolean isCompleted, String blngDeptCode, String blngDeptName,
-			String workDeptCode, String workDeptName, String jobGroupCode, String jobGroupName, String jobPositionCode,
+			String recordName, String comment, Boolean isCompleted, String blngDeptId, String blngDeptName,
+			String workDeptId, String workDeptName, String jobGroupCode, String jobGroupName, String jobPositionCode,
 			String jobPositionName, String occupationCode, String occupationName, String jobGradeCode,
 			String jobGradeName, String payStepCode, String payStepName, String jobCode, String jobName,
 			String dutyResponsibilityCode, String dutyResponsibilityName) {
@@ -60,9 +60,9 @@ public class ResponseStaffAppointmentRecord {
 		this.recordName = recordName;
 		this.comment = comment;
 		this.isCompleted = isCompleted;
-		this.blngDeptCode = blngDeptCode;
+		this.blngDeptId = blngDeptId;
 		this.blngDeptName = blngDeptName;
-		this.workDeptCode = workDeptCode;
+		this.workDeptId = workDeptId;
 		this.workDeptName = workDeptName;
 		this.jobGroupCode = jobGroupCode;
 		this.jobGroupName = jobGroupName;
@@ -104,9 +104,9 @@ public class ResponseStaffAppointmentRecord {
 					   ,qRecord.recordName
 					   ,qRecord.comment
 					   ,qRecord.isCompleted
-					   ,qRecord.info.blngDeptCode
+					   ,qRecord.info.blngDeptId
 					   ,blngDeptCode.deptNameKorean
-					   ,qRecord.info.workDeptCode
+					   ,qRecord.info.workDeptId
 					   ,workDeptCode.deptNameKorean
 					   ,qRecord.info.jobGroupCode
 					   ,jobGroupCode.codeName

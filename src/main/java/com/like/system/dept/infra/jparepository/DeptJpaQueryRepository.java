@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.like.system.dept.boundary.DeptDTO.Search;
-import com.like.system.dept.boundary.QResponseDeptHierarchy;
 import com.like.system.dept.boundary.ResponseDeptHierarchy;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptQueryRepository;
@@ -63,7 +62,7 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 
 	private List<ResponseDeptHierarchy> getDeptRootNodeList(String organizationCode) {
 		return queryFactory
-				.select(this.getDeptHierarchy(qDept))				
+				.select(ResponseDeptHierarchy.projection(qDept))				
 				.from(qDept)
 				.where(qDept.organizationCode.eq(organizationCode), qDept.isRootNode())
 				.orderBy(qDept.seq.asc())				
@@ -72,25 +71,11 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 	
 	private List<ResponseDeptHierarchy> getDeptChildNodeList(String organizationCode, String parentDeptCode) {
 		return queryFactory
-				.select(this.getDeptHierarchy(qDept))
+				.select(ResponseDeptHierarchy.projection(qDept))
 				.from(qDept)
 				.where(qDept.organizationCode.eq(organizationCode), qDept.parentDept.deptCode.eq(parentDeptCode))
 				.orderBy(qDept.seq.asc())
 				.fetch();
 	}
-	
-	private QResponseDeptHierarchy getDeptHierarchy(QDept qDept) {
-		return new QResponseDeptHierarchy(qDept.parentDept.deptId
-										 ,qDept.organizationCode
-										 ,qDept.deptId
-										 ,qDept.deptCode
-										 ,qDept.deptNameKorean
-										 ,qDept.deptAbbreviationKorean
-										 ,qDept.deptNameEnglish
-										 ,qDept.deptAbbreviationEnglish
-										 ,qDept.period
-										 ,qDept.seq
-										 ,qDept.comment);
-	}
-
+		
 }

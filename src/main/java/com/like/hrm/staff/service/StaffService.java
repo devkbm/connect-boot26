@@ -44,7 +44,7 @@ public class StaffService {
 		
 		Staff staff = new Staff(dto.organizationCode()
 				               ,strategy
-				               ,new StaffName(dto.name(), dto.nameEng(), dto.nameEng())
+				               ,StaffName.of(dto.name(), dto.nameEng(), dto.nameChi())
 				               ,dto.residentRegistrationNumber());
 									
 		repository.save(staff);

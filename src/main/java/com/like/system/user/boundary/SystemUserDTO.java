@@ -73,7 +73,7 @@ public class SystemUserDTO {
 			@NotBlank(message="직원번호를 입력해 주세요.")
 			String staffNo,
 			String name,
-			String deptCode,
+			String deptId,
 			String mobileNum,
 			String email,
 			String imageBase64,
@@ -104,15 +104,15 @@ public class SystemUserDTO {
 			
 		}
 		
-		public void modifyUser(SystemUser user, Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
-			user.modifyEntity(staffNo
-							 ,name		
-							 ,organizationCode 
-							 ,mobileNum
-							 ,email							  
-							 ,dept
-							 ,authorityList
-							 ,menuGroupList);	
+		public void modifyUser(SystemUser user, Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {			
+			user.modifyBuilder()
+			    .name(name)
+			    .mobileNum(mobileNum)
+			    .email(email)
+			    .dept(dept)
+			    .authorities(authorityList)
+			    .menuGroupList(menuGroupList)
+				.modify();								
 			
 			user.setAppUrl(clientAppUrl);
 		}
@@ -128,7 +128,7 @@ public class SystemUserDTO {
 											   .staffNo(entity.getStaffNo())
 											   .name(entity.getName())	
 											   .organizationCode(entity.getOrganizationCode())
-											   .deptCode(dept.map(Dept::getDeptCode).orElse(null))
+											   .deptId(dept.map(Dept::getDeptId).orElse(null))
 											   .mobileNum(entity.getMobileNum())
 											   .email(entity.getEmail())
 											   .imageBase64(entity.getImage())
