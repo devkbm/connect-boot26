@@ -26,6 +26,18 @@ public class StaffController {
 		this.staffService = staffService;
 	}		
 	
+	@GetMapping("/api/hrm/staff/test")
+	public ResponseEntity<?> createStaffTest() {
+								
+		for (int i=0; i<10; i++) {
+			String name = "test" + String.valueOf(i);
+			StaffDTO.NewStaff dto = new StaffDTO.NewStaff("test", "001", name, name, "1111111111111", name, name);
+			staffService.newStaff(dto);
+		}				 
+		
+		return toList(null, "test 직원번호 생성되었습니다.");
+	}
+	
 	@GetMapping("/api/hrm/staff/{id}")
 	public ResponseEntity<?> getStaff(@PathVariable String id) {
 								
