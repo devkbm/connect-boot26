@@ -25,7 +25,7 @@ public class StaffFamilyTest {
 	public Staff createStaff() {
 		return new Staff("001"
 		                ,() -> "2002"
-		                ,new StaffName("한글명", "영문명", "한문명")		                
+		                ,StaffName.of("한글명", "영문명", "한문명")		                
 		                ,"9912011111111");
 	}
 }

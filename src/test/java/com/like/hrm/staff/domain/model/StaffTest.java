@@ -26,7 +26,7 @@ public class StaffTest {
 			void 직원번호를_직접_입력한다() {								
 				Staff staff = new Staff("001"
 						               ,() -> "2002"
-						               ,new StaffName("한글명", "영문명", "한문명")
+						               ,StaffName.of("한글명", "영문명", "한문명")
 						               ,"9912011111111");
 				// Then
 				assertThat(staff.getId()).isEqualTo("001_2002");
@@ -46,7 +46,7 @@ public class StaffTest {
 				
 				Staff staff = new Staff("001"
 						               ,strategy
-						               ,new StaffName("한글명", "영문명", "한문명")
+						               ,StaffName.of("한글명", "영문명", "한문명")
 						               ,"9912011111111");
 				// Then
 				assertThat(staff.getId()).isEqualTo("001_2002");
@@ -67,7 +67,7 @@ public class StaffTest {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
 			StaffNoCreateStrategy strategy = () -> "2002";
 			
-			new Staff("001", strategy, new StaffName("한글명", "영문명", "한문명"), "99120111111112");			
+			new Staff("001", strategy, StaffName.of("한글명", "영문명", "한문명"), "99120111111112");			
 		});							
 	}
 	

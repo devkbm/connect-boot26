@@ -24,6 +24,14 @@ public class StaffQueryController {
 		this.service = service;		
 	}
 	
+	@GetMapping("/api/hrm/staff-card")
+	public ResponseEntity<?> getStaffCardList() {
+									
+		List<?> list = service.getStaffCard();
+		
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
+	}
+	
 	@GetMapping("/api/hrm/staff")
 	public ResponseEntity<?> getStaffList(StaffDTO.SearchStaff dto) {
 									

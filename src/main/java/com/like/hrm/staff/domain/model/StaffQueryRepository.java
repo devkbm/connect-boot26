@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.like.hrm.staff.boundary.StaffDTO.SearchStaff;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
+import com.like.hrm.staff.boundary.ResponseStaffCard;
 import com.like.hrm.staff.boundary.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.boundary.ResponseStaffDutyResponsibility;
 import com.like.hrm.staff.boundary.ResponseStaffFamily;
@@ -26,4 +27,7 @@ public interface StaffQueryRepository {
 	List<ResponseStaffSchoolCareer> getStaffSchoolCareer(String staffId);
 	
 	List<ResponseStaffLicense> getStaffLicense(String staffId);
+	
+	
+	List<ResponseStaffCard> getStaffCard();
 }

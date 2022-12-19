@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.like.hrm.hrmcode.domain.QHrmCode;
 import com.like.hrm.staff.boundary.StaffDTO.SearchStaff;
 import com.like.hrm.staff.boundary.ResponseStaffAppointmentRecord;
+import com.like.hrm.staff.boundary.ResponseStaffCard;
 import com.like.hrm.staff.boundary.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.boundary.ResponseStaffDutyResponsibility;
 import com.like.hrm.staff.boundary.ResponseStaffFamily;
@@ -219,6 +220,30 @@ public class StaffQuery implements StaffQueryRepository {
 	   	   			.on(licenseType.id.typeId.eq("HR0011")
 	   	   			.and(qStaffLicense.licenseType.eq(licenseType.id.code)))	   	   		
    	   			.fetch();
+	}
+
+	@Override
+	public List<ResponseStaffCard> getStaffCard() {
+		QDept blngDept = new QDept("blngDept");
+		QDept workDept = new QDept("workDept");
+						
+		QHrmCode jobPositionCode = new QHrmCode("jobPositionCode");
+		
+		return query.select(ResponseStaffCard.of(qStaff
+												,blngDept
+												,workDept															 
+												,jobPositionCode))
+				.from(qStaff)				
+				.leftJoin(blngDept)
+					.on(blngDept.organizationCode.eq(qStaff.organizationCode)
+					.and(blngDept.deptId.eq(qStaff.currentAppointment.blngDeptId)))
+				.leftJoin(workDept)
+					.on(workDept.organizationCode.eq(qStaff.organizationCode)
+					.and(workDept.deptId.eq(qStaff.currentAppointment.workDeptId)))			   												
+				.leftJoin(jobPositionCode)
+					.on(jobPositionCode.id.typeId.eq("HR0002")
+					.and(qStaff.currentAppointment.jobPositionCode.eq(jobPositionCode.id.code)))
+				.fetch();
 	}
 	
 }

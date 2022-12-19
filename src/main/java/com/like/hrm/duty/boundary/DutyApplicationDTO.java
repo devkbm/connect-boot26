@@ -108,7 +108,7 @@ public class DutyApplicationDTO {
 				dutyDatelist.add(new DutyDate(date.getDate()										
 											 ,selectedDate.contains(date.getDate())											 
 											 ,date.isHoliday()
-											 ,date.isHoliday()
+											 ,date.isSaturDay()
 											 ,date.isSunday()));
 			}
 			
@@ -131,9 +131,9 @@ public class DutyApplicationDTO {
 			
 			for (DateInfo date : dateInfoList.getDates()) {								
 				if (date.isWeekend() || date.isHoliday() ) {
-					dutyDatelist.add(new DutyDate(date.getDate(), false, date.isHoliday(), date.isHoliday(), date.isSunday()));
+					dutyDatelist.add(new DutyDate(date.getDate(), false, date.isHoliday(), date.isSaturDay(), date.isSunday()));
 				} else {
-					dutyDatelist.add(new DutyDate(date.getDate(), true, date.isHoliday(), date.isHoliday(), date.isSunday()));
+					dutyDatelist.add(new DutyDate(date.getDate(), true, date.isHoliday(), date.isSaturDay(), date.isSunday()));
 				}				
 			}					
 			
