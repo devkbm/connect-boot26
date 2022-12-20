@@ -1,5 +1,8 @@
 package com.like.hrm.staff.boundary;
 
+import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.like.hrm.hrmcode.domain.QHrmCode;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.system.dept.domain.QDept;
@@ -60,5 +63,8 @@ public class ResponseStaffCard {
 									 ,jobPositionCode.codeName);		
 	}
 
-	
+	@JsonIgnore
+	public String getGroupName() {
+		return StringUtils.hasText(blngDeptName) ? this.blngDeptName : "미소속"; 
+	}
 }

@@ -2,14 +2,18 @@ package com.like.hrm.staff.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+import static com.like.system.core.web.util.ResponseEntityUtil.toMap;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.hrm.staff.boundary.ResponseStaffCard;
 import com.like.hrm.staff.boundary.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.service.StaffQueryService;
@@ -30,6 +34,16 @@ public class StaffQueryController {
 		List<?> list = service.getStaffCard();
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
+	}
+	
+	@GetMapping("/api/hrm/staff-card-group")
+	public ResponseEntity<?> getStaffCardGroupList() {
+									
+		Map<String, List<ResponseStaffCard>> list = service.getStaffCard()
+														   .stream()
+														   .collect(Collectors.groupingBy(e -> e.getGroupName()));
+		
+		return toMap(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/hrm/staff")

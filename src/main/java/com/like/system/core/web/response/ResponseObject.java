@@ -1,23 +1,15 @@
 package com.like.system.core.web.response;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class ResponseObject<T> {
 	
 	T data;
 	
 	int total;	
 	
-	String message;
-	
-	//Timestamp timestamp;
-	
-	//String status;
-	
-	//String error;
-	
-	//String path;
+	String message;	
 	
 	public ResponseObject(T data, int total, String message) {
 		this.data = data;

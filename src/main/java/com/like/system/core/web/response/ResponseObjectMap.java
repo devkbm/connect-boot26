@@ -1,19 +1,19 @@
 package com.like.system.core.web.response;
 
-import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 
 @Getter
-public class ResponseObjectList<T> {
+public class ResponseObjectMap<K, V> {
 
-	List<T> data;
+	Map<K, V> data;
 	
 	int total;	
 	
 	String message;
 	
-	public ResponseObjectList(List<T> data, int total, String message) {
+	public ResponseObjectMap(Map<K, V> data, int total, String message) {
 		this.data = data;
 		this.total = total;	
 		this.message = message;
